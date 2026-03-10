@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import type { RouteRecord } from 'vite-react-ssg'
+import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import ToolsIndex from './pages/ToolsIndex'
@@ -6,19 +7,49 @@ import About from './pages/About'
 import ToolPage from './pages/ToolPage'
 import NotFound from './pages/NotFound'
 
-export default function App() {
+const toolSlugs = [
+  'json-formatter',
+  'json-model',
+  'uuid',
+  'base64',
+  'text-diff',
+  'jwt'
+]
+
+function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <BrowserRouter>
+    <HelmetProvider>
       <div className="min-h-screen bg-bg text-bright">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/tools" element={<ToolsIndex />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/:slug" element={<ToolPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {children}
       </div>
-    </BrowserRouter>
+    </HelmetProvider>
   )
+}
+
+export const routes: RouteRecord[] = [
+  {
+    path: '/',
+    element: <Layout><Home /></Layout>,
+  },
+  {
+    path: '/tools',
+    element: <Layout><ToolsIndex /></Layout>,
+  },
+  {
+    path: '/about',
+    element: <Layout><About /></Layout>,
+  },
+  ...toolSlugs.map(slug => ({
+    path: `/${slug}`,
+    element: <Layout><ToolPage /></Layout>,
+  })),
+  {
+    path: '*',
+    element: <Layout><NotFound /></Layout>,
+  },
+]
+
+export default function App() {
+  return null
 }

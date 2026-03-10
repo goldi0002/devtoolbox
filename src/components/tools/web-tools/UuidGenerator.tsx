@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import ToolLayout from '../ToolLayout'
-import CopyButton from '../CopyButton'
+import ToolLayout from '../../ToolLayout'
+import CopyButton from '../../CopyButton'
 
 export default function UuidGenerator() {
   const [single, setSingle] = useState('')

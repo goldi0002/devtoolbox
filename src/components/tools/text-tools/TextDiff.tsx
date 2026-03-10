@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as Diff from 'diff'
-import ToolLayout from '../ToolLayout'
+import ToolLayout from '../../ToolLayout'
 
 const SAMPLE_A = `function greet(name) {
   console.log("Hello, " + name);
