@@ -5,23 +5,25 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite-react-ssg build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "diff": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-helmet-async": "^3.0.0",
     "react-router-dom": "^6.22.3",
-    "uuid": "^9.0.1"
+    "react-helmet-async": "^2.0.4",
+    "diff": "^5.2.0",
+    "uuid": "^9.0.1",
+    "vite-react-ssg": "^0.9.1-beta.1"
   },
   "devDependencies": {
-    "@types/diff": "^5.2.1",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "@types/diff": "^5.2.1",
     "@types/uuid": "^9.0.8",
+    "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",

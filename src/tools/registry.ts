@@ -2,7 +2,7 @@ export interface ToolMeta {
   slug: string
   name: string
   description: string
-  category: 'json' | 'encode' | 'generate' | 'text' | 'css' | 'network' | 'auth'
+  category: 'json' | 'encode' | 'generate' | 'text' | 'css' | 'network' | 'auth' | 'web' | 'data'
   tag: string
   keywords: string[]
 }
@@ -55,6 +55,14 @@ export const tools: ToolMeta[] = [
     category: 'auth',
     tag: 'auth',
     keywords: ['jwt', 'token', 'decode', 'auth', 'bearer', 'json web token', 'claims'],
+  },
+  {
+    slug: 'html-formatter',
+    name: 'HTML Formatter',
+    description: 'Format and minify HTML code for better readability or compactness.',
+    category: 'web',
+    tag: 'web',
+    keywords: ['html', 'format', 'minify', 'pretty', 'validate'],
   }
 ]
 
@@ -66,4 +74,6 @@ export const categoryLabels: Record<ToolMeta['category'], string> = {
   css: 'CSS',
   network: 'Network',
   auth: 'Authentication',
+  web: 'Web',
+  data: 'Data',
 }

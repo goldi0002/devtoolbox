@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import CopyButton from '../CopyButton'
+import CopyButton from '../../CopyButton'
 
 interface DecodedJWT {
   header: Record<string, unknown>

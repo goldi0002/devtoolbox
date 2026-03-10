@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import ToolLayout from '../ToolLayout'
-import CodeBlock from '../CodeBlock'
-import { jsonToCSharp, jsonToTypeScript } from '../../utils/modelGenerator'
+import ToolLayout from '../../ToolLayout'
+import CodeBlock from '../../CodeBlock'
+import { jsonToCSharp, jsonToTypeScript } from '../../../utils/modelGenerator'
 
 const SAMPLE_JSON = `{
   "id": 1,

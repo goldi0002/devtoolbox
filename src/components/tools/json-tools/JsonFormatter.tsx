@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import ToolLayout from '../ToolLayout'
-import CodeBlock from '../CodeBlock'
+import ToolLayout from '../../ToolLayout'
+import CodeBlock from '../../CodeBlock'
 
 const SAMPLE = `{"name":"DevToolbox","version":"1.0","tools":["JSON","UUID","Base64","Diff"],"config":{"theme":"dark","lang":"en"}}`
 
