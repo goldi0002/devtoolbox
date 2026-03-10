@@ -2,7 +2,9 @@ interface ImportMetaEnv {
     readonly VITE_BASE_URL: string
     readonly VITE_SITE_NAME: string
     readonly VITE_VERCEL_URL?: string
-    readonly VITE_ENVIRONMENT: 'development' | 'production' | 'test'
+    readonly VITE_ENVIRONMENT: 'development' | 'production' | 'test',
+    readonly VITE_PUBLIC_POSTHOG_KEY?: string,
+    readonly VITE_PUBLIC_POSTHOG_HOST?: string,
   }
   
   interface ImportMeta {

@@ -1,5 +1,8 @@
 import type { RouteRecord } from 'vite-react-ssg'
 import { HelmetProvider } from 'react-helmet-async'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { trackPageView } from './lib/analytics'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import ToolsIndex from './pages/ToolsIndex'
@@ -15,14 +18,22 @@ const toolSlugs = [
   'text-diff',
   'jwt'
 ]
+function RouteTracker() {
+  const location = useLocation()
 
+  useEffect(() => {
+    trackPageView(location.pathname)
+  }, [location.pathname])
+
+  return null
+}
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <HelmetProvider>
-      <div className="min-h-screen bg-bg text-bright">
-        <Navbar />
-        {children}
-      </div>
+        <div className="min-h-screen bg-bg text-bright">
+          <Navbar />
+          {children}
+        </div>
     </HelmetProvider>
   )
 }
