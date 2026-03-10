@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: #0a0a0a;
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f5f5f5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #999999;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-bright text-bg px-4 py-2 rounded text-sm font-medium transition-all duration-200
+           hover:bg-black hover:scale-[1.02] active:scale-[0.98] font-sans;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent border border-border text-dim px-4 py-2 rounded text-sm font-medium 
+           transition-all duration-200 hover:border-subtle hover:text-light font-sans;
+  }
+
+  .input-base {
+    @apply bg-surface border border-border rounded px-3 py-2 text-sm text-bright 
+           font-mono placeholder:text-subtle focus:outline-none focus:border-subtle 
+           transition-colors duration-200 w-full;
+  }
+
+  .textarea-base {
+    @apply bg-surface border border-border rounded px-3 py-2 text-sm text-bright 
+           font-mono placeholder:text-subtle focus:outline-none focus:border-subtle 
+           transition-colors duration-200 w-full resize-none;
+  }
+
+  .card {
+    @apply bg-surface border border-border rounded-lg p-5 transition-all duration-200;
+  }
+
+  .tag {
+    @apply text-xs font-mono text-dim border border-muted rounded px-2 py-0.5;
+  }
+}
+
+/* Diff highlighting */
+.diff-added {
+  background: rgba(0, 0, 0, 0.06);
+  color: #111111;
+  text-decoration: none;
+}
+
+.diff-removed {
+  background: rgba(0, 0, 0, 0.02);
+  color: #aaaaaa;
+  text-decoration: line-through;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
