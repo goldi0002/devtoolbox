@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import ToolLayout from '../ToolLayout'
-import CopyButton from '../CopyButton'
+import ToolLayout from '../../ToolLayout'
+import CopyButton from '../../CopyButton'
 
 export default function Base64Tool() {
   const [input, setInput] = useState('')

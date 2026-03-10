@@ -1,5 +1,5 @@
 import { usePageTitle } from "../hooks/usePageTitle"
-import { useSEO } from "../hooks/useSEO"
+import { SEO } from "../hooks/useSEO"
 const stack = [
   { name: 'React 18', desc: 'UI framework with hooks and fast rendering' },
   { name: 'TypeScript', desc: 'Full type safety across the codebase' },
@@ -17,15 +17,15 @@ const principles = [
 ]
 
 export default function About() {
-  const seo = useSEO({
+  const seo = {
     title:       'About',
     description: 'DevToolbox is a privacy-first, ad-free set of developer utilities that run entirely in your browser.',
     slug:        'about',
-  });
+  };
   usePageTitle('About')
   return (
     <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-16 animate-fade-in">
-      {seo}
+      <SEO {...seo} />
       {/* Header */}
       <div className="mb-12">
         <p className="text-xs font-mono text-subtle tracking-widest uppercase mb-2">/ about</p>
@@ -50,17 +50,21 @@ export default function About() {
       </section>
 
       {/* Stack */}
-      <section className="mb-12">
-        <h2 className="text-xs font-mono text-subtle tracking-widest uppercase mb-4">Tech Stack</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {stack.map(item => (
-            <div key={item.name} className="card hover:border-subtle transition-colors">
-              <div className="text-sm font-mono text-bright mb-1">{item.name}</div>
-              <div className="text-xs font-sans text-dim">{item.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {
+        import.meta.env.VITE_ENVIRONMENT === 'development' ? 
+        <section className="mb-12">
+          <h2 className="text-xs font-mono text-subtle tracking-widest uppercase mb-4">Tech Stack</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {stack.map(item => (
+              <div key={item.name} className="card hover:border-subtle transition-colors">
+                <div className="text-sm font-mono text-bright mb-1">{item.name}</div>
+                <div className="text-xs font-sans text-dim">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      : null
+      }
 
       {/* Footer */}
       <div className="pt-8 border-t border-border">

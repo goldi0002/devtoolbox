@@ -2,16 +2,15 @@ import { Link } from 'react-router-dom'
 import ToolCard from '../components/ToolCard'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
-import { useSEO } from '../hooks/useSEO'
+import { SEO } from '../hooks/useSEO'
 
 const previewTools = tools.slice(0, 5)
 
 export default function Home() {
   usePageTitle("Home")
-  const seo = useSEO()
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-      {seo}
+      <SEO title="Developer Utility Toolbox" description="A curated set of everyday utilities for developers. No ads. No tracking. Everything runs in your browser." />
       <section className="mb-20">
         <div className="flex items-center gap-2 mb-6 animate-fade-in">
           <div className="h-px flex-1 bg-border max-w-[40px]" />
@@ -55,7 +54,7 @@ export default function Home() {
       </section>
 
       <div className="mt-20 pt-8 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <p className="text-xs font-mono text-subtle">Built with React + TypeScript + Tailwind</p>
+        <p className="text-xs font-mono text-subtle">Built with care for developers who value clean tools.</p>
         <Link to="/about" className="text-xs font-mono text-subtle hover:text-dim transition-colors">About this project →</Link>
       </div>
     </main>
