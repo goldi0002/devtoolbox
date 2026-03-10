@@ -9,10 +9,13 @@ import ToolsIndex from './pages/ToolsIndex'
 import About from './pages/About'
 import ToolPage from './pages/ToolPage'
 import NotFound from './pages/NotFound'
+import { useEffect } from 'react'
 
 const posthogOptions = {
   api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST ?? 'https://app.posthog.com',
   defaults: '2026-01-30', 
+  capture_pageview: false,
+  persistence: 'memory',
 } as const
 
 const toolSlugs = [
@@ -26,7 +29,9 @@ const toolSlugs = [
 function RouteTracker() {
   const location = useLocation()
   const posthog = usePostHog()
-  posthog?.capture('$pageview', { currentUrl: location.pathname })
+  useEffect(() => {
+    posthog?.capture('$pageview', { currentUrl: location.pathname })
+  })
   return null
 }
 function Layout({ children }: { children: React.ReactNode }) {
