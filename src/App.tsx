@@ -1,19 +1,21 @@
 import type { RouteRecord } from 'vite-react-ssg'
 import { HelmetProvider } from 'react-helmet-async'
-import { useEffect } from 'react'
 import { PostHogProvider } from 'posthog-js/react'
+import { usePostHog } from 'posthog-js/react'
 import { useLocation } from 'react-router-dom'
-import { trackPageView } from './lib/analytics'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import ToolsIndex from './pages/ToolsIndex'
 import About from './pages/About'
 import ToolPage from './pages/ToolPage'
 import NotFound from './pages/NotFound'
+import { useEffect } from 'react'
 
 const posthogOptions = {
   api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST ?? 'https://app.posthog.com',
-  defaults: '2026-01-30',
+  defaults: '2026-01-30', 
+  capture_pageview: false,
+  persistence: 'memory',
 } as const
 
 const toolSlugs = [
@@ -26,11 +28,10 @@ const toolSlugs = [
 ]
 function RouteTracker() {
   const location = useLocation()
-
+  const posthog = usePostHog()
   useEffect(() => {
-    trackPageView(location.pathname)
-  }, [location.pathname])
-
+    posthog?.capture('$pageview', { currentUrl: location.pathname })
+  })
   return null
 }
 function Layout({ children }: { children: React.ReactNode }) {
@@ -38,6 +39,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   const content = (
     <HelmetProvider>
       <div className="min-h-screen bg-bg text-bright">
+        <RouteTracker />
         <Navbar />
         {children}
       </div>
