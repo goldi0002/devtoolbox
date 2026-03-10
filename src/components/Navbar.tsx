@@ -8,7 +8,8 @@ const navLinks = [
   { label: 'About', path: '/about' },
 ]
 
-const toolSlugs = new Set(tools.map(t => t.slug))
+const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] as const
+const toolSlugs = tools.map(t => t.slug)
 
 export default function Navbar() {
   const { pathname } = useLocation()
@@ -16,8 +17,8 @@ export default function Navbar() {
 
   const isActive = (path: string) => {
     if (path === '/tools') {
-      const slug = pathname.slice(1)
-      return pathname === '/tools' || toolSlugs.has(slug)
+      const toolcategory = pathname.split('/').pop() ?? ''
+      return pathname === '/tools' || categories.includes(toolcategory as any) || toolSlugs.includes(toolcategory)
     }
     return pathname === path
   }
