@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
 
@@ -8,9 +7,13 @@ export default function UuidGenerator() {
   const [count, setCount] = useState(5)
   const [batch, setBatch] = useState<string[]>([])
 
-  const generateSingle = () => setSingle(uuidv4())
+  const generateSingle = async () => {
+    const { v4: uuidv4 } = await import('uuid')
+    setSingle(uuidv4())
+  }
 
-  const generateBatch = () => {
+  const generateBatch = async () => {
+    const { v4: uuidv4 } = await import('uuid')
     const uuids = Array.from({ length: Math.min(Math.max(count, 1), 100) }, () => uuidv4())
     setBatch(uuids)
   }
