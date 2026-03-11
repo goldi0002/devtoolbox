@@ -1,19 +1,19 @@
-import { Suspense } from 'react'
-import { useParams, Link, Navigate, useLocation } from 'react-router-dom'
+import { Suspense,lazy } from 'react'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 
-import JsonFormatter from '../components/tools/json-tools/JsonFormatter'
-import JsonModelGenerator from '../components/tools/json-tools/JsonModelGenerator'
-import TextDiff from '../components/tools/text-tools/TextDiff'
-import RegexTester from '../components/tools/text-tools/RegexTester'
-import JwtDecoder from '../components/tools/auth-tools/JwtDecoder'
-import HtmlFormatter from '../components/tools/web-tools/HtmlFormatter'
-import UrlEncoderDecoder from '../components/tools/encode-tools/UrlEncoderDecoder'
-import UuidGenerator from '../components/tools/generate-tools/UuidGenerator'
-import Base64Tool from '../components/tools/encode-tools/Base64Tool'
-import PasswordGenerator from '../components/tools/generate-tools/PasswordGenerator'
+const JsonFormatter = lazy(() => import('../components/tools/json-tools/JsonFormatter'))
+const JsonModelGenerator = lazy(() => import('../components/tools/json-tools/JsonModelGenerator'))
+const TextDiff = lazy(() => import('../components/tools/text-tools/TextDiff'))
+const RegexTester = lazy(() => import('../components/tools/text-tools/RegexTester'))
+const JwtDecoder = lazy(() => import('../components/tools/auth-tools/JwtDecoder'))
+const HtmlFormatter = lazy(() => import('../components/tools/web-tools/HtmlFormatter'))
+const UrlEncoderDecoder = lazy(() => import('../components/tools/encode-tools/UrlEncoderDecoder'))
+const UuidGenerator = lazy(() => import('../components/tools/generate-tools/UuidGenerator'))
+const Base64Tool = lazy(() => import('../components/tools/encode-tools/Base64Tool'))
+const PasswordGenerator = lazy(() => import('../components/tools/generate-tools/PasswordGenerator'))
 
 // ─── Tool map ────────────────────────────────────────────────────────────────
 // Export so App.tsx can derive toolSlugs from Object.keys(toolComponents)
@@ -81,7 +81,7 @@ export default function ToolPage() {
           <ToolComponent />
         </Suspense>
       </div>
-      
+
       {/* ── About this tool ──────────────────────────────────────────────── */}
       {meta.about && (
         <section className="mt-16 pt-10 border-t border-border">

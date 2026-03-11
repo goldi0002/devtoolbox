@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import * as Diff from 'diff'
 import ToolLayout from '../../ToolLayout'
 
 const SAMPLE_A = `function greet(name) {
@@ -17,10 +16,11 @@ export default function TextDiff() {
   const [textB, setTextB] = useState('')
   const [diffResult, setDiffResult] = useState<Diff.Change[] | null>(null)
 
-  const compare = () => {
+  const compare = async () => {
+    const { diffLines } = await import('diff')
     const a = textA || SAMPLE_A
     const b = textB || SAMPLE_B
-    const result = Diff.diffLines(a, b, { ignoreWhitespace: false })
+    const result = diffLines(a, b, { ignoreWhitespace: false })
     setDiffResult(result)
   }
 
