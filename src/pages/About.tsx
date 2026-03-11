@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 import { tools } from '../tools/registry'
-
+import { WEB_INFO } from '../utils/web-info'
 const stack = [
   { name: 'React 18',        desc: 'UI framework with hooks and fast rendering' },
   { name: 'TypeScript',      desc: 'Full type safety across the codebase' },
@@ -38,13 +38,12 @@ const principles = [
 ]
 export default function About() {
   usePageTitle('About')
-
+  const pageDescription = `${WEB_INFO.SITE_NAME} is a privacy-first, ad-free set of developer utilities that run entirely in your browser.`
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 animate-fade-in">
       <SEO
         title="About"
-        description="DevToolbox is a privacy-first, ad-free set of developer utilities that run entirely in your browser."
-        slug="about"
+        description= {pageDescription}  slug="about"
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
@@ -62,7 +61,7 @@ export default function About() {
               <span className="text-bright">.</span>
             </h1>
             <p className="text-dim font-sans text-base leading-relaxed max-w-lg">
-              DevToolbox is a minimal, privacy-first collection of browser-based utilities
+              {WEB_INFO.SITE_NAME} is a minimal, privacy-first collection of browser-based utilities
               for developers. No sign-up. No setup. Open the page and start working.
             </p>
           </div>

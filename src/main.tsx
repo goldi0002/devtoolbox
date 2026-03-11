@@ -1,9 +1,9 @@
-import { ViteReactSSG } from 'vite-react-ssg'
-import { routes } from './App'
-import './index.css'
-export const createRoot = ViteReactSSG(
-  { routes },
-  () => {
-    // global setup
-  }
-)
+  import { ViteReactSSG } from 'vite-react-ssg'
+  import { routes } from './App'
+  import './index.css'
+  export const createRoot = ViteReactSSG(
+    { routes },
+    ({ isClient }) => {
+      // Optional setup logic here
+    }
+  )

@@ -1,3 +1,5 @@
+
+import { lazy } from "react"
 export interface ToolAbout {
   summary: string
   useCases: string[]
@@ -11,7 +13,10 @@ export interface ToolMeta {
   about: ToolAbout
   category: 'json-tools' | 'encode-tools' | 'text-tools' | 'generate-tools' | 'auth-tools' | 'web-tools' | 'data-tools' | 'crypto-tools'
   tag: string
-  keywords: string[]
+  keywords: string[],
+  commingSoon?: boolean,
+  eta?: string, // e.g. "Q2 2025"
+  toolComponent?: React.ComponentType
 }
 
 export const tools: ToolMeta[] = [
@@ -22,6 +27,7 @@ export const tools: ToolMeta[] = [
     description: 'Format, validate and minify JSON instantly — paste your JSON to beautify it, spot syntax errors, or compress it. Free, runs entirely in your browser.',
     category:    'json-tools',
     tag:         'json',
+    toolComponent: lazy(() => import('../components/tools/json-tools/JsonFormatter')),
     keywords:    [
       'json formatter',
       'json validator',
@@ -63,6 +69,7 @@ export const tools: ToolMeta[] = [
     category: 'json-tools',
     tag: 'codegen',
     keywords: ['json', 'model', 'csharp', 'typescript', 'interface', 'class'],
+    toolComponent: lazy(() => import('../components/tools/json-tools/JsonModelGenerator')),
     about: {
       summary:
         'JSON Model Generator converts any JSON object into strongly-typed code — TypeScript interfaces or C# classes — in one click. Instead of manually writing types from an API response, paste the JSON and get production-ready type definitions instantly.',
@@ -92,6 +99,7 @@ export const tools: ToolMeta[] = [
     category: 'encode-tools',
     tag: 'encode',
     keywords: ['base64', 'encode', 'decode', 'string'],
+    toolComponent: lazy(() => import('../components/tools/encode-tools/Base64Tool')),
     about: {
       summary:
         'Base64 is an encoding scheme that converts binary or text data into a string of ASCII characters. It\'s widely used to safely transmit data in URLs, HTTP headers, email, and data URIs. This tool encodes any text to Base64 and decodes Base64 strings back to their original form instantly.',
@@ -119,6 +127,7 @@ export const tools: ToolMeta[] = [
     category: 'encode-tools',
     tag: 'encode',
     keywords: ['url', 'encode', 'decode', 'uri', 'query', 'percent encoding'],
+    toolComponent: lazy(() => import('../components/tools/encode-tools/UrlEncoderDecoder')),
     about: {
       summary:
         'URL Encoder converts special characters in a URL into percent-encoded format so they can be safely transmitted over the web. URL Decoder reverses this — turning encoded strings like %20 back into readable text. Essential for working with query parameters, API endpoints, and web forms.',
@@ -148,6 +157,7 @@ export const tools: ToolMeta[] = [
     category: 'text-tools',
     tag: 'diff',
     keywords: ['diff', 'compare', 'text', 'difference', 'changes'],
+    toolComponent: lazy(() => import('../components/tools/text-tools/TextDiff')),
     about: {
       summary:
         'Text Diff compares two blocks of text line-by-line and highlights exactly what changed — additions in green, deletions in red. Useful for comparing code snippets, configuration files, API responses, or any two pieces of text where you need to spot differences fast.',
@@ -177,6 +187,7 @@ export const tools: ToolMeta[] = [
     category: 'generate-tools',
     tag: 'generate',
     keywords: ['uuid', 'guid', 'unique', 'id', 'generate'],
+    toolComponent: lazy(() => import('../components/tools/generate-tools/UuidGenerator')),
     about: {
       summary:
         'UUID Generator creates version 4 UUIDs (Universally Unique Identifiers) using cryptographically secure random values. UUIDs are 128-bit identifiers used across databases, APIs, and distributed systems to uniquely identify records without a central coordination authority.',
@@ -206,6 +217,7 @@ export const tools: ToolMeta[] = [
     category: 'auth-tools',
     tag: 'auth',
     keywords: ['jwt', 'token', 'decode', 'auth', 'bearer', 'json web token', 'claims'],
+    toolComponent: lazy(() => import('../components/tools/auth-tools/JwtDecoder')),
     about: {
       summary:
         'JWT Decoder splits any JSON Web Token into its three parts — header, payload, and signature — and displays them in a readable format. Instantly inspect claims, check expiry times, and understand token structure without needing a secret key or writing any code.',
@@ -235,6 +247,7 @@ export const tools: ToolMeta[] = [
     category: 'web-tools',
     tag: 'web',
     keywords: ['html', 'format', 'minify', 'pretty', 'beautify'],
+    toolComponent: lazy(() => import('../components/tools/web-tools/HtmlFormatter')),
     about: {
       summary:
         'HTML Formatter uses Prettier under the hood to format messy or minified HTML into clean, properly indented markup. It also minifies HTML by stripping whitespace and comments — useful for optimizing templates before deploying to production.',
@@ -263,6 +276,7 @@ export const tools: ToolMeta[] = [
     category: 'generate-tools',
     tag: 'generate',
     keywords: ['password', 'generate', 'random', 'secure', 'generator'],
+    toolComponent: lazy(() => import('../components/tools/generate-tools/PasswordGenerator')),
     about: {
       summary:
         'Password Generator creates cryptographically secure random passwords using the browser\'s built-in Web Crypto API. Customize the length, character sets, and excluded characters to match any password policy — and use the strength meter to verify the result before using it.',
@@ -291,6 +305,7 @@ export const tools: ToolMeta[] = [
     category: 'text-tools',
     tag: 'text',
     keywords: ['regex', 'regexp', 'regular expression', 'pattern', 'match', 'test'],
+    toolComponent: lazy(() => import('../components/tools/text-tools/RegexTester')),
     about: {
       summary:
         'Regex Tester allows you to write and test regular expressions against sample text in real time. As you type your regex pattern, it highlights matches in the sample text and shows captured groups. Perfect for debugging complex regexes or learning how they work.',
@@ -309,6 +324,61 @@ export const tools: ToolMeta[] = [
         'Copy your regex pattern or the matched results with one click',
       ],
       tip: 'Start with a simple regex and gradually build it up — the live feedback helps you understand how each part of the pattern works.',
+    }
+  },
+  {
+    slug: 'markdown-preview',
+    name: 'Markdown Preview',
+    description: 'Write Markdown on the left and see a live preview on the right.',
+    category: 'web-tools',
+    tag: 'web',
+    keywords: ['markdown', 'preview', 'render', 'format', 'md'],
+    commingSoon: true,
+    eta: 'Q4 2024',
+    about: {
+      summary:
+        'Markdown Preview renders your Markdown text into formatted HTML in real time. As you write Markdown syntax on the left, you see a live preview of how it will look when rendered — perfect for writing README files, documentation, or any Markdown content.',
+      useCases: [
+        'Writing and previewing README.md files for GitHub projects',
+        'Creating documentation with headings, lists, code blocks, and more',
+        'Drafting blog posts or articles in Markdown format',
+        'Learning Markdown syntax with instant visual feedback',
+        'Testing how different Markdown features render before using them in production',
+      ],
+      features: [
+        'Live preview updates as you type your Markdown text',
+        'Supports all standard Markdown syntax — headings, lists, links, images, code blocks, etc.',
+        'Renders GitHub Flavored Markdown features like task lists and tables',
+        'Copy the rendered HTML output with one click',
+      ],
+      tip: 'Use the preview to check how your Markdown will render on platforms like GitHub — especially for complex elements like tables or nested lists.',
+    }
+  },
+  {
+    slug:'sha256',
+    name: 'SHA-256 Hash Generator',
+    description: 'Generate a SHA-256 hash from any input string instantly in your browser.',
+    category: 'crypto-tools',
+    tag: 'crypto',
+    keywords: ['sha256', 'hash', 'crypto', 'checksum', 'digest'],
+    toolComponent: lazy(() => import('../components/tools/crypto-tools/SHA256')),
+    about: {
+      summary:
+        'SHA-256 Hash Generator creates a unique, fixed-length 256-bit (32-byte) hash from any input string using the SHA-256 algorithm. It\'s widely used for data integrity checks, password hashing, and cryptographic applications. This tool generates the hash instantly in your browser without sending your data anywhere.',
+      useCases: [
+        'Generating a hash of a password or secret before storing it',
+        'Creating a checksum to verify file integrity',
+        'Hashing API keys or tokens for secure storage',
+        'Testing how different inputs produce different hashes',
+        'Learning about cryptographic hashing with live examples',
+      ],
+      features: [
+        'Generates SHA-256 hashes using the Web Crypto API',
+        'Instantly produces a 64-character hexadecimal hash string',
+        'Works entirely in the browser — no data is transmitted',
+        'Copy the generated hash with one click',
+      ],
+      tip: 'SHA-256 is a one-way hashing algorithm — you can\'t reverse it back to the original input. It\'s designed for security and integrity, not encryption.',
     }
   }
 ]

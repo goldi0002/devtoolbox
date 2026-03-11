@@ -1,61 +1,33 @@
 import { Suspense, lazy } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
-import ClientOnly from '../components/ClientOnly'
 
-const JsonFormatter = lazy(() => import('../components/tools/json-tools/JsonFormatter'))
-const JsonModelGenerator = lazy(() => import('../components/tools/json-tools/JsonModelGenerator'))
-const TextDiff = lazy(() => import('../components/tools/text-tools/TextDiff'))
-const RegexTester = lazy(() => import('../components/tools/text-tools/RegexTester'))
-const JwtDecoder = lazy(() => import('../components/tools/auth-tools/JwtDecoder'))
-const HtmlFormatter = lazy(() => import('../components/tools/web-tools/HtmlFormatter'))
-const UrlEncoderDecoder = lazy(() => import('../components/tools/encode-tools/UrlEncoderDecoder'))
-const UuidGenerator = lazy(() => import('../components/tools/generate-tools/UuidGenerator'))
-const Base64Tool = lazy(() => import('../components/tools/encode-tools/Base64Tool'))
-const PasswordGenerator = lazy(() => import('../components/tools/generate-tools/PasswordGenerator'))
-
-// ─── Tool map ────────────────────────────────────────────────────────────────
-// Export so App.tsx can derive toolSlugs from Object.keys(toolComponents)
-// and never needs a separate manual list.
-
-export const toolComponents: Record<string, React.ComponentType> = {
-  'json-formatter': JsonFormatter,
-  'json-model': JsonModelGenerator,
-  'uuid': UuidGenerator,
-  'base64': Base64Tool,
-  'text-diff': TextDiff,
-  'jwt': JwtDecoder,
-  'html-formatter': HtmlFormatter,
-  'url-encoder': UrlEncoderDecoder,
-  'password-generator': PasswordGenerator,
-  'regex': RegexTester,
-}
-
-// ─── Fallback ────────────────────────────────────────────────────────────────
-
-function ToolFallback() {
-  return (
-    <div className="h-64 flex items-center justify-center">
-      <span className="text-xs font-mono text-subtle animate-pulse">Loading tool...</span>
-    </div>
-  )
-}
+const ToolFallback = lazy(() => import('../components/ui/tools/ToolFallback'))
+const ToolComingSoon = lazy(() => import('../components/ui/tools/ToolComingSoon'))
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function ToolPage() {
-  const { slug = '' } = useParams()
-
+  const { pathname } = useLocation();
+  // const { slug = '' } = useParams()
+  const slug = pathname.split('/').pop() ?? ''
   const meta = tools.find(t => t.slug === slug)
   usePageTitle(meta?.name)
-
   if (!meta) return <Navigate to="/tools" replace />
+  if (meta.commingSoon) {
+    return (
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+        <SEO title={meta.name} description={meta.description} slug={meta.slug} />
+        <ToolComingSoon toolName={meta.name} eta={meta.eta ?? 'TBA'} description={meta.description} features={meta.about?.features ?? []} />
+      </main>
+    )
+  }
 
-  const ToolComponent = toolComponents[slug ?? '']
+  const ToolComponent = meta.toolComponent
   if (!ToolComponent) return <Navigate to="/tools" replace />
-
+  
   // Same-category tools first, then fill with others — max 6
   const others = [
     ...tools.filter(t => t.slug !== slug && t.category === meta.category),
@@ -76,13 +48,11 @@ export default function ToolPage() {
       </nav>
 
       {/* ── Tool ─────────────────────────────────────────────────────────── */}
-      <ClientOnly>
-        <div className="animate-slide-up">
-          <Suspense fallback={<ToolFallback />}>
-            <ToolComponent />
-          </Suspense>
-        </div>
-      </ClientOnly>
+      <div className="animate-slide-up">
+        <Suspense fallback={<ToolFallback />}>
+          <ToolComponent />
+        </Suspense>
+      </div>
 
       {/* ── About this tool ──────────────────────────────────────────────── */}
       {meta.about && (

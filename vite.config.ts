@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig({
+  define: {
+    'process.env.VITE_ENVIRONMENT': '"development"',
+  },
   plugins: [
-    react(),
-    visualizer({ open: true, filename: 'dist/stats.html' })
+    react()
   ],
   optimizeDeps: {
     include: ['react-helmet-async'],
