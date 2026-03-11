@@ -81,6 +81,58 @@ export default function ToolPage() {
           <ToolComponent />
         </Suspense>
       </div>
+      
+      {/* ── About this tool ──────────────────────────────────────────────── */}
+      {meta.about && (
+        <section className="mt-16 pt-10 border-t border-border">
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10">
+            <div>
+              <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">About</p>
+              <h2 className="font-display text-2xl text-bright leading-none">
+                WHAT IS<br />{meta.name.toUpperCase()}?
+              </h2>
+            </div>
+
+            <div className="space-y-8">
+              <p className="text-sm font-sans text-dim leading-relaxed max-w-xl">
+                {meta.about.summary}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div>
+                  <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-3">When to use it</p>
+                  <ul className="space-y-2">
+                    {meta.about.useCases.map((u, i) => (
+                      <li key={i} className="flex gap-2 text-xs font-sans text-dim">
+                        <span className="text-muted font-mono mt-0.5 flex-shrink-0">→</span>
+                        {u}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-3">Features</p>
+                  <ul className="space-y-2">
+                    {meta.about.features.map((f, i) => (
+                      <li key={i} className="flex gap-2 text-xs font-sans text-dim">
+                        <span className="text-muted font-mono mt-0.5 flex-shrink-0">·</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {meta.about.tip && (
+                <div className="border border-border rounded px-4 py-3 bg-surface">
+                  <span className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mr-2">Tip</span>
+                  <span className="text-xs font-sans text-dim">{meta.about.tip}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Other Tools ──────────────────────────────────────────────────── */}
       {others.length > 0 && (

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
+import { tools } from '../../../tools/registry'
 
 const SAMPLE = `{"name":"DevToolbox","version":"1.0","tools":["JSON","UUID","Base64","Diff"],"config":{"theme":"dark","lang":"en"}}`
 
@@ -32,11 +33,11 @@ export default function JsonFormatter() {
     setOutput('')
     setError('')
   }
-
+  const meta = tools.find(t => t.slug === 'json-formatter');
   return (
     <ToolLayout
-      title="JSON Formatter"
-      description="Format or minify JSON with validation"
+      title={meta?.name || 'JSON Formatter'}
+      description={meta?.description || 'Format or minify JSON data with ease.'}
       tag="json"
     >
       <div className="space-y-4">
