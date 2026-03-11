@@ -1,8 +1,9 @@
-import { Suspense,lazy } from 'react'
-import { Link, Navigate, useLocation } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
+import ClientOnly from '../components/ClientOnly'
 
 const JsonFormatter = lazy(() => import('../components/tools/json-tools/JsonFormatter'))
 const JsonModelGenerator = lazy(() => import('../components/tools/json-tools/JsonModelGenerator'))
@@ -45,8 +46,7 @@ function ToolFallback() {
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function ToolPage() {
-  const { pathname } = useLocation()
-  const slug = pathname.split('/').pop() ?? ''
+  const { slug = '' } = useParams()
 
   const meta = tools.find(t => t.slug === slug)
   usePageTitle(meta?.name)
@@ -76,11 +76,13 @@ export default function ToolPage() {
       </nav>
 
       {/* ── Tool ─────────────────────────────────────────────────────────── */}
-      <div className="animate-slide-up">
-        <Suspense fallback={<ToolFallback />}>
-          <ToolComponent />
-        </Suspense>
-      </div>
+      <ClientOnly>
+        <div className="animate-slide-up">
+          <Suspense fallback={<ToolFallback />}>
+            <ToolComponent />
+          </Suspense>
+        </div>
+      </ClientOnly>
 
       {/* ── About this tool ──────────────────────────────────────────────── */}
       {meta.about && (
