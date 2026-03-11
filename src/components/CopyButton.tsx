@@ -2,10 +2,11 @@ import { useState } from 'react'
 
 interface CopyButtonProps {
   text: string
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md',
+  disabled?: boolean
 }
 
-export default function CopyButton({ text, size = 'sm' }: CopyButtonProps) {
+export default function CopyButton({ text, size = 'sm', disabled = false }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {

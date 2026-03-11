@@ -58,11 +58,11 @@ export default function Home() {
         {/* Main headline — two-column editorial layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end mb-10">
           <h1 className="font-display text-[clamp(3.5rem,12vw,8.5rem)] text-bright leading-[0.9] animate-slide-up tracking-tight">
-            DEV<br />
+            TOOL<br />
             <span className="text-border" style={{ WebkitTextStroke: '1.5px #d4d4d4' }}>
-              TOOL
+              BOX
             </span>
-            <span className="text-bright">BOX</span>
+            <span className="text-bright">4DEVS</span>
           </h1>
 
           {/* Right — vertical descriptor */}
@@ -108,7 +108,7 @@ export default function Home() {
           ))}
         </div>
       </section>
-
+      
       {/* ── Category strip ────────────────────────────────────────────────── */}
       <div className="border-t border-b border-border py-4 mb-16 animate-fade-in stagger-3">
         <div className="flex flex-wrap gap-x-8 gap-y-2 justify-between">
