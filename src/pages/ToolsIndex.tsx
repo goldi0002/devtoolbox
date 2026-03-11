@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { tools, categoryLabels, type ToolMeta } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -6,26 +6,35 @@ import { SEO } from '../hooks/useSEO'
 
 const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] as const
 
-
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function ToolsIndex() {
-  const [search, setSearch] = useState('')
   const { category } = useParams<{ category: string }>()
-  const [activeCategory, setActiveCategory] = useState<string>(
-    category && categories.includes(category as any) ? category : 'all'
-  );
-  var pageTitle = 'All Tools'
-  if (activeCategory !== 'all') {
-    pageTitle = `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`
-  }
-  usePageTitle(pageTitle)
   const navigate = useNavigate()
-  const handleCategoryChange = (cat: string, search?: string) => {
-    setActiveCategory(cat)
-    setSearch(search ?? '')
+
+  // Derive from URL — not from useState so back/forward navigation works
+  const activeCategory = category && categories.includes(category as any)
+    ? category
+    : 'all'
+
+  const [search, setSearch] = useState('')
+
+  // Clear search when URL category changes (browser back/forward)
+  useEffect(() => {
+    setSearch('')
+  }, [category])
+
+  const pageTitle = activeCategory !== 'all'
+    ? `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`
+    : 'All Tools'
+
+  usePageTitle(pageTitle)
+
+  const handleCategoryChange = (cat: string) => {
+    setSearch('')
     navigate(cat === 'all' ? '/tools' : `/tools/${cat}`, { replace: true })
   }
+
   const filtered = useMemo(() => {
     return tools.filter(tool => {
       const matchesCategory = activeCategory === 'all' || tool.category === activeCategory
@@ -44,9 +53,9 @@ export default function ToolsIndex() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
       <SEO
-        title="All Tools"
+        title={pageTitle}
         description={`${tools.length} free browser-based developer tools. JSON formatter, JWT decoder, UUID generator and more. No ads, no tracking.`}
-        slug="tools"
+        slug={activeCategory === 'all' ? 'tools' : `tools/${activeCategory}`}
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
@@ -59,14 +68,12 @@ export default function ToolsIndex() {
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
-          <div>
-            <h1 className="font-display text-[clamp(3rem,10vw,6rem)] text-bright leading-[0.9] tracking-tight">
-              ALL<br />
-              <span className="text-border" style={{ WebkitTextStroke: '1.5px #d4d4d4' }}>
-                TOOLS
-              </span>
-            </h1>
-          </div>
+          <h1 className="font-display text-[clamp(3rem,10vw,6rem)] text-bright leading-[0.9] tracking-tight">
+            ALL<br />
+            <span className="text-border" style={{ WebkitTextStroke: '1.5px #d4d4d4' }}>
+              TOOLS
+            </span>
+          </h1>
 
           <div className="flex items-end gap-8 pb-1">
             <div className="text-right">
@@ -97,13 +104,13 @@ export default function ToolsIndex() {
             <input
               type="text"
               value={search}
-              onChange={e => { handleCategoryChange("all", e.target.value) }}
+              onChange={e => setSearch(e.target.value)}
               placeholder="Search tools..."
               className="input-base pl-7 w-full"
             />
             {search && (
               <button
-                onClick={() => { handleCategoryChange("all"); }} // Clear search and reset to 'all' category
+                onClick={() => setSearch('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle hover:text-dim
                            font-mono text-xs transition-colors"
               >
@@ -117,7 +124,7 @@ export default function ToolsIndex() {
             {categories.map(cat => (
               <button
                 key={cat}
-                onClick={() => { handleCategoryChange(cat); }}
+                onClick={() => handleCategoryChange(cat)}
                 className={`px-3 py-1.5 text-xs font-mono rounded border transition-all duration-150
                   ${activeCategory === cat && !search
                     ? 'bg-bright text-bg border-bright'
@@ -132,7 +139,7 @@ export default function ToolsIndex() {
             ))}
           </div>
 
-          {/* Result count — right aligned */}
+          {/* Result count */}
           {!showingAll && (
             <span className="text-xs font-mono text-subtle sm:ml-auto whitespace-nowrap">
               {filtered.length} result{filtered.length !== 1 ? 's' : ''}
@@ -145,11 +152,9 @@ export default function ToolsIndex() {
       {filtered.length === 0 ? (
         <div className="border border-border rounded py-24 text-center">
           <p className="text-sm font-mono text-dim mb-2">No tools found</p>
-          <p className="text-xs font-mono text-subtle mb-6">
-            No results for "{search}"
-          </p>
+          <p className="text-xs font-mono text-subtle mb-6">No results for "{search}"</p>
           <button
-            onClick={() => { handleCategoryChange('all'); }}
+            onClick={() => { setSearch(''); handleCategoryChange('all') }}
             className="text-xs font-mono text-subtle hover:text-dim transition-colors underline"
           >
             Clear search
@@ -157,8 +162,8 @@ export default function ToolsIndex() {
         </div>
       ) : (
         <>
-          {/* Group by category when showing all, flat grid when filtered */}
           {activeCategory === 'all' && !search ? (
+            // Grouped by category
             <div className="space-y-12">
               {(categories.filter(c => c !== 'all') as string[]).map(cat => {
                 const catTools = tools.filter(t => t.category === cat)
@@ -182,6 +187,7 @@ export default function ToolsIndex() {
               })}
             </div>
           ) : (
+            // Flat grid when filtered or searching
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {filtered.map((tool, i) => (
                 <ToolGridCard key={tool.slug} tool={tool} index={i} />
@@ -205,7 +211,28 @@ export default function ToolsIndex() {
 function ToolGridCard({ tool, index }: { tool: ToolMeta; index: number }) {
   const delays = ['stagger-1', 'stagger-2', 'stagger-3', 'stagger-4', 'stagger-5', 'stagger-6']
   const delay = delays[index % delays.length]
+  if (tool.commingSoon) {
+    return (
+      <div
+        className={`card flex flex-col gap-3 opacity-50 cursor-not-allowed animate-slide-up ${delay}`}
+      >
+        <div className="flex items-center justify-between">
+          <span className="tag">{tool.tag}</span>
+          <span className="text-muted font-mono text-sm">→</span>
+        </div>
+        <div className="flex-1">
+          <h3 className="text-bright font-sans font-medium text-sm mb-1">{tool.name}</h3>
+          <p className="text-dim text-xs leading-relaxed font-sans">{tool.description}</p>
+        </div>
 
+        <div className="pt-2 border-t border-border">
+          <span className="text-[10px] font-mono text-subtle">
+            /{tool.slug}
+          </span>
+        </div>
+      </div>
+    )
+  }
   return (
     <Link
       to={`/${tool.slug}`}
@@ -216,7 +243,6 @@ function ToolGridCard({ tool, index }: { tool: ToolMeta; index: number }) {
         <span className="tag">{tool.tag}</span>
         <span className="text-muted group-hover:text-subtle transition-colors font-mono text-sm">→</span>
       </div>
-
       <div className="flex-1">
         <h3 className="text-bright font-sans font-medium text-sm mb-1">{tool.name}</h3>
         <p className="text-dim text-xs leading-relaxed font-sans">{tool.description}</p>

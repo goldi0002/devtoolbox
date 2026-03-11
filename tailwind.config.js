@@ -34,6 +34,18 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        pageLoaderBar: {
+          '0%, 100%': { height: '10px', opacity: '0.2' },
+          '50%': { height: '48px', opacity: '1' },
+        },
+        pageLoaderFade: {
+          '0%, 100%': { opacity: '0.3' },
+          '50%': { opacity: '1' },
+        },
+        toolBar: {
+          '0% 100%': { height: '8px', opacity: '0.15' },
+          '100%': { height: '22px', opacity: '0.6' }
+        },
       },
     },
   },
