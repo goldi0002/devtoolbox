@@ -12,14 +12,14 @@ export default {
         display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
       },
       colors: {
-        bg: '#ffffff',        // page background → white
-        surface: '#f5f5f5',   // card / input background → off-white
-        border: '#e0e0e0',    // borders → light gray
-        muted: '#cccccc',     // muted elements
-        subtle: '#999999',    // subtle text / icons
-        dim: '#666666',       // secondary text
-        light: '#333333',     // body text
-        bright: '#0a0a0a',    // headings / primary text → near black
+        bg:      'var(--color-bg)',
+        surface: 'var(--color-surface)',
+        border:  'var(--color-border)',
+        muted:   'var(--color-muted)',
+        subtle:  'var(--color-subtle)',
+        dim:     'var(--color-dim)',
+        light:   'var(--color-light)',
+        bright:  'var(--color-bright)',
       },
       animation: {
         'fade-in': 'fadeIn 0.4s ease forwards',

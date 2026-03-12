@@ -16,7 +16,7 @@ export default function ToolPage() {
   const meta = tools.find(t => t.slug === slug)
   usePageTitle(meta?.name)
   if (!meta) return <Navigate to="/tools" replace />
-  if (meta.commingSoon) {
+  if (meta.status === 'coming-soon') {
     return (
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         <SEO title={meta.name} description={meta.description} slug={meta.slug} />
@@ -27,7 +27,7 @@ export default function ToolPage() {
 
   const ToolComponent = meta.toolComponent
   if (!ToolComponent) return <Navigate to="/tools" replace />
-  
+
   // Same-category tools first, then fill with others — max 6
   const others = [
     ...tools.filter(t => t.slug !== slug && t.category === meta.category),
@@ -58,54 +58,95 @@ export default function ToolPage() {
       {meta.about && (
         <section className="mt-16 pt-10 border-t border-border">
           <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10">
+
+            {/* ── Left label ─────────────────────────────────────────────── */}
             <div>
-              <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">About</p>
+              <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">
+                About
+              </p>
               <h2 className="font-display text-2xl text-bright leading-none">
                 WHAT IS<br />{meta.name.toUpperCase()}?
               </h2>
             </div>
 
+            {/* ── Right content ───────────────────────────────────────────── */}
             <div className="space-y-8">
+
+              {/* Summary */}
               <p className="text-sm font-sans text-dim leading-relaxed max-w-xl">
                 {meta.about.summary}
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div>
-                  <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-3">When to use it</p>
-                  <ul className="space-y-2">
-                    {meta.about.useCases.map((u, i) => (
-                      <li key={i} className="flex gap-2 text-xs font-sans text-dim">
-                        <span className="text-muted font-mono mt-0.5 flex-shrink-0">→</span>
-                        {u}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-3">Features</p>
-                  <ul className="space-y-2">
-                    {meta.about.features.map((f, i) => (
-                      <li key={i} className="flex gap-2 text-xs font-sans text-dim">
-                        <span className="text-muted font-mono mt-0.5 flex-shrink-0">·</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              {/* Use cases + Features — only render cols that exist */}
+              {(meta.about.useCases?.length || meta.about.features?.length) && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
 
+                  {meta.about.useCases?.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-3">
+                        When to use it
+                      </p>
+                      <ul className="space-y-2">
+                        {meta.about.useCases.map((u, i) => (
+                          <li key={i} className="flex gap-2 text-xs font-sans text-dim">
+                            <span className="text-muted font-mono mt-0.5 flex-shrink-0">→</span>
+                            {u}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {meta.about.features?.length > 0 && (
+                    <div>
+                      <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-3">
+                        Features
+                      </p>
+                      <ul className="space-y-2">
+                        {meta.about.features.map((f, i) => (
+                          <li key={i} className="flex gap-2 text-xs font-sans text-dim">
+                            <span className="text-muted font-mono mt-0.5 flex-shrink-0">·</span>
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                </div>
+              )}
+
+              {/* Notes */}
+              {meta.about?.notes && meta.about.notes?.length > 0 && (
+                <div className="border border-border divide-y divide-border">
+                  <div className="px-4 py-2.5">
+                    <span className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase">
+                      Notes
+                    </span>
+                  </div>
+                  {meta.about.notes.map((note, i) => (
+                    <div key={i} className="flex gap-3 px-4 py-3">
+                      <span className="text-[10px] font-mono text-muted flex-shrink-0 mt-px tabular-nums">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <p className="text-xs font-sans text-subtle leading-relaxed">{note}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Tip */}
               {meta.about.tip && (
                 <div className="border border-border rounded px-4 py-3 bg-surface">
                   <span className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mr-2">Tip</span>
                   <span className="text-xs font-sans text-dim">{meta.about.tip}</span>
                 </div>
               )}
+
             </div>
           </div>
         </section>
       )}
-
       {/* ── Other Tools ──────────────────────────────────────────────────── */}
       {others.length > 0 && (
         <section className="mt-16 pt-8 border-t border-border">

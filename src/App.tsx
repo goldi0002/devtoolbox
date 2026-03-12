@@ -13,6 +13,8 @@ const About = lazy(() => import('./pages/About'))
 const ToolPage = lazy(() => import('./pages/ToolPage'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const PageLoader = lazy(() => import('./components/ui/PageLoader'))
+const Changelog = lazy(() => import('./pages/Changelog'))
+const Privacy = lazy(() => import('./pages/Privacy'))
 
 const toolSlugs = tools.map(t => t.slug)
 
@@ -113,7 +115,7 @@ export function Layout() {
         <Navbar />
         {/* Suspense is required for lazy loaded components in SSG */}
         <Suspense fallback={<PageLoader />}>
-          <Outlet /> 
+          <Outlet />
         </Suspense>
       </div>
     </HelmetProvider>
@@ -137,6 +139,8 @@ export const routes: RouteRecord[] = [
       })),
       { path: '404', element: <NotFound /> },
       { path: '*', element: <NotFound /> },
+      { path: 'changelog', element: <Changelog /> },
+      { path: 'privacy', element: <Privacy /> }
     ],
   },
 ]

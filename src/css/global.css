@@ -1,0 +1,116 @@
+/* ── Light (default) ───────────────────────────── */
+:root {
+    --color-bg:      #ffffff;
+    --color-surface: #f5f5f5;
+    --color-border:  #e0e0e0;
+    --color-muted:   #cccccc;
+    --color-subtle:  #999999;
+    --color-dim:     #666666;
+    --color-light:   #333333;
+    --color-bright:  #0a0a0a;
+  }
+  
+  /* ── Dark ──────────────────────────────────────── */
+  [data-theme="dark"] {
+    --color-bg:      #0a0a0a;
+    --color-surface: #141414;
+    --color-border:  #262626;
+    --color-muted:   #404040;
+    --color-subtle:  #525252;
+    --color-dim:     #737373;
+    --color-light:   #a3a3a3;
+    --color-bright:  #f5f5f5;
+  }
+  
+  /* ── Sepia ─────────────────────────────────────── */
+  [data-theme="sepia"] {
+    --color-bg:      #f8f1e4;
+    --color-surface: #ede4d3;
+    --color-border:  #d6c9b0;
+    --color-muted:   #bfab8a;
+    --color-subtle:  #9e8b6e;
+    --color-dim:     #7a6652;
+    --color-light:   #5c4a38;
+    --color-bright:  #2c1f0e;
+  }
+  
+  /* ── Nord (blue-grey) ──────────────────────────── */
+  [data-theme="nord"] {
+    --color-bg:      #2e3440;
+    --color-surface: #3b4252;
+    --color-border:  #434c5e;
+    --color-muted:   #4c566a;
+    --color-subtle:  #616e88;
+    --color-dim:     #8896b0;
+    --color-light:   #b0bdd0;
+    --color-bright:  #eceff4;
+  }
+  
+  /* ── Green terminal ────────────────────────────── */
+  [data-theme="terminal"] {
+    --color-bg:      #0d1117;
+    --color-surface: #111a12;
+    --color-border:  #1a2e1b;
+    --color-muted:   #1e3d20;
+    --color-subtle:  #2d5e30;
+    --color-dim:     #4a9e4e;
+    --color-light:   #6abf6e;
+    --color-bright:  #00ff41;
+  }
+  [data-theme="toolbox4devs"] {
+    --color-bg:      #0f0f11;
+    --color-surface: #16161a;
+    --color-border:  #2a2a35;
+    --color-muted:   #3d3d4e;
+    --color-subtle:  #5a5a72;
+    --color-dim:     #8a8aa8;
+    --color-light:   #b8b8d0;
+    --color-bright:  #eeeef5;
+  }
+  /* ── Dracula (purple-pink) ─────────────────────── */
+  [data-theme="dracula"] {
+    --color-bg:      #1e1e2e;
+    --color-surface: #252537;
+    --color-border:  #383850;
+    --color-muted:   #4a4a6a;
+    --color-subtle:  #6e6e9a;
+    --color-dim:     #9a9ac0;
+    --color-light:   #c0c0e0;
+    --color-bright:  #f8f8f2;
+  }
+  
+  /* ── Solarized (warm dark) ─────────────────────── */
+  [data-theme="solarized"] {
+    --color-bg:      #002b36;
+    --color-surface: #073642;
+    --color-border:  #0d4555;
+    --color-muted:   #1a5a6e;
+    --color-subtle:  #4a8a9a;
+    --color-dim:     #6aa8b5;
+    --color-light:   #93a1a1;
+    --color-bright:  #fdf6e3;
+  }
+  
+  /* ── Rose (warm pink) ──────────────────────────── */
+  [data-theme="rose"] {
+    --color-bg:      #1a1014;
+    --color-surface: #221520;
+    --color-border:  #3d2035;
+    --color-muted:   #5a2e4e;
+    --color-subtle:  #8a4a72;
+    --color-dim:     #b87aa0;
+    --color-light:   #d4a8c4;
+    --color-bright:  #f5e0ee;
+  }
+  
+  /* ── Monokai (orange accent) ───────────────────── */
+  [data-theme="monokai"] {
+    --color-bg:      #1c1c1c;
+    --color-surface: #242424;
+    --color-border:  #363636;
+    --color-muted:   #4a4a4a;
+    --color-subtle:  #6e6e6e;
+    --color-dim:     #a6a6a6;
+    --color-light:   #cfcfc2;
+    --color-bright:  #f8f8f2;
+  }
