@@ -1,0 +1,63 @@
+import { lazy } from "react";
+import type { ToolMeta } from "../tool-meta";
+export const UUID_META: ToolMeta = {
+    slug: 'uuid',
+    name: 'UUID Generator',
+    description: 'Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100.',
+    category: 'generate-tools',
+    tag: 'generate',
+    keywords: ['uuid', 'guid', 'unique', 'id', 'generate'],
+    toolComponent: lazy(() => import('../../components/tools/generate-tools/UuidGenerator')),
+    about: {
+        summary:
+            'UUID Generator creates version 4 UUIDs (Universally Unique Identifiers) using cryptographically secure random values. UUIDs are 128-bit identifiers used across databases, APIs, and distributed systems to uniquely identify records without a central coordination authority.',
+        useCases: [
+            'Generating primary keys for database records',
+            'Creating unique identifiers for API resources or events',
+            'Seeding test data with realistic-looking IDs',
+            'Generating correlation IDs for distributed tracing',
+            'Creating unique filenames, session tokens, or idempotency keys',
+        ],
+        features: [
+            'Generates RFC 4122 compliant version 4 UUIDs',
+            'Bulk generation — up to 100 UUIDs at once',
+            'Uses crypto.getRandomValues for cryptographic randomness',
+            'Copy individual UUIDs or the entire batch',
+            'Uppercase and lowercase format options',
+        ],
+        tip: 'UUID v4 is randomly generated with no embedded timestamp or machine identity — making it safe to use in public-facing systems without leaking any server information.',
+    },
+    addedAt: '2026-03-14',
+    complexity: 'simple',
+    featured: false,
+    isNew: true,
+    status: 'stable',
+    seo: {
+        title: 'UUID Generator — Create RFC 4122 v4 UUIDs instantly',
+        description: 'Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100. Free, runs entirely in your browser.',
+        extraKeywords: [
+            'uuid generator',
+            'guid generator',
+            'unique id generator',
+            'generate uuid online',
+            'bulk uuid generator',
+            'random uuid generator',
+            'crypto uuid generator',
+            'uuid v4 generator',
+            'uuid generator online',
+            'uuid generator free',
+            'uuid generator tool',
+            'uuid generator browser',
+            'uuid generator no backend',
+            'uuid generator client-side',
+            'uuid generator secure',
+            'uuid generator random',
+            'uuid generator bulk',
+            'uuid generator uppercase',
+            'uuid generator lowercase',
+            'uuid generator copy',
+            'uuid generator batch',
+            'uuid generator version 4',
+        ],
+    }
+}

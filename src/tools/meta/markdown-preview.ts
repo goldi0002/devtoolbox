@@ -1,0 +1,57 @@
+import { lazy } from "react";
+import type { ToolMeta } from "../tool-meta";
+export const MARKDOWN_PREVIEW_META: ToolMeta = {
+    slug: 'markdown-preview',
+    name: 'Markdown Preview',
+    description: 'Write Markdown on the left and see a live preview on the right.',
+    category: 'web-tools',
+    tag: 'web',
+    keywords: ['markdown', 'preview', 'render', 'format', 'md'],
+    eta: 'Q4 2024',
+    about: {
+        summary:
+            'Markdown Preview renders your Markdown text into formatted HTML in real time. As you write Markdown syntax on the left, you see a live preview of how it will look when rendered — perfect for writing README files, documentation, or any Markdown content.',
+        useCases: [
+            'Writing and previewing README.md files for GitHub projects',
+            'Creating documentation with headings, lists, code blocks, and more',
+            'Drafting blog posts or articles in Markdown format',
+            'Learning Markdown syntax with instant visual feedback',
+            'Testing how different Markdown features render before using them in production',
+        ],
+        features: [
+            'Live preview updates as you type your Markdown text',
+            'Supports all standard Markdown syntax — headings, lists, links, images, code blocks, etc.',
+            'Renders GitHub Flavored Markdown features like task lists and tables',
+            'Copy the rendered HTML output with one click',
+        ],
+        tip: 'Use the preview to check how your Markdown will render on platforms like GitHub — especially for complex elements like tables or nested lists.',
+    },
+    addedAt: '2026-03-17',
+    complexity: 'simple',
+    featured: false,
+    isNew: true,
+    status: 'coming-soon',
+    seo: {
+        title: 'Markdown Preview — Write Markdown and see live preview online',
+        description: 'Write Markdown on the left and see a live preview on the right with the Markdown Preview tool. Supports all standard Markdown syntax and GitHub Flavored Markdown features. Free, runs entirely in your browser.',
+        extraKeywords: [
+            'markdown preview',
+            'markdown renderer',
+            'live markdown preview',
+            'markdown editor with preview',
+            'markdown to html preview',
+            'github markdown preview',
+            'markdown live preview online',
+            'markdown preview tool',
+            'markdown previewer online',
+            'markdown previewer',
+            'markdown preview online',
+            'markdown previewer free',
+            'markdown previewer tool',
+            'markdown previewer online free',
+            'markdown previewer online tool',
+            'markdown previewer online free tool',
+            'markdown previewer online free tool with live preview',
+        ],
+    },
+}

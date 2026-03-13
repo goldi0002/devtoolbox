@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { WEB_INFO } from '../utils/web-info'
+import { WEB_INFO } from '../utils/webinfo'
 
 interface SEOProps {
   title?: string
