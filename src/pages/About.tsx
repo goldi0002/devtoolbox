@@ -147,9 +147,9 @@ export default function About() {
                 GitHub
               </a>
 
-              <a
+              <a style={{ pointerEvents: 'none', opacity: 0.5 }}
                 href={WEB_DEVELOPER_INFO.EMAIL}
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors" aria-disabled="true"
               >
                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <rect x="2" y="4" width="20" height="16" rx="2" />

@@ -36,7 +36,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [showShortcutHint, setShowShortcutHint] = useState(false)
-  
+
   useEffect(() => { setMounted(true) }, [])
   // Close mobile menu on route change
   useEffect(() => { setOpen(false) }, [pathname])
@@ -152,14 +152,6 @@ export default function Navbar() {
                 )}
               </Link>
             ))}
-
-            {/* Mobile theme toggle row */}
-            <div className="border-t border-border mt-2 pt-3 flex items-center justify-between px-3">
-              <span className="text-[10px] font-mono text-muted uppercase tracking-wider">Theme</span>
-              <div className="flex items-center gap-2">
-                <ThemePicker />
-              </div>
-            </div>
           </div>
         )}
       </nav>
