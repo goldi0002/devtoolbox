@@ -43,8 +43,18 @@ export default function Navbar() {
 
   // Global keyboard shortcut: press "?" to open shortcut hint, "/" to jump to tools search
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    const tag = (e.target as HTMLElement).tagName
-    if (tag === 'INPUT' || tag === 'TEXTAREA') return
+    const target = e.target as HTMLElement
+    const tag = target.tagName
+
+    // also check for contenteditable (CodeMirror)
+    const isEditable =
+      tag === 'INPUT' ||
+      tag === 'TEXTAREA' ||
+      target.isContentEditable ||           // ← covers CodeMirror & any other rich editor
+      target.closest('[contenteditable]')   // ← covers clicks inside nested elements
+
+    if (isEditable) return
+
     if (e.key === '?') {
       e.preventDefault()
       setShowShortcutHint(h => !h)
