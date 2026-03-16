@@ -2,15 +2,37 @@ import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
 import { tools } from '../../../tools/registry'
-
-const SAMPLE = `{"name":"DevToolbox","version":"1.0","tools":["JSON","UUID","Base64","Diff"],"config":{"theme":"dark","lang":"en"}}`
+import { useHashData } from '../../../hooks/useHashData'
+import { JsonDataShare } from '../../../types/share'
+const SAMPLE = `{"name":"ToolBox4Devs","version":"1.0","tools":["JSON Formatter","JSON-Model","UUID Generator"],"config":{"theme":"dark","lang":"en"}}`
 
 export default function JsonFormatter() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [error, setError] = useState('')
   const [mode, setMode] = useState<'format' | 'minify'>('format')
-
+  useHashData<JsonDataShare>((value) => {
+    if (!value.input) {
+      setError('No input data found')
+      return;
+    }
+    if (typeof value.input !== 'string') {
+      setError('Invalid input data')
+      return;
+    }
+    setInput(value.input as string)
+    try {
+      const parsed = JSON.parse(value.input as string)
+      setOutput(
+        value.meta?.mode === 'minify'
+          ? JSON.stringify(parsed)
+          : JSON.stringify(parsed, null, 2)
+      )
+      setMode(value.meta?.mode as 'format' | 'minify' ?? 'format')
+    } catch (e) {
+      setError((e as Error).message)
+    }
+  })
   const process = (m: 'format' | 'minify') => {
     setMode(m)
     setError('')
@@ -34,6 +56,22 @@ export default function JsonFormatter() {
     setError('')
   }
   const meta = tools.find(t => t.slug === 'json-formatter');
+  const getShareData = (): JsonDataShare => ({
+    input,
+    output,
+    tool: {
+      name: meta?.name || 'JSON Formatter',
+      description: meta?.description || 'Format or minify JSON data with ease.',
+      category: meta?.category || 'utility',
+      slug: meta?.slug || 'json-formatter',
+      url: window.location.origin + window.location.pathname,  // ← no hash
+    },
+    meta: {
+      mode,
+      createdAt: Date.now(),
+    },
+  })
+
   return (
     <ToolLayout
       title={meta?.name || 'JSON Formatter'}
@@ -75,6 +113,10 @@ export default function JsonFormatter() {
             code={output}
             language="json"
             label={mode === 'format' ? 'formatted.json' : 'minified.json'}
+            status="ready"
+            minHeight='300px'
+            maxHeight='300px'
+            shareTool={getShareData()}
           />
         )}
       </div>

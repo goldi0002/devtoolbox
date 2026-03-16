@@ -35,7 +35,7 @@ export default function ToolPage() {
   ].slice(0, 6)
 
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
       <SEO title={meta.name} description={meta.description} slug={meta.slug} />
 
       {/* ── Breadcrumb ───────────────────────────────────────────────────── */}

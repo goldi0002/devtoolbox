@@ -83,13 +83,23 @@ export default function HtmlFormatter() {
 
         <div>
           <label className="block text-xs text-dim font-mono mb-1.5">HTML Input</label>
-          <textarea
+          <CodeBlock
+            code={input}
+            language="html"
+            label='input.html'
+            maxHeight='300px'
+            minHeight='300px'
+            isForInput={true}
+            readOnly={false}
+            onChange={value => setInput(value)}
+          />
+          {/* <textarea
             value={input}
             onChange={e => setInput(e.target.value)}
             className="textarea-base h-36"
             placeholder={SAMPLE}
             spellCheck={false}
-          />
+          /> */}
         </div>
 
         {error && (
@@ -103,6 +113,8 @@ export default function HtmlFormatter() {
             code={output}
             language="html"
             label={mode === 'format' ? 'formatted.html' : 'minified.html'}
+            maxHeight='300px'
+            minHeight='300px'
           />
         )}
       </div>

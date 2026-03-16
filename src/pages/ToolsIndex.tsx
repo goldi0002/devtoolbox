@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { tools, categoryLabels, type ToolMeta } from '../tools/registry'
+import type { ToolMeta } from '../tools/tool-meta'
+import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 
@@ -211,7 +212,7 @@ export default function ToolsIndex() {
 function ToolGridCard({ tool, index }: { tool: ToolMeta; index: number }) {
   const delays = ['stagger-1', 'stagger-2', 'stagger-3', 'stagger-4', 'stagger-5', 'stagger-6']
   const delay = delays[index % delays.length]
-  if (tool.commingSoon) {
+  if (tool.status === 'coming-soon') {
     return (
       <div
         className={`card flex flex-col gap-3 opacity-50 cursor-not-allowed animate-slide-up ${delay}`}

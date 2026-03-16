@@ -65,7 +65,7 @@ export default function JsonModelGenerator() {
         </div>
 
         <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">
+          <label className="block text-xs text-dim font-mono mb-1.5 flex">
             JSON Input
             <button
               onClick={() => setInput(SAMPLE_JSON)}
@@ -91,8 +91,8 @@ export default function JsonModelGenerator() {
 
         {csharp && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <CodeBlock code={csharp} language="C#" label="Model.cs" />
-            <CodeBlock code={typescript} language="TypeScript" label="model.ts" />
+            <CodeBlock code={csharp} language="C#" label="Model.cs" maxHeight='300px' minHeight='300px' />
+            <CodeBlock code={typescript} language="TypeScript" label="model.ts" maxHeight='300px' minHeight='300px' />
           </div>
         )}
       </div>
