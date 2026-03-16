@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { baseExtensions, baseSetup } from '../../../lib/editor-theme'
+import CodeBlock from '../../CodeBlock'
 import CodeMirror from '@uiw/react-codemirror'
 import ClientOnly from '../../ClientOnly'
 import ToolLayout from '../../ToolLayout'
@@ -88,14 +89,16 @@ export default function WordCounter() {
               </span>
             )}
           </label>
-          <ClientOnly key={text} children={
-            <CodeMirror
-              value={text}
-              onChange={setText}
-              extensions={baseExtensions}
-              basicSetup={{ ...baseSetup, syntaxHighlighting: false }}
-              theme="none"
-            />}
+          <CodeBlock
+            code={text}
+            language="text"
+            onChange={setText}
+            label='plain text'
+            readOnly={false}
+            showLineNumbers={true}
+             minHeight="300px"
+             maxHeight="300px"
+            isForInput={true}
           />
         </div>
 

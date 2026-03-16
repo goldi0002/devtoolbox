@@ -114,3 +114,19 @@
     --color-light:   #cfcfc2;
     --color-bright:  #f8f8f2;
   }
+
+  /* globals.css */
+.cm-scroller::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.cm-scroller::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+.cm-scroller::-webkit-scrollbar-thumb {
+  background: #4e4e4e;
+  border-radius: 4px;
+}
+.cm-scroller::-webkit-scrollbar-thumb:hover {
+  background: #6e6e6e;
+}
