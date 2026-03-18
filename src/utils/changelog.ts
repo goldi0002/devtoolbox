@@ -17,6 +17,12 @@ export type StyledChangeLogEntry = ChangeLogEntry & {
 const CHANGELOG: ChangeLogEntry[] = [
     {
         type: 'new',
+        title: 'Slug Generator + Lorem Ipsum Generator',
+        description: 'Added two more fully client-side tools for generating clean slugs and placeholder copy directly in the browser.',
+        date: '2026-03-18',
+    },
+    {
+        type: 'new',
         title: 'Markdown Preview',
         description: 'Launched a live Markdown previewer that renders headings, lists, tables, blockquotes, and generated HTML fully client-side.',
         date: '2026-03-18',
