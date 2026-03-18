@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'  //  keep original vite import
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import sitemap from 'vite-plugin-sitemap'
 import { getAllAvailableTools, getToolCategories } from './src/tools/registry-node'
@@ -9,28 +9,33 @@ const dynamicRoutes = [
   '/about',
   '/changelog',
   '/privacy',
-  ...getToolCategories().map(c => `/tools/${c.category}`),
-  ...getAllAvailableTools().map(t => `/${t.slug}`),
+  ...getToolCategories().map((category) => `/tools/${category.category}`),
+  ...getAllAvailableTools().map((tool) => `/${tool.slug}`),
 ]
 
-export default defineConfig({
-  define: {
-    'process.env.VITE_ENVIRONMENT': '"development"',
-  },
-  plugins: [
-    react(),
-    sitemap({
-      hostname: 'https://toolbox4devs.com',
-      dynamicRoutes,
-      generateRobotsTxt: true,
-    })
-  ],
-  ssgOptions: {
-    includedRoutes() {
-      return dynamicRoutes
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  const environment = env.VITE_ENVIRONMENT ?? mode
+
+  return {
+    define: {
+      'process.env.VITE_ENVIRONMENT': JSON.stringify(environment),
     },
-  },
-  build: {
-    chunkSizeWarningLimit: 400
+    plugins: [
+      react(),
+      sitemap({
+        hostname: env.VITE_BASE_URL || 'https://toolbox4devs.com',
+        dynamicRoutes,
+        generateRobotsTxt: true,
+      }),
+    ],
+    ssgOptions: {
+      includedRoutes() {
+        return dynamicRoutes
+      },
+    },
+    build: {
+      chunkSizeWarningLimit: 400,
+    },
   }
-} as any) 
+})
