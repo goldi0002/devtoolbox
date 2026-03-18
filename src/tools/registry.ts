@@ -10,11 +10,13 @@ import { HTML_FORMATTER_META } from "./meta/html-formatter"
 import { PASSWORD_GENERATOR_META } from "./meta/password-generator"
 import { REGEX_META } from "./meta/regex"
 import { CASE_CONVERTER_META } from "./meta/case-converter"
+import { SLUG_GENERATOR_META } from "./meta/slug-generator"
 import { MARKDOWN_PREVIEW_META } from "./meta/markdown-preview"
 import { SHA_256_META } from "./meta/sha-256"
 import { WORD_COUNTER_META } from "./meta/word-counter"
 import { TIMESTAMP_CONVERTER_META } from "./meta/timestamp-converter"
 import { QUERY_STRING_PARSER_META } from "./meta/query-string-parser"
+import { LOREM_IPSUM_GENERATOR_META } from "./meta/lorem-ipsum-generator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -26,8 +28,10 @@ export const tools: ToolMeta[] = [
   JWT_DECODER_META,
   HTML_FORMATTER_META,
   PASSWORD_GENERATOR_META,
+  LOREM_IPSUM_GENERATOR_META,
   REGEX_META,
   CASE_CONVERTER_META,
+  SLUG_GENERATOR_META,
   MARKDOWN_PREVIEW_META,
   SHA_256_META,
   WORD_COUNTER_META,
