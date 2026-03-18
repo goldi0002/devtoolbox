@@ -11,6 +11,8 @@ A premium, minimalist collection of browser-based developer utilities. No backen
 | UUID Generator | Generate single or batch RFC 4122 v4 UUIDs |
 | Base64 Encoder / Decoder | Encode/decode Base64 in the browser |
 | Text Diff Checker | Compare two text inputs and highlight differences |
+| Case Converter | Convert text between camelCase, snake_case, kebab-case, uppercase, and more |
+| Timestamp Converter | Convert Unix timestamps, ISO strings, and readable dates |
 
 ## Tech Stack
 

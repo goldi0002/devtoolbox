@@ -12,9 +12,11 @@ const toolMeta = [
     { slug: 'html-formatter',      category: 'web-tools'      },
     { slug: 'password-generator',  category: 'generate-tools' },
     { slug: 'regex',               category: 'text-tools'     },
+    { slug: 'case-converter',      category: 'text-tools'     },
     { slug: 'markdown-preview',    category: 'text-tools'     },
     { slug: 'sha-256',             category: 'crypto-tools'   },
     { slug: 'word-counter',        category: 'analyze-tools'  },
+    { slug: 'timestamp-converter', category: 'data-tools'     },
   ] as const
   
   export function getAllAvailableTools() {
