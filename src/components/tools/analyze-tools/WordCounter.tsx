@@ -11,6 +11,8 @@ Pack my box with five dozen liquor jugs.
 How valiantly did brave Hercules fight the mighty Nemean lion.
 Every developer has a dozen tabs open for tools they use daily.`
 
+const numberFormatter = new Intl.NumberFormat('en-US')
+
 // ── Analysis ──────────────────────────────────────────────────────────────
 function analyze(text: string) {
   const trimmed = text.trim()
@@ -43,7 +45,7 @@ function Stat({ label, value, sub }: { label: string; value: string | number; su
   return (
     <div className="border border-border p-3 flex flex-col gap-1">
       <div className="font-display text-2xl text-bright leading-none tabular-nums">
-        {typeof value === 'number' ? value.toLocaleString() : value}
+        {typeof value === 'number' ? numberFormatter.format(value) : value}
       </div>
       <div className="text-[10px] font-mono text-subtle uppercase tracking-wider">{label}</div>
       {sub && <div className="text-[10px] font-mono text-muted">{sub}</div>}

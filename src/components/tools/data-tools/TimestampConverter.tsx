@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+
+const DEFAULT_INPUT = '1710460800'
 
 type ParseResult = {
   date: Date | null
@@ -41,8 +43,14 @@ function formatDateParts(date: Date) {
 }
 
 export default function TimestampConverter() {
-  const [input, setInput] = useState('1710460800')
+  const [input, setInput] = useState('')
   const [nowTick, setNowTick] = useState(0)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    setInput(DEFAULT_INPUT)
+  }, [])
 
   const parsed = useMemo(() => parseInput(input), [input])
   const output = useMemo(() => parsed.date ? formatDateParts(parsed.date) : null, [parsed])
@@ -82,6 +90,10 @@ export default function TimestampConverter() {
         {parsed.error ? (
           <div className="border border-border rounded px-4 py-3 text-xs font-mono text-subtle">
             ⚠ {parsed.error}
+          </div>
+        ) : !mounted ? (
+          <div className="border border-border rounded px-4 py-8 text-xs font-mono text-subtle">
+            Loading timestamp preview…
           </div>
         ) : output ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
