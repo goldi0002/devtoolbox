@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, lazy } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
-const ThemePicker = lazy(() => import('./ui/Themepicker'))
+import ThemePicker from './ui/Themepicker'
 
 // ── Nav config ─────────────────────────────────────────────────────────────
 const navLinks = [
