@@ -14,6 +14,7 @@ import { MARKDOWN_PREVIEW_META } from "./meta/markdown-preview"
 import { SHA_256_META } from "./meta/sha-256"
 import { WORD_COUNTER_META } from "./meta/word-counter"
 import { TIMESTAMP_CONVERTER_META } from "./meta/timestamp-converter"
+import { QUERY_STRING_PARSER_META } from "./meta/query-string-parser"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -30,7 +31,8 @@ export const tools: ToolMeta[] = [
   MARKDOWN_PREVIEW_META,
   SHA_256_META,
   WORD_COUNTER_META,
-  TIMESTAMP_CONVERTER_META
+  TIMESTAMP_CONVERTER_META,
+  QUERY_STRING_PARSER_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
