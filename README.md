@@ -13,6 +13,7 @@ A premium, minimalist collection of browser-based developer utilities. No backen
 | Text Diff Checker | Compare two text inputs and highlight differences |
 | Case Converter | Convert text between camelCase, snake_case, kebab-case, uppercase, and more |
 | Timestamp Converter | Convert Unix timestamps, ISO strings, and readable dates |
+| Query String Parser | Parse full URLs or raw query strings into decoded JSON and key/value pairs |
 
 ## Tech Stack
 
