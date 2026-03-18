@@ -117,3 +117,105 @@ body::before {
 .cm-editor .cm-scroller {
   overflow-x: hidden !important;
 }
+
+.markdown-preview {
+  color: var(--color-bright);
+  line-height: 1.7;
+}
+
+.markdown-preview > * + * {
+  margin-top: 1rem;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  color: var(--color-bright);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.markdown-preview h1 { font-size: 1.875rem; }
+.markdown-preview h2 { font-size: 1.5rem; }
+.markdown-preview h3 { font-size: 1.25rem; }
+
+.markdown-preview p,
+.markdown-preview li,
+.markdown-preview blockquote {
+  color: var(--color-dim);
+  font-size: 0.95rem;
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  padding-left: 1.25rem;
+}
+
+.markdown-preview ul {
+  list-style: disc;
+}
+
+.markdown-preview ol {
+  list-style: decimal;
+}
+
+.markdown-preview a {
+  color: var(--color-bright);
+  text-decoration: underline;
+}
+
+.markdown-preview code {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 0.85em;
+  padding: 0.125rem 0.35rem;
+}
+
+.markdown-preview pre {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.markdown-preview pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.markdown-preview blockquote {
+  border-left: 3px solid var(--color-border);
+  padding-left: 1rem;
+}
+
+.markdown-preview hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.markdown-preview table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+  border: 1px solid var(--color-border);
+  padding: 0.65rem 0.8rem;
+  text-align: left;
+}
+
+.markdown-preview th {
+  color: var(--color-bright);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

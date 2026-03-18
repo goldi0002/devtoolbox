@@ -8,15 +8,18 @@ const toolMeta = [
     { slug: 'url-encoder',         category: 'encode-tools'   },
     { slug: 'text-diff',           category: 'text-tools'     },
     { slug: 'uuid',                category: 'generate-tools' },
-    { slug: 'jwt-decoder',         category: 'auth-tools'     },
+    { slug: 'jwt',                 category: 'auth-tools'     },
     { slug: 'html-formatter',      category: 'web-tools'      },
     { slug: 'password-generator',  category: 'generate-tools' },
+    { slug: 'lorem-ipsum-generator', category: 'generate-tools' },
     { slug: 'regex',               category: 'text-tools'     },
     { slug: 'case-converter',      category: 'text-tools'     },
-    { slug: 'markdown-preview',    category: 'text-tools'     },
-    { slug: 'sha-256',             category: 'crypto-tools'   },
+    { slug: 'slug-generator',      category: 'text-tools'     },
+    { slug: 'markdown-preview',    category: 'web-tools'      },
+    { slug: 'sha256',              category: 'crypto-tools'   },
     { slug: 'word-counter',        category: 'analyze-tools'  },
     { slug: 'timestamp-converter', category: 'data-tools'     },
+    { slug: 'query-string-parser',  category: 'web-tools'      },
   ] as const
   
   export function getAllAvailableTools() {
