@@ -6,6 +6,7 @@ const toolMeta = [
     { slug: 'json-model',          category: 'json-tools'     },
     { slug: 'base64',              category: 'encode-tools'   },
     { slug: 'url-encoder',         category: 'encode-tools'   },
+    { slug: 'html-entity',         category: 'encode-tools'   },
     { slug: 'text-diff',           category: 'text-tools'     },
     { slug: 'uuid',                category: 'generate-tools' },
     { slug: 'jwt',                 category: 'auth-tools'     },
@@ -22,6 +23,7 @@ const toolMeta = [
     { slug: 'query-string-parser',  category: 'web-tools'      },
     { slug: 'color-converter',     category: 'web-tools'      },
     { slug: 'http-status-lookup',  category: 'web-tools'      },
+    { slug: 'mime-type-lookup',    category: 'web-tools'      },
   ] as const
   
   export function getAllAvailableTools() {

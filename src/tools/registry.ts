@@ -3,6 +3,7 @@ import { JSON_FORMATTER_META } from "./meta/json-formatter"
 import { JSON_MODEL_META } from "./meta/json-model"
 import { BASE_64_META } from "./meta/base-64"
 import { URL_ENCODER_META } from "./meta/url-encoder"
+import { HTML_ENTITY_META } from "./meta/html-entity"
 import { TEXT_DIFF_META } from "./meta/text-diff"
 import { UUID_META } from "./meta/uuid"
 import { JWT_DECODER_META } from "./meta/jwt-decoder"
@@ -19,12 +20,14 @@ import { QUERY_STRING_PARSER_META } from "./meta/query-string-parser"
 import { LOREM_IPSUM_GENERATOR_META } from "./meta/lorem-ipsum-generator"
 import { COLOR_CONVERTER_META } from "./meta/color-converter"
 import { HTTP_STATUS_LOOKUP_META } from "./meta/http-status-lookup"
+import { MIME_TYPE_LOOKUP_META } from "./meta/mime-type-lookup"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
   JSON_MODEL_META,
   BASE_64_META,
   URL_ENCODER_META,
+  HTML_ENTITY_META,
   TEXT_DIFF_META,
   UUID_META,
   JWT_DECODER_META,
@@ -40,7 +43,8 @@ export const tools: ToolMeta[] = [
   TIMESTAMP_CONVERTER_META,
   QUERY_STRING_PARSER_META,
   COLOR_CONVERTER_META,
-  HTTP_STATUS_LOOKUP_META
+  HTTP_STATUS_LOOKUP_META,
+  MIME_TYPE_LOOKUP_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
