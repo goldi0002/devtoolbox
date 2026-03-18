@@ -17,6 +17,12 @@ export type StyledChangeLogEntry = ChangeLogEntry & {
 const CHANGELOG: ChangeLogEntry[] = [
     {
         type: 'new',
+        title: 'HTML Entity Encoder + MIME Type Lookup',
+        description: 'Added two more browser-based tools for escaping HTML safely and checking common content types during web debugging.',
+        date: '2026-03-18',
+    },
+    {
+        type: 'new',
         title: 'Slug Generator + Lorem Ipsum Generator',
         description: 'Added two more fully client-side tools for generating clean slugs and placeholder copy directly in the browser.',
         date: '2026-03-18',
