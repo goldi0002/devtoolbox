@@ -12,9 +12,11 @@ A premium, minimalist collection of browser-based developer utilities. No backen
 | Base64 Encoder / Decoder | Encode/decode Base64 in the browser |
 | Text Diff Checker | Compare two text inputs and highlight differences |
 | Case Converter | Convert text between camelCase, snake_case, kebab-case, uppercase, and more |
+| Slug Generator | Convert titles and labels into kebab-case or snake_case slugs |
 | Timestamp Converter | Convert Unix timestamps, ISO strings, and readable dates |
 | Query String Parser | Parse full URLs or raw query strings into decoded JSON and key/value pairs |
 | Markdown Preview | Render Markdown into a live HTML preview entirely in the browser |
+| Lorem Ipsum Generator | Generate placeholder copy for wireframes, mockups, and content tests |
 
 ## Tech Stack
 
