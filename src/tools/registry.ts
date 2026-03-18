@@ -17,6 +17,8 @@ import { WORD_COUNTER_META } from "./meta/word-counter"
 import { TIMESTAMP_CONVERTER_META } from "./meta/timestamp-converter"
 import { QUERY_STRING_PARSER_META } from "./meta/query-string-parser"
 import { LOREM_IPSUM_GENERATOR_META } from "./meta/lorem-ipsum-generator"
+import { COLOR_CONVERTER_META } from "./meta/color-converter"
+import { HTTP_STATUS_LOOKUP_META } from "./meta/http-status-lookup"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -36,7 +38,9 @@ export const tools: ToolMeta[] = [
   SHA_256_META,
   WORD_COUNTER_META,
   TIMESTAMP_CONVERTER_META,
-  QUERY_STRING_PARSER_META
+  QUERY_STRING_PARSER_META,
+  COLOR_CONVERTER_META,
+  HTTP_STATUS_LOOKUP_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
