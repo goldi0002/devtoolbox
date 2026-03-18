@@ -17,6 +17,7 @@ const toolMeta = [
     { slug: 'sha-256',             category: 'crypto-tools'   },
     { slug: 'word-counter',        category: 'analyze-tools'  },
     { slug: 'timestamp-converter', category: 'data-tools'     },
+    { slug: 'query-string-parser',  category: 'web-tools'      },
   ] as const
   
   export function getAllAvailableTools() {
