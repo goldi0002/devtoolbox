@@ -17,6 +17,12 @@ export type StyledChangeLogEntry = ChangeLogEntry & {
 const CHANGELOG: ChangeLogEntry[] = [
     {
         type: 'new',
+        title: 'Case Converter + Timestamp Converter',
+        description: 'Added two new fully client-side utilities for converting text casing and translating Unix timestamps into readable dates.',
+        date: '2026-03-18',
+    },
+    {
+        type: 'new',
         title: 'Privacy Page',
         description: "Added a dedicated privacy page clearly explaining what data is — and isn't — collected.",
         date: '2026-03-12',

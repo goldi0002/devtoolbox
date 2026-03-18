@@ -9,9 +9,11 @@ import { JWT_DECODER_META } from "./meta/jwt-decoder"
 import { HTML_FORMATTER_META } from "./meta/html-formatter"
 import { PASSWORD_GENERATOR_META } from "./meta/password-generator"
 import { REGEX_META } from "./meta/regex"
+import { CASE_CONVERTER_META } from "./meta/case-converter"
 import { MARKDOWN_PREVIEW_META } from "./meta/markdown-preview"
 import { SHA_256_META } from "./meta/sha-256"
 import { WORD_COUNTER_META } from "./meta/word-counter"
+import { TIMESTAMP_CONVERTER_META } from "./meta/timestamp-converter"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -24,9 +26,11 @@ export const tools: ToolMeta[] = [
   HTML_FORMATTER_META,
   PASSWORD_GENERATOR_META,
   REGEX_META,
+  CASE_CONVERTER_META,
   MARKDOWN_PREVIEW_META,
   SHA_256_META,
-  WORD_COUNTER_META
+  WORD_COUNTER_META,
+  TIMESTAMP_CONVERTER_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
