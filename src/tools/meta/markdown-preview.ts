@@ -7,7 +7,7 @@ export const MARKDOWN_PREVIEW_META: ToolMeta = {
     category: 'web-tools',
     tag: 'web',
     keywords: ['markdown', 'preview', 'render', 'format', 'md'],
-    eta: 'Q4 2024',
+    toolComponent: lazy(() => import('../../components/tools/web-tools/MarkdownPreview')),
     about: {
         summary:
             'Markdown Preview renders your Markdown text into formatted HTML in real time. As you write Markdown syntax on the left, you see a live preview of how it will look when rendered — perfect for writing README files, documentation, or any Markdown content.',
@@ -30,7 +30,7 @@ export const MARKDOWN_PREVIEW_META: ToolMeta = {
     complexity: 'simple',
     featured: false,
     isNew: true,
-    status: 'coming-soon',
+    status: 'stable',
     seo: {
         title: 'Markdown Preview — Write Markdown and see live preview online',
         description: 'Write Markdown on the left and see a live preview on the right with the Markdown Preview tool. Supports all standard Markdown syntax and GitHub Flavored Markdown features. Free, runs entirely in your browser.',
