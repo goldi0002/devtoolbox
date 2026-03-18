@@ -14,6 +14,7 @@ A premium, minimalist collection of browser-based developer utilities. No backen
 | Case Converter | Convert text between camelCase, snake_case, kebab-case, uppercase, and more |
 | Timestamp Converter | Convert Unix timestamps, ISO strings, and readable dates |
 | Query String Parser | Parse full URLs or raw query strings into decoded JSON and key/value pairs |
+| Markdown Preview | Render Markdown into a live HTML preview entirely in the browser |
 
 ## Tech Stack
 
