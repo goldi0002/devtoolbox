@@ -20,6 +20,8 @@ const toolMeta = [
     { slug: 'word-counter',        category: 'analyze-tools'  },
     { slug: 'timestamp-converter', category: 'data-tools'     },
     { slug: 'query-string-parser',  category: 'web-tools'      },
+    { slug: 'color-converter',     category: 'web-tools'      },
+    { slug: 'http-status-lookup',  category: 'web-tools'      },
   ] as const
   
   export function getAllAvailableTools() {
