@@ -1,5 +1,5 @@
-import { Suspense, lazy } from 'react'
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom'
+import { Suspense, lazy, useMemo } from 'react'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
@@ -10,9 +10,11 @@ const ToolComingSoon = lazy(() => import('../components/ui/tools/ToolComingSoon'
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function ToolPage() {
-  const { pathname } = useLocation();
-  // const { slug = '' } = useParams()
-  const slug = pathname.split('/').pop() ?? ''
+  const { pathname } = useLocation()
+  const slug = useMemo(() => {
+    const segments = pathname.split('/').filter(Boolean)
+    return segments.at(-1) ?? ''
+  }, [pathname])
   const meta = tools.find(t => t.slug === slug)
   usePageTitle(meta?.name)
   if (!meta) return <Navigate to="/tools" replace />
