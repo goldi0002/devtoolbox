@@ -27,6 +27,9 @@ const toolMeta = [
     { slug: 'user-agent-parser',   category: 'web-tools'      },
     { slug: 'ascii-table',         category: 'data-tools'     },
     { slug: 'hash-comparator',     category: 'encode-tools'   },
+    { slug: 'http-header-parser',  category: 'web-tools'      },
+    { slug: 'basic-auth-header',   category: 'auth-tools'     },
+    { slug: 'unix-permissions-calculator', category: 'data-tools' },
   ] as const
   
   export function getAllAvailableTools() {

@@ -24,6 +24,9 @@ import { MIME_TYPE_LOOKUP_META } from "./meta/mime-type-lookup"
 import { USER_AGENT_PARSER_META } from "./meta/user-agent-parser"
 import { ASCII_TABLE_META } from "./meta/ascii-table"
 import { HASH_COMPARATOR_META } from "./meta/hash-comparator"
+import { HTTP_HEADER_PARSER_META } from "./meta/http-header-parser"
+import { BASIC_AUTH_HEADER_META } from "./meta/basic-auth-header"
+import { UNIX_PERMISSIONS_CALCULATOR_META } from "./meta/unix-permissions-calculator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -50,7 +53,10 @@ export const tools: ToolMeta[] = [
   MIME_TYPE_LOOKUP_META,
   USER_AGENT_PARSER_META,
   ASCII_TABLE_META,
-  HASH_COMPARATOR_META
+  HASH_COMPARATOR_META,
+  HTTP_HEADER_PARSER_META,
+  BASIC_AUTH_HEADER_META,
+  UNIX_PERMISSIONS_CALCULATOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
