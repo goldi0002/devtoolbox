@@ -21,6 +21,9 @@ import { LOREM_IPSUM_GENERATOR_META } from "./meta/lorem-ipsum-generator"
 import { COLOR_CONVERTER_META } from "./meta/color-converter"
 import { HTTP_STATUS_LOOKUP_META } from "./meta/http-status-lookup"
 import { MIME_TYPE_LOOKUP_META } from "./meta/mime-type-lookup"
+import { USER_AGENT_PARSER_META } from "./meta/user-agent-parser"
+import { ASCII_TABLE_META } from "./meta/ascii-table"
+import { HASH_COMPARATOR_META } from "./meta/hash-comparator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -44,7 +47,10 @@ export const tools: ToolMeta[] = [
   QUERY_STRING_PARSER_META,
   COLOR_CONVERTER_META,
   HTTP_STATUS_LOOKUP_META,
-  MIME_TYPE_LOOKUP_META
+  MIME_TYPE_LOOKUP_META,
+  USER_AGENT_PARSER_META,
+  ASCII_TABLE_META,
+  HASH_COMPARATOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

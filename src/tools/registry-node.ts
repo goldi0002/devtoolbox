@@ -24,6 +24,9 @@ const toolMeta = [
     { slug: 'color-converter',     category: 'web-tools'      },
     { slug: 'http-status-lookup',  category: 'web-tools'      },
     { slug: 'mime-type-lookup',    category: 'web-tools'      },
+    { slug: 'user-agent-parser',   category: 'web-tools'      },
+    { slug: 'ascii-table',         category: 'data-tools'     },
+    { slug: 'hash-comparator',     category: 'encode-tools'   },
   ] as const
   
   export function getAllAvailableTools() {
