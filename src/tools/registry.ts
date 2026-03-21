@@ -27,6 +27,7 @@ import { HASH_COMPARATOR_META } from "./meta/hash-comparator"
 import { HTTP_HEADER_PARSER_META } from "./meta/http-header-parser"
 import { BASIC_AUTH_HEADER_META } from "./meta/basic-auth-header"
 import { UNIX_PERMISSIONS_CALCULATOR_META } from "./meta/unix-permissions-calculator"
+import { LOCAL_AI_TEXT_ASSISTANT_META } from "./meta/local-ai-text-assistant"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -56,7 +57,8 @@ export const tools: ToolMeta[] = [
   HASH_COMPARATOR_META,
   HTTP_HEADER_PARSER_META,
   BASIC_AUTH_HEADER_META,
-  UNIX_PERMISSIONS_CALCULATOR_META
+  UNIX_PERMISSIONS_CALCULATOR_META,
+  LOCAL_AI_TEXT_ASSISTANT_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

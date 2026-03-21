@@ -30,6 +30,7 @@ const toolMeta = [
     { slug: 'http-header-parser',  category: 'web-tools'      },
     { slug: 'basic-auth-header',   category: 'auth-tools'     },
     { slug: 'unix-permissions-calculator', category: 'data-tools' },
+    { slug: 'local-ai-text-assistant', category: 'analyze-tools' },
   ] as const
   
   export function getAllAvailableTools() {
