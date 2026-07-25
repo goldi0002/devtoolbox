@@ -4,7 +4,7 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
 
 ## Current task
 
-- [x] Create the initial roadmap and task backlog from a codebase architecture review.
+- [x] Add explicit `typecheck` and `test` npm scripts and document the verification workflow.
 
 ## Pending backlog
 
@@ -12,7 +12,7 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
 2. [ ] Audit browser-only APIs for SSG safety and guard any unsafe access.
 3. [ ] Harden share-link parsing with payload size limits and robust decode errors.
 4. [ ] Validate security-sensitive tools with tests and clear local-only user guidance.
-5. [ ] Add explicit `typecheck` and `test` npm scripts and document the verification workflow.
+5. [x] Add explicit `typecheck` and `test` npm scripts and document the verification workflow.
 6. [ ] Centralize duplicated CodeMirror language extension mapping used by `CodeBlock` and `CodeInput`.
 7. [ ] Normalize naming and typos such as `isCommingSoon` while preserving compatibility where needed.
 8. [ ] Update the README project structure and architecture notes to match the current codebase.
@@ -31,3 +31,4 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
 ## Completed
 
 - [x] Initial architecture review and backlog documentation created.
+- [x] Added explicit `typecheck` and `test` scripts plus architecture and verification documentation.

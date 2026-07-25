@@ -1,33 +1,31 @@
-# DevToolbox
+# Toolbox4Devs
 
-A premium, minimalist collection of browser-based developer utilities. No backend, no tracking, no ads.
+A fast, minimalist, privacy-first collection of browser-based developer utilities. No backend, no ads, and all tool processing is designed to happen locally in the browser.
 
 ## Tools
 
-| Tool | Description |
-|------|-------------|
-| JSON → Model Generator | Convert JSON to C# classes or TypeScript interfaces |
-| JSON Formatter | Format or minify JSON with validation |
-| UUID Generator | Generate single or batch RFC 4122 v4 UUIDs |
-| Base64 Encoder / Decoder | Encode/decode Base64 in the browser |
-| Text Diff Checker | Compare two text inputs and highlight differences |
-| Case Converter | Convert text between camelCase, snake_case, kebab-case, uppercase, and more |
-| Slug Generator | Convert titles and labels into kebab-case or snake_case slugs |
-| Timestamp Converter | Convert Unix timestamps, ISO strings, and readable dates |
-| Query String Parser | Parse full URLs or raw query strings into decoded JSON and key/value pairs |
-| Color Converter | Convert HEX, RGB, and HSL values with a live preview |
-| HTTP Status Lookup | Search common HTTP response codes and meanings |
-| Markdown Preview | Render Markdown into a live HTML preview entirely in the browser |
-| Lorem Ipsum Generator | Generate placeholder copy for wireframes, mockups, and content tests |
+Tool metadata is maintained in `src/tools/meta/` and surfaced through the registry. Current categories include:
+
+| Category | Examples |
+|---|---|
+| JSON | JSON Formatter, JSON → Model Generator |
+| Encode / Decode | Base64, URL Encoder / Decoder, HTML Entity Tool |
+| Text | Text Diff, Case Converter, Slug Generator, Regex Tester |
+| Generators | UUID Generator, Password Generator, Lorem Ipsum Generator |
+| Authentication | JWT Decoder, Basic Auth Header |
+| Web | HTML Formatter, Markdown Preview, HTTP Status Lookup, MIME Type Lookup, User Agent Parser, Query String Parser, HTTP Header Parser, Color Converter |
+| Data | Timestamp Converter, ASCII Table, Unix Permissions Calculator |
+| Crypto | SHA-256, Hash Comparator |
+| Analyze | Word Counter, Local AI Text Assistant |
 
 ## Tech Stack
 
 - **React 18** + **TypeScript**
-- **Vite** — fast bundler & dev server
-- **TailwindCSS** — utility-first styling
-- **React Router v6** — client-side routing
-- **diff** — text comparison
-- **uuid** — UUID v4 generation
+- **Vite** + **vite-react-ssg** for static generation
+- **React Router v6** for route records consumed by SSG
+- **Tailwind CSS** plus global theme variables
+- **CodeMirror** for code editors and previews
+- **vite-plugin-sitemap** for sitemap and robots output
 
 ## Getting Started
 
@@ -38,6 +36,15 @@ npm install
 # Start dev server
 npm run dev
 
+# Lint source files
+npm run lint
+
+# Run TypeScript without emitting files
+npm run typecheck
+
+# Run the current smoke test command
+npm test
+
 # Build for production
 npm run build
 
@@ -45,51 +52,45 @@ npm run build
 npm run preview
 ```
 
+> `npm test` currently aliases the type checker until a dedicated regression test framework is added.
+
+## Architecture
+
+- `src/main.tsx` creates the `ViteReactSSG` root and installs a client-only preload-error recovery handler.
+- `src/routes.tsx` defines static routes for informational pages, tool categories, and every available tool slug.
+- `src/App.tsx` provides the shared layout, navigation, route scroll reset, and suspense boundary.
+- `src/pages/` contains top-level pages and `ToolPage`, which resolves a slug to tool metadata and renders the matching component.
+- `src/tools/registry.ts` is the browser registry; `src/tools/registry-node.ts` is the Node-safe registry used by Vite config for SSG routes and sitemap generation.
+- `src/components/tools/<category>/` contains runnable tool implementations.
+- `src/components/`, `src/components/ui/`, `src/hooks/`, `src/lib/`, and `src/utils/` contain shared UI, hooks, share-link logic, and utility helpers.
+
+See `docs/ARCHITECTURE.md` for the full architecture review, technical-debt findings, and verification workflow.
+
 ## Deployment
 
 ### Vercel (recommended)
 
 ```bash
+npm run build
 npx vercel deploy
 ```
 
-Or connect your GitHub repo to Vercel for automatic deployments. The `vercel.json` is already configured for SPA routing.
+Or connect the repository to Vercel for automatic deployments. `vercel.json` is configured for static hosting with fallback rewrites.
 
-### Manual (any static host)
+### Manual static host
 
 ```bash
 npm run build
-# Upload the `dist/` folder to your host
+# Upload the generated `dist/` folder to your host.
 ```
 
-## Project Structure
+## Documentation
 
-```
-src/
-├── components/
-│   ├── tools/
-│   │   ├── JsonModelGenerator.tsx
-│   │   ├── JsonFormatter.tsx
-│   │   ├── UuidGenerator.tsx
-│   │   ├── Base64Tool.tsx
-│   │   └── TextDiff.tsx
-│   ├── Navbar.tsx
-│   ├── ToolCard.tsx
-│   ├── ToolLayout.tsx
-│   ├── CodeBlock.tsx
-│   └── CopyButton.tsx
-├── pages/
-│   ├── Home.tsx
-│   ├── Tools.tsx
-│   └── About.tsx
-├── hooks/
-│   └── useClipboard.ts
-├── utils/
-│   └── modelGenerator.ts
-├── App.tsx
-├── main.tsx
-└── index.css
-```
+- `docs/ARCHITECTURE.md` — current architecture and audit findings.
+- `docs/ROADMAP.md` — prioritized roadmap.
+- `docs/TASKS.md` — task backlog and completion status.
+
+Update documentation in the same change as meaningful product or architecture updates.
 
 ## License
 

@@ -22,7 +22,7 @@ This roadmap is based on an initial repository review of the React/Vite static s
 
 ### P1 — Maintainability and developer experience
 
-5. **Add explicit type-check and test scripts.** Add `typecheck` and `test` npm scripts, then document the standard verification workflow.
+5. **Add explicit type-check and test scripts.** Completed with `typecheck` and temporary typecheck-backed `test` scripts; replace `test` with a real regression suite in P0 item 1.
 6. **Centralize CodeMirror language extension mapping.** `CodeBlock` and `CodeInput` duplicate language-extension logic; extract it into a shared editor utility.
 7. **Normalize naming and typos.** Fix misspellings such as `isCommingSoon` while preserving compatibility where needed.
 8. **Update README project structure.** Align README with the current category-based tool layout, metadata registry, SSG routing, themes, and docs workflow.
@@ -51,5 +51,5 @@ This roadmap is based on an initial repository review of the React/Vite static s
 
 - Pick the highest-priority unfinished item from `docs/TASKS.md` on each continuation.
 - Complete one task at a time and keep commits focused.
-- Run linting, type checking, and production build checks after each change.
+- Run linting, type checking, production build checks, and the current `npm test` smoke command after each change.
 - Update documentation and task status in the same change as the implementation.
