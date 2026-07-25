@@ -17,6 +17,12 @@ export type StyledChangeLogEntry = ChangeLogEntry & {
 const CHANGELOG: ChangeLogEntry[] = [
     {
         type: 'new',
+        title: 'HTML Entity Encoder + MIME Type Lookup',
+        description: 'Added two more browser-based tools for escaping HTML safely and checking common content types during web debugging.',
+        date: '2026-03-18',
+    },
+    {
+        type: 'new',
         title: 'Slug Generator + Lorem Ipsum Generator',
         description: 'Added two more fully client-side tools for generating clean slugs and placeholder copy directly in the browser.',
         date: '2026-03-18',
@@ -54,6 +60,21 @@ export const CHANGE_TYPE_STYLES: Record<ChangeLogType, string> = {
     fixed: 'text-muted  border-muted',
 }
 
+const MONTH_NAMES = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+] as const
+
 // ── Internal helpers ───────────────────────────────────────────────────────
 function addStyle(entries: ChangeLogEntry[]): StyledChangeLogEntry[] {
     return entries.map(entry => ({ ...entry, style: CHANGE_TYPE_STYLES[entry.type] }))
@@ -71,10 +92,12 @@ function groupByMonth(entries: ChangeLogEntry[]): Map<string, ChangeLogEntry[]> 
 
 export function formatMonth(yyyyMM: string): string {
     const [y, m] = yyyyMM.split('-')
-    return new Date(Number(y), Number(m) - 1).toLocaleDateString('en-US', {
-        month: 'long',
-        year: 'numeric',
-    })
+    const monthIndex = Number(m) - 1
+    const monthName = MONTH_NAMES[monthIndex]
+
+    if (!monthName) return yyyyMM
+
+    return `${monthName} ${y}`
 }
 
 // ── Public API ─────────────────────────────────────────────────────────────

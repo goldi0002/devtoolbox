@@ -6,6 +6,7 @@ const toolMeta = [
     { slug: 'json-model',          category: 'json-tools'     },
     { slug: 'base64',              category: 'encode-tools'   },
     { slug: 'url-encoder',         category: 'encode-tools'   },
+    { slug: 'html-entity',         category: 'encode-tools'   },
     { slug: 'text-diff',           category: 'text-tools'     },
     { slug: 'uuid',                category: 'generate-tools' },
     { slug: 'jwt',                 category: 'auth-tools'     },
@@ -20,6 +21,16 @@ const toolMeta = [
     { slug: 'word-counter',        category: 'analyze-tools'  },
     { slug: 'timestamp-converter', category: 'data-tools'     },
     { slug: 'query-string-parser',  category: 'web-tools'      },
+    { slug: 'color-converter',     category: 'web-tools'      },
+    { slug: 'http-status-lookup',  category: 'web-tools'      },
+    { slug: 'mime-type-lookup',    category: 'web-tools'      },
+    { slug: 'user-agent-parser',   category: 'web-tools'      },
+    { slug: 'ascii-table',         category: 'data-tools'     },
+    { slug: 'hash-comparator',     category: 'encode-tools'   },
+    { slug: 'http-header-parser',  category: 'web-tools'      },
+    { slug: 'basic-auth-header',   category: 'auth-tools'     },
+    { slug: 'unix-permissions-calculator', category: 'data-tools' },
+    { slug: 'local-ai-text-assistant', category: 'analyze-tools' },
   ] as const
   
   export function getAllAvailableTools() {

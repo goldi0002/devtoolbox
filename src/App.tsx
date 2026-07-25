@@ -1,21 +1,9 @@
 import { useEffect, lazy, Suspense } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 // import posthog from 'posthog-js'
-import type { RouteRecord } from 'vite-react-ssg'
-import { tools } from './tools/registry'
 import Navbar from './components/Navbar'
 
-// Lazy load pages for SSG
-const Home = lazy(() => import('./pages/Home'))
-const ToolsIndex = lazy(() => import('./pages/ToolsIndex'))
-const About = lazy(() => import('./pages/About'))
-const ToolPage = lazy(() => import('./pages/ToolPage'))
-const NotFound = lazy(() => import('./pages/NotFound'))
 const PageLoader = lazy(() => import('./components/ui/PageLoader'))
-const Changelog = lazy(() => import('./pages/Changelog'))
-const Privacy = lazy(() => import('./pages/Privacy'))
-
-const toolSlugs = tools.map(t => t.slug)
 export function Layout() {
   const { pathname } = useLocation()
 
@@ -47,26 +35,3 @@ export function Layout() {
       </div>
   )
 }
-
-// 3. Define nested routes: Layout is the parent of all pages
-export const routes: RouteRecord[] = [
-  {
-    path: '/',
-    element: <Layout />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: 'tools', element: <ToolsIndex /> },
-      { path: 'tools/:category', element: <ToolsIndex /> },
-      { path: 'about', element: <About /> },
-      // Place broad dynamic routes at the end to avoid conflicts
-      ...toolSlugs.map(slug => ({
-        path: slug,
-        element: <ToolPage />,
-      })),
-      { path: '404', element: <NotFound /> },
-      { path: '*', element: <NotFound /> },
-      { path: 'changelog', element: <Changelog /> },
-      { path: 'privacy', element: <Privacy /> }
-    ],
-  },
-]

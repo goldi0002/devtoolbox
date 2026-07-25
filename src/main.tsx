@@ -1,5 +1,5 @@
 import { ViteReactSSG } from 'vite-react-ssg'
-import { routes } from './App'
+import { routes } from './routes'
 import './css/index.css'
 import './css/global.css'
 
