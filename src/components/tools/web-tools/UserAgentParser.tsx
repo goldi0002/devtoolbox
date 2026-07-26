@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import FieldCard from '../../ui/FieldCard'
+import TextAreaField from '../../ui/TextAreaField'
 
 type ParsedPair = {
   label: string
@@ -97,26 +98,17 @@ export default function UserAgentParser() {
           <button className="btn-primary ml-auto" onClick={() => setInput('')}>Clear</button>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">User agent string</label>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="input-base min-h-[150px] w-full"
-            placeholder="Paste a user agent string here"
-            spellCheck={false}
-          />
-        </div>
+        <TextAreaField
+          label="User agent string"
+          value={input}
+          onChange={setInput}
+          className="input-base min-h-[150px] w-full"
+          placeholder="Paste a user agent string here"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {parsed.map((item) => (
-            <div key={item.label} className="border border-border rounded p-4 bg-surface">
-              <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-2">{item.label}</div>
-              <div className="flex items-start gap-3">
-                <p className="text-sm font-sans text-bright break-words flex-1">{item.value}</p>
-                <CopyButton text={item.value} />
-              </div>
-            </div>
+            <FieldCard key={item.label} label={item.label} value={item.value} font="sans" copyable />
           ))}
         </div>
 

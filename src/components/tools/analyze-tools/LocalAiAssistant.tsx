@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import TextAreaField from '../../ui/TextAreaField'
 
 const SAMPLE_TEXT = `Ship the updated onboarding flow this week. The current signup experience is confusing for mobile users and causes too many drop-offs after email verification. We should simplify the CTA copy, reduce the number of required fields, and clarify what happens after account creation. The support team also wants a short checklist they can send to customers. Please review analytics, summarize the main issues, and list the next actions before Friday.`
 
@@ -84,13 +85,12 @@ export default function LocalAiAssistant() {
         </div>
 
         <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">Text to analyze</label>
-          <textarea
+          <TextAreaField
+            label="Text to analyze"
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={setInput}
             className="input-base min-h-[220px] w-full"
             placeholder="Paste meeting notes, support messages, a draft brief, or product feedback here"
-            spellCheck={false}
           />
           <p className="text-[11px] font-mono text-subtle mt-2">
             Local-only heuristic analysis — this simulates an AI helper without any external API.

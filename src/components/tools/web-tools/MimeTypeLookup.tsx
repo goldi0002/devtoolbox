@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import DataTable from '../../ui/DataTable'
+import QuickAnswerCard from '../../ui/QuickAnswerCard'
+import TextInputField from '../../ui/TextInputField'
+import { matchesQuery } from '../../../utils/text'
 
 type MimeRow = {
   extension: string
@@ -41,17 +44,10 @@ const MIME_TYPES: MimeRow[] = [
 export default function MimeTypeLookup() {
   const [query, setQuery] = useState('json')
 
-  const matches = useMemo(() => {
-    const normalized = query.trim().toLowerCase()
-    if (!normalized) return MIME_TYPES
-
-    return MIME_TYPES.filter((row) =>
-      row.extension.toLowerCase().includes(normalized) ||
-      row.mime.toLowerCase().includes(normalized) ||
-      row.category.toLowerCase().includes(normalized) ||
-      row.notes.toLowerCase().includes(normalized)
-    )
-  }, [query])
+  const matches = useMemo(
+    () => MIME_TYPES.filter(row => matchesQuery(query, [row.extension, row.mime, row.category, row.notes])),
+    [query]
+  )
 
   const exactMatch = useMemo(() => {
     const normalized = query.trim().toLowerCase().replace(/^\./, '')
@@ -75,57 +71,43 @@ export default function MimeTypeLookup() {
           <button onClick={() => setQuery('')} className="btn-primary ml-auto">Show all</button>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">Search by extension, MIME type, or format</label>
-          <input
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            className="input-base w-full"
-            placeholder="e.g. .svg, application/json, font, zip"
-            spellCheck={false}
-          />
-        </div>
+        <TextInputField
+          label="Search by extension, MIME type, or format"
+          value={query}
+          onChange={setQuery}
+          placeholder="e.g. .svg, application/json, font, zip"
+        />
 
         {exactMatch && (
-          <div className="border border-border rounded bg-surface p-4 flex flex-col sm:flex-row sm:items-center gap-3">
-            <div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-1">Quick answer</div>
-              <div className="text-lg font-sans text-bright">{exactMatch.extension} → {exactMatch.mime}</div>
-              <div className="text-xs font-mono text-subtle mt-1">{exactMatch.category}</div>
-            </div>
-            <div className="sm:ml-auto flex items-center gap-2">
-              <CopyButton text={`${exactMatch.extension} ${exactMatch.mime}`} size="md" />
-            </div>
-          </div>
+          <QuickAnswerCard
+            headline={`${exactMatch.extension} → ${exactMatch.mime}`}
+            subline={exactMatch.category}
+            copyText={`${exactMatch.extension} ${exactMatch.mime}`}
+          />
         )}
 
-        <div className="border border-border rounded overflow-hidden">
-          <div className="grid grid-cols-[110px_220px_100px_1fr_auto] gap-3 px-4 py-2 bg-surface border-b border-border text-[10px] font-mono uppercase tracking-[0.16em] text-subtle">
-            <span>Ext</span>
-            <span>MIME</span>
-            <span>Type</span>
-            <span>Notes</span>
-            <span className="text-right">Copy</span>
-          </div>
-
-          {matches.length === 0 ? (
-            <div className="px-4 py-8 text-xs font-mono text-subtle">No matching MIME types found.</div>
-          ) : (
-            <div className="divide-y divide-border">
-              {matches.map((row) => (
-                <div key={`${row.extension}-${row.mime}`} className="grid grid-cols-[110px_220px_100px_1fr_auto] gap-3 px-4 py-3 items-start bg-[#f8f8f8]">
-                  <div className="text-sm font-mono text-bright">{row.extension}</div>
-                  <div className="text-xs font-mono text-dim break-all pt-0.5">{row.mime}</div>
-                  <div className="text-xs font-mono text-subtle pt-0.5">{row.category}</div>
-                  <div className="text-sm font-sans text-dim leading-relaxed">{row.notes}</div>
-                  <div className="justify-self-end">
-                    <CopyButton text={`${row.extension} ${row.mime}`} />
-                  </div>
-                </div>
-              ))}
-            </div>
+        <DataTable
+          gridClass="grid-cols-[110px_220px_100px_1fr_auto]"
+          columns={[
+            { label: 'Ext' },
+            { label: 'MIME' },
+            { label: 'Type' },
+            { label: 'Notes' },
+            { label: 'Copy', align: 'right' },
+          ]}
+          rows={matches}
+          rowKey={row => `${row.extension}-${row.mime}`}
+          copyText={row => `${row.extension} ${row.mime}`}
+          emptyMessage="No matching MIME types found."
+          renderRow={row => (
+            <>
+              <div className="text-sm font-mono text-bright">{row.extension}</div>
+              <div className="text-xs font-mono text-dim break-all pt-0.5">{row.mime}</div>
+              <div className="text-xs font-mono text-subtle pt-0.5">{row.category}</div>
+              <div className="text-sm font-sans text-dim leading-relaxed">{row.notes}</div>
+            </>
           )}
-        </div>
+        />
       </div>
     </ToolLayout>
   )

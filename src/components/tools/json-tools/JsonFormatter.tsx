@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
+import ErrorBanner from '../../ui/ErrorBanner'
+import TextAreaField from '../../ui/TextAreaField'
 import { tools } from '../../../tools/registry'
 import { useHashData } from '../../../hooks/useHashData'
 import { JsonDataShare } from '../../../types/share'
+import { getErrorMessage } from '../../../utils/errors'
 const SAMPLE = `{"name":"ToolBox4Devs","version":"1.0","tools":["JSON Formatter","JSON-Model","UUID Generator"],"config":{"theme":"dark","lang":"en"}}`
 
 export default function JsonFormatter() {
@@ -28,9 +31,9 @@ export default function JsonFormatter() {
           ? JSON.stringify(parsed)
           : JSON.stringify(parsed, null, 2)
       )
-      setMode(value.meta?.mode as 'format' | 'minify' ?? 'format')
+      setMode(value.meta?.mode === 'minify' ? 'minify' : 'format')
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Shared JSON could not be parsed'))
     }
   })
   const process = (m: 'format' | 'minify') => {
@@ -45,7 +48,7 @@ export default function JsonFormatter() {
         setOutput(JSON.stringify(parsed))
       }
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Invalid JSON'))
       setOutput('')
     }
   }
@@ -91,22 +94,14 @@ export default function JsonFormatter() {
           </button>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">JSON Input</label>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="textarea-base h-36"
-            placeholder={SAMPLE}
-            spellCheck={false}
-          />
-        </div>
+        <TextAreaField
+          label="JSON Input"
+          value={input}
+          onChange={setInput}
+          placeholder={SAMPLE}
+        />
 
-        {error && (
-          <div className="text-xs font-mono text-dim bg-surface border border-border rounded px-3 py-2">
-            ⚠ {error}
-          </div>
-        )}
+        <ErrorBanner message={error} />
 
         {output && (
           <CodeBlock

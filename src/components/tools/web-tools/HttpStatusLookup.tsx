@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import DataTable from '../../ui/DataTable'
+import QuickAnswerCard from '../../ui/QuickAnswerCard'
+import TextInputField from '../../ui/TextInputField'
+import { matchesQuery } from '../../../utils/text'
 
 type StatusRow = {
   code: number
@@ -40,17 +43,10 @@ const STATUSES: StatusRow[] = [
 export default function HttpStatusLookup() {
   const [query, setQuery] = useState('')
 
-  const matches = useMemo(() => {
-    const normalized = query.trim().toLowerCase()
-    if (!normalized) return STATUSES
-
-    return STATUSES.filter(status =>
-      String(status.code).includes(normalized) ||
-      status.label.toLowerCase().includes(normalized) ||
-      status.category.toLowerCase().includes(normalized) ||
-      status.meaning.toLowerCase().includes(normalized)
-    )
-  }, [query])
+  const matches = useMemo(
+    () => STATUSES.filter(status => matchesQuery(query, [status.code, status.label, status.category, status.meaning])),
+    [query]
+  )
 
   const exactMatch = useMemo(
     () => STATUSES.find(status => String(status.code) === query.trim()),
@@ -73,58 +69,44 @@ export default function HttpStatusLookup() {
           <button onClick={() => setQuery('')} className="btn-primary ml-auto">Show all</button>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">Search by code or status text</label>
-          <input
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            className="input-base w-full"
-            placeholder="e.g. 404, unauthorized, rate limit"
-            spellCheck={false}
-          />
-        </div>
+        <TextInputField
+          label="Search by code or status text"
+          value={query}
+          onChange={setQuery}
+          placeholder="e.g. 404, unauthorized, rate limit"
+        />
 
         {exactMatch && (
-          <div className="border border-border rounded bg-surface p-4 flex flex-col sm:flex-row sm:items-center gap-3">
-            <div>
-              <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-1">Quick answer</div>
-              <div className="text-lg font-sans text-bright">{exactMatch.code} · {exactMatch.label}</div>
-              <div className="text-xs font-mono text-subtle mt-1">{exactMatch.category}</div>
-            </div>
-            <div className="sm:ml-auto flex items-center gap-2">
-              <CopyButton text={`${exactMatch.code} ${exactMatch.label}`} size="md" />
-            </div>
-          </div>
+          <QuickAnswerCard
+            headline={`${exactMatch.code} · ${exactMatch.label}`}
+            subline={exactMatch.category}
+            copyText={`${exactMatch.code} ${exactMatch.label}`}
+          />
         )}
 
-        <div className="border border-border rounded overflow-hidden">
-          <div className="grid grid-cols-[90px_150px_1fr_auto] gap-3 px-4 py-2 bg-surface border-b border-border text-[10px] font-mono uppercase tracking-[0.16em] text-subtle">
-            <span>Code</span>
-            <span>Category</span>
-            <span>Meaning</span>
-            <span className="text-right">Copy</span>
-          </div>
-
-          {matches.length === 0 ? (
-            <div className="px-4 py-8 text-xs font-mono text-subtle">No matching HTTP status codes found.</div>
-          ) : (
-            <div className="divide-y divide-border">
-              {matches.map(status => (
-                <div key={status.code} className="grid grid-cols-[90px_150px_1fr_auto] gap-3 px-4 py-3 items-start bg-[#f8f8f8]">
-                  <div>
-                    <div className="text-sm font-mono text-bright">{status.code}</div>
-                    <div className="text-xs font-sans text-dim">{status.label}</div>
-                  </div>
-                  <div className="text-xs font-mono text-subtle pt-0.5">{status.category}</div>
-                  <div className="text-sm font-sans text-dim leading-relaxed">{status.meaning}</div>
-                  <div className="justify-self-end">
-                    <CopyButton text={`${status.code} ${status.label}`} />
-                  </div>
-                </div>
-              ))}
-            </div>
+        <DataTable
+          gridClass="grid-cols-[90px_150px_1fr_auto]"
+          columns={[
+            { label: 'Code' },
+            { label: 'Category' },
+            { label: 'Meaning' },
+            { label: 'Copy', align: 'right' },
+          ]}
+          rows={matches}
+          rowKey={status => String(status.code)}
+          copyText={status => `${status.code} ${status.label}`}
+          emptyMessage="No matching HTTP status codes found."
+          renderRow={status => (
+            <>
+              <div>
+                <div className="text-sm font-mono text-bright">{status.code}</div>
+                <div className="text-xs font-sans text-dim">{status.label}</div>
+              </div>
+              <div className="text-xs font-mono text-subtle pt-0.5">{status.category}</div>
+              <div className="text-sm font-sans text-dim leading-relaxed">{status.meaning}</div>
+            </>
           )}
-        </div>
+        />
       </div>
     </ToolLayout>
   )
