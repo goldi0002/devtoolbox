@@ -46,7 +46,7 @@ export default function ToolComingSoon({
       <div style={{
         position: "fixed", inset: 0, zIndex: 10,
         // paddingTop: 56,                  // navbar height
-        background: "#0a0a0a",
+        background: "var(--color-bg)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

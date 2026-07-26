@@ -15,16 +15,30 @@ export default function ToolCard({ slug, title, description, tag, index = 0 }: T
   return (
     <Link
       to={`/${slug}`}
-      className={`card group cursor-pointer hover:border-subtle hover:-translate-y-0.5 
-                  hover:shadow-sm animate-slide-up opacity-0 ${delay}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-border
+                  bg-surface/60 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-accent
+                  hover:shadow-lift animate-slide-up opacity-0 ${delay}`}
     >
-      <div className="flex items-start justify-between mb-3">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+      />
+
+      <div className="mb-3 flex items-start justify-between gap-3">
         <span className="tag">{tag}</span>
-        <span className="text-subtle group-hover:text-dim transition-colors duration-200 text-lg">→</span>
+        <span className="text-subtle transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-accent">
+          →
+        </span>
       </div>
-      <h3 className="text-bright font-sans font-medium mb-1.5 text-sm">{title}</h3>
-      <p className="text-dim text-xs leading-relaxed font-sans mb-3">{description}</p>
-      <span className="text-[10px] font-mono text-muted group-hover:text-subtle transition-colors">/{slug}</span>
+
+      <h3 className="mb-1.5 font-sans text-sm font-semibold text-bright transition-colors group-hover:text-accent">
+        {title}
+      </h3>
+      <p className="mb-4 font-sans text-xs leading-relaxed text-dim">{description}</p>
+
+      <span className="mt-auto font-mono text-[10px] text-muted transition-colors group-hover:text-subtle">
+        /{slug}
+      </span>
     </Link>
   )
 }

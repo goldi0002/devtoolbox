@@ -12,8 +12,8 @@
   }
 
   body {
-    background-color: #ffffff;
-    color: #0a0a0a;
+    background-color: var(--color-bg);
+    color: var(--color-bright);
     font-family: 'DM Sans', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -21,8 +21,28 @@
   }
 
   ::selection {
-    background: #0a0a0a;
-    color: #ffffff;
+    background: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   ::-webkit-scrollbar {
@@ -31,62 +51,92 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #f5f5f5;
+    background: var(--color-surface);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #cccccc;
+    background: var(--color-muted);
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #999999;
+    background: var(--color-subtle);
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-bright text-bg px-4 py-2 rounded text-sm font-medium transition-all duration-200
-           hover:bg-black hover:scale-[1.02] active:scale-[0.98] font-sans;
+    @apply inline-flex items-center justify-center gap-2 bg-accent text-accent-fg px-4 py-2 rounded-md
+           text-sm font-medium font-sans shadow-soft transition-all duration-200
+           hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:shadow-soft;
   }
 
   .btn-ghost {
-    @apply bg-transparent border border-border text-dim px-4 py-2 rounded text-sm font-medium 
-           transition-all duration-200 hover:border-subtle hover:text-light font-sans;
+    @apply inline-flex items-center justify-center gap-2 bg-transparent border border-border text-dim
+           px-4 py-2 rounded-md text-sm font-medium font-sans transition-all duration-200
+           hover:border-accent hover:text-bright hover:bg-accent-soft;
   }
 
   .input-base {
-    @apply bg-surface border border-border rounded px-3 py-2 text-sm text-bright 
-           font-mono placeholder:text-subtle focus:outline-none focus:border-subtle 
-           transition-colors duration-200 w-full;
+    @apply bg-surface border border-border rounded-md px-3 py-2 text-sm text-bright
+           font-mono placeholder:text-subtle focus:outline-none focus:border-accent
+           focus:ring-2 focus:ring-accent-soft transition-colors duration-200 w-full;
   }
 
   .textarea-base {
-    @apply bg-surface border border-border rounded px-3 py-2 text-sm text-bright 
-           font-mono placeholder:text-subtle focus:outline-none focus:border-subtle 
-           transition-colors duration-200 w-full resize-none;
+    @apply bg-surface border border-border rounded-md px-3 py-2 text-sm text-bright
+           font-mono placeholder:text-subtle focus:outline-none focus:border-accent
+           focus:ring-2 focus:ring-accent-soft transition-colors duration-200 w-full resize-none;
   }
 
   .card {
     @apply bg-surface border border-border rounded-lg p-5 transition-all duration-200;
   }
 
+  .surface-panel {
+    @apply bg-surface/60 border border-border rounded-lg backdrop-blur-sm;
+  }
+
   .tag {
-    @apply text-xs font-mono text-dim border border-muted rounded px-2 py-0.5;
+    @apply inline-flex items-center text-[11px] font-mono text-dim bg-accent-soft border border-transparent
+           rounded-full px-2 py-0.5;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs
+           font-mono text-dim transition-colors duration-200 hover:border-accent hover:text-bright;
+  }
+
+  .chip-active {
+    @apply border-accent bg-accent text-accent-fg hover:text-accent-fg;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-mono text-subtle tracking-[0.25em] uppercase;
+  }
+
+  .section-heading {
+    @apply font-display text-3xl sm:text-4xl text-bright leading-none;
   }
 }
 
 /* Diff highlighting */
 .diff-added {
-  background: rgba(0, 0, 0, 0.06);
-  color: #111111;
+  background: rgba(34, 197, 94, 0.18);
+  color: var(--color-bright);
   text-decoration: none;
 }
 
 .diff-removed {
-  background: rgba(0, 0, 0, 0.02);
-  color: #aaaaaa;
+  background: rgba(239, 68, 68, 0.16);
+  color: var(--color-dim);
   text-decoration: line-through;
+}
+
+/* Ambient accent glow used behind hero sections */
+.accent-glow {
+  background: radial-gradient(closest-side, var(--color-accent), transparent);
+  filter: blur(60px);
 }
 
 /* Noise texture overlay */

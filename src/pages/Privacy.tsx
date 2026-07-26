@@ -75,7 +75,7 @@ export default function Privacy() {
           <div>
             <h1 className="font-display text-[clamp(3rem,10vw,7rem)] text-bright leading-[0.9] mb-8 tracking-tight">
               YOUR DATA<br />
-              <span className="text-border" style={{ WebkitTextStroke: '1.5px #d4d4d4' }}>STAYS</span>
+              <span className="text-accent">STAYS</span>
               <span className="text-bright"> YOURS.</span>
             </h1>
             <p className="text-dim font-sans text-base leading-relaxed max-w-lg">

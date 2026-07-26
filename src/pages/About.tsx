@@ -38,7 +38,7 @@ export default function About() {
           <div>
             <h1 className="font-display text-[clamp(3rem,10vw,7rem)] text-bright leading-[0.9] mb-8 tracking-tight">
               BUILT FOR<br />
-              <span className="text-border" style={{ WebkitTextStroke: '1.5px #d4d4d4' }}>DEVS</span>
+              <span className="text-accent">DEVS</span>
               <span className="text-bright">.</span>
             </h1>
             <p className="text-dim font-sans text-base leading-relaxed max-w-lg">
