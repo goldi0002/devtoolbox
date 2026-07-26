@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import FieldCard from '../../ui/FieldCard'
+import TextAreaField from '../../ui/TextAreaField'
+import TextInputField from '../../ui/TextInputField'
 
 function encodeBasicAuth(username: string, password: string) {
   return btoa(`${username}:${password}`)
@@ -43,44 +45,22 @@ export default function BasicAuthHeader() {
       <div className="space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div className="space-y-4">
-            <div>
-              <label className="block text-xs text-dim font-mono mb-1.5">Username</label>
-              <input value={username} onChange={e => setUsername(e.target.value)} className="input-base w-full" spellCheck={false} />
-            </div>
-            <div>
-              <label className="block text-xs text-dim font-mono mb-1.5">Password</label>
-              <input value={password} onChange={e => setPassword(e.target.value)} className="input-base w-full" spellCheck={false} />
-            </div>
-            <div className="border border-border rounded p-4 bg-surface">
-              <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-2">Authorization header</div>
-              <div className="flex items-start gap-3">
-                <p className="text-sm font-mono text-bright break-all flex-1">{authorizationHeader}</p>
-                <CopyButton text={authorizationHeader} />
-              </div>
-            </div>
+            <TextInputField label="Username" value={username} onChange={setUsername} />
+            <TextInputField label="Password" value={password} onChange={setPassword} />
+            <FieldCard label="Authorization header" value={authorizationHeader} copyable />
           </div>
 
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">Decode existing header</label>
-            <textarea value={headerInput} onChange={e => setHeaderInput(e.target.value)} className="input-base min-h-[180px] w-full" spellCheck={false} />
-          </div>
+          <TextAreaField
+            label="Decode existing header"
+            value={headerInput}
+            onChange={setHeaderInput}
+            className="input-base min-h-[180px] w-full"
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="border border-border rounded p-4 bg-surface">
-            <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-2">Decoded username</div>
-            <div className="flex items-start gap-3">
-              <p className="text-sm font-mono text-dim break-all flex-1">{decoded?.username || '—'}</p>
-              {decoded?.username && <CopyButton text={decoded.username} />}
-            </div>
-          </div>
-          <div className="border border-border rounded p-4 bg-surface">
-            <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-2">Decoded password</div>
-            <div className="flex items-start gap-3">
-              <p className="text-sm font-mono text-dim break-all flex-1">{decoded?.password || '—'}</p>
-              {decoded?.password && <CopyButton text={decoded.password} />}
-            </div>
-          </div>
+          <FieldCard label="Decoded username" value={decoded?.username || '—'} emphasis="dim" copyable={Boolean(decoded?.username)} />
+          <FieldCard label="Decoded password" value={decoded?.password || '—'} emphasis="dim" copyable={Boolean(decoded?.password)} />
         </div>
       </div>
     </ToolLayout>

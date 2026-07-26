@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
+import ErrorBanner from '../../ui/ErrorBanner'
+import TextAreaField from '../../ui/TextAreaField'
 import { tools } from '../../../tools/registry'
 import { useHashData } from '../../../hooks/useHashData'
 import { JsonDataShare } from '../../../types/share'
@@ -91,22 +93,14 @@ export default function JsonFormatter() {
           </button>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">JSON Input</label>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="textarea-base h-36"
-            placeholder={SAMPLE}
-            spellCheck={false}
-          />
-        </div>
+        <TextAreaField
+          label="JSON Input"
+          value={input}
+          onChange={setInput}
+          placeholder={SAMPLE}
+        />
 
-        {error && (
-          <div className="text-xs font-mono text-dim bg-surface border border-border rounded px-3 py-2">
-            ⚠ {error}
-          </div>
-        )}
+        <ErrorBanner message={error} />
 
         {output && (
           <CodeBlock

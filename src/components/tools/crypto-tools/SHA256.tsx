@@ -1,17 +1,16 @@
 // tools/sha256-hasher/Sha256Hasher.tsx
 import { useState, useCallback, useRef } from 'react'
-import CopyButton from '../../CopyButton'
+import ToolLayout from '../../ToolLayout'
+import SectionPanel from '../../ui/SectionPanel'
+import { bytesToHex } from '../../../utils/encoding'
 
 // ── Web Crypto SHA-256 ────────────────────────────────────────────
 async function sha256hex(input: string): Promise<string> {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input))
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return bytesToHex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input)))
 }
 
 async function sha256file(file: File): Promise<string> {
-  const buf = await file.arrayBuffer()
-  const hash = await crypto.subtle.digest('SHA-256', buf)
-  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('')
+  return bytesToHex(await crypto.subtle.digest('SHA-256', await file.arrayBuffer()))
 }
 
 // ── Hash chunked display ──────────────────────────────────────────
@@ -25,37 +24,6 @@ function HashChunks({ hash }: { hash: string }) {
           {i < chunks.length - 1 ? ' ' : ''}
         </span>
       ))}
-    </div>
-  )
-}
-
-// ── Reusable section wrapper (mirrors JWT Decoder's Section) ──────
-function Section({
-  label,
-  dot,
-  children,
-  copyText,
-  extra,
-}: {
-  label: string
-  dot?: string
-  children: React.ReactNode
-  copyText?: string
-  extra?: React.ReactNode
-}) {
-  return (
-    <div className="border border-border rounded-lg overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-surface border-b border-border">
-        <div className="flex items-center gap-2">
-          {dot && <span className={`w-2 h-2 rounded-full ${dot}`} />}
-          <span className="text-xs font-mono text-dim tracking-widest uppercase">{label}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          {extra}
-          {copyText !== undefined && <CopyButton text={copyText} disabled={!copyText} />}
-        </div>
-      </div>
-      <div className="px-4 py-3">{children}</div>
     </div>
   )
 }
@@ -102,22 +70,13 @@ export default function Sha256Hasher() {
   const byteCount = input ? new TextEncoder().encode(input).length : 0
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden animate-fade-in">
+    <ToolLayout
+      title="SHA-256 Hasher"
+      description="Hash text or files using SHA-256. Runs entirely in your browser."
+      tag="crypto"
+    >
 
-      {/* ── Card header — mirrors JwtDecoder ── */}
-      <div className="border-b border-border px-5 py-4 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2.5 mb-1">
-            <span className="tag">crypto</span>
-          </div>
-          <h2 className="text-bright font-sans font-medium text-base">SHA-256 Hasher</h2>
-        </div>
-        <p className="hidden sm:block text-dim text-xs font-sans max-w-xs text-right leading-relaxed">
-          Hash text or files using SHA-256.<br />Runs entirely in your browser.
-        </p>
-      </div>
-
-      <div className="p-5 space-y-5">
+      <div className="space-y-5">
 
         {/* ── Input section ── */}
         <div>
@@ -175,7 +134,7 @@ export default function Sha256Hasher() {
         </div>
 
         {/* ── Hash output section ── */}
-        <Section
+        <SectionPanel
           label="SHA-256"
           dot="bg-[#e5a44f]"
           copyText={hash}
@@ -191,10 +150,10 @@ export default function Sha256Hasher() {
                 {loading ? 'Computing…' : 'Hash will appear here'}
               </p>
           }
-        </Section>
+        </SectionPanel>
 
         {/* ── Verify section ── */}
-        <Section
+        <SectionPanel
           label="Verify hash"
           dot={
             matchStatus === 'match'    ? 'bg-green-400' :
@@ -219,7 +178,7 @@ export default function Sha256Hasher() {
             className="w-full bg-transparent outline-none font-mono text-xs text-bright placeholder:text-subtle"
             spellCheck={false}
           />
-        </Section>
+        </SectionPanel>
 
         {/* ── Info strip ── */}
         <div className="flex flex-wrap gap-3 pt-1">
@@ -236,6 +195,6 @@ export default function Sha256Hasher() {
           ))}
         </div>
       </div>
-    </div>
+    </ToolLayout>
   )
 }

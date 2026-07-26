@@ -1,8 +1,17 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import StatCard from '../../ui/StatCard'
+import TextAreaField from '../../ui/TextAreaField'
+import TipsCard from '../../ui/TipsCard'
+import ToggleGroup from '../../ui/ToggleGroup'
 
 type Mode = 'encode' | 'decode'
+
+const MODES = [
+  { value: 'encode' as const, label: 'Encode' },
+  { value: 'decode' as const, label: 'Decode' },
+]
 
 const NAMED_ENTITIES: Record<string, string> = {
   '&': '&amp;',
@@ -51,12 +60,7 @@ export default function HtmlEntityTool() {
     >
       <div className="space-y-5">
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => setMode('encode')} className={mode === 'encode' ? 'btn-primary' : 'btn-ghost'}>
-            Encode
-          </button>
-          <button onClick={() => setMode('decode')} className={mode === 'decode' ? 'btn-primary' : 'btn-ghost'}>
-            Decode
-          </button>
+          <ToggleGroup options={MODES} value={mode} onChange={setMode} />
           {mode === 'encode' && (
             <button onClick={() => setPreserveSpaces(v => !v)} className={preserveSpaces ? 'btn-primary ml-auto' : 'btn-ghost ml-auto'}>
               {preserveSpaces ? 'Spaces → &nbsp;' : 'Keep spaces plain'}
@@ -65,16 +69,13 @@ export default function HtmlEntityTool() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">Input</label>
-            <textarea
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              className="textarea-base h-56"
-              placeholder={mode === 'encode' ? 'Paste plain text or HTML here...' : 'Paste encoded HTML entities here...'}
-              spellCheck={false}
-            />
-          </div>
+          <TextAreaField
+            label="Input"
+            value={input}
+            onChange={setInput}
+            className="textarea-base h-56"
+            placeholder={mode === 'encode' ? 'Paste plain text or HTML here...' : 'Paste encoded HTML entities here...'}
+          />
 
           <div>
             <div className="flex items-center justify-between mb-1.5">
@@ -86,28 +87,19 @@ export default function HtmlEntityTool() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
-          <div className="border border-border rounded px-3 py-2">
-            <div className="text-subtle mb-1">Mode</div>
-            <div className="text-bright capitalize">{mode}</div>
-          </div>
-          <div className="border border-border rounded px-3 py-2">
-            <div className="text-subtle mb-1">Chars</div>
-            <div className="text-bright">{output.length}</div>
-          </div>
-          <div className="border border-border rounded px-3 py-2">
-            <div className="text-subtle mb-1">Entities</div>
-            <div className="text-bright">{entityCount}</div>
-          </div>
+          <StatCard label="Mode" value={mode} valueClassName="capitalize" />
+          <StatCard label="Chars" value={output.length} />
+          <StatCard label="Entities" value={entityCount} />
         </div>
 
-        <div className="border border-border rounded-lg p-4 bg-surface/50">
-          <p className="text-[10px] font-mono text-subtle tracking-widest uppercase mb-2">Useful for</p>
-          <ul className="space-y-2 text-xs font-sans text-dim leading-relaxed">
-            <li>• Escaping example markup in blog posts, docs, and support replies.</li>
-            <li>• Decoding entity-heavy output copied from editors or rendered templates.</li>
-            <li>• Inspecting how quotes, ampersands, angle brackets, and unicode characters are represented.</li>
-          </ul>
-        </div>
+        <TipsCard
+          title="Useful for"
+          items={[
+            'Escaping example markup in blog posts, docs, and support replies.',
+            'Decoding entity-heavy output copied from editors or rendered templates.',
+            'Inspecting how quotes, ampersands, angle brackets, and unicode characters are represented.',
+          ]}
+        />
       </div>
     </ToolLayout>
   )

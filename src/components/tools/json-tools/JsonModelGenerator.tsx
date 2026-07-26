@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
+import ErrorBanner from '../../ui/ErrorBanner'
 import { jsonToCSharp, jsonToTypeScript } from '../../../utils/modelGenerator'
 
 const SAMPLE_JSON = `{
@@ -83,11 +84,7 @@ export default function JsonModelGenerator() {
           />
         </div>
 
-        {error && (
-          <div className="text-xs font-mono text-dim bg-surface border border-border rounded px-3 py-2">
-            ⚠ {error}
-          </div>
-        )}
+        <ErrorBanner message={error} />
 
         {csharp && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

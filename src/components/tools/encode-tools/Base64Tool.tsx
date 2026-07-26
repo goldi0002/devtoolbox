@@ -1,24 +1,34 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import OutputPanel from '../../ui/OutputPanel'
+import TextAreaField from '../../ui/TextAreaField'
+import ToggleGroup from '../../ui/ToggleGroup'
+import { decodeBase64, encodeBase64 } from '../../../utils/encoding'
+
+type Mode = 'encode' | 'decode'
+
+const MODES = [
+  { value: 'encode' as const, label: 'Encode' },
+  { value: 'decode' as const, label: 'Decode' },
+]
+
+function convert(value: string, mode: Mode): string {
+  return mode === 'encode' ? encodeBase64(value) : decodeBase64(value)
+}
 
 export default function Base64Tool() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [error, setError] = useState('')
-  const [mode, setMode] = useState<'encode' | 'decode'>('encode')
+  const [mode, setMode] = useState<Mode>('encode')
 
-  const process = (m: 'encode' | 'decode') => {
+  const process = (m: Mode) => {
     setMode(m)
     setError('')
     if (!input.trim()) return
 
     try {
-      if (m === 'encode') {
-        setOutput(btoa(unescape(encodeURIComponent(input))))
-      } else {
-        setOutput(decodeURIComponent(escape(atob(input))))
-      }
+      setOutput(convert(input, m))
     } catch {
       setError(m === 'encode' ? 'Encoding failed' : 'Invalid Base64 string')
       setOutput('')
@@ -30,11 +40,7 @@ export default function Base64Tool() {
     setError('')
     if (!val.trim()) { setOutput(''); return }
     try {
-      if (mode === 'encode') {
-        setOutput(btoa(unescape(encodeURIComponent(val))))
-      } else {
-        setOutput(decodeURIComponent(escape(atob(val))))
-      }
+      setOutput(convert(val, mode))
     } catch {
       setOutput('')
     }
@@ -47,19 +53,14 @@ export default function Base64Tool() {
   }
 
   const swap = () => {
-    if (output) {
-      setInput(output)
-      const newMode = mode === 'encode' ? 'decode' : 'encode'
-      setMode(newMode)
-      try {
-        if (newMode === 'encode') {
-          setOutput(btoa(unescape(encodeURIComponent(output))))
-        } else {
-          setOutput(decodeURIComponent(escape(atob(output))))
-        }
-      } catch {
-        setOutput('')
-      }
+    if (!output) return
+    setInput(output)
+    const newMode: Mode = mode === 'encode' ? 'decode' : 'encode'
+    setMode(newMode)
+    try {
+      setOutput(convert(output, newMode))
+    } catch {
+      setOutput('')
     }
   }
 
@@ -71,14 +72,7 @@ export default function Base64Tool() {
     >
       <div className="space-y-4">
         <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => process('encode')}
-            className={mode === 'encode' ? 'btn-primary' : 'btn-ghost'}
-          >Encode</button>
-          <button
-            onClick={() => process('decode')}
-            className={mode === 'decode' ? 'btn-primary' : 'btn-ghost'}
-          >Decode</button>
+          <ToggleGroup options={MODES} value={mode} onChange={process} />
           {output && (
             <button onClick={swap} className="btn-ghost">⇅ Swap</button>
           )}
@@ -86,36 +80,18 @@ export default function Base64Tool() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">
-              {mode === 'encode' ? 'Plain Text Input' : 'Base64 Input'}
-            </label>
-            <textarea
-              value={input}
-              onChange={e => handleInput(e.target.value)}
-              className="textarea-base h-36"
-              placeholder={mode === 'encode' ? 'Hello, World!' : 'SGVsbG8sIFdvcmxkIQ=='}
-              spellCheck={false}
-            />
-          </div>
+          <TextAreaField
+            label={mode === 'encode' ? 'Plain Text Input' : 'Base64 Input'}
+            value={input}
+            onChange={handleInput}
+            placeholder={mode === 'encode' ? 'Hello, World!' : 'SGVsbG8sIFdvcmxkIQ=='}
+          />
 
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs text-dim font-mono">
-                {mode === 'encode' ? 'Base64 Output' : 'Decoded Output'}
-              </label>
-              {output && <CopyButton text={output} />}
-            </div>
-            <div className="bg-[#f8f8f8] border border-border rounded px-3 py-2 h-36 overflow-auto">
-              {error ? (
-                <span className="text-xs font-mono text-subtle">⚠ {error}</span>
-              ) : output ? (
-                <pre className="text-xs font-mono text-light whitespace-pre-wrap break-all">{output}</pre>
-              ) : (
-                <span className="text-xs font-mono text-subtle">Output will appear here...</span>
-              )}
-            </div>
-          </div>
+          <OutputPanel
+            label={mode === 'encode' ? 'Base64 Output' : 'Decoded Output'}
+            value={output}
+            error={error}
+          />
         </div>
       </div>
     </ToolLayout>
