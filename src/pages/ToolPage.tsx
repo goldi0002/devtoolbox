@@ -1,8 +1,9 @@
-import { Suspense, lazy, useMemo } from 'react'
+import { Suspense, lazy, useEffect, useMemo } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
+import { useToolPreferences } from '../hooks/useToolPreferences'
 
 const ToolFallback = lazy(() => import('../components/ui/tools/ToolFallback'))
 const ToolComingSoon = lazy(() => import('../components/ui/tools/ToolComingSoon'))
@@ -16,7 +17,12 @@ export default function ToolPage() {
     return segments.at(-1) ?? ''
   }, [pathname])
   const meta = tools.find(t => t.slug === slug)
+  const { favoriteSet, recordRecentTool, toggleFavorite } = useToolPreferences()
   usePageTitle(meta?.name)
+
+  useEffect(() => {
+    if (meta && meta.status !== 'coming-soon') recordRecentTool(meta.slug)
+  }, [meta, recordRecentTool])
   if (!meta) return <Navigate to="/tools" replace />
   if (meta.status === 'coming-soon') {
     return (
@@ -48,6 +54,21 @@ export default function ToolPage() {
         <span className="text-muted">/</span>
         <span className="text-dim">{slug}</span>
       </nav>
+
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface/50 px-4 py-3 animate-fade-in">
+        <div>
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-subtle">Workspace</p>
+          <p className="text-xs text-dim">Local-only utility · no account required</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => toggleFavorite(meta.slug)}
+          className="rounded-full border border-border px-3 py-1.5 text-xs font-mono text-subtle transition-colors hover:border-subtle hover:text-bright focus:outline-none focus:ring-2 focus:ring-bright/30"
+          aria-pressed={favoriteSet.has(meta.slug)}
+        >
+          {favoriteSet.has(meta.slug) ? '★ Favorited' : '☆ Add favorite'}
+        </button>
+      </div>
 
       {/* ── Tool ─────────────────────────────────────────────────────────── */}
       <div className="animate-slide-up">

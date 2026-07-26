@@ -4,7 +4,7 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
 
 ## Current task
 
-- [x] Add explicit `typecheck` and `test` npm scripts and document the verification workflow.
+- [x] Add command palette, global search shortcut, favorites, and recently used tools for faster discovery.
 
 ## Pending backlog
 
@@ -19,7 +19,7 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
 9. [ ] Add contribution guidelines for adding tools, metadata, changelog entries, and checks.
 10. [ ] Audit keyboard and screen-reader accessibility across navigation, theme picker, editors, and tool controls.
 11. [ ] Standardize empty and error states across all tools.
-12. [ ] Improve tool discovery with better filtering, ordering, and status handling.
+12. [x] Improve tool discovery with better filtering, ordering, and status handling.
 13. [ ] Strengthen per-tool SEO metadata and sitemap coverage.
 14. [ ] Review bundle splitting and lazy loading for editor-heavy tools.
 15. [ ] Reduce repeated runtime work in frequently-rendered components.
@@ -29,6 +29,8 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
 19. [ ] Persist safe user preferences, such as editor settings, with documented local-storage behavior.
 
 ## Completed
+
+- [x] Added a command palette, global search shortcut, local favorites, and recently used tools for faster discovery.
 
 - [x] Initial architecture review and backlog documentation created.
 - [x] Added explicit `typecheck` and `test` scripts plus architecture and verification documentation.

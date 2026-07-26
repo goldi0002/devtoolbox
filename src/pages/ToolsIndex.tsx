@@ -4,6 +4,7 @@ import type { ToolMeta } from '../tools/tool-meta'
 import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
+import { useToolPreferences } from '../hooks/useToolPreferences'
 
 const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] as const
 
@@ -19,6 +20,7 @@ export default function ToolsIndex() {
     : 'all'
 
   const [search, setSearch] = useState('')
+  const { favoriteSet, favorites, recentTools, toggleFavorite } = useToolPreferences()
 
   // Clear search when URL category changes (browser back/forward)
   useEffect(() => {
@@ -48,6 +50,9 @@ export default function ToolsIndex() {
       return matchesCategory && matchesSearch
     })
   }, [search, activeCategory])
+
+  const favoriteTools = useMemo(() => favorites.map(slug => tools.find(tool => tool.slug === slug)).filter((tool): tool is ToolMeta => Boolean(tool)), [favorites])
+  const recentToolCards = useMemo(() => recentTools.map(slug => tools.find(tool => tool.slug === slug)).filter((tool): tool is ToolMeta => Boolean(tool)), [recentTools])
 
   const showingAll = filtered.length === tools.length
 
@@ -93,6 +98,30 @@ export default function ToolsIndex() {
         </div>
       </section>
 
+      {activeCategory === 'all' && !search && (favoriteTools.length > 0 || recentToolCards.length > 0) && (
+        <section className="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-2 animate-slide-up stagger-1" aria-label="Personal tool shortcuts">
+          {[{ title: 'Favorites', items: favoriteTools, empty: 'Star tools to pin them here.' }, { title: 'Recently used', items: recentToolCards, empty: 'Open a tool to build your recent list.' }].map(group => (
+            <div key={group.title} className="rounded-2xl border border-border bg-surface/50 p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-[10px] font-mono uppercase tracking-[0.2em] text-subtle">{group.title}</h2>
+                <span className="text-[10px] font-mono text-muted">Local</span>
+              </div>
+              {group.items.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {group.items.slice(0, 6).map(tool => (
+                    <Link key={tool.slug} to={`/${tool.slug}`} className="rounded-full border border-border bg-bg px-3 py-1.5 text-xs text-dim transition-colors hover:border-subtle hover:text-bright">
+                      {tool.name}
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-xs text-subtle">{group.empty}</p>
+              )}
+            </div>
+          ))}
+        </section>
+      )}
+
       {/* ── Search + Filter ────────────────────────────────────────────────── */}
       <div className="border-t border-border pt-8 mb-10 animate-slide-up stagger-1">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
@@ -107,6 +136,7 @@ export default function ToolsIndex() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search tools..."
+              aria-label="Search tools"
               className="input-base pl-7 w-full"
             />
             {search && (
@@ -180,7 +210,7 @@ export default function ToolsIndex() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                       {catTools.map((tool, i) => (
-                        <ToolGridCard key={tool.slug} tool={tool} index={i} />
+                        <ToolGridCard key={tool.slug} tool={tool} index={i} isFavorite={favoriteSet.has(tool.slug)} onToggleFavorite={toggleFavorite} />
                       ))}
                     </div>
                   </div>
@@ -191,7 +221,7 @@ export default function ToolsIndex() {
             // Flat grid when filtered or searching
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
               {filtered.map((tool, i) => (
-                <ToolGridCard key={tool.slug} tool={tool} index={i} />
+                <ToolGridCard key={tool.slug} tool={tool} index={i} isFavorite={favoriteSet.has(tool.slug)} onToggleFavorite={toggleFavorite} />
               ))}
             </div>
           )}
@@ -209,7 +239,7 @@ export default function ToolsIndex() {
 
 // ─── Tool Card ───────────────────────────────────────────────────────────────
 
-function ToolGridCard({ tool, index }: { tool: ToolMeta; index: number }) {
+function ToolGridCard({ tool, index, isFavorite, onToggleFavorite }: { tool: ToolMeta; index: number; isFavorite: boolean; onToggleFavorite: (slug: string) => void }) {
   const delays = ['stagger-1', 'stagger-2', 'stagger-3', 'stagger-4', 'stagger-5', 'stagger-6']
   const delay = delays[index % delays.length]
   if (tool.status === 'coming-soon') {
@@ -242,7 +272,15 @@ function ToolGridCard({ tool, index }: { tool: ToolMeta; index: number }) {
     >
       <div className="flex items-center justify-between">
         <span className="tag">{tool.tag}</span>
-        <span className="text-muted group-hover:text-subtle transition-colors font-mono text-sm">→</span>
+        <button
+          type="button"
+          onClick={event => { event.preventDefault(); onToggleFavorite(tool.slug) }}
+          className="rounded-full text-sm text-muted transition-colors hover:text-amber-400 focus:outline-none focus:ring-2 focus:ring-bright/30"
+          aria-label={isFavorite ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
+          aria-pressed={isFavorite}
+        >
+          {isFavorite ? '★' : '☆'}
+        </button>
       </div>
       <div className="flex-1">
         <h3 className="text-bright font-sans font-medium text-sm mb-1">{tool.name}</h3>
