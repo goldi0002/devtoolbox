@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import CommandPalette from './CommandPalette'
 import { Link, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import ThemePicker from './ui/Themepicker'
@@ -36,6 +37,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [showShortcutHint, setShowShortcutHint] = useState(false)
+  const [paletteOpen, setPaletteOpen] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
   // Close mobile menu on route change
@@ -59,9 +61,9 @@ export default function Navbar() {
       e.preventDefault()
       setShowShortcutHint(h => !h)
     }
-    if (e.key === '/') {
+    if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
       e.preventDefault()
-      window.location.href = '/tools'
+      setPaletteOpen(true)
     }
   }, [])
 
@@ -123,6 +125,15 @@ export default function Navbar() {
               ?
             </button>
 
+            <button
+              onClick={() => setPaletteOpen(true)}
+              className="hidden md:flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-[11px] font-mono text-subtle hover:border-subtle hover:text-bright transition-colors"
+              aria-label="Open command palette"
+            >
+              <span>Search</span>
+              <kbd className="text-[9px] text-muted">Ctrl K</kbd>
+            </button>
+
             {/* Theme toggle */}
             <ThemePicker />
 
@@ -166,6 +177,8 @@ export default function Navbar() {
         )}
       </nav>
 
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+
       {/* ── Keyboard shortcut modal ─────────────────────────────────────── */}
       {showShortcutHint && (
         <>
@@ -195,7 +208,7 @@ export default function Navbar() {
                 { keys: ['?'], desc: 'Toggle this panel' },
                 { keys: ['/'], desc: 'Go to Tools' },
                 { keys: ['F12'], desc: 'Open DevTools' },
-                { keys: ['Ctrl', 'K'], desc: 'Browser search bar' },
+                { keys: ['Ctrl', 'K'], desc: 'Open command palette' },
               ].map(row => (
                 <div key={row.desc} className="flex items-center justify-between px-4 py-3">
                   <span className="text-xs font-sans text-subtle">{row.desc}</span>

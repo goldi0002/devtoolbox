@@ -32,7 +32,7 @@ This roadmap is based on an initial repository review of the React/Vite static s
 
 10. **Improve keyboard and screen-reader accessibility.** Audit theme picker, mobile navigation, editor controls, copy/share buttons, and tool forms for labels, focus states, aria attributes, and keyboard behavior.
 11. **Add empty/error states consistently.** Ensure every tool has actionable validation messages and recoverable error states.
-12. **Improve tool discovery.** Add category filtering/search refinements, popularity/featured ordering rules, and clearer coming-soon/deprecated handling.
+12. **Improve tool discovery.** Completed initial discovery milestone with a command palette, global search shortcut, local favorites, recently used tools, category filtering/search refinements, and clearer personal shortcuts. Continue refining popularity ordering and status handling as usage data emerges.
 13. **Strengthen SEO metadata.** Ensure each tool has unique title, description, canonical URL, Open Graph metadata, and sitemap coverage.
 
 ### P3 — Performance and quality
