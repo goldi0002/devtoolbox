@@ -1,6 +1,9 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import DataTable from '../../ui/DataTable'
+import FieldCard from '../../ui/FieldCard'
+import TextAreaField from '../../ui/TextAreaField'
 
 const SAMPLE_HEADERS = `GET /api/users?page=2 HTTP/1.1
 Host: api.example.dev
@@ -52,50 +55,36 @@ export default function HttpHeaderParser() {
           <button className="btn-primary ml-auto" onClick={() => setInput('')}>Clear</button>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">Raw headers</label>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="input-base min-h-[170px] w-full"
-            placeholder="Paste raw HTTP headers here"
-            spellCheck={false}
-          />
-        </div>
+        <TextAreaField
+          label="Raw headers"
+          value={input}
+          onChange={setInput}
+          className="input-base min-h-[170px] w-full"
+          placeholder="Paste raw HTTP headers here"
+        />
 
         {parsed.requestLine && (
-          <div className="border border-border rounded p-4 bg-surface">
-            <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-2">Request line</div>
-            <div className="flex items-start gap-3">
-              <p className="text-sm font-mono text-bright break-all flex-1">{parsed.requestLine}</p>
-              <CopyButton text={parsed.requestLine} />
-            </div>
-          </div>
+          <FieldCard label="Request line" value={parsed.requestLine} copyable />
         )}
 
-        <div className="border border-border rounded overflow-hidden">
-          <div className="grid grid-cols-[220px_1fr_auto] gap-3 px-4 py-2 bg-surface border-b border-border text-[10px] font-mono uppercase tracking-[0.16em] text-subtle">
-            <span>Header</span>
-            <span>Value</span>
-            <span className="text-right">Copy</span>
-          </div>
-
-          {parsed.headers.length === 0 ? (
-            <div className="px-4 py-8 text-xs font-mono text-subtle">No header lines detected yet.</div>
-          ) : (
-            <div className="divide-y divide-border">
-              {parsed.headers.map((row) => (
-                <div key={`${row.name}-${row.value}`} className="grid grid-cols-[220px_1fr_auto] gap-3 px-4 py-3 items-start bg-[#f8f8f8]">
-                  <span className="text-sm font-mono text-bright break-all">{row.name}</span>
-                  <span className="text-sm font-sans text-dim break-all">{row.value}</span>
-                  <div className="justify-self-end">
-                    <CopyButton text={`${row.name}: ${row.value}`} />
-                  </div>
-                </div>
-              ))}
-            </div>
+        <DataTable
+          gridClass="grid-cols-[220px_1fr_auto]"
+          columns={[
+            { label: 'Header' },
+            { label: 'Value' },
+            { label: 'Copy', align: 'right' },
+          ]}
+          rows={parsed.headers}
+          rowKey={row => `${row.name}-${row.value}`}
+          copyText={row => `${row.name}: ${row.value}`}
+          emptyMessage="No header lines detected yet."
+          renderRow={row => (
+            <>
+              <span className="text-sm font-mono text-bright break-all">{row.name}</span>
+              <span className="text-sm font-sans text-dim break-all">{row.value}</span>
+            </>
           )}
-        </div>
+        />
 
         <div className="border border-border rounded p-4 bg-surface">
           <div className="flex items-center justify-between gap-3 mb-2">

@@ -1,12 +1,19 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import OutputPanel from '../../ui/OutputPanel'
+import StatCard from '../../ui/StatCard'
+import TextAreaField from '../../ui/TextAreaField'
+import TextStats from '../../ui/TextStats'
+import TipsCard from '../../ui/TipsCard'
+import ToggleGroup from '../../ui/ToggleGroup'
+import { stripDiacritics } from '../../../utils/text'
 
 type SlugStyle = 'kebab' | 'snake'
 
-function stripDiacritics(value: string): string {
-  return value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
-}
+const SLUG_STYLES = [
+  { value: 'kebab' as const, label: 'kebab-case' },
+  { value: 'snake' as const, label: 'snake_case' },
+]
 
 function buildSlug(input: string, style: SlugStyle, keepNumbers: boolean): string {
   const normalized = stripDiacritics(input)
@@ -41,67 +48,46 @@ export default function SlugGenerator() {
     >
       <div className="space-y-5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">Source text</label>
-            <textarea
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              className="textarea-base h-44"
-              placeholder="Paste a blog title, category name, or page heading..."
-              spellCheck={false}
-            />
-            <div className="mt-2 flex gap-4 text-[10px] font-mono text-subtle">
-              <span>{input.length} chars</span>
-              <span>{input.trim() ? input.trim().split(/\s+/).length : 0} words</span>
-            </div>
-          </div>
+          <TextAreaField
+            label="Source text"
+            value={input}
+            onChange={setInput}
+            className="textarea-base h-44"
+            placeholder="Paste a blog title, category name, or page heading..."
+            footer={<TextStats value={input} />}
+          />
 
           <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs text-dim font-mono">Generated slug</label>
-              {output && <CopyButton text={output} />}
-            </div>
-            <div className="bg-surface border border-border rounded px-3 py-2 h-44 overflow-auto">
-              {output ? (
-                <pre className="text-xs font-mono text-light whitespace-pre-wrap break-all">{output}</pre>
-              ) : (
-                <span className="text-xs font-mono text-subtle">Your slug will appear here...</span>
-              )}
-            </div>
+            <OutputPanel
+              label="Generated slug"
+              value={output}
+              placeholder="Your slug will appear here..."
+              heightClass="h-44"
+              surface="surface"
+            />
 
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs font-mono">
-              <div className="border border-border rounded px-3 py-2">
-                <div className="text-subtle mb-1">Separator</div>
-                <div className="text-bright">{style === 'kebab' ? 'Hyphen (-)' : 'Underscore (_)'}</div>
-              </div>
-              <div className="border border-border rounded px-3 py-2">
-                <div className="text-subtle mb-1">Length</div>
-                <div className="text-bright">{output.length} chars</div>
-              </div>
+              <StatCard label="Separator" value={style === 'kebab' ? 'Hyphen (-)' : 'Underscore (_)'} />
+              <StatCard label="Length" value={`${output.length} chars`} />
             </div>
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => setStyle('kebab')} className={style === 'kebab' ? 'btn-primary' : 'btn-ghost'}>
-            kebab-case
-          </button>
-          <button onClick={() => setStyle('snake')} className={style === 'snake' ? 'btn-primary' : 'btn-ghost'}>
-            snake_case
-          </button>
+          <ToggleGroup options={SLUG_STYLES} value={style} onChange={setStyle} />
           <button onClick={() => setKeepNumbers(v => !v)} className={keepNumbers ? 'btn-primary' : 'btn-ghost'}>
             {keepNumbers ? 'Keeping numbers' : 'Removing numbers'}
           </button>
         </div>
 
-        <div className="border border-border rounded-lg p-4 bg-surface/50">
-          <p className="text-[10px] font-mono text-subtle tracking-widest uppercase mb-2">What it does</p>
-          <ul className="space-y-2 text-xs font-sans text-dim leading-relaxed">
-            <li>• Lowercases text and removes accent marks for cleaner URLs.</li>
-            <li>• Replaces spaces and punctuation with a single separator.</li>
-            <li>• Trims duplicate separators from the beginning, middle, and end.</li>
-          </ul>
-        </div>
+        <TipsCard
+          title="What it does"
+          items={[
+            'Lowercases text and removes accent marks for cleaner URLs.',
+            'Replaces spaces and punctuation with a single separator.',
+            'Trims duplicate separators from the beginning, middle, and end.',
+          ]}
+        />
       </div>
     </ToolLayout>
   )

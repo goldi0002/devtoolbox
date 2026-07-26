@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import TextAreaField from '../../ui/TextAreaField'
 
 type ParamRow = {
   key: string
@@ -77,16 +78,13 @@ export default function QueryStringParser() {
           </span>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">URL or query string</label>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="textarea-base h-28"
-            placeholder="https://example.com/callback?code=abc123&state=xyz"
-            spellCheck={false}
-          />
-        </div>
+        <TextAreaField
+          label="URL or query string"
+          value={input}
+          onChange={setInput}
+          className="textarea-base h-28"
+          placeholder="https://example.com/callback?code=abc123&state=xyz"
+        />
 
         {parsed ? (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">

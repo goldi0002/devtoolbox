@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import TextAreaField from '../../ui/TextAreaField'
 
 const DEFAULT_INPUT = '1710460800'
 
@@ -76,16 +77,13 @@ export default function TimestampConverter() {
           </span>
         </div>
 
-        <div>
-          <label className="block text-xs text-dim font-mono mb-1.5">Input</label>
-          <textarea
-            value={input}
-            onChange={e => setInput(e.target.value)}
-            className="textarea-base h-28"
-            placeholder="1710460800 or 2026-03-18T09:30:00Z"
-            spellCheck={false}
-          />
-        </div>
+        <TextAreaField
+          label="Input"
+          value={input}
+          onChange={setInput}
+          className="textarea-base h-28"
+          placeholder="1710460800 or 2026-03-18T09:30:00Z"
+        />
 
         {parsed.error ? (
           <div className="border border-border rounded px-4 py-3 text-xs font-mono text-subtle">

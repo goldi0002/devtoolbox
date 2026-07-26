@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import StatCard from '../../ui/StatCard'
 
 const WORDS = 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur'.split(' ')
 
@@ -62,14 +63,8 @@ export default function LoremIpsumGenerator() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 text-xs font-mono">
-              <div className="border border-border rounded px-3 py-2">
-                <div className="text-subtle mb-1">Words</div>
-                <div className="text-bright">{estimatedWords}</div>
-              </div>
-              <div className="border border-border rounded px-3 py-2">
-                <div className="text-subtle mb-1">Chars</div>
-                <div className="text-bright">{estimatedChars}</div>
-              </div>
+              <StatCard label="Words" value={estimatedWords} />
+              <StatCard label="Chars" value={estimatedChars} />
             </div>
           </div>
 

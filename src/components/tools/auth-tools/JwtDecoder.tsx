@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import CopyButton from '../../CopyButton'
+import ToolLayout from '../../ToolLayout'
+import ErrorBanner from '../../ui/ErrorBanner'
+import SectionPanel from '../../ui/SectionPanel'
+import { decodeBase64Url } from '../../../utils/encoding'
 import { getErrorMessage } from '../../../utils/errors'
 
 interface DecodedJWT {
@@ -11,12 +14,6 @@ interface DecodedJWT {
 const SAMPLE_JWT =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyXzEyMyIsIm5hbWUiOiJBbGljZSBTbWl0aCIsImVtYWlsIjoiYWxpY2VAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6OTk5OTk5OTk5OX0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
 
-function base64UrlDecode(str: string): string {
-  const base64 = str.replace(/-/g, '+').replace(/_/g, '/')
-  const padded = base64 + '='.repeat((4 - (base64.length % 4)) % 4)
-  return atob(padded)
-}
-
 function decodeJWT(token: string): DecodedJWT {
   const parts = token.trim().split('.')
   if (parts.length !== 3) throw new Error('Invalid JWT: must have 3 parts separated by dots')
@@ -25,13 +22,13 @@ function decodeJWT(token: string): DecodedJWT {
   let payload: Record<string, unknown>
 
   try {
-    header = JSON.parse(base64UrlDecode(parts[0]))
+    header = JSON.parse(decodeBase64Url(parts[0]))
   } catch {
     throw new Error('Failed to decode header — invalid Base64URL or JSON')
   }
 
   try {
-    payload = JSON.parse(base64UrlDecode(parts[1]))
+    payload = JSON.parse(decodeBase64Url(parts[1]))
   } catch {
     throw new Error('Failed to decode payload — invalid Base64URL or JSON')
   }
@@ -87,31 +84,6 @@ function JsonViewer({ data }: { data: Record<string, unknown> }) {
   )
 }
 
-function Section({
-  label,
-  color,
-  children,
-  raw,
-}: {
-  label: string
-  color: string
-  children: React.ReactNode
-  raw: string
-}) {
-  return (
-    <div className="border border-border rounded-lg overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2.5 bg-surface border-b border-border">
-        <div className="flex items-center gap-2">
-          <span className={`w-2 h-2 rounded-full ${color}`} />
-          <span className="text-xs font-mono text-dim tracking-widest uppercase">{label}</span>
-        </div>
-        <CopyButton text={raw} />
-      </div>
-      <div className="px-4 py-3">{children}</div>
-    </div>
-  )
-}
-
 export default function JwtDecoder() {
   const [input, setInput] = useState('')
   const [decoded, setDecoded] = useState<DecodedJWT | null>(null)
@@ -133,21 +105,12 @@ export default function JwtDecoder() {
   const parts = input.trim().split('.')
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden animate-fade-in">
-      {/* Header */}
-      <div className="border-b border-border px-5 py-4 flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2.5 mb-1">
-            <span className="tag">auth</span>
-          </div>
-          <h2 className="text-bright font-sans font-medium text-base">JWT Decoder</h2>
-        </div>
-        <p className="hidden sm:block text-dim text-xs font-sans max-w-xs text-right leading-relaxed">
-          Decode and inspect JSON Web Tokens
-        </p>
-      </div>
-
-      <div className="p-5 space-y-5">
+    <ToolLayout
+      title="JWT Decoder"
+      description="Decode and inspect JSON Web Tokens"
+      tag="auth"
+    >
+      <div className="space-y-5">
         {/* Input */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
@@ -180,11 +143,7 @@ export default function JwtDecoder() {
           />
         </div>
 
-        {error && (
-          <div className="text-xs font-mono text-dim bg-surface border border-border rounded px-3 py-2">
-            ⚠ {error}
-          </div>
-        )}
+        <ErrorBanner message={error} />
 
         {decoded && (
           <>
@@ -205,36 +164,36 @@ export default function JwtDecoder() {
 
             {/* Three sections */}
             <div className="space-y-3">
-              <Section
+              <SectionPanel
                 label="Header"
-                color="bg-[#e06c75]"
-                raw={JSON.stringify(decoded.header, null, 2)}
+                dot="bg-[#e06c75]"
+                copyText={JSON.stringify(decoded.header, null, 2)}
               >
                 <JsonViewer data={decoded.header} />
-              </Section>
+              </SectionPanel>
 
-              <Section
+              <SectionPanel
                 label="Payload"
-                color="bg-[#61afef]"
-                raw={JSON.stringify(decoded.payload, null, 2)}
+                dot="bg-[#61afef]"
+                copyText={JSON.stringify(decoded.payload, null, 2)}
               >
                 <JsonViewer data={decoded.payload} />
-              </Section>
+              </SectionPanel>
 
-              <Section
+              <SectionPanel
                 label="Signature"
-                color="bg-[#98c379]"
-                raw={decoded.signature}
+                dot="bg-[#98c379]"
+                copyText={decoded.signature}
               >
                 <p className="font-mono text-xs text-subtle break-all">{decoded.signature}</p>
                 <p className="text-[10px] font-sans text-muted mt-2">
                   Signature verification requires the secret key and cannot be done client-side.
                 </p>
-              </Section>
+              </SectionPanel>
             </div>
           </>
         )}
       </div>
-    </div>
+    </ToolLayout>
   )
 }

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
+import TextAreaField from '../../ui/TextAreaField'
 
 const SAMPLE_A = `function greet(name) {
   console.log("Hello, " + name);
@@ -58,26 +59,8 @@ export default function TextDiff() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">Original (A)</label>
-            <textarea
-              value={textA}
-              onChange={e => setTextA(e.target.value)}
-              className="textarea-base h-36"
-              placeholder={SAMPLE_A}
-              spellCheck={false}
-            />
-          </div>
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">Modified (B)</label>
-            <textarea
-              value={textB}
-              onChange={e => setTextB(e.target.value)}
-              className="textarea-base h-36"
-              placeholder={SAMPLE_B}
-              spellCheck={false}
-            />
-          </div>
+          <TextAreaField label="Original (A)" value={textA} onChange={setTextA} placeholder={SAMPLE_A} />
+          <TextAreaField label="Modified (B)" value={textB} onChange={setTextB} placeholder={SAMPLE_B} />
         </div>
 
         {diffResult && (
