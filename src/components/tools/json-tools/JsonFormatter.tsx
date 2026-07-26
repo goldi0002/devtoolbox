@@ -4,6 +4,7 @@ import CodeBlock from '../../CodeBlock'
 import { tools } from '../../../tools/registry'
 import { useHashData } from '../../../hooks/useHashData'
 import { JsonDataShare } from '../../../types/share'
+import { getErrorMessage } from '../../../utils/errors'
 const SAMPLE = `{"name":"ToolBox4Devs","version":"1.0","tools":["JSON Formatter","JSON-Model","UUID Generator"],"config":{"theme":"dark","lang":"en"}}`
 
 export default function JsonFormatter() {
@@ -28,9 +29,9 @@ export default function JsonFormatter() {
           ? JSON.stringify(parsed)
           : JSON.stringify(parsed, null, 2)
       )
-      setMode(value.meta?.mode as 'format' | 'minify' ?? 'format')
+      setMode(value.meta?.mode === 'minify' ? 'minify' : 'format')
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Shared JSON could not be parsed'))
     }
   })
   const process = (m: 'format' | 'minify') => {
@@ -45,7 +46,7 @@ export default function JsonFormatter() {
         setOutput(JSON.stringify(parsed))
       }
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Invalid JSON'))
       setOutput('')
     }
   }

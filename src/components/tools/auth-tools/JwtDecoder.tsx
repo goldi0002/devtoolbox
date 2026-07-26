@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import CopyButton from '../../CopyButton'
+import { getErrorMessage } from '../../../utils/errors'
 
 interface DecodedJWT {
   header: Record<string, unknown>
@@ -124,7 +125,7 @@ export default function JwtDecoder() {
     try {
       setDecoded(decodeJWT(value.trim()))
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Failed to decode token'))
     }
   }
 

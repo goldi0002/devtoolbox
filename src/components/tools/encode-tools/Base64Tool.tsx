@@ -2,6 +2,16 @@ import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
 
+function convert(value: string, mode: 'encode' | 'decode'): string {
+  return mode === 'encode'
+    ? btoa(unescape(encodeURIComponent(value)))
+    : decodeURIComponent(escape(atob(value)))
+}
+
+function failureMessage(mode: 'encode' | 'decode'): string {
+  return mode === 'encode' ? 'Encoding failed' : 'Invalid Base64 string'
+}
+
 export default function Base64Tool() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
@@ -14,13 +24,9 @@ export default function Base64Tool() {
     if (!input.trim()) return
 
     try {
-      if (m === 'encode') {
-        setOutput(btoa(unescape(encodeURIComponent(input))))
-      } else {
-        setOutput(decodeURIComponent(escape(atob(input))))
-      }
+      setOutput(convert(input, m))
     } catch {
-      setError(m === 'encode' ? 'Encoding failed' : 'Invalid Base64 string')
+      setError(failureMessage(m))
       setOutput('')
     }
   }
@@ -30,12 +36,9 @@ export default function Base64Tool() {
     setError('')
     if (!val.trim()) { setOutput(''); return }
     try {
-      if (mode === 'encode') {
-        setOutput(btoa(unescape(encodeURIComponent(val))))
-      } else {
-        setOutput(decodeURIComponent(escape(atob(val))))
-      }
+      setOutput(convert(val, mode))
     } catch {
+      setError(failureMessage(mode))
       setOutput('')
     }
   }
@@ -51,13 +54,11 @@ export default function Base64Tool() {
       setInput(output)
       const newMode = mode === 'encode' ? 'decode' : 'encode'
       setMode(newMode)
+      setError('')
       try {
-        if (newMode === 'encode') {
-          setOutput(btoa(unescape(encodeURIComponent(output))))
-        } else {
-          setOutput(decodeURIComponent(escape(atob(output))))
-        }
+        setOutput(convert(output, newMode))
       } catch {
+        setError(failureMessage(newMode))
         setOutput('')
       }
     }

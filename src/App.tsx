@@ -2,6 +2,7 @@ import { useEffect, lazy, Suspense } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 // import posthog from 'posthog-js'
 import Navbar from './components/Navbar'
+import ErrorBoundary from './components/ErrorBoundary'
 
 const PageLoader = lazy(() => import('./components/ui/PageLoader'))
 export function Layout() {
@@ -29,9 +30,11 @@ export function Layout() {
       <div className="min-h-screen bg-bg text-bright">
         <Navbar />
         {/* Suspense is required for lazy loaded components in SSG */}
-        <Suspense fallback={<PageLoader />}>
-          <Outlet />
-        </Suspense>
+        <ErrorBoundary key={pathname}>
+          <Suspense fallback={<PageLoader />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
       </div>
   )
 }
