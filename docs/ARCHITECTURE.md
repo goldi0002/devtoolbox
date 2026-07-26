@@ -19,7 +19,7 @@ Toolbox4Devs is a static, privacy-first React application for browser-based deve
 
 1. `src/main.tsx` creates the SSG root and installs a client-only Vite preload-error recovery handler.
 2. `src/routes.tsx` declares the layout route, informational pages, category index routes, and one route for every available tool slug.
-3. `src/App.tsx` renders the shared layout, navigation, scroll reset, and suspense fallback.
+3. `src/App.tsx` renders the shared layout: skip link, navigation, routed content inside `#main-content`, global footer, scroll reset, error boundary, and suspense fallback.
 4. `src/pages/ToolPage.tsx` resolves the current slug from the URL, looks up metadata in the tool registry, renders the tool component, and adds related-tool links plus about content.
 5. `src/hooks/useSEO.tsx` writes page-level title, description, canonical, Open Graph, and Twitter card tags through `vite-react-ssg`'s `Head` component.
 
@@ -34,7 +34,8 @@ Toolbox4Devs is a static, privacy-first React application for browser-based deve
 ## Shared UI and utilities
 
 - `src/components/CodeInput.tsx` and `src/components/CodeBlock.tsx` wrap CodeMirror for editable and read-only code experiences.
-- `src/components/ToolLayout.tsx`, `ToolCard.tsx`, `CopyButton.tsx`, and `src/components/ui/*` provide reusable layout, cards, clipboard, sharing, theme, loading, and tool-status UI.
+- `src/components/ToolLayout.tsx`, `ToolCard.tsx`, `Footer.tsx`, `CopyButton.tsx`, and `src/components/ui/*` provide reusable layout, cards, clipboard, sharing, theme, loading, and tool-status UI.
+- Design tokens and shared component classes are described in `docs/DESIGN.md`; page-level styling should compose those classes rather than repeating utility strings.
 - `src/lib/share.ts` implements compressed hash-based share URLs with `lz-string`.
 - `src/hooks/` contains clipboard, hash-data, analytics, SEO, and page-title hooks.
 - `src/utils/` contains tool-specific utilities and site metadata.

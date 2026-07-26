@@ -58,13 +58,13 @@ npm run preview
 
 - `src/main.tsx` creates the `ViteReactSSG` root and installs a client-only preload-error recovery handler.
 - `src/routes.tsx` defines static routes for informational pages, tool categories, and every available tool slug.
-- `src/App.tsx` provides the shared layout, navigation, route scroll reset, and suspense boundary.
+- `src/App.tsx` provides the shared layout: skip link, navigation, routed content, global footer, route scroll reset, and suspense boundary.
 - `src/pages/` contains top-level pages and `ToolPage`, which resolves a slug to tool metadata and renders the matching component.
 - `src/tools/registry.ts` is the browser registry; `src/tools/registry-node.ts` is the Node-safe registry used by Vite config for SSG routes and sitemap generation.
 - `src/components/tools/<category>/` contains runnable tool implementations.
 - `src/components/`, `src/components/ui/`, `src/hooks/`, `src/lib/`, and `src/utils/` contain shared UI, hooks, share-link logic, and utility helpers.
 
-See `docs/ARCHITECTURE.md` for the full architecture review, technical-debt findings, and verification workflow.
+See `docs/ARCHITECTURE.md` for the full architecture review, technical-debt findings, and verification workflow, and `docs/DESIGN.md` for the design tokens and shared component classes.
 
 ## Deployment
 
@@ -87,6 +87,7 @@ npm run build
 ## Documentation
 
 - `docs/ARCHITECTURE.md` — current architecture and audit findings.
+- `docs/DESIGN.md` — design tokens, themes, component classes, and accessibility rules.
 - `docs/ROADMAP.md` — prioritized roadmap.
 - `docs/TASKS.md` — task backlog and completion status.
 

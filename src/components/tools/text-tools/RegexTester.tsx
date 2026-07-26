@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import { getErrorMessage } from '../../../utils/errors'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -46,12 +47,12 @@ function buildRegex(pattern: string, flags: string): { regex: RegExp | null; err
   try {
     return { regex: new RegExp(pattern, flags), error: '' }
   } catch (e) {
-    return { regex: null, error: (e as Error).message }
+    return { regex: null, error: getErrorMessage(e, 'Invalid regular expression') }
   }
 }
 
-function getMatches(regex: RegExp | null, text: string): Match[] {
-  if (!regex || !text) return []
+function getMatches(regex: RegExp | null, text: string): { matches: Match[]; error: string } {
+  if (!regex || !text) return { matches: [], error: '' }
   const matches: Match[] = []
   try {
     if (regex.flags.includes('g')) {
@@ -78,8 +79,11 @@ function getMatches(regex: RegExp | null, text: string): Match[] {
         })
       }
     }
-  } catch { /* ignore runtime errors */ }
-  return matches
+  } catch (e) {
+    // Partial results are still useful, but the failure must be visible.
+    return { matches, error: getErrorMessage(e, 'Matching failed on this input') }
+  }
+  return { matches, error: '' }
 }
 
 // ─── Highlighted text renderer ───────────────────────────────────────────────
@@ -133,8 +137,9 @@ export default function RegexTester() {
   const [flags, setFlags]     = useState('g')
   const [testStr, setTestStr] = useState(SAMPLE_TEXT)
 
-  const { regex, error } = useMemo(() => buildRegex(pattern, flags), [pattern, flags])
-  const matches          = useMemo(() => getMatches(regex, testStr), [regex, testStr])
+  const { regex, error: patternError } = useMemo(() => buildRegex(pattern, flags), [pattern, flags])
+  const { matches, error: matchError }  = useMemo(() => getMatches(regex, testStr), [regex, testStr])
+  const error = patternError || matchError
 
   const toggleFlag = (f: string) => {
     setFlags(prev =>

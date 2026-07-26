@@ -4,10 +4,10 @@ export default function PageLoader() {
   const delays = [0, 0.3, 0.6, 0.3] // corners pulse in diagonal pairs
 
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center gap-8 bg-[#0a0a0a]">
+    <div className="fixed inset-0 flex flex-col items-center justify-center gap-8 bg-bg">
 
       {/* Grid logo — animated */}
-      <div className="grid grid-cols-2 gap-[5px] p-[10px] rounded-xl bg-white/[0.03] border border-white/[0.06]"
+      <div className="grid grid-cols-2 gap-[5px] p-[10px] rounded-xl bg-accent-soft border border-border"
            style={{ width: 72, height: 72 }}>
         {[0, 1, 2, 3].map(i => {
           const isBright = i === 0 || i === 3   // top-left, bottom-right
@@ -16,7 +16,7 @@ export default function PageLoader() {
               key={i}
               className="rounded-[3px]"
               style={{
-                background: isBright ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.3)',
+                background: isBright ? 'var(--color-accent)' : 'var(--color-muted)',
                 animation: 'gridPulse 1.6s ease-in-out infinite',
                 animationDelay: `${delays[i]}s`,
               }}
@@ -27,7 +27,7 @@ export default function PageLoader() {
 
       {/* Label */}
       <span
-        className="text-[10px] uppercase tracking-[0.35em] text-white/25"
+        className="text-[10px] uppercase tracking-[0.35em] text-subtle"
         style={{
           fontFamily: "'JetBrains Mono', monospace",
           animation: 'fadeShift 1.6s ease-in-out infinite',

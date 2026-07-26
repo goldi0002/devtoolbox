@@ -1,34 +1,24 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import OutputPanel from '../../ui/OutputPanel'
+import StatCard from '../../ui/StatCard'
+import TextAreaField from '../../ui/TextAreaField'
+import TextStats from '../../ui/TextStats'
+import ToggleGroup from '../../ui/ToggleGroup'
+import { capitalize, toWords } from '../../../utils/text'
 
 type CaseMode = 'upper' | 'lower' | 'title' | 'sentence' | 'camel' | 'pascal' | 'snake' | 'kebab'
 
-const CASE_OPTIONS: { mode: CaseMode; label: string }[] = [
-  { mode: 'upper', label: 'UPPERCASE' },
-  { mode: 'lower', label: 'lowercase' },
-  { mode: 'title', label: 'Title Case' },
-  { mode: 'sentence', label: 'Sentence case' },
-  { mode: 'camel', label: 'camelCase' },
-  { mode: 'pascal', label: 'PascalCase' },
-  { mode: 'snake', label: 'snake_case' },
-  { mode: 'kebab', label: 'kebab-case' },
+const CASE_OPTIONS: { value: CaseMode; label: string }[] = [
+  { value: 'upper', label: 'UPPERCASE' },
+  { value: 'lower', label: 'lowercase' },
+  { value: 'title', label: 'Title Case' },
+  { value: 'sentence', label: 'Sentence case' },
+  { value: 'camel', label: 'camelCase' },
+  { value: 'pascal', label: 'PascalCase' },
+  { value: 'snake', label: 'snake_case' },
+  { value: 'kebab', label: 'kebab-case' },
 ]
-
-function toWords(input: string): string[] {
-  return input
-    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-    .replace(/[_-]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .filter(Boolean)
-}
-
-function capitalize(word: string): string {
-  if (!word) return ''
-  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-}
 
 function sentenceCase(input: string): string {
   const normalized = input.trim().toLowerCase()
@@ -67,7 +57,6 @@ export default function CaseConverter() {
   const [mode, setMode] = useState<CaseMode>('camel')
 
   const output = useMemo(() => convertCase(input, mode), [input, mode])
-  const wordCount = useMemo(() => toWords(input).length, [input])
 
   return (
     <ToolLayout
@@ -77,55 +66,31 @@ export default function CaseConverter() {
     >
       <div className="space-y-5">
         <div className="flex flex-wrap gap-2">
-          {CASE_OPTIONS.map(option => (
-            <button
-              key={option.mode}
-              onClick={() => setMode(option.mode)}
-              className={mode === option.mode ? 'btn-primary' : 'btn-ghost'}
-            >
-              {option.label}
-            </button>
-          ))}
+          <ToggleGroup options={CASE_OPTIONS} value={mode} onChange={setMode} />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">Input</label>
-            <textarea
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              className="textarea-base h-48"
-              placeholder="Paste any text, variable name, slug, or sentence..."
-              spellCheck={false}
-            />
-            <div className="mt-2 flex gap-4 text-[10px] font-mono text-subtle">
-              <span>{input.length} chars</span>
-              <span>{wordCount} words</span>
-            </div>
-          </div>
+          <TextAreaField
+            label="Input"
+            value={input}
+            onChange={setInput}
+            className="textarea-base h-48"
+            placeholder="Paste any text, variable name, slug, or sentence..."
+            footer={<TextStats value={input} wordCount={toWords(input).length} />}
+          />
 
           <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs text-dim font-mono">Converted output</label>
-              {output && <CopyButton text={output} />}
-            </div>
-            <div className="bg-surface border border-border rounded px-3 py-2 h-48 overflow-auto">
-              {output ? (
-                <pre className="text-xs font-mono text-light whitespace-pre-wrap break-all">{output}</pre>
-              ) : (
-                <span className="text-xs font-mono text-subtle">Converted text will appear here...</span>
-              )}
-            </div>
+            <OutputPanel
+              label="Converted output"
+              value={output}
+              placeholder="Converted text will appear here..."
+              heightClass="h-48"
+              surface="surface"
+            />
 
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs font-mono">
-              <div className="border border-border rounded px-3 py-2">
-                <div className="text-subtle mb-1">Active mode</div>
-                <div className="text-bright">{CASE_OPTIONS.find(option => option.mode === mode)?.label}</div>
-              </div>
-              <div className="border border-border rounded px-3 py-2">
-                <div className="text-subtle mb-1">Output length</div>
-                <div className="text-bright">{output.length} chars</div>
-              </div>
+              <StatCard label="Active mode" value={CASE_OPTIONS.find(option => option.value === mode)?.label} />
+              <StatCard label="Output length" value={`${output.length} chars`} />
             </div>
           </div>
         </div>

@@ -22,11 +22,11 @@ const toolSlugs = tools.map(t => t.slug)
 // ── Logo ───────────────────────────────────────────────────────────────────
 function LogoMark() {
   return (
-    <div className="w-7 h-7 grid grid-cols-2 gap-0.5">
-      <div className="bg-bright rounded-sm transition-all duration-300 group-hover:bg-white" />
-      <div className="bg-subtle rounded-sm transition-all duration-300 group-hover:bg-dim" />
-      <div className="bg-subtle rounded-sm transition-all duration-300 group-hover:bg-dim" />
-      <div className="bg-bright rounded-sm transition-all duration-300 group-hover:bg-white" />
+    <div className="w-8 h-8 grid grid-cols-2 gap-0.5 p-1 rounded-md bg-accent-soft transition-transform duration-300 group-hover:scale-105">
+      <div className="bg-accent rounded-[2px]" />
+      <div className="bg-accent/40 rounded-[2px]" />
+      <div className="bg-accent/40 rounded-[2px]" />
+      <div className="bg-accent rounded-[2px]" />
     </div>
   )
 }
@@ -54,6 +54,11 @@ export default function Navbar() {
       tag === 'TEXTAREA' ||
       target.isContentEditable ||           // ← covers CodeMirror & any other rich editor
       target.closest('[contenteditable]')   // ← covers clicks inside nested elements
+
+    if (e.key === 'Escape') {
+      setShowShortcutHint(false)
+      return
+    }
 
     if (isEditable) return
 
@@ -86,8 +91,8 @@ export default function Navbar() {
   }
   return (
     <>
-      <nav className="sticky top-0 z-50 border-b border-border bg-bg/90 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <nav className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-xl">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
 
           {/* ── Logo ──────────────────────────────────────────────────────── */}
           <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
@@ -101,10 +106,10 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative px-4 py-1.5 text-sm rounded transition-all duration-200 font-sans
+                className={`relative px-3.5 py-1.5 text-sm rounded-full transition-all duration-200 font-sans
                   ${isActive(link.path)
-                    ? 'text-bright bg-muted'
-                    : 'text-dim hover:text-light hover:bg-surface'
+                    ? 'text-accent bg-accent-soft font-medium'
+                    : 'text-dim hover:text-bright hover:bg-surface'
                   }`}
               >
                 {link.label}
@@ -118,7 +123,7 @@ export default function Navbar() {
             {/* Keyboard shortcut hint */}
             <button
               onClick={() => setShowShortcutHint(h => !h)}
-              className="hidden sm:flex items-center justify-center w-7 h-7 border border-border text-[11px] font-mono text-muted hover:text-dim hover:border-subtle transition-colors"
+              className="hidden sm:flex items-center justify-center w-8 h-8 rounded-md border border-border text-[11px] font-mono text-subtle hover:text-bright hover:border-accent transition-colors"
               aria-label="Keyboard shortcuts"
               title="Keyboard shortcuts (?)"
             >
@@ -127,11 +132,15 @@ export default function Navbar() {
 
             <button
               onClick={() => setPaletteOpen(true)}
-              className="hidden md:flex items-center gap-2 rounded-full border border-border px-3 py-1.5 text-[11px] font-mono text-subtle hover:border-subtle hover:text-bright transition-colors"
+              className="hidden md:flex items-center gap-2 rounded-full border border-border bg-surface/70 pl-3 pr-2 py-1.5 text-[11px] font-mono text-subtle hover:border-accent hover:text-bright transition-colors"
               aria-label="Open command palette"
             >
-              <span>Search</span>
-              <kbd className="text-[9px] text-muted">Ctrl K</kbd>
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+              </svg>
+              <span>Search tools</span>
+              <kbd className="rounded border border-border px-1.5 py-0.5 text-[9px] text-muted">Ctrl K</kbd>
             </button>
 
             {/* Theme toggle */}
@@ -161,10 +170,10 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 text-sm rounded transition-all duration-200 font-sans flex items-center justify-between
+                className={`px-3 py-2 text-sm rounded-md transition-all duration-200 font-sans flex items-center justify-between
                   ${isActive(link.path)
-                    ? 'text-bright bg-muted'
-                    : 'text-dim hover:text-light'
+                    ? 'text-accent bg-accent-soft font-medium'
+                    : 'text-dim hover:text-bright hover:bg-surface'
                   }`}
               >
                 {link.label}
@@ -188,7 +197,7 @@ export default function Navbar() {
             onClick={() => setShowShortcutHint(false)}
           />
           {/* Panel */}
-          <div className="fixed top-20 right-4 sm:right-6 z-50 w-72 border border-border bg-bg shadow-xl animate-slide-up">
+          <div className="fixed top-20 right-4 sm:right-6 z-50 w-72 rounded-lg border border-border bg-bg shadow-lift animate-slide-up overflow-hidden">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <span className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase">

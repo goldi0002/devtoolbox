@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
-import CopyButton from '../../CopyButton'
+import OutputPanel from '../../ui/OutputPanel'
+import TextAreaField from '../../ui/TextAreaField'
+import ToggleGroup from '../../ui/ToggleGroup'
+import { decodeUrl, encodeUrl, UrlEncodeType } from '../../../utils/encoding'
+import { getErrorMessage } from '../../../utils/errors'
 
 const SAMPLES = {
   encode: 'https://example.com/search?q=hello world&lang=en&tag=c# developer',
@@ -8,7 +12,16 @@ const SAMPLES = {
 }
 
 type Mode = 'encode' | 'decode'
-type EncodeType = 'full' | 'component'
+type EncodeType = UrlEncodeType
+
+const MODES = [
+  { value: 'encode' as const, label: 'Encode' },
+  { value: 'decode' as const, label: 'Decode' },
+]
+
+function convert(value: string, mode: Mode, type: EncodeType): string {
+  return mode === 'encode' ? encodeUrl(value, type) : decodeUrl(value)
+}
 
 export default function UrlEncoderDecoder() {
   const [input, setInput]           = useState('')
@@ -24,21 +37,9 @@ export default function UrlEncoderDecoder() {
     if (!src.trim()) { setOutput(''); return }
 
     try {
-      if (m === 'encode') {
-        const result = type === 'component'
-          ? encodeURIComponent(src)   // encodes everything including : / ? &
-          : encodeURI(src)            // preserves URL structure chars
-        setOutput(result)
-      } else {
-        // Try decodeURIComponent first, fall back to decodeURI
-        try {
-          setOutput(decodeURIComponent(src))
-        } catch {
-          setOutput(decodeURI(src))
-        }
-      }
+      setOutput(convert(src, m, type))
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, m === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -48,16 +49,9 @@ export default function UrlEncoderDecoder() {
     setError('')
     if (!val.trim()) { setOutput(''); return }
     try {
-      if (mode === 'encode') {
-        setOutput(encodeType === 'component' ? encodeURIComponent(val) : encodeURI(val))
-      } else {
-        try {
-          setOutput(decodeURIComponent(val))
-        } catch {
-          setOutput(decodeURI(val))
-        }
-      }
-    } catch {
+      setOutput(convert(val, mode, encodeType))
+    } catch (e) {
+      setError(getErrorMessage(e, mode === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -65,9 +59,11 @@ export default function UrlEncoderDecoder() {
   const handleEncodeType = (t: EncodeType) => {
     setEncodeType(t)
     if (mode === 'encode' && input) {
+      setError('')
       try {
-        setOutput(t === 'component' ? encodeURIComponent(input) : encodeURI(input))
-      } catch {
+        setOutput(convert(input, 'encode', t))
+      } catch (e) {
+        setError(getErrorMessage(e, 'Encoding failed'))
         setOutput('')
       }
     }
@@ -85,13 +81,11 @@ export default function UrlEncoderDecoder() {
     setOutput('')
     const newMode: Mode = mode === 'encode' ? 'decode' : 'encode'
     setMode(newMode)
+    setError('')
     try {
-      if (newMode === 'encode') {
-        setOutput(encodeType === 'component' ? encodeURIComponent(output) : encodeURI(output))
-      } else {
-        setOutput(decodeURIComponent(output))
-      }
-    } catch {
+      setOutput(convert(output, newMode, encodeType))
+    } catch (e) {
+      setError(getErrorMessage(e, newMode === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -105,18 +99,7 @@ export default function UrlEncoderDecoder() {
       <div className="space-y-4">
         {/* Controls */}
         <div className="flex flex-wrap gap-2 items-center">
-          <button
-            onClick={() => process('encode')}
-            className={mode === 'encode' ? 'btn-primary' : 'btn-ghost'}
-          >
-            Encode
-          </button>
-          <button
-            onClick={() => process('decode')}
-            className={mode === 'decode' ? 'btn-primary' : 'btn-ghost'}
-          >
-            Decode
-          </button>
+          <ToggleGroup options={MODES} value={mode} onChange={m => process(m)} />
           {output && (
             <button onClick={swap} className="btn-ghost">⇅ Swap</button>
           )}
@@ -168,36 +151,18 @@ export default function UrlEncoderDecoder() {
 
         {/* Input / Output */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-dim font-mono mb-1.5">
-              {mode === 'encode' ? 'Plain URL Input' : 'Encoded URL Input'}
-            </label>
-            <textarea
-              value={input}
-              onChange={e => handleInput(e.target.value)}
-              className="textarea-base h-36"
-              placeholder={SAMPLES[mode]}
-              spellCheck={false}
-            />
-          </div>
+          <TextAreaField
+            label={mode === 'encode' ? 'Plain URL Input' : 'Encoded URL Input'}
+            value={input}
+            onChange={handleInput}
+            placeholder={SAMPLES[mode]}
+          />
 
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs text-dim font-mono">
-                {mode === 'encode' ? 'Encoded Output' : 'Decoded Output'}
-              </label>
-              {output && <CopyButton text={output} />}
-            </div>
-            <div className="bg-[#f8f8f8] border border-border rounded px-3 py-2 h-36 overflow-auto">
-              {error ? (
-                <span className="text-xs font-mono text-subtle">⚠ {error}</span>
-              ) : output ? (
-                <pre className="text-xs font-mono text-light whitespace-pre-wrap break-all">{output}</pre>
-              ) : (
-                <span className="text-xs font-mono text-subtle">Output will appear here...</span>
-              )}
-            </div>
-          </div>
+          <OutputPanel
+            label={mode === 'encode' ? 'Encoded Output' : 'Decoded Output'}
+            value={output}
+            error={error}
+          />
         </div>
 
         {/* Character reference */}
