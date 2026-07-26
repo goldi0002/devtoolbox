@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import { readStorage, writeStorage } from '../../lib/storage'
+import { reportError } from '../../utils/errors'
 
 type Theme = 'toolbox4devs' | 'light' | 'dark' | 'sepia' | 'nord' | 'terminal' | 'dracula' | 'solarized' | 'rose' | 'monokai'
 
@@ -17,14 +19,20 @@ const THEMES: { id: Theme; label: string; icon: string }[] = [
 
 function getInitialTheme(): Theme {
     if (typeof window === 'undefined') return 'toolbox4devs'
-    const stored = localStorage.getItem('theme') as Theme | null
+    const stored = readStorage('localStorage', 'theme') as Theme | null
     if (stored && THEMES.some(t => t.id === stored)) return stored
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'toolbox4devs'
+    try {
+        return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'toolbox4devs'
+    } catch (error) {
+        reportError('Failed to read color scheme preference', error)
+        return 'toolbox4devs'
+    }
 }
 
 function applyTheme(theme: Theme) {
     document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
+    // Persistence is best-effort: the theme still applies when storage is blocked.
+    writeStorage('localStorage', 'theme', theme)
 }
 
 export default function ThemePicker() {

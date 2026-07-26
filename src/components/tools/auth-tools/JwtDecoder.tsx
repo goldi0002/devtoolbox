@@ -3,6 +3,7 @@ import ToolLayout from '../../ToolLayout'
 import ErrorBanner from '../../ui/ErrorBanner'
 import SectionPanel from '../../ui/SectionPanel'
 import { decodeBase64Url } from '../../../utils/encoding'
+import { getErrorMessage } from '../../../utils/errors'
 
 interface DecodedJWT {
   header: Record<string, unknown>
@@ -96,7 +97,7 @@ export default function JwtDecoder() {
     try {
       setDecoded(decodeJWT(value.trim()))
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Failed to decode token'))
     }
   }
 

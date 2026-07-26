@@ -16,6 +16,10 @@ function convert(value: string, mode: Mode): string {
   return mode === 'encode' ? encodeBase64(value) : decodeBase64(value)
 }
 
+function failureMessage(mode: Mode): string {
+  return mode === 'encode' ? 'Encoding failed' : 'Invalid Base64 string'
+}
+
 export default function Base64Tool() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
@@ -30,7 +34,7 @@ export default function Base64Tool() {
     try {
       setOutput(convert(input, m))
     } catch {
-      setError(m === 'encode' ? 'Encoding failed' : 'Invalid Base64 string')
+      setError(failureMessage(m))
       setOutput('')
     }
   }
@@ -42,6 +46,7 @@ export default function Base64Tool() {
     try {
       setOutput(convert(val, mode))
     } catch {
+      setError(failureMessage(mode))
       setOutput('')
     }
   }
@@ -57,9 +62,11 @@ export default function Base64Tool() {
     setInput(output)
     const newMode: Mode = mode === 'encode' ? 'decode' : 'encode'
     setMode(newMode)
+    setError('')
     try {
       setOutput(convert(output, newMode))
     } catch {
+      setError(failureMessage(newMode))
       setOutput('')
     }
   }

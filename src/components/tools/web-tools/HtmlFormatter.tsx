@@ -2,6 +2,7 @@ import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
 import ErrorBanner from '../../ui/ErrorBanner'
+import { getErrorMessage } from '../../../utils/errors'
 
 const SAMPLE = `<div class="container"><h1>Hello World</h1><p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p><ul><li>Item one</li><li>Item two</li><li>Item three</li></ul></div>`
 
@@ -39,7 +40,7 @@ export default function HtmlFormatter() {
         setOutput(minified)
       }
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Failed to process HTML'))
       setOutput('')
     }
   }

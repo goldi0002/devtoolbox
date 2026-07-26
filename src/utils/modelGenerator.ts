@@ -1,10 +1,16 @@
-export function jsonToCSharp(json: string, className = 'GeneratedModel'): string {
-  let parsed: unknown
+import { getErrorMessage } from './errors'
+
+/** Parses JSON, re-throwing with the original parser message kept intact. */
+function parseJson(json: string): unknown {
   try {
-    parsed = JSON.parse(json)
-  } catch {
-    throw new Error('Invalid JSON')
+    return JSON.parse(json)
+  } catch (e) {
+    throw new Error(`Invalid JSON: ${getErrorMessage(e, 'could not be parsed')}`)
   }
+}
+
+export function jsonToCSharp(json: string, className = 'GeneratedModel'): string {
+  const parsed = parseJson(json)
 
   const classes: string[] = []
 
@@ -46,12 +52,7 @@ export function jsonToCSharp(json: string, className = 'GeneratedModel'): string
 }
 
 export function jsonToTypeScript(json: string, interfaceName = 'GeneratedModel'): string {
-  let parsed: unknown
-  try {
-    parsed = JSON.parse(json)
-  } catch {
-    throw new Error('Invalid JSON')
-  }
+  const parsed = parseJson(json)
 
   const interfaces: string[] = []
 

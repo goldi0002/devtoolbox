@@ -3,14 +3,23 @@ import { useState, useCallback, useRef } from 'react'
 import ToolLayout from '../../ToolLayout'
 import SectionPanel from '../../ui/SectionPanel'
 import { bytesToHex } from '../../../utils/encoding'
+import { getErrorMessage } from '../../../utils/errors'
 
 // ── Web Crypto SHA-256 ────────────────────────────────────────────
+function requireSubtleCrypto(): SubtleCrypto {
+  if (typeof crypto === 'undefined' || !crypto.subtle) {
+    throw new Error('Web Crypto is unavailable — SHA-256 requires a secure (HTTPS) context')
+  }
+  return crypto.subtle
+}
+
 async function sha256hex(input: string): Promise<string> {
-  return bytesToHex(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input)))
+  return bytesToHex(await requireSubtleCrypto().digest('SHA-256', new TextEncoder().encode(input)))
 }
 
 async function sha256file(file: File): Promise<string> {
-  return bytesToHex(await crypto.subtle.digest('SHA-256', await file.arrayBuffer()))
+  const subtle = requireSubtleCrypto()
+  return bytesToHex(await subtle.digest('SHA-256', await file.arrayBuffer()))
 }
 
 // ── Hash chunked display ──────────────────────────────────────────
@@ -33,25 +42,34 @@ export default function Sha256Hasher() {
   const [hash,     setHash]     = useState('')
   const [compare,  setCompare]  = useState('')
   const [loading,  setLoading]  = useState(false)
+  const [error,    setError]    = useState('')
   const [fileInfo, setFileInfo] = useState<{ name: string; size: string } | null>(null)
   const debounce = useRef<ReturnType<typeof setTimeout>>()
 
   const computeText = useCallback(async (val: string) => {
     if (!val) { setHash(''); return }
     setLoading(true)
-    setHash(await sha256hex(val))
-    setLoading(false)
+    setError('')
+    try {
+      setHash(await sha256hex(val))
+    } catch (e) {
+      setHash('')
+      setError(getErrorMessage(e, 'Failed to hash input'))
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   const handleInput = (val: string) => {
     setInput(val)
     setFileInfo(null)
     clearTimeout(debounce.current)
-    debounce.current = setTimeout(() => computeText(val), 120)
+    debounce.current = setTimeout(() => { void computeText(val) }, 120)
   }
 
   const handleFile = async (file: File) => {
     setLoading(true)
+    setError('')
     setInput('')
     setFileInfo({
       name: file.name,
@@ -59,8 +77,14 @@ export default function Sha256Hasher() {
         ? `${(file.size / 1024 / 1024).toFixed(2)} MB`
         : `${(file.size / 1024).toFixed(1)} KB`,
     })
-    setHash(await sha256file(file))
-    setLoading(false)
+    try {
+      setHash(await sha256file(file))
+    } catch (e) {
+      setHash('')
+      setError(getErrorMessage(e, `Failed to hash ${file.name}`))
+    } finally {
+      setLoading(false)
+    }
   }
 
   const matchStatus = compare.trim()
@@ -93,12 +117,12 @@ export default function Sha256Hasher() {
                 <input
                   type="file"
                   className="hidden"
-                  onChange={e => e.target.files?.[0] && handleFile(e.target.files[0])}
+                  onChange={e => { const file = e.target.files?.[0]; if (file) void handleFile(file) }}
                 />
               </label>
               {(input || fileInfo) && (
                 <button
-                  onClick={() => { setInput(''); setHash(''); setFileInfo(null) }}
+                  onClick={() => { setInput(''); setHash(''); setFileInfo(null); setError('') }}
                   className="text-xs text-subtle hover:text-dim transition-colors font-mono"
                 >
                   clear
@@ -110,7 +134,7 @@ export default function Sha256Hasher() {
           {fileInfo ? (
             <div
               className="flex items-center gap-3 px-4 py-3 bg-surface border border-border rounded-lg cursor-pointer hover:border-dim transition-colors"
-              onClick={() => { setInput(''); setHash(''); setFileInfo(null) }}
+              onClick={() => { setInput(''); setHash(''); setFileInfo(null); setError('') }}
             >
               <div className="w-8 h-8 rounded bg-surface border border-border flex items-center justify-center text-sm flex-shrink-0">
                 📄
@@ -124,7 +148,7 @@ export default function Sha256Hasher() {
             <textarea
               value={input}
               onChange={e => handleInput(e.target.value)}
-              onDrop={e => { e.preventDefault(); e.dataTransfer.files[0] && handleFile(e.dataTransfer.files[0]) }}
+              onDrop={e => { e.preventDefault(); if (e.dataTransfer.files[0]) void handleFile(e.dataTransfer.files[0]) }}
               onDragOver={e => e.preventDefault()}
               className="textarea-base h-24"
               placeholder="Type, paste text, or drag & drop a file…"
@@ -132,6 +156,12 @@ export default function Sha256Hasher() {
             />
           )}
         </div>
+
+        {error && (
+          <div className="border border-red-400/40 rounded-lg px-4 py-3 bg-surface">
+            <p className="font-mono text-xs text-red-400 break-words">{error}</p>
+          </div>
+        )}
 
         {/* ── Hash output section ── */}
         <SectionPanel

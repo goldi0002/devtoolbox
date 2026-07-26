@@ -3,6 +3,7 @@ import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
 import ErrorBanner from '../../ui/ErrorBanner'
 import { jsonToCSharp, jsonToTypeScript } from '../../../utils/modelGenerator'
+import { getErrorMessage } from '../../../utils/errors'
 
 const SAMPLE_JSON = `{
   "id": 1,
@@ -30,7 +31,7 @@ export default function JsonModelGenerator() {
       setCsharp(jsonToCSharp(input || SAMPLE_JSON, className || 'MyModel'))
       setTypescript(jsonToTypeScript(input || SAMPLE_JSON, className || 'MyModel'))
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, 'Failed to generate model'))
     }
   }
 

@@ -4,6 +4,7 @@ import OutputPanel from '../../ui/OutputPanel'
 import TextAreaField from '../../ui/TextAreaField'
 import ToggleGroup from '../../ui/ToggleGroup'
 import { decodeUrl, encodeUrl, UrlEncodeType } from '../../../utils/encoding'
+import { getErrorMessage } from '../../../utils/errors'
 
 const SAMPLES = {
   encode: 'https://example.com/search?q=hello world&lang=en&tag=c# developer',
@@ -17,6 +18,10 @@ const MODES = [
   { value: 'encode' as const, label: 'Encode' },
   { value: 'decode' as const, label: 'Decode' },
 ]
+
+function convert(value: string, mode: Mode, type: EncodeType): string {
+  return mode === 'encode' ? encodeUrl(value, type) : decodeUrl(value)
+}
 
 export default function UrlEncoderDecoder() {
   const [input, setInput]           = useState('')
@@ -32,9 +37,9 @@ export default function UrlEncoderDecoder() {
     if (!src.trim()) { setOutput(''); return }
 
     try {
-      setOutput(m === 'encode' ? encodeUrl(src, type) : decodeUrl(src))
+      setOutput(convert(src, m, type))
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, m === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -44,8 +49,9 @@ export default function UrlEncoderDecoder() {
     setError('')
     if (!val.trim()) { setOutput(''); return }
     try {
-      setOutput(mode === 'encode' ? encodeUrl(val, encodeType) : decodeUrl(val))
-    } catch {
+      setOutput(convert(val, mode, encodeType))
+    } catch (e) {
+      setError(getErrorMessage(e, mode === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -53,9 +59,11 @@ export default function UrlEncoderDecoder() {
   const handleEncodeType = (t: EncodeType) => {
     setEncodeType(t)
     if (mode === 'encode' && input) {
+      setError('')
       try {
-        setOutput(encodeUrl(input, t))
-      } catch {
+        setOutput(convert(input, 'encode', t))
+      } catch (e) {
+        setError(getErrorMessage(e, 'Encoding failed'))
         setOutput('')
       }
     }
@@ -73,9 +81,11 @@ export default function UrlEncoderDecoder() {
     setOutput('')
     const newMode: Mode = mode === 'encode' ? 'decode' : 'encode'
     setMode(newMode)
+    setError('')
     try {
-      setOutput(newMode === 'encode' ? encodeUrl(output, encodeType) : decodeUrl(output))
-    } catch {
+      setOutput(convert(output, newMode, encodeType))
+    } catch (e) {
+      setError(getErrorMessage(e, newMode === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
