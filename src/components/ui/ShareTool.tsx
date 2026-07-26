@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { buildShareUrl } from '../../lib/share'
+import { reportError } from '../../utils/errors'
 import type { ToolDataShare } from '../../types/share'
 
 interface ShareButtonProps {
@@ -20,24 +21,40 @@ export default function ShareButton({
   const handleShare = async () => {
     if (disabled || isEmpty) return
 
-    const shareUrl = buildShareUrl(data)
+    let shareUrl: string
+    try {
+      shareUrl = buildShareUrl(data)
+    } catch (e) {
+      reportError('Failed to build share link', e)
+      setState('error')
+      setTimeout(() => setState('idle'), 2000)
+      return
+    }
 
     // Native share sheet (mobile)
     if (navigator.share) {
       try {
         await navigator.share({ title: data.tool.name, url: shareUrl })
         return
-      } catch {
-        // User cancelled — fall through to clipboard
+      } catch (e) {
+        // A cancelled share sheet is expected; anything else is a real failure
+        // worth logging before falling back to the clipboard.
+        if (!(e instanceof DOMException && e.name === 'AbortError')) {
+          reportError('Native share failed', e)
+        }
       }
     }
 
     // Clipboard fallback (desktop)
     try {
+      if (!navigator.clipboard) {
+        throw new Error('Clipboard access is unavailable in this browser')
+      }
       await navigator.clipboard.writeText(shareUrl)
       setState('copied')
       setTimeout(() => setState('idle'), 2000)
-    } catch {
+    } catch (e) {
+      reportError('Failed to copy share link', e)
       setState('error')
       setTimeout(() => setState('idle'), 2000)
     }

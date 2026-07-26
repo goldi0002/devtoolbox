@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
+import { getErrorMessage } from '../../../utils/errors'
 
 const SAMPLES = {
   encode: 'https://example.com/search?q=hello world&lang=en&tag=c# developer',
@@ -9,6 +10,20 @@ const SAMPLES = {
 
 type Mode = 'encode' | 'decode'
 type EncodeType = 'full' | 'component'
+
+function convert(value: string, mode: Mode, type: EncodeType): string {
+  if (mode === 'encode') {
+    // 'component' encodes everything including : / ? &, 'full' preserves URL structure chars
+    return type === 'component' ? encodeURIComponent(value) : encodeURI(value)
+  }
+  try {
+    return decodeURIComponent(value)
+  } catch {
+    // decodeURI tolerates sequences decodeURIComponent rejects; if it also
+    // fails the error propagates to the caller instead of being swallowed.
+    return decodeURI(value)
+  }
+}
 
 export default function UrlEncoderDecoder() {
   const [input, setInput]           = useState('')
@@ -24,21 +39,9 @@ export default function UrlEncoderDecoder() {
     if (!src.trim()) { setOutput(''); return }
 
     try {
-      if (m === 'encode') {
-        const result = type === 'component'
-          ? encodeURIComponent(src)   // encodes everything including : / ? &
-          : encodeURI(src)            // preserves URL structure chars
-        setOutput(result)
-      } else {
-        // Try decodeURIComponent first, fall back to decodeURI
-        try {
-          setOutput(decodeURIComponent(src))
-        } catch {
-          setOutput(decodeURI(src))
-        }
-      }
+      setOutput(convert(src, m, type))
     } catch (e) {
-      setError((e as Error).message)
+      setError(getErrorMessage(e, m === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -48,16 +51,9 @@ export default function UrlEncoderDecoder() {
     setError('')
     if (!val.trim()) { setOutput(''); return }
     try {
-      if (mode === 'encode') {
-        setOutput(encodeType === 'component' ? encodeURIComponent(val) : encodeURI(val))
-      } else {
-        try {
-          setOutput(decodeURIComponent(val))
-        } catch {
-          setOutput(decodeURI(val))
-        }
-      }
-    } catch {
+      setOutput(convert(val, mode, encodeType))
+    } catch (e) {
+      setError(getErrorMessage(e, mode === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }
@@ -65,9 +61,11 @@ export default function UrlEncoderDecoder() {
   const handleEncodeType = (t: EncodeType) => {
     setEncodeType(t)
     if (mode === 'encode' && input) {
+      setError('')
       try {
-        setOutput(t === 'component' ? encodeURIComponent(input) : encodeURI(input))
-      } catch {
+        setOutput(convert(input, 'encode', t))
+      } catch (e) {
+        setError(getErrorMessage(e, 'Encoding failed'))
         setOutput('')
       }
     }
@@ -85,13 +83,11 @@ export default function UrlEncoderDecoder() {
     setOutput('')
     const newMode: Mode = mode === 'encode' ? 'decode' : 'encode'
     setMode(newMode)
+    setError('')
     try {
-      if (newMode === 'encode') {
-        setOutput(encodeType === 'component' ? encodeURIComponent(output) : encodeURI(output))
-      } else {
-        setOutput(decodeURIComponent(output))
-      }
-    } catch {
+      setOutput(convert(output, newMode, encodeType))
+    } catch (e) {
+      setError(getErrorMessage(e, newMode === 'encode' ? 'Encoding failed' : 'Invalid URL encoding'))
       setOutput('')
     }
   }

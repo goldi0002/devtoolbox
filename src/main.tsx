@@ -1,5 +1,7 @@
 import { ViteReactSSG } from 'vite-react-ssg'
 import { routes } from './routes'
+import { readStorage, removeStorage, writeStorage } from './lib/storage'
+import { reportError } from './utils/errors'
 import './css/index.css'
 import './css/global.css'
 
@@ -12,13 +14,16 @@ export const createRoot = ViteReactSSG(
 
     window.addEventListener('vite:preloadError', (event) => {
       event.preventDefault()
+      reportError('Failed to preload a chunk', (event as Event & { payload?: unknown }).payload ?? event)
 
-      if (window.sessionStorage.getItem(PRELOAD_ERROR_RELOAD_KEY) === '1') return
+      // Reload once to pick up a new deployment; give up afterwards so a
+      // persistently failing chunk cannot trap the page in a reload loop.
+      if (readStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY) === '1') return
+      if (!writeStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY, '1')) return
 
-      window.sessionStorage.setItem(PRELOAD_ERROR_RELOAD_KEY, '1')
       window.location.reload()
     })
 
-    window.sessionStorage.removeItem(PRELOAD_ERROR_RELOAD_KEY)
+    removeStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY)
   }
 )

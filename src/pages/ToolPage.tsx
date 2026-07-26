@@ -1,6 +1,7 @@
 import { Suspense, lazy, useMemo } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
+import ErrorBoundary from '../components/ErrorBoundary'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 
@@ -51,9 +52,11 @@ export default function ToolPage() {
 
       {/* ── Tool ─────────────────────────────────────────────────────────── */}
       <div className="animate-slide-up">
-        <Suspense fallback={<ToolFallback />}>
-          <ToolComponent />
-        </Suspense>
+        <ErrorBoundary key={slug} label={meta.name}>
+          <Suspense fallback={<ToolFallback />}>
+            <ToolComponent />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       {/* ── About this tool ──────────────────────────────────────────────── */}
