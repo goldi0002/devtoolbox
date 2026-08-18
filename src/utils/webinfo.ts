@@ -1,10 +1,10 @@
 export const WEB_INFO = {
     SITE_NAME: import.meta.env.VITE_SITE_NAME ?? 'Toolbox4Devs',
-    BASE_URL: import.meta.env.VITE_BASE_URL ?? `https://${import.meta.env.VITE_VERCEL_URL ?? 'localhost'}`,
+    BASE_URL: import.meta.env.VITE_BASE_URL ?? 'https://toolbox4devs.com',
     DEFAULT_DESCRIPTION:
         'A free collection of browser-based developer utilities. ' +
         'JSON formatter, UUID generator, JWT decoder, Base64 encoder and more.',
-    LOGO: `${import.meta.env.VITE_BASE_URL ?? ''}/images/icon-96.png`,
+    LOGO: `${import.meta.env.VITE_BASE_URL ?? 'https://toolbox4devs.com'}/images/icon-96.png`,
     PRIVACY_POLICY_LAST_UPDATED: '2026-03-12', //yyyy-mm-dd
     CONTACT_QUESTIONS_EMAIL: import.meta.env.VITE_CONCAT_QUESTIONS_EMAIL,
     WEB_OWNER_GITHUB_PROFILE: import.meta.env.VITE_WEB_OWNER_GIT_PROFILE_URL,
