@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from 'react'
-import CommandPalette from './CommandPalette'
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import ThemePicker from './ui/Themepicker'
+
+const CommandPalette = lazy(() => import('./CommandPalette'))
 
 // ── Nav config ─────────────────────────────────────────────────────────────
 const navLinks = [
@@ -186,7 +187,11 @@ export default function Navbar() {
         )}
       </nav>
 
-      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+      {paletteOpen && (
+        <Suspense fallback={null}>
+          <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+        </Suspense>
+      )}
 
       {/* ── Keyboard shortcut modal ─────────────────────────────────────── */}
       {showShortcutHint && (

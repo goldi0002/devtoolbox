@@ -44,6 +44,29 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       chunkSizeWarningLimit: 400,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes('node_modules')) {
+              if (id.includes('react/') || id.includes('react-dom/') || id.includes('react-router-dom/')) {
+                return 'vendor-react'
+              }
+              if (id.includes('@codemirror') || id.includes('@uiw/react-codemirror')) {
+                return 'vendor-codemirror'
+              }
+              if (id.includes('prettier')) {
+                return 'vendor-prettier'
+              }
+              if (id.includes('yaml')) {
+                return 'vendor-yaml'
+              }
+              if (id.includes('diff')) {
+                return 'vendor-diff'
+              }
+            }
+          },
+        },
+      },
     },
   }
 })
