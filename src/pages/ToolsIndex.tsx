@@ -56,12 +56,29 @@ export default function ToolsIndex() {
 
   const showingAll = filtered.length === tools.length
 
+  const categoryKeywords = useMemo(() => {
+    if (activeCategory === 'all') {
+      return ['developer tools directory', 'online utilities', 'developer toolbox', 'browser developer tools', 'all developer utilities']
+    }
+    const catTools = tools.filter(t => t.category === activeCategory)
+    return [
+      `${categoryLabels[activeCategory as ToolMeta['category']]} tools`,
+      ...catTools.map(t => t.name.toLowerCase()),
+      ...catTools.flatMap(t => t.keywords).slice(0, 10)
+    ]
+  }, [activeCategory])
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
       <SEO
         title={pageTitle}
-        description={`${tools.length} free browser-based developer tools. JSON formatter, JWT decoder, UUID generator and more. No ads, no tracking.`}
+        description={activeCategory === 'all'
+          ? `Explore ${tools.length} free browser-based developer utilities. JSON formatters, JWT decoders, UUID generators, cryptography tools, and text helpers. 100% private, zero server calls.`
+          : `Explore free, client-side ${categoryLabels[activeCategory as ToolMeta['category']]} utilities. Run entirely in your browser memory with zero tracking.`
+        }
         slug={activeCategory === 'all' ? 'tools' : `tools/${activeCategory}`}
+        keywords={categoryKeywords}
+        category={activeCategory !== 'all' ? activeCategory : undefined}
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}

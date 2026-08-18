@@ -35,16 +35,32 @@ import { SQL_FORMATTER_META } from "./meta/sql-formatter"
 import { GRAPHQL_FORMATTER_META } from "./meta/graphql-formatter"
 import { YAML_JSON_CONVERTER_META } from "./meta/yaml-json-converter"
 import { HMAC_GENERATOR_META } from "./meta/hmac-generator"
+import { CIDR_CALCULATOR_META } from "./meta/cidr-calculator"
+import { STRING_ESCAPER_META } from "./meta/string-escaper"
+import { BASE_CONVERTER_META } from "./meta/base-converter"
+import { CSS_UNIT_CONVERTER_META } from "./meta/css-unit-converter"
+import { JSON_TO_CSV_META } from "./meta/json-to-csv"
+import { BCRYPT_GENERATOR_META } from "./meta/bcrypt-generator"
+import { KEYCODE_INSPECTOR_META } from "./meta/keycode-inspector"
+import { DOCKERFILE_GENERATOR_META } from "./meta/dockerfile-generator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
   JSON_MODEL_META,
   JSON_TO_ZOD_META,
+  JSON_TO_CSV_META,
   YAML_JSON_CONVERTER_META,
   CURL_CONVERTER_META,
   SQL_FORMATTER_META,
   GRAPHQL_FORMATTER_META,
+  DOCKERFILE_GENERATOR_META,
   HMAC_GENERATOR_META,
+  BCRYPT_GENERATOR_META,
+  CIDR_CALCULATOR_META,
+  STRING_ESCAPER_META,
+  BASE_CONVERTER_META,
+  CSS_UNIT_CONVERTER_META,
+  KEYCODE_INSPECTOR_META,
   BASE_64_META,
   URL_ENCODER_META,
   HTML_ENTITY_META,

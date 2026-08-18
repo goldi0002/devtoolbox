@@ -61,11 +61,28 @@ export default function Home() {
 
   const recentChanges = getRecentChangelog(3)
 
+  const homeFaqs = [
+    {
+      question: "What is ToolBox4Devs?",
+      answer: "ToolBox4Devs is a suite of 36+ fast, private, 100% browser-based developer utilities including JSON formatters, JWT decoders, Base64 encoders, UUID generators, and text tools."
+    },
+    {
+      question: "Is my data sent to any server when using ToolBox4Devs?",
+      answer: "No. Every single tool runs 100% client-side in your local browser JavaScript engine. No text, tokens, API keys, JSON payloads, or secrets ever leave your device."
+    },
+    {
+      question: "Are all developer tools on ToolBox4Devs free?",
+      answer: "Yes, 100% free with no account required, no paywalls, and no advertisements."
+    }
+  ]
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <SEO
-        title="DevUtils — Private Client-Side Developer Tools"
-        description="Fast, private, 100% client-side developer utilities. No ads, no tracking, no backend calls."
+        title="ToolBox4Devs — Fast, Private, 100% Client-Side Developer Tools"
+        description="36+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking."
+        keywords={["developer tools", "json formatter", "jwt decoder", "base64 encoder", "uuid generator", "regex tester", "yaml to json", "cron parser", "free developer tools", "offline dev tools"]}
+        faqs={homeFaqs}
       />
 
       {/* ── Hero Section ─────────────────────────────────────────────────── */}

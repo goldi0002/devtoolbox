@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>ToolBox4Devs</ShortName>
+  <Description>Search 36+ fast, private developer utilities on ToolBox4Devs</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image width="16" height="16" type="image/png">https://toolbox4devs.com/images/favicon-16.png</Image>
+  <Image width="32" height="32" type="image/png">https://toolbox4devs.com/images/favicon-32.png</Image>
+  <Url type="text/html" template="https://toolbox4devs.com/tools?q={searchTerms}"/>
+</OpenSearchDescription>

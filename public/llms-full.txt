@@ -1,0 +1,241 @@
+# ToolBox4Devs — Full Technical Specification for AI Agents & Crawlers
+
+Website: https://toolbox4devs.com
+Architecture: 100% Client-Side React SPA / Static SSG
+Data Transmission: 0 bytes outbound (all operations run in browser memory)
+Pricing: 100% Free Open Source & Ad-Free
+
+---
+
+## Tool Registry & Technical Specifications
+
+### 1. JSON Formatter & Validator
+- URL: https://toolbox4devs.com/json-formatter
+- Category: JSON Tools (json-tools)
+- Complexity: Simple
+- Description: Format, validate, and minify JSON strings with configurable spacing.
+- Inputs: Raw JSON string
+- Outputs: Formatted JSON string or Minified JSON string
+- Features: 2-space / 4-space indentation, JSON minification, syntax error position marker, one-click copy.
+
+### 2. JSON to TypeScript / Model Generator
+- URL: https://toolbox4devs.com/json-model
+- Category: JSON Tools (json-tools)
+- Complexity: Moderate
+- Description: Convert JSON payloads into typed model definitions.
+- Supported Targets: TypeScript (Interfaces/Types), Python (Dataclasses), Go (Structs), Rust (Serde Structs), Java (POJO), C# (Classes).
+- Features: Handles nested objects, primitive array inference, optional field detection.
+
+### 3. JSON to Zod Schema Generator
+- URL: https://toolbox4devs.com/json-to-zod
+- Category: JSON Tools (json-tools)
+- Complexity: Moderate
+- Description: Automatically infer Zod validation schemas from JSON objects.
+- Features: Strict types, optionality handling, nested object parsing.
+
+### 4. YAML <-> JSON Converter
+- URL: https://toolbox4devs.com/yaml-json-converter
+- Category: Data Tools (data-tools)
+- Complexity: Moderate
+- Description: Bidirectional translation between YAML and JSON documents.
+- Features: Real-time validation, alphabetical key sorting, 2-space or 4-space indentations.
+
+### 5. cURL to Code Converter
+- URL: https://toolbox4devs.com/curl-converter
+- Category: Web Tools (web-tools)
+- Complexity: Moderate
+- Description: Convert cURL CLI commands into executable code snippets.
+- Supported Languages: JavaScript (fetch), Node.js (Axios), Python (requests), Go (net/http), Rust (reqwest), PHP (curl).
+- Features: Extracts headers, HTTP method, basic auth, URL params, and request body.
+
+### 6. SQL Formatter & Beautifier
+- URL: https://toolbox4devs.com/sql-formatter
+- Category: Data Tools (data-tools)
+- Complexity: Moderate
+- Description: Beautify and standardize SQL queries.
+- Features: Dialects (Standard SQL, PostgreSQL, MySQL), keyword uppercase/lowercase toggles, indentation options.
+
+### 7. GraphQL Formatter & Validator
+- URL: https://toolbox4devs.com/graphql-formatter
+- Category: Web Tools (web-tools)
+- Complexity: Moderate
+- Description: Format, inspect, and beautify GraphQL queries, mutations, and schemas.
+
+### 8. HMAC Generator
+- URL: https://toolbox4devs.com/hmac-generator
+- Category: Crypto Tools (crypto-tools)
+- Complexity: Simple
+- Description: Calculate Hash-based Message Authentication Codes using browser Web Crypto API.
+- Supported Algorithms: HMAC-SHA256, HMAC-SHA384, HMAC-SHA512, HMAC-SHA1.
+
+### 9. Base64 Encoder & Decoder
+- URL: https://toolbox4devs.com/base64
+- Category: Encode Tools (encode-tools)
+- Complexity: Simple
+- Description: Convert plain text to RFC 4648 Base64 strings and vice versa.
+- Features: Live bidirectional conversion, handles UTF-8 strings.
+
+### 10. URL Encoder & Decoder
+- URL: https://toolbox4devs.com/url-encoder
+- Category: Encode Tools (encode-tools)
+- Complexity: Simple
+- Description: Encode and decode URI components (percent-encoding).
+
+### 11. HTML Entity Tool
+- URL: https://toolbox4devs.com/html-entity
+- Category: Encode Tools (encode-tools)
+- Complexity: Simple
+- Description: Convert special characters to HTML entities (`&amp;`, `&lt;`, `&gt;`, `&quot;`, `&#39;`) and decode back.
+
+### 12. Text Diff Checker
+- URL: https://toolbox4devs.com/text-diff
+- Category: Text Tools (text-tools)
+- Complexity: Moderate
+- Description: Compare two strings side-by-side or inline with visual highlighting of insertions, deletions, and modifications.
+
+### 13. UUID Generator
+- URL: https://toolbox4devs.com/uuid
+- Category: Generate Tools (generate-tools)
+- Complexity: Simple
+- Description: Generate RFC 4122 compliant UUID v4 using cryptographically secure `crypto.randomUUID()`.
+- Features: Single or bulk generation, uppercase/lowercase, hyphens toggle.
+
+### 14. JWT Decoder & Inspector
+- URL: https://toolbox4devs.com/jwt
+- Category: Auth Tools (auth-tools)
+- Complexity: Simple
+- Description: Decode JSON Web Tokens without requiring the secret key.
+- Features: Decodes Header, Payload, and Signature; formats expiration dates (`exp`, `nbf`, `iat`); highlights expired status.
+
+### 15. HTML Formatter
+- URL: https://toolbox4devs.com/html-formatter
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Format and beautify HTML documents with consistent indentation.
+
+### 16. Password Generator
+- URL: https://toolbox4devs.com/password-generator
+- Category: Generate Tools (generate-tools)
+- Complexity: Simple
+- Description: Generate high-entropy secure passwords using Web Crypto API.
+- Options: Length, uppercase, lowercase, numbers, symbols, entropy strength meter.
+
+### 17. Lorem Ipsum Generator
+- URL: https://toolbox4devs.com/lorem-ipsum-generator
+- Category: Generate Tools (generate-tools)
+- Complexity: Simple
+- Description: Generate placeholder text in paragraphs, sentences, or word counts.
+
+### 18. Regex Tester
+- URL: https://toolbox4devs.com/regex
+- Category: Text Tools (text-tools)
+- Complexity: Moderate
+- Description: Test JavaScript regular expressions with real-time match highlighting and capture groups.
+
+### 19. Case Converter
+- URL: https://toolbox4devs.com/case-converter
+- Category: Text Tools (text-tools)
+- Complexity: Simple
+- Description: Convert text to camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE, Title Case, sentence case.
+
+### 20. Slug Generator
+- URL: https://toolbox4devs.com/slug-generator
+- Category: Text Tools (text-tools)
+- Complexity: Simple
+- Description: Create clean, URL-safe slugs with lowercase normalization and custom delimiters.
+
+### 21. Markdown Previewer
+- URL: https://toolbox4devs.com/markdown-preview
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Real-time Markdown editor with live HTML preview rendering.
+
+### 22. SHA-256 Hash Generator
+- URL: https://toolbox4devs.com/sha256
+- Category: Crypto Tools (crypto-tools)
+- Complexity: Simple
+- Description: Calculate SHA-256, SHA-384, and SHA-512 cryptographic digests.
+
+### 23. Word & Character Counter
+- URL: https://toolbox4devs.com/word-counter
+- Category: Analyze Tools (analyze-tools)
+- Complexity: Simple
+- Description: Detailed text metrics (words, characters, paragraphs, reading time, speaking time).
+
+### 24. Timestamp Converter
+- URL: https://toolbox4devs.com/timestamp-converter
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Convert Unix timestamps to ISO 8601, UTC, and relative dates.
+
+### 25. Cron Expression Parser
+- URL: https://toolbox4devs.com/cron-parser
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Translate cron syntax into plain English schedules.
+
+### 26. Query String Parser
+- URL: https://toolbox4devs.com/query-string-parser
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Parse and build URL query strings into structured key-value arrays.
+
+### 27. Color Converter
+- URL: https://toolbox4devs.com/color-converter
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Convert between HEX, RGB, HSL, and HSV color models with preview.
+
+### 28. HTTP Status Code Lookup
+- URL: https://toolbox4devs.com/http-status-lookup
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Comprehensive encyclopedia of HTTP status codes (100–599) and meanings.
+
+### 29. MIME Type Lookup
+- URL: https://toolbox4devs.com/mime-type-lookup
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Search MIME types, file extensions, and HTTP Content-Type headers.
+
+### 30. User Agent Parser
+- URL: https://toolbox4devs.com/user-agent-parser
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Inspect browser, engine, OS, device, and bot metadata from User-Agent strings.
+
+### 31. ASCII Table Reference
+- URL: https://toolbox4devs.com/ascii-table
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Interactive table of all 128 ASCII characters (Decimal, Hex, Octal, Binary, Description).
+
+### 32. Hash Comparator
+- URL: https://toolbox4devs.com/hash-comparator
+- Category: Encode Tools (encode-tools)
+- Complexity: Simple
+- Description: Verify checksum integrity by comparing two hashes.
+
+### 33. HTTP Header Parser
+- URL: https://toolbox4devs.com/http-header-parser
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Parse raw HTTP headers with security header audits.
+
+### 34. HTTP Basic Auth Header Generator
+- URL: https://toolbox4devs.com/basic-auth-header
+- Category: Auth Tools (auth-tools)
+- Complexity: Simple
+- Description: Generate `Authorization: Basic <base64>` header strings.
+
+### 35. Unix Permissions Calculator
+- URL: https://toolbox4devs.com/unix-permissions-calculator
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Interactive chmod calculator (octal 755, 644 and symbolic rwxr-xr-x).
+
+### 36. Local AI Text Assistant
+- URL: https://toolbox4devs.com/local-ai-text-assistant
+- Category: Analyze Tools (analyze-tools)
+- Complexity: Simple
+- Description: Client-side AI text rewriting, summarizing, and transformation tool.

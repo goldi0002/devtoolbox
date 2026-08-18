@@ -1,0 +1,70 @@
+# Robots.txt for ToolBox4Devs (https://toolbox4devs.com)
+# Designed for maximum discoverability across all search engines and AI agents
+
+User-agent: *
+Allow: /
+
+# Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# AI Crawlers & Answer Engines (AEO Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# LLM Specifications & AI Agent Documentation
+# Machine-readable documentation: /llms.txt
+# Full tool technical specs: /llms-full.txt
+# Programmatic JSON catalog: /tools.json
+
+# Sitemaps & Host
+Sitemap: https://toolbox4devs.com/sitemap.xml
+Host: https://toolbox4devs.com
