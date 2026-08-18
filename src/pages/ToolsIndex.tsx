@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import type { ToolMeta } from '../tools/tool-meta'
 import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -13,29 +13,57 @@ const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] a
 export default function ToolsIndex() {
   const { category } = useParams<{ category: string }>()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const urlQuery = searchParams.get('q') || searchParams.get('query') || searchParams.get('search') || searchParams.get('queue') || ''
 
   // Derive from URL — not from useState so back/forward navigation works
   const activeCategory = category && categories.includes(category as any)
     ? category
     : 'all'
 
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(urlQuery)
   const { favoriteSet, favorites, recentTools, toggleFavorite } = useToolPreferences()
 
-  // Clear search when URL category changes (browser back/forward)
+  // Sync state if URL search query changes (e.g. from OpenSearch or browser history navigation)
   useEffect(() => {
-    setSearch('')
-  }, [category])
+    setSearch(urlQuery)
+  }, [urlQuery])
 
   const pageTitle = activeCategory !== 'all'
     ? `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`
-    : 'All Tools'
+    : search
+      ? `Search results for "${search}"`
+      : 'All Tools'
 
   usePageTitle(pageTitle)
 
+  const handleSearchChange = (newQuery: string) => {
+    setSearch(newQuery)
+    const newParams = new URLSearchParams(searchParams)
+    if (newQuery.trim()) {
+      newParams.set('q', newQuery)
+      // clean up any legacy aliases
+      newParams.delete('query')
+      newParams.delete('search')
+      newParams.delete('queue')
+    } else {
+      newParams.delete('q')
+      newParams.delete('query')
+      newParams.delete('search')
+      newParams.delete('queue')
+    }
+    setSearchParams(newParams, { replace: true })
+  }
+
   const handleCategoryChange = (cat: string) => {
-    setSearch('')
-    navigate(cat === 'all' ? '/tools' : `/tools/${cat}`, { replace: true })
+    const targetPath = cat === 'all' ? '/tools' : `/tools/${cat}`
+    const qStr = search ? `?q=${encodeURIComponent(search)}` : ''
+    navigate(`${targetPath}${qStr}`, { replace: true })
+  }
+
+  const clearSearch = () => {
+    handleSearchChange('')
   }
 
   const filtered = useMemo(() => {
@@ -149,14 +177,14 @@ export default function ToolsIndex() {
             <input
               type="text"
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={e => handleSearchChange(e.target.value)}
               placeholder="Search tools..."
               aria-label="Search tools"
               className="input-base pl-7 w-full"
             />
             {search && (
               <button
-                onClick={() => setSearch('')}
+                onClick={clearSearch}
                 aria-label="Clear search"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle hover:text-dim
                            font-mono text-xs transition-colors"
@@ -198,7 +226,7 @@ export default function ToolsIndex() {
           <p className="text-sm font-mono text-dim mb-2">No tools found</p>
           <p className="text-xs font-mono text-subtle mb-6">No results for "{search}"</p>
           <button
-            onClick={() => { setSearch(''); handleCategoryChange('all') }}
+            onClick={() => { clearSearch(); handleCategoryChange('all') }}
             className="text-xs font-mono text-subtle hover:text-dim transition-colors underline"
           >
             Clear search

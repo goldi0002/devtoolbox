@@ -3,8 +3,9 @@ import CopyButton from '../CopyButton'
 import { Download, WrapText, Check, AlertCircle } from 'lucide-react'
 
 interface OutputPanelProps {
-  label: string
-  value: string
+  label?: string
+  value?: string
+  content?: string
   error?: string
   placeholder?: string
   /** Height class or min height for output box */
@@ -14,8 +15,9 @@ interface OutputPanelProps {
 }
 
 export default function OutputPanel({
-  label,
+  label = 'Output',
   value,
+  content,
   error = '',
   placeholder = 'Output will appear here...',
   heightClass = 'min-h-[140px] max-h-[400px]',
@@ -25,13 +27,14 @@ export default function OutputPanel({
   const [wordWrap, setWordWrap] = useState(true)
   const [downloaded, setDownloaded] = useState(false)
 
-  const lineCount = value ? value.split('\n').length : 0
-  const charCount = value.length
-  const byteSize = value ? (new Blob([value]).size < 1024 ? `${new Blob([value]).size} B` : `${(new Blob([value]).size / 1024).toFixed(1)} KB`) : '0 B'
+  const textVal = value ?? content ?? ''
+  const lineCount = textVal ? textVal.split('\n').length : 0
+  const charCount = textVal.length
+  const byteSize = textVal ? (new Blob([textVal]).size < 1024 ? `${new Blob([textVal]).size} B` : `${(new Blob([textVal]).size / 1024).toFixed(1)} KB`) : '0 B'
 
   const handleDownload = () => {
-    if (!value) return
-    const blob = new Blob([value], { type: 'text/plain;charset=utf-8' })
+    if (!textVal) return
+    const blob = new Blob([textVal], { type: 'text/plain;charset=utf-8' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
@@ -53,7 +56,7 @@ export default function OutputPanel({
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-500/80" />
           <span className="text-xs font-medium font-mono text-bright">{label}</span>
-          {value && (
+          {textVal && (
             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-accent/10 text-accent font-medium">
               {lineCount} {lineCount === 1 ? 'line' : 'lines'} • {charCount} chars ({byteSize})
             </span>
@@ -74,7 +77,7 @@ export default function OutputPanel({
           </button>
 
           {/* Download Button */}
-          {value && !error && (
+          {textVal && !error && (
             <button
               type="button"
               onClick={handleDownload}
@@ -86,7 +89,7 @@ export default function OutputPanel({
           )}
 
           {/* Copy Button */}
-          {value && <CopyButton text={value} />}
+          {textVal && <CopyButton text={textVal} />}
         </div>
       </div>
 
@@ -100,13 +103,13 @@ export default function OutputPanel({
               <div className="whitespace-pre-wrap break-all opacity-90">{error}</div>
             </div>
           </div>
-        ) : value ? (
+        ) : textVal ? (
           <pre
             className={`text-bright ${
               wordWrap ? 'whitespace-pre-wrap break-all' : 'whitespace-pre overflow-x-auto'
             }`}
           >
-            {value}
+            {textVal}
           </pre>
         ) : (
           <span className="text-subtle select-none italic">{placeholder}</span>

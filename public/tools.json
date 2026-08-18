@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 44,
+  "totalTools": 51,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -368,6 +368,62 @@
       "url": "https://toolbox4devs.com/local-ai-text-assistant",
       "description": "Client-side AI assistant for summarizing, rewriting, and analyzing developer text and code.",
       "keywords": ["local ai text assistant", "browser ai assistant", "text summary tool"]
+    },
+    {
+      "slug": "csv-to-markdown",
+      "name": "CSV to Markdown Table Converter",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/csv-to-markdown",
+      "description": "Convert CSV or TSV tabular data into cleanly aligned Markdown tables with header toggling.",
+      "keywords": ["csv to markdown", "tsv to markdown", "markdown table generator", "convert csv to table", "csv to md"]
+    },
+    {
+      "slug": "hex-converter",
+      "name": "Hexadecimal String Converter",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/hex-converter",
+      "description": "Bidirectional conversion between UTF-8 text strings and hexadecimal representations.",
+      "keywords": ["hex converter", "text to hex", "hex to text", "hexadecimal encoder", "string to hex"]
+    },
+    {
+      "slug": "mac-address-generator",
+      "name": "MAC Address Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/mac-address-generator",
+      "description": "Generate valid unicast MAC addresses with custom delimiters (colon, hyphen, dot) and casing.",
+      "keywords": ["mac address generator", "random mac address", "mac generator", "hardware address generator"]
+    },
+    {
+      "slug": "rsa-key-generator",
+      "name": "RSA Key Pair Generator",
+      "category": "crypto-tools",
+      "url": "https://toolbox4devs.com/rsa-key-generator",
+      "description": "Generate secure RSA public and private key pairs (1024, 2048, 4096 bits) in PEM format using Web Crypto API.",
+      "keywords": ["rsa key generator", "generate rsa keys", "public private key generator", "pem generator", "rsa crypto"]
+    },
+    {
+      "slug": "svg-placeholder-generator",
+      "name": "SVG Placeholder Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/svg-placeholder-generator",
+      "description": "Generate fast, responsive, and customizable SVG placeholder images for UI layouts and wireframes.",
+      "keywords": ["svg placeholder", "placeholder image generator", "dummy image", "mock image", "svg generator"]
+    },
+    {
+      "slug": "url-parser",
+      "name": "URL & Query Component Parser",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/url-parser",
+      "description": "Parse URLs into their protocol, hostname, port, pathname, search params, and hash fragments.",
+      "keywords": ["url parser", "parse url", "query string parser", "uri parser", "url component extractor"]
+    },
+    {
+      "slug": "xml-formatter",
+      "name": "XML Formatter & Minifier",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/xml-formatter",
+      "description": "Format, beautify, and minify XML documents with adjustable indent sizes and real-time syntax checking.",
+      "keywords": ["xml formatter", "beautify xml", "minify xml", "xml pretty print", "format xml online"]
     }
   ]
 }

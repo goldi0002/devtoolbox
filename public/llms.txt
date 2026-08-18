@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 44+ fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 51 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -27,18 +27,22 @@
 ### Encoding & Decoding Tools
 - [String Escape & Unescape](https://toolbox4devs.com/string-escaper): Escape and unescape strings across JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell with quote and newline options.
 - [Base64 Encoder & Decoder](https://toolbox4devs.com/base64): Encode text or binary data into Base64 or decode Base64 strings back to human-readable text.
+- [Hexadecimal Converter](https://toolbox4devs.com/hex-converter): Convert text to hexadecimal representation and hexadecimal back to plain text.
 - [URL Encoder & Decoder](https://toolbox4devs.com/url-encoder): Encode text for URI components (`encodeURIComponent`) or decode percent-encoded URLs.
 - [HTML Entity Encoder & Decoder](https://toolbox4devs.com/html-entity): Encode special characters (`<`, `>`, `&`, `"`, `'`) to HTML entities or decode them.
 - [Hash Comparator](https://toolbox4devs.com/hash-comparator): Compare two cryptographic hashes or checksums with constant-time visual matching.
 
 ### Authentication & Cryptography Tools
 - [Bcrypt Hash Generator & Verifier](https://toolbox4devs.com/bcrypt-generator): Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.
+- [RSA Key Pair Generator](https://toolbox4devs.com/rsa-key-generator): Generate secure RSA public and private key pairs directly in browser memory using the Web Crypto API.
 - [JWT Decoder](https://toolbox4devs.com/jwt): Decode JSON Web Tokens to inspect Header, Payload claims, and Expiration timestamps with expiration warnings.
 - [HMAC Generator](https://toolbox4devs.com/hmac-generator): Compute Hash-based Message Authentication Codes using SHA-256, SHA-384, SHA-512, or SHA-1 with a secret key.
 - [SHA-256 Hash Generator](https://toolbox4devs.com/sha256): Compute SHA-256, SHA-384, SHA-512, and SHA-1 cryptographic digests using Web Crypto API.
 - [HTTP Basic Auth Header Generator](https://toolbox4devs.com/basic-auth-header): Generate standard `Authorization: Basic <base64>` HTTP headers from username and password.
 
 ### Web & API Tools
+- [URL & Query Component Parser](https://toolbox4devs.com/url-parser): Parse URLs into protocol, host, port, path, query parameters table, and hash fragments.
+- [XML Formatter & Minifier](https://toolbox4devs.com/xml-formatter): Beautify and minify XML markup with configurable indentation and syntax error diagnostics.
 - [Keycode & Keyboard Event Inspector](https://toolbox4devs.com/keycode-inspector): Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.
 - [CSS Unit & Fluid clamp() Converter](https://toolbox4devs.com/css-unit-converter): Convert between PX, REM, EM, VW, VH, %, and PT with Tailwind CSS class matching and fluid clamp() generator.
 - [cURL to Code Converter](https://toolbox4devs.com/curl-converter): Convert terminal cURL commands into JavaScript Fetch, Node.js Axios, Python Requests, Go net/http, Rust reqwest, and PHP code.
@@ -52,6 +56,9 @@
 - [Markdown Live Preview](https://toolbox4devs.com/markdown-preview): Real-time Markdown editor with live HTML rendering and syntax highlighting.
 
 ### Generation & Text Utilities
+- [CSV to Markdown Table Converter](https://toolbox4devs.com/csv-to-markdown): Convert CSV or TSV data into neatly formatted Markdown tables for documentation and GitHub READMEs.
+- [MAC Address Generator](https://toolbox4devs.com/mac-address-generator): Generate random valid unicast MAC addresses with customizable delimiters and casing.
+- [SVG Placeholder Generator](https://toolbox4devs.com/svg-placeholder-generator): Create custom SVG placeholder images with custom dimensions, labels, and color palettes.
 - [Dockerfile & Container Generator](https://toolbox4devs.com/dockerfile-generator): Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.
 - [UUID Generator](https://toolbox4devs.com/uuid): Generate RFC 4122 compliant UUID v4 and v1 identifiers in bulk.
 - [Secure Password Generator](https://toolbox4devs.com/password-generator): Generate high-entropy cryptographic passwords with custom character sets and length.
@@ -69,3 +76,4 @@ AI agents can consume the structured machine-readable catalog at:
 
 Detailed technical documentation for LLMs:
 `https://toolbox4devs.com/llms-full.txt`
+

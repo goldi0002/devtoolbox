@@ -22,7 +22,7 @@
   ],
   "shortcuts": [
     { "name": "JSON Formatter", "url": "/json-formatter" },
-    { "name": "JWT Decoder",    "url": "/jwt-decoder"    },
+    { "name": "JWT Decoder",    "url": "/jwt"            },
     { "name": "UUID Generator", "url": "/uuid"           },
     { "name": "All Tools",      "url": "/tools"          }
   ]

@@ -64,7 +64,7 @@ export default function Home() {
   const homeFaqs = [
     {
       question: "What is ToolBox4Devs?",
-      answer: "ToolBox4Devs is a suite of 36+ fast, private, 100% browser-based developer utilities including JSON formatters, JWT decoders, Base64 encoders, UUID generators, and text tools."
+      answer: "ToolBox4Devs is a suite of 51+ fast, private, 100% browser-based developer utilities including JSON formatters, JWT decoders, Base64 encoders, UUID generators, and text tools."
     },
     {
       question: "Is my data sent to any server when using ToolBox4Devs?",
@@ -80,7 +80,7 @@ export default function Home() {
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <SEO
         title="ToolBox4Devs — Fast, Private, 100% Client-Side Developer Tools"
-        description="36+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking."
+        description="51+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking."
         keywords={["developer tools", "json formatter", "jwt decoder", "base64 encoder", "uuid generator", "regex tester", "yaml to json", "cron parser", "free developer tools", "offline dev tools"]}
         faqs={homeFaqs}
       />

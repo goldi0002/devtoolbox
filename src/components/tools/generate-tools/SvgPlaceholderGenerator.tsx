@@ -63,7 +63,7 @@ export default function SvgPlaceholderGenerator() {
         </SectionPanel>
       </div>
 
-      <OutputPanel content={svgCode} language="xml" label="SVG Code" />
+      <OutputPanel value={svgCode} language="xml" label="SVG Code" />
     </div>
   )
 }
