@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 54,
+  "totalTools": 55,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -17,6 +17,14 @@
     { "id": "analyze-tools", "name": "Analyze" }
   ],
   "tools": [
+    {
+      "slug": "age-calculator",
+      "name": "Age & Lifetime Milestone Calculator",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/age-calculator",
+      "description": "Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.",
+      "keywords": ["age calculator", "calculate age", "date of birth calculator", "birthday countdown", "days lived", "hours lived", "minutes lived", "planetary age"]
+    },
     {
       "slug": "wcag-contrast-checker",
       "name": "WCAG 2.1 Color Contrast Checker",

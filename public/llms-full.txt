@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 54
+Total Tools: 55
 
 ---
 
-## Tool Registry & Technical Specifications (All 54 Tools)
+## Tool Registry & Technical Specifications (All 55 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -385,4 +385,12 @@ Total Tools: 54
 - Complexity: Moderate
 - Description: Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.
 - Features: Multi-dialect syntax generation (PostgreSQL, MySQL, SQLite, SQL Server, Oracle), auto type inference (INTEGER, NUMERIC, BOOLEAN, TIMESTAMPTZ, JSONB, VARCHAR), configurable DROP TABLE, transactions, and batch inserts.
+
+### 55. Age & Lifetime Milestone Calculator
+- URL: https://toolbox4devs.com/age-calculator
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.
+- Features: Real-time live seconds ticker, complete time unit breakdown (years, months, weeks, days, hours, minutes, seconds, milliseconds), next birthday countdown and day of week, biological estimations (heartbeats, breaths, sleep time), planetary ages on other solar bodies (Mercury, Venus, Mars, Jupiter, Saturn), and milestone achievement trackers.
+
 

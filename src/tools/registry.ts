@@ -53,6 +53,7 @@ import { XML_FORMATTER_META } from "./meta/xml-formatter"
 import { WCAG_CONTRAST_CHECKER_META } from "./meta/wcag-contrast-checker"
 import { SEMVER_CALCULATOR_META } from "./meta/semver-calculator"
 import { JSON_TO_SQL_META } from "./meta/json-to-sql"
+import { AGE_CALCULATOR_META } from "./meta/age-calculator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -60,6 +61,7 @@ export const tools: ToolMeta[] = [
   JSON_TO_ZOD_META,
   JSON_TO_CSV_META,
   JSON_TO_SQL_META,
+  AGE_CALCULATOR_META,
   WCAG_CONTRAST_CHECKER_META,
   SEMVER_CALCULATOR_META,
   YAML_JSON_CONVERTER_META,

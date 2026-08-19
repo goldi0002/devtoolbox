@@ -6,6 +6,7 @@ const toolMeta = [
     { slug: 'json-model',                    category: 'json-tools'     },
     { slug: 'json-to-zod',                   category: 'json-tools'     },
     { slug: 'json-to-sql',                   category: 'data-tools'     },
+    { slug: 'age-calculator',                category: 'data-tools'     },
     { slug: 'wcag-contrast-checker',         category: 'web-tools'      },
     { slug: 'semver-calculator',             category: 'data-tools'     },
     { slug: 'yaml-json-converter',           category: 'data-tools'     },
