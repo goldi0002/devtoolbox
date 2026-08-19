@@ -1,9 +1,12 @@
 import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { HardDrive, Download, WifiOff } from 'lucide-react'
 import { tools } from '../tools/registry'
+import { usePWA } from '../hooks/usePWA'
 import ThemePicker from './ui/Themepicker'
 
 const CommandPalette = lazy(() => import('./CommandPalette'))
+const PwaModal = lazy(() => import('./ui/PwaModal'))
 
 // ── Nav config ─────────────────────────────────────────────────────────────
 const navLinks = [
@@ -39,6 +42,9 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false)
   const [showShortcutHint, setShowShortcutHint] = useState(false)
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [pwaOpen, setPwaOpen] = useState(false)
+
+  const { isOnline, isInstallable, promptInstall, isInstalled } = usePWA()
 
   useEffect(() => { setMounted(true) }, [])
   // Close mobile menu on route change
@@ -58,6 +64,7 @@ export default function Navbar() {
 
     if (e.key === 'Escape') {
       setShowShortcutHint(false)
+      setPwaOpen(false)
       return
     }
 
@@ -121,6 +128,40 @@ export default function Navbar() {
           {/* ── Right controls ────────────────────────────────────────────── */}
           <div className="flex items-center gap-2">
 
+            {/* Offline Status Badge */}
+            {!isOnline && (
+              <button
+                onClick={() => setPwaOpen(true)}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-amber-500/10 text-amber-300 border border-amber-500/30 font-mono hover:bg-amber-500/20 transition-colors cursor-pointer"
+                title="Offline Mode Active — Click for details"
+              >
+                <WifiOff className="w-3.5 h-3.5 text-amber-400" />
+                <span className="hidden sm:inline font-medium">Offline</span>
+              </button>
+            )}
+
+            {/* Install App Button if Installable */}
+            {isInstallable && !isInstalled && (
+              <button
+                onClick={promptInstall}
+                className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-accent/40 bg-accent-soft text-accent text-xs font-medium hover:bg-accent hover:text-accent-fg transition-all cursor-pointer shadow-sm"
+                title="Install ToolBox4Devs as Desktop Application"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Install</span>
+              </button>
+            )}
+
+            {/* PWA & Cache Manager Button */}
+            <button
+              onClick={() => setPwaOpen(true)}
+              className="flex items-center justify-center w-8 h-8 rounded-md border border-border text-subtle hover:text-bright hover:border-accent transition-colors"
+              aria-label="PWA & Offline Storage Manager"
+              title="PWA & Offline Storage (Caches, App Status)"
+            >
+              <HardDrive className="w-3.5 h-3.5" />
+            </button>
+
             {/* Keyboard shortcut hint */}
             <button
               onClick={() => setShowShortcutHint(h => !h)}
@@ -183,6 +224,39 @@ export default function Navbar() {
                 )}
               </Link>
             ))}
+
+            {/* Mobile PWA & Offline Link */}
+            <button
+              onClick={() => {
+                setOpen(false)
+                setPwaOpen(true)
+              }}
+              className="px-3 py-2 text-sm rounded-md transition-all duration-200 font-sans flex items-center justify-between text-dim hover:text-bright hover:bg-surface text-left"
+            >
+              <span className="flex items-center gap-2">
+                <HardDrive className="w-4 h-4 text-accent" />
+                Offline Storage & PWA
+              </span>
+              <span className={`text-[10px] font-mono px-2 py-0.5 rounded ${isOnline ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}`}>
+                {isOnline ? 'Online' : 'Offline'}
+              </span>
+            </button>
+
+            {isInstallable && !isInstalled && (
+              <button
+                onClick={() => {
+                  setOpen(false)
+                  promptInstall()
+                }}
+                className="px-3 py-2 mt-1 text-sm rounded-md bg-accent-soft text-accent hover:bg-accent hover:text-accent-fg transition-all font-sans flex items-center justify-between"
+              >
+                <span className="flex items-center gap-2">
+                  <Download className="w-4 h-4" />
+                  Install Application
+                </span>
+                <span className="text-[10px] font-mono uppercase tracking-wider">PWA</span>
+              </button>
+            )}
           </div>
         )}
       </nav>
@@ -190,6 +264,12 @@ export default function Navbar() {
       {paletteOpen && (
         <Suspense fallback={null}>
           <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+        </Suspense>
+      )}
+
+      {pwaOpen && (
+        <Suspense fallback={null}>
+          <PwaModal isOpen={pwaOpen} onClose={() => setPwaOpen(false)} />
         </Suspense>
       )}
 

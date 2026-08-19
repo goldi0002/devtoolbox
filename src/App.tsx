@@ -4,6 +4,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ErrorBoundary from './components/ErrorBoundary'
+import PwaStatusBanner from './components/ui/PwaStatusBanner'
 
 const PageLoader = lazy(() => import('./components/ui/PageLoader'))
 export function Layout() {
@@ -35,6 +36,7 @@ export function Layout() {
         >
           Skip to content
         </a>
+        <PwaStatusBanner />
         <Navbar />
         <div id="main-content" className="flex-1">
           {/* Suspense is required for lazy loaded components in SSG */}

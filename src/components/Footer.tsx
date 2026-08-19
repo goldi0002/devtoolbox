@@ -73,7 +73,11 @@ export default function Footer() {
           <p className="text-xs font-mono text-subtle">
             toolbox4devs.com — built for developers who value clean, private tools.
           </p>
-          <p className="text-xs font-mono text-subtle">100% client-side · open in any browser</p>
+          <p className="text-xs font-mono text-subtle flex items-center gap-2">
+            <span>100% client-side</span>
+            <span>·</span>
+            <span className="text-accent">PWA & Offline Ready</span>
+          </p>
         </div>
       </div>
     </footer>
