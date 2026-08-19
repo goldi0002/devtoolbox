@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 51 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 54 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -10,6 +10,8 @@
 ## Tools Directory
 
 ### JSON & Data Tools
+- [JSON to SQL Schema & Query Converter](https://toolbox4devs.com/json-to-sql): Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support (Postgres, MySQL, SQLite, SQL Server, Oracle).
+- [SemVer Calculator & Range Tester](https://toolbox4devs.com/semver-calculator): Parse SemVer 2.0.0 version numbers, test compatibility ranges (^, ~, >=), calculate version bumps, and sort version tags.
 - [JSON to CSV & CSV to JSON Converter](https://toolbox4devs.com/json-to-csv): Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.
 - [CIDR & Subnet Calculator](https://toolbox4devs.com/cidr-calculator): Calculate IPv4 network addresses, broadcast targets, usable host IP ranges, netmasks, wildcard masks, and binary bit breakdowns.
 - [Number Base Converter](https://toolbox4devs.com/base-converter): Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two's complement binary representations.
@@ -41,6 +43,7 @@
 - [HTTP Basic Auth Header Generator](https://toolbox4devs.com/basic-auth-header): Generate standard `Authorization: Basic <base64>` HTTP headers from username and password.
 
 ### Web & API Tools
+- [WCAG 2.1 Color Contrast Checker](https://toolbox4devs.com/wcag-contrast-checker): Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
 - [URL & Query Component Parser](https://toolbox4devs.com/url-parser): Parse URLs into protocol, host, port, path, query parameters table, and hash fragments.
 - [XML Formatter & Minifier](https://toolbox4devs.com/xml-formatter): Beautify and minify XML markup with configurable indentation and syntax error diagnostics.
 - [Keycode & Keyboard Event Inspector](https://toolbox4devs.com/keycode-inspector): Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.

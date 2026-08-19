@@ -50,12 +50,18 @@ import { RSA_KEY_GENERATOR_META } from "./meta/rsa-key-generator"
 import { SVG_PLACEHOLDER_GENERATOR_META } from "./meta/svg-placeholder-generator"
 import { URL_PARSER_META } from "./meta/url-parser"
 import { XML_FORMATTER_META } from "./meta/xml-formatter"
+import { WCAG_CONTRAST_CHECKER_META } from "./meta/wcag-contrast-checker"
+import { SEMVER_CALCULATOR_META } from "./meta/semver-calculator"
+import { JSON_TO_SQL_META } from "./meta/json-to-sql"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
   JSON_MODEL_META,
   JSON_TO_ZOD_META,
   JSON_TO_CSV_META,
+  JSON_TO_SQL_META,
+  WCAG_CONTRAST_CHECKER_META,
+  SEMVER_CALCULATOR_META,
   YAML_JSON_CONVERTER_META,
   CURL_CONVERTER_META,
   SQL_FORMATTER_META,

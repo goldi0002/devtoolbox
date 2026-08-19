@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 51,
+  "totalTools": 54,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -17,6 +17,30 @@
     { "id": "analyze-tools", "name": "Analyze" }
   ],
   "tools": [
+    {
+      "slug": "wcag-contrast-checker",
+      "name": "WCAG 2.1 Color Contrast Checker",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/wcag-contrast-checker",
+      "description": "Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.",
+      "keywords": ["color contrast checker", "wcag contrast", "accessibility checker", "color blindness simulator", "color ratio", "a11y contrast", "wcag 2.1"]
+    },
+    {
+      "slug": "semver-calculator",
+      "name": "SemVer Calculator & Range Tester",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/semver-calculator",
+      "description": "Parse, validate, compare, sort, and calculate version increments according to SemVer 2.0.0 rules and NPM range expressions.",
+      "keywords": ["semver calculator", "semantic versioning", "semver range tester", "version increment", "npm semver", "caret range", "tilde range"]
+    },
+    {
+      "slug": "json-to-sql",
+      "name": "JSON to SQL Schema & Query Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/json-to-sql",
+      "description": "Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.",
+      "keywords": ["json to sql", "json to create table", "json to insert", "sql generator", "json to postgres", "json to mysql", "json to sqlite"]
+    },
     {
       "slug": "json-to-csv",
       "name": "JSON to CSV & CSV to JSON Converter",

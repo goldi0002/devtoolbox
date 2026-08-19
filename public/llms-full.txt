@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 51
+Total Tools: 54
 
 ---
 
-## Tool Registry & Technical Specifications (All 51 Tools)
+## Tool Registry & Technical Specifications (All 54 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -364,3 +364,25 @@ Total Tools: 51
 - Complexity: Simple
 - Description: Format, beautify, and minify XML markup with configurable indentation and syntax error diagnostics.
 - Features: 2-space / 4-space indentation, XML minification, error location reporting.
+
+### 52. WCAG 2.1 Color Contrast Checker
+- URL: https://toolbox4devs.com/wcag-contrast-checker
+- Category: Web Tools (web-tools)
+- Complexity: Simple
+- Description: Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
+- Features: Relative luminance calculation, AA/AAA compliance badges for normal and large text, color blindness matrix simulation (Protanopia, Deuteranopia, Tritanopia, Achromatopsia), accessible tone suggestions.
+
+### 53. SemVer Calculator & Range Tester
+- URL: https://toolbox4devs.com/semver-calculator
+- Category: Data Tools (data-tools)
+- Complexity: Moderate
+- Description: Parse, validate, compare, sort, and calculate version increments according to SemVer 2.0.0 rules and NPM range expressions.
+- Features: SemVer 2.0.0 parsing, range satisfaction tester (^, ~, >=, *), version bumper (Major, Minor, Patch, Pre-release), batch version sorter by precedence.
+
+### 54. JSON to SQL Schema & Query Converter
+- URL: https://toolbox4devs.com/json-to-sql
+- Category: Data Tools (data-tools)
+- Complexity: Moderate
+- Description: Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.
+- Features: Multi-dialect syntax generation (PostgreSQL, MySQL, SQLite, SQL Server, Oracle), auto type inference (INTEGER, NUMERIC, BOOLEAN, TIMESTAMPTZ, JSONB, VARCHAR), configurable DROP TABLE, transactions, and batch inserts.
+
