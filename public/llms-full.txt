@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 55
+Total Tools: 60
 
 ---
 
-## Tool Registry & Technical Specifications (All 55 Tools)
+## Tool Registry & Technical Specifications (All 60 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -410,5 +410,34 @@ Total Tools: 55
 - Inputs: Numeric string (integer or decimal, optionally negative).
 - Outputs: English words spelling out the number.
 - Features: Integers, decimals (digits spelled individually), and negative numbers, magnitudes up to 999 trillion, live word count and validation feedback, 100% client-side processing.
+
+### 58. Docker Run to Compose Converter
+- URL: https://toolbox4devs.com/docker-run-to-compose
+- Category: Generator Tools (generate-tools)
+- Complexity: Moderate
+- Description: Convert single or multi-line docker run CLI commands into clean, production-ready docker-compose.yml YAML configurations.
+- Inputs: Shell command string (e.g. docker run -d -p 80:80 nginx).
+- Outputs: Formatted docker-compose.yml YAML string.
+- Features: Full CLI flag parsing (-p, -e, --env-file, -v, --name, --restart, --network, --memory, --cpus, --health-cmd), multi-service stack creation from multiple commands, Compose Spec / v3 / v2 versioning, one-click copy, and file download.
+
+### 59. SVG to JSX / React Converter
+- URL: https://toolbox4devs.com/svg-to-jsx
+- Category: Web Tools (web-tools)
+- Complexity: Moderate
+- Description: Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.
+- Inputs: Raw SVG XML markup.
+- Outputs: React JSX / TSX Component code with interfaces.
+- Features: Hyphenated SVG to React camelCase attribute mapping, inline style string to style object converter, TypeScript interface (SVGProps<SVGSVGElement>), forwardRef, React.memo, currentColor replace, and interactive live SVG preview.
+
+### 60. QR Code Generator
+- URL: https://toolbox4devs.com/qr-code-generator
+- Category: Generator Tools (generate-tools)
+- Complexity: Simple
+- Description: Create customizable, high-resolution QR codes from text, URLs, Wi-Fi credentials, emails, and phone numbers with instant PNG, SVG, and JPEG download.
+- Inputs: Plain text, URLs, Wi-Fi credentials (SSID/Password), Email, Phone, or SMS string.
+- Outputs: Downloadable PNG, vector SVG, and JPEG images, plus Base64 Data URL and raw SVG strings.
+- Features: Real-time generation, Reed-Solomon Error Correction (L, M, Q, H), custom foreground/background colors, transparent background option, margin/quiet zone adjustment, high-resolution print exports up to 1200px, 100% in-browser private computation.
+
+
 
 

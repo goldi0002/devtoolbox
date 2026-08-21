@@ -56,6 +56,9 @@ import { JSON_TO_SQL_META } from "./meta/json-to-sql"
 import { AGE_CALCULATOR_META } from "./meta/age-calculator"
 import { LINE_SORTER_META } from "./meta/line-sorter"
 import { NUMBER_TO_WORDS_META } from "./meta/number-to-words"
+import { DOCKER_RUN_TO_COMPOSE_META } from "./meta/docker-run-to-compose"
+import { SVG_TO_JSX_META } from "./meta/svg-to-jsx"
+import { QR_CODE_GENERATOR_META } from "./meta/qr-code-generator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -71,6 +74,9 @@ export const tools: ToolMeta[] = [
   SQL_FORMATTER_META,
   GRAPHQL_FORMATTER_META,
   DOCKERFILE_GENERATOR_META,
+  DOCKER_RUN_TO_COMPOSE_META,
+  SVG_TO_JSX_META,
+  QR_CODE_GENERATOR_META,
   HMAC_GENERATOR_META,
   BCRYPT_GENERATOR_META,
   CIDR_CALCULATOR_META,

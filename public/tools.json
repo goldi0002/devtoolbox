@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 57,
+  "totalTools": 60,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -456,6 +456,30 @@
       "url": "https://toolbox4devs.com/xml-formatter",
       "description": "Format, beautify, and minify XML documents with adjustable indent sizes and real-time syntax checking.",
       "keywords": ["xml formatter", "beautify xml", "minify xml", "xml pretty print", "format xml online"]
+    },
+    {
+      "slug": "docker-run-to-compose",
+      "name": "Docker Run to Compose Converter",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/docker-run-to-compose",
+      "description": "Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations instantly.",
+      "keywords": ["docker run to compose", "docker run to docker-compose", "convert docker run", "docker compose generator", "docker compose converter", "docker cli to yaml"]
+    },
+    {
+      "slug": "svg-to-jsx",
+      "name": "SVG to JSX / React Converter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/svg-to-jsx",
+      "description": "Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.",
+      "keywords": ["svg to jsx", "svg to react", "svg to tsx", "convert svg to react component", "svg optimizer jsx", "react svg icon generator"]
+    },
+    {
+      "slug": "qr-code-generator",
+      "name": "QR Code Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/qr-code-generator",
+      "description": "Create customizable, high-resolution QR codes from text, URLs, Wi-Fi credentials, emails, and phone numbers with instant PNG, SVG, and JPEG download.",
+      "keywords": ["qr code generator", "create qr code", "url to qr code", "wifi qr code", "svg qr code generator", "png qr code", "free qr code maker", "offline qr code generator"]
     }
   ]
 }

@@ -59,6 +59,9 @@ const toolMeta = [
     { slug: 'xml-formatter',                 category: 'web-tools'      },
     { slug: 'line-sorter',                   category: 'text-tools'     },
     { slug: 'number-to-words',               category: 'data-tools'     },
+    { slug: 'docker-run-to-compose',         category: 'generate-tools' },
+    { slug: 'svg-to-jsx',                    category: 'web-tools'      },
+    { slug: 'qr-code-generator',             category: 'generate-tools' },
   ] as const
   
   export function getAllAvailableTools() {
