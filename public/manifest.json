@@ -126,7 +126,7 @@
     {
       "name": "All Developer Tools",
       "short_name": "All Tools",
-      "description": "Browse complete catalog of 54+ utilities",
+      "description": "Browse complete catalog of 60+ utilities",
       "url": "/tools?source=shortcut",
       "icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
     }

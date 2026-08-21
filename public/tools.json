@@ -480,6 +480,22 @@
       "url": "https://toolbox4devs.com/qr-code-generator",
       "description": "Create customizable, high-resolution QR codes from text, URLs, Wi-Fi credentials, emails, and phone numbers with instant PNG, SVG, and JPEG download.",
       "keywords": ["qr code generator", "create qr code", "url to qr code", "wifi qr code", "svg qr code generator", "png qr code", "free qr code maker", "offline qr code generator"]
+    },
+    {
+      "slug": "line-sorter",
+      "name": "Line Sorter & Deduplicator",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/line-sorter",
+      "description": "Sort lines alphabetically, by length, or naturally — remove duplicates, trim whitespace, and drop empty lines.",
+      "keywords": ["line sorter", "sort lines", "remove duplicate lines", "deduplicate lines", "alphabetical sort", "natural sort", "line deduplicator", "remove empty lines"]
+    },
+    {
+      "slug": "number-to-words",
+      "name": "Number to Words Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/number-to-words",
+      "description": "Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.",
+      "keywords": ["number to words", "numbers to english", "spell out numbers", "number to text", "integer to words", "decimal to words", "write numbers in words", "amount in words"]
     }
   ]
 }
