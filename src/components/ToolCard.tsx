@@ -15,15 +15,10 @@ export default function ToolCard({ slug, title, description, tag, index = 0 }: T
   return (
     <Link
       to={`/${slug}`}
-      className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-border
-                  bg-surface/60 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-accent
-                  hover:shadow-lift animate-slide-up opacity-0 ${delay}`}
+      className={`group flex h-full flex-col rounded-2xl border border-border bg-bg p-5 shadow-soft
+                  transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:shadow-lift
+                  animate-slide-up opacity-0 ${delay}`}
     >
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-      />
-
       <div className="mb-3 flex items-start justify-between gap-3">
         <span className="tag">{tag}</span>
         <span className="text-subtle transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-accent">
@@ -31,12 +26,12 @@ export default function ToolCard({ slug, title, description, tag, index = 0 }: T
         </span>
       </div>
 
-      <h3 className="mb-1.5 font-sans text-sm font-semibold text-bright transition-colors group-hover:text-accent">
+      <h3 className="mb-2 font-sans text-base font-semibold tracking-tight text-bright transition-colors group-hover:text-accent">
         {title}
       </h3>
-      <p className="mb-4 font-sans text-xs leading-relaxed text-dim">{description}</p>
+      <p className="mb-5 font-sans text-sm leading-6 text-dim">{description}</p>
 
-      <span className="mt-auto font-mono text-[10px] text-muted transition-colors group-hover:text-subtle">
+      <span className="mt-auto font-mono text-[11px] text-subtle transition-colors group-hover:text-accent">
         /{slug}
       </span>
     </Link>
