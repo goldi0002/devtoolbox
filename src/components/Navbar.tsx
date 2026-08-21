@@ -4,6 +4,7 @@ import { HardDrive, Download, WifiOff } from 'lucide-react'
 import { tools } from '../tools/registry'
 import { usePWA } from '../hooks/usePWA'
 import ThemePicker from './ui/Themepicker'
+import FontPicker from './ui/FontPicker'
 
 const CommandPalette = lazy(() => import('./CommandPalette'))
 const PwaModal = lazy(() => import('./ui/PwaModal'))
@@ -184,6 +185,9 @@ export default function Navbar() {
               <span>Search tools</span>
               <kbd className="rounded border border-border px-1.5 py-0.5 text-[9px] text-muted">Ctrl K</kbd>
             </button>
+
+            {/* Font / Typography picker */}
+            <FontPicker />
 
             {/* Theme toggle */}
             <ThemePicker />

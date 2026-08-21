@@ -2,6 +2,7 @@ import { ViteReactSSG } from 'vite-react-ssg'
 import { routes } from './routes'
 import { readStorage, removeStorage, writeStorage } from './lib/storage'
 import { reportError } from './utils/errors'
+import { initCustomFonts } from './utils/fonts'
 import './css/index.css'
 import './css/global.css'
 
@@ -11,6 +12,9 @@ export const createRoot = ViteReactSSG(
   { routes },
   ({ isClient }) => {
     if (!isClient || typeof window === 'undefined') return
+
+    // Apply saved font configuration
+    initCustomFonts()
 
     window.addEventListener('vite:preloadError', (event) => {
       event.preventDefault()

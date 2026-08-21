@@ -14,7 +14,7 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-bright);
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
