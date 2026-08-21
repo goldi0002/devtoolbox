@@ -59,3 +59,12 @@ After generating or updating any code:
 3. **Unit / Integration Tests**: Run tests (`npm test` via vitest) where applicable.
 4. **Dev Server Restart**: Restart the dev server (`restart_dev_server`) if route or build configurations changed.
 5. **Output Results**: Clearly present the build and test verification results in the response summary.
+
+---
+
+## 4. Base44 Dev Environment
+
+- **Stack**: 100% client-side Vite + React + TypeScript app (no backend, no database, no external API). The "Local AI Text Assistant" is a local heuristic analyzer, not a network call. PostHog analytics is commented out. No external secrets are required.
+- **Run**: `docker compose -f docker-compose.base44.yml up -d` — uses a plain `node:22` image with the repo bind-mounted at `/app`, runs `npm install && npm run dev` (Vite dev server with live reload on port 3000).
+- **Preview hostname**: `vite.config.ts` sets `server.allowedHosts: true` so the preview's external hostname is accepted.
+- **Verify**: `curl -sf http://localhost:3000/` returns the app; container reports `healthy`.
