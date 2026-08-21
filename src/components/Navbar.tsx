@@ -11,6 +11,7 @@ const PwaModal = lazy(() => import('./ui/PwaModal'))
 // ── Nav config ─────────────────────────────────────────────────────────────
 const navLinks = [
   { label: 'Home', path: '/' },
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'Tools', path: '/tools' },
   { label: 'Changelog', path: '/changelog' },
   { label: 'About', path: '/about' },

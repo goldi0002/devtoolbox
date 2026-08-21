@@ -5,6 +5,7 @@ import { tools } from './tools/registry'
 
 // Lazy load pages for SSG
 const Home = lazy(() => import('./pages/Home'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
 const ToolsIndex = lazy(() => import('./pages/ToolsIndex'))
 const About = lazy(() => import('./pages/About'))
 const ToolPage = lazy(() => import('./pages/ToolPage'))

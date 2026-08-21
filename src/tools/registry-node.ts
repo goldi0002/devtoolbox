@@ -57,6 +57,8 @@ const toolMeta = [
     { slug: 'svg-placeholder-generator',     category: 'generate-tools' },
     { slug: 'url-parser',                    category: 'web-tools'      },
     { slug: 'xml-formatter',                 category: 'web-tools'      },
+    { slug: 'line-sorter',                   category: 'text-tools'     },
+    { slug: 'number-to-words',               category: 'data-tools'     },
   ] as const
   
   export function getAllAvailableTools() {

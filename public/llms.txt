@@ -73,6 +73,8 @@
 - [URL Slug Generator](https://toolbox4devs.com/slug-generator): Convert headlines and titles into SEO-friendly, clean URL slugs with separator options.
 - [Word & Character Counter](https://toolbox4devs.com/word-counter): Analyze text metrics including word count, character count, reading time, speaking time, and paragraph density.
 - [Local AI Assistant](https://toolbox4devs.com/local-ai-text-assistant): In-browser text analysis, summarization, and formatting assistant.
+- [Line Sorter & Deduplicator](https://toolbox4devs.com/line-sorter): Sort lines alphabetically, by length, or naturally and remove duplicates and empty lines.
+- [Number to Words Converter](https://toolbox4devs.com/number-to-words): Convert numbers into English words, including decimals, negatives, and magnitudes up to 999 trillion.
 
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:

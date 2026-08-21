@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 55,
+  "totalTools": 57,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },

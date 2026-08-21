@@ -54,6 +54,8 @@ import { WCAG_CONTRAST_CHECKER_META } from "./meta/wcag-contrast-checker"
 import { SEMVER_CALCULATOR_META } from "./meta/semver-calculator"
 import { JSON_TO_SQL_META } from "./meta/json-to-sql"
 import { AGE_CALCULATOR_META } from "./meta/age-calculator"
+import { LINE_SORTER_META } from "./meta/line-sorter"
+import { NUMBER_TO_WORDS_META } from "./meta/number-to-words"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -110,7 +112,9 @@ export const tools: ToolMeta[] = [
   RSA_KEY_GENERATOR_META,
   SVG_PLACEHOLDER_GENERATOR_META,
   URL_PARSER_META,
-  XML_FORMATTER_META
+  XML_FORMATTER_META,
+  LINE_SORTER_META,
+  NUMBER_TO_WORDS_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

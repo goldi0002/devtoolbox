@@ -393,4 +393,22 @@ Total Tools: 55
 - Description: Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.
 - Features: Real-time live seconds ticker, complete time unit breakdown (years, months, weeks, days, hours, minutes, seconds, milliseconds), next birthday countdown and day of week, biological estimations (heartbeats, breaths, sleep time), planetary ages on other solar bodies (Mercury, Venus, Mars, Jupiter, Saturn), and milestone achievement trackers.
 
+### 56. Line Sorter & Deduplicator
+- URL: https://toolbox4devs.com/line-sorter
+- Category: Text Tools (text-tools)
+- Complexity: Simple
+- Description: Sort lines of text and remove duplicates and empty lines.
+- Inputs: Multi-line text string.
+- Outputs: Sorted, optionally deduplicated multi-line text string.
+- Features: Four sort modes (A→Z, Z→A, by length, natural numeric), optional duplicate removal, whitespace trimming, empty-line stripping, case-insensitive or case-sensitive sorting, live line and removed-line counts.
+
+### 57. Number to Words Converter
+- URL: https://toolbox4devs.com/number-to-words
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Convert numeric values into their English word representation.
+- Inputs: Numeric string (integer or decimal, optionally negative).
+- Outputs: English words spelling out the number.
+- Features: Integers, decimals (digits spelled individually), and negative numbers, magnitudes up to 999 trillion, live word count and validation feedback, 100% client-side processing.
+
 
