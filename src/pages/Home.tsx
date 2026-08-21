@@ -5,7 +5,7 @@ import { tools, categoryLabels, getFeaturedTools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 import { getRecentChangelog } from '../utils/changelog'
-import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, Star } from 'lucide-react'
+import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, Star, LayoutGrid } from 'lucide-react'
 
 // Show first 6 tools as featured
 const featuredTools = getFeaturedTools()
@@ -197,9 +197,14 @@ export default function Home() {
             <h2 className="eyebrow">Browse by Category</h2>
             <span className="text-[10px] font-mono text-subtle">({tools.length} total)</span>
           </div>
-          <Link to="/tools" className="text-xs font-mono text-accent hover:underline flex items-center gap-1 transition-colors">
-            Full Tool Index <ArrowRight size={13} />
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/dashboard" className="text-xs font-mono px-3 py-1.5 rounded-full border border-accent/40 bg-accent-soft text-accent hover:bg-accent hover:text-accent-fg transition-all flex items-center gap-1.5">
+              <LayoutGrid size={13} /> Dashboard
+            </Link>
+            <Link to="/tools" className="text-xs font-mono text-accent hover:underline flex items-center gap-1 transition-colors">
+              Full Tool Index <ArrowRight size={13} />
+            </Link>
+          </div>
         </div>
 
         <div className="relative pb-2 border-b border-border">
