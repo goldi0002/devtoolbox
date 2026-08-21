@@ -5,6 +5,7 @@ import { getAllAvailableTools, getToolCategories } from './src/tools/registry-no
 
 const dynamicRoutes = [
   '/',
+  '/dashboard',
   '/tools',
   '/about',
   '/changelog',

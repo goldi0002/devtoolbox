@@ -22,6 +22,7 @@ export const routes: RouteRecord[] = [
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
+      { path: 'dashboard', element: <Dashboard /> },
       { path: 'tools', element: <ToolsIndex /> },
       { path: 'tools/:category', element: <ToolsIndex /> },
       { path: 'about', element: <About /> },
