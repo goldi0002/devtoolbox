@@ -59,5 +59,6 @@ export interface ToolMeta {
     featured?: boolean, // whether to show on homepage featured section
     isNew?: boolean, // whether to show "New" badge on tool cards
     addedAt?: string, // ISO date string for when the tool was added (used to determine "New" status if isNew not set)
+    updatedAt?: string, // ISO date string for when the tool was updated/improved
     toolComponent?: React.ComponentType,
 }

@@ -4,7 +4,6 @@ import ToolCard from '../components/ToolCard'
 import { tools, categoryLabels, getFeaturedTools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
-import { getRecentChangelog } from '../utils/changelog'
 import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, Star, LayoutGrid } from 'lucide-react'
 
 // Show first 6 tools as featured
@@ -59,8 +58,6 @@ export default function Home() {
     .filter((t): t is typeof tools[0] => Boolean(t))
     .slice(0, 4)
 
-  const recentChanges = getRecentChangelog(3)
-
   const homeFaqs = [
     {
       question: "What is ToolBox4Devs?",
@@ -80,8 +77,8 @@ export default function Home() {
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <SEO
         title="ToolBox4Devs — Fast, Private, 100% Client-Side Developer Tools"
-        description="51+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking."
-        keywords={["developer tools", "json formatter", "jwt decoder", "base64 encoder", "uuid generator", "regex tester", "yaml to json", "cron parser", "free developer tools", "offline dev tools"]}
+        description={`${tools.length}+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking.`}
+        keywords={["developer tools", "json formatter", "jwt decoder", "base64 encoder", "uuid generator", "regex tester", "yaml to json", "cron parser", "free developer tools", "offline dev tools", "cidr calculator", "bcrypt generator"]}
         faqs={homeFaqs}
       />
 

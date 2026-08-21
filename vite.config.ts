@@ -8,7 +8,6 @@ const dynamicRoutes = [
   '/dashboard',
   '/tools',
   '/about',
-  '/changelog',
   '/privacy',
   ...getToolCategories().map((category) => `/tools/${category.category}`),
   ...getAllAvailableTools().map((tool) => `/${tool.slug}`),

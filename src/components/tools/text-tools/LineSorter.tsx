@@ -32,7 +32,7 @@ function naturalCompare(a: string, b: string): number {
 }
 
 function sortLines(input: string, mode: SortMode, caseInsensitive: boolean): string[] {
-  let lines = input.split('\n')
+  const lines = input.split('\n')
 
   const collator = caseInsensitive
     ? (a: string, b: string) => a.toLowerCase().localeCompare(b.toLowerCase())

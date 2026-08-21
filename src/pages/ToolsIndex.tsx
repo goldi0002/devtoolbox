@@ -30,13 +30,39 @@ export default function ToolsIndex() {
     setSearch(urlQuery)
   }, [urlQuery])
 
+  const categorySeoTitles: Record<string, string> = {
+    'all': 'Developer Tools Directory — 57+ Free Online Utilities',
+    'json-tools': 'JSON Tools — Free Online JSON Formatters, Validators & Converters',
+    'encode-tools': 'Encoder & Decoder Tools — Base64, URL & HTML Entities',
+    'text-tools': 'Text Tools & Utilities — Text Diff, Case Converter, Regex & Sorter',
+    'generate-tools': 'Online Generators — UUID v4, Passwords, Dockerfiles & Placeholders',
+    'auth-tools': 'Authentication Tools — JWT Decoders & Basic Auth Generators',
+    'web-tools': 'Web Development Tools — HTTP Status, WCAG Contrast & Formatters',
+    'data-tools': 'Data & Conversion Tools — CIDR, SemVer, SQL, CSV & Time',
+    'crypto-tools': 'Cryptography & Security Tools — SHA-256, Bcrypt, HMAC & RSA',
+    'analyze-tools': 'Code & Text Analysis Tools — Word Counter & Local AI'
+  }
+
+  const categoryDescriptions: Record<string, string> = {
+    'all': 'Explore 57+ free, browser-based developer utilities. JSON formatters, JWT decoders, UUID generators, cryptography tools, and text helpers. 100% private, zero server calls.',
+    'json-tools': 'Free online JSON formatters, validators, schema generators, and minifiers. Beautify raw JSON and fix syntax errors with 100% in-browser privacy.',
+    'encode-tools': 'Instant encoder and decoder utilities including Base64, URL encoding, HTML entities, and string escapers. Fast, private, and zero latency.',
+    'text-tools': 'Developer text utilities for side-by-side diffing, regex testing, case conversion, line sorting, and markdown editing.',
+    'generate-tools': 'Generate random UUID v4s, secure cryptographic passwords, Dockerfiles, SVG placeholders, and mock text directly in your browser.',
+    'auth-tools': 'Decode JSON Web Tokens (JWT), inspect claims, check token expiration, and generate HTTP Basic Auth authorization headers securely.',
+    'web-tools': 'Essential web developer utilities: WCAG color contrast checker, HTTP status lookup, cURL command converter, and HTML/XML formatters.',
+    'data-tools': 'Data manipulation tools: CIDR subnet calculator, SemVer tester, JSON to SQL schema generator, and CSV converters.',
+    'crypto-tools': 'Cryptographic hashing tools: SHA-256 hash calculator, Bcrypt generator, HMAC generator, and RSA keypair generator running in browser Web Crypto.',
+    'analyze-tools': 'In-browser text and code analysis tools including word counter, character statistics, and private local text analyzer.'
+  }
+
   const pageTitle = activeCategory !== 'all'
-    ? `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`
+    ? (categorySeoTitles[activeCategory] || `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`)
     : search
       ? `Search results for "${search}"`
-      : 'All Tools'
+      : 'Developer Tools Directory'
 
-  usePageTitle(pageTitle)
+  usePageTitle(activeCategory !== 'all' ? `${categoryLabels[activeCategory as ToolMeta['category']]} Tools` : 'All Tools')
 
   const handleSearchChange = (newQuery: string) => {
     setSearch(newQuery)
@@ -100,10 +126,7 @@ export default function ToolsIndex() {
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
       <SEO
         title={pageTitle}
-        description={activeCategory === 'all'
-          ? `Explore ${tools.length} free browser-based developer utilities. JSON formatters, JWT decoders, UUID generators, cryptography tools, and text helpers. 100% private, zero server calls.`
-          : `Explore free, client-side ${categoryLabels[activeCategory as ToolMeta['category']]} utilities. Run entirely in your browser memory with zero tracking.`
-        }
+        description={categoryDescriptions[activeCategory] || `Explore free, client-side ${categoryLabels[activeCategory as ToolMeta['category']]} utilities. Run entirely in your browser memory with zero tracking.`}
         slug={activeCategory === 'all' ? 'tools' : `tools/${activeCategory}`}
         keywords={categoryKeywords}
         category={activeCategory !== 'all' ? activeCategory : undefined}

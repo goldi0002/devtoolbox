@@ -10,7 +10,6 @@ const ToolsIndex = lazy(() => import('./pages/ToolsIndex'))
 const About = lazy(() => import('./pages/About'))
 const ToolPage = lazy(() => import('./pages/ToolPage'))
 const NotFound = lazy(() => import('./pages/NotFound'))
-const Changelog = lazy(() => import('./pages/Changelog'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 
 const toolSlugs = tools.map(t => t.slug)
@@ -26,7 +25,6 @@ export const routes: RouteRecord[] = [
       { path: 'tools', element: <ToolsIndex /> },
       { path: 'tools/:category', element: <ToolsIndex /> },
       { path: 'about', element: <About /> },
-      { path: 'changelog', element: <Changelog /> },
       { path: 'privacy', element: <Privacy /> },
       ...toolSlugs.map(slug => ({
         path: slug,
