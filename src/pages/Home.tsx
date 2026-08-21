@@ -64,7 +64,7 @@ export default function Home() {
   const homeFaqs = [
     {
       question: "What is ToolBox4Devs?",
-      answer: "ToolBox4Devs is a suite of 51+ fast, private, 100% browser-based developer utilities including JSON formatters, JWT decoders, Base64 encoders, UUID generators, and text tools."
+      answer: "ToolBox4Devs is a suite of 57+ fast, private, 100% browser-based developer utilities including JSON formatters, JWT decoders, Base64 encoders, UUID generators, and text tools."
     },
     {
       question: "Is my data sent to any server when using ToolBox4Devs?",
