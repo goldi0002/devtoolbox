@@ -60,6 +60,8 @@ import { DOCKER_RUN_TO_COMPOSE_META } from "./meta/docker-run-to-compose"
 import { SVG_TO_JSX_META } from "./meta/svg-to-jsx"
 import { QR_CODE_GENERATOR_META } from "./meta/qr-code-generator"
 import { GITIGNORE_GENERATOR_META } from "./meta/gitignore-generator"
+import { TEXT_REPEATER_META } from "./meta/text-repeater"
+import { AI_TOKEN_COUNTER_META } from "./meta/ai-token-counter"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -122,7 +124,9 @@ export const tools: ToolMeta[] = [
   URL_PARSER_META,
   XML_FORMATTER_META,
   LINE_SORTER_META,
-  NUMBER_TO_WORDS_META
+  NUMBER_TO_WORDS_META,
+  TEXT_REPEATER_META,
+  AI_TOKEN_COUNTER_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

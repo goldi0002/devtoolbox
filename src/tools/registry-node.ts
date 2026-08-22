@@ -63,6 +63,8 @@ const toolMeta = [
     { slug: 'svg-to-jsx',                    category: 'web-tools'      },
     { slug: 'qr-code-generator',             category: 'generate-tools' },
     { slug: 'gitignore-generator',           category: 'generate-tools' },
+    { slug: 'text-repeater',                 category: 'text-tools'     },
+    { slug: 'ai-token-counter',              category: 'generate-tools' },
   ] as const
   
   export function getAllAvailableTools() {

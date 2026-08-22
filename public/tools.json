@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 61,
+  "totalTools": 63,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -504,6 +504,22 @@
       "url": "https://toolbox4devs.com/gitignore-generator",
       "description": "Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system entirely in your browser.",
       "keywords": ["gitignore generator", "generate gitignore", "git ignore file", "node gitignore", "react gitignore", "python gitignore", "vscode gitignore"]
+    },
+    {
+      "slug": "text-repeater",
+      "name": "Text Repeater & Multiplier",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/text-repeater",
+      "description": "Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.",
+      "keywords": ["text repeater", "repeat text online", "string replicator", "text replicator", "text multiplier", "repeat text 1000 times", "duplicate text generator"]
+    },
+    {
+      "slug": "ai-token-counter",
+      "name": "AI Token Counter & Visualizer",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/ai-token-counter",
+      "description": "Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.",
+      "keywords": ["ai token counter", "token calculator", "tiktoken online", "gpt token count", "claude token estimator", "gemini token counter", "tokenizer visualizer", "bpe encoder online"]
     }
   ]
 }

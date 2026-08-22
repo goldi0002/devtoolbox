@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 61 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 63 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -79,6 +79,8 @@
 - [Line Sorter & Deduplicator](https://toolbox4devs.com/line-sorter): Sort lines alphabetically, by length, or naturally and remove duplicates and empty lines.
 - [Number to Words Converter](https://toolbox4devs.com/number-to-words): Convert numbers into English words, including decimals, negatives, and magnitudes up to 999 trillion.
 - [.gitignore Generator](https://toolbox4devs.com/gitignore-generator): Generate a clean, deduplicated .gitignore file from language, framework, editor, and operating-system templates, with custom rules.
+- [Text Repeater & Multiplier](https://toolbox4devs.com/text-repeater): Replicate and repeat text, characters, or strings up to thousands of times with custom separators, line numbering, and case formatting.
+- [AI Token Counter & Visualizer](https://toolbox4devs.com/ai-token-counter): Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders with visual highlights.
 
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:

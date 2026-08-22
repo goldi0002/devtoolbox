@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 61
+Total Tools: 63
 
 ---
 
-## Tool Registry & Technical Specifications (All 60 Tools)
+## Tool Registry & Technical Specifications (All 63 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -449,3 +449,23 @@ Total Tools: 61
 - Inputs: Selected project templates, optional common rules, and custom ignore patterns.
 - Outputs: A copy-ready and downloadable .gitignore file.
 - Features: Templates for Node.js, Python, Java, .NET, Go, Rust, React, Next.js, Angular, Vue, Docker, Terraform, VS Code, JetBrains, macOS, and Windows; automatic duplicate removal; custom patterns; readable comments.
+
+### 62. Text Repeater & Multiplier
+- URL: https://toolbox4devs.com/text-repeater
+- Category: Text Tools (text-tools)
+- Complexity: Simple
+- Description: Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.
+- Inputs: Source text, custom separators, prefix numbering styles, case modes, trim settings, and number of iterations.
+- Outputs: Multiplied/replicated string output.
+- Features: Set repeats up to 50,000 times, choose standard/custom separators, prepend line numbers/brackets, force UPPERCASE or lowercase, automatic trailing white-space trimming, real-time feedback with character & byte count, one-click clipboard copy.
+
+### 63. AI Token Counter & Visualizer
+- URL: https://toolbox4devs.com/ai-token-counter
+- Category: Generator Tools (generate-tools)
+- Complexity: Medium
+- Description: Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders with visual highlights.
+- Inputs: Prompt text or code block, selected LLM encoder (OpenAI o200k_base, cl100k_base, Gemini, Llama).
+- Outputs: Approximate token count, character/word density metrics, live highlighted visual tokens with alternating custom color layers, model-specific budget costs.
+- Features: Real-time visual BPE estimation, 4 major model families covered, custom templates for code reviews/JSON schemas/system instructions, budget calculations, detailed token segment breakdown table.
+
+
