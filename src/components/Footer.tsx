@@ -9,14 +9,14 @@ const productLinks = [
 
 const popularTools = [
   { name: 'JSON Formatter', slug: 'json-formatter' },
-  { name: 'JWT Decoder', slug: 'jwt-decoder' },
+  { name: 'JWT Decoder', slug: 'jwt' },
   { name: 'Base64 Encoder', slug: 'base64' },
-  { name: 'UUID Generator', slug: 'uuid-generator' },
+  { name: 'UUID Generator', slug: 'uuid' },
   { name: 'CIDR Calculator', slug: 'cidr-calculator' },
   { name: 'Bcrypt Generator', slug: 'bcrypt-generator' },
   { name: 'SQL Formatter', slug: 'sql-formatter' },
-  { name: 'Regex Tester', slug: 'regex-tester' },
-  { name: 'SHA-256 Hash', slug: 'hash-generator' },
+  { name: 'Regex Tester', slug: 'regex' },
+  { name: 'SHA-256 Hash', slug: 'sha256' },
   { name: 'Cron Parser', slug: 'cron-parser' },
   { name: 'SemVer Calculator', slug: 'semver-calculator' },
   { name: 'URL Encoder', slug: 'url-encoder' },
