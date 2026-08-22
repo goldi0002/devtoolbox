@@ -4,7 +4,7 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 60
+Total Tools: 61
 
 ---
 
@@ -441,3 +441,11 @@ Total Tools: 60
 
 
 
+### 61. .gitignore Generator
+- URL: https://toolbox4devs.com/gitignore-generator
+- Category: Generator Tools (generate-tools)
+- Complexity: Simple
+- Description: Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system entirely in your browser.
+- Inputs: Selected project templates, optional common rules, and custom ignore patterns.
+- Outputs: A copy-ready and downloadable .gitignore file.
+- Features: Templates for Node.js, Python, Java, .NET, Go, Rust, React, Next.js, Angular, Vue, Docker, Terraform, VS Code, JetBrains, macOS, and Windows; automatic duplicate removal; custom patterns; readable comments.

@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest'
 import { tools, getToolBySlug } from '../tools/registry'
 import { getAllAvailableTools } from '../tools/registry-node'
 
-describe('QR Code Generator Tool (#60)', () => {
-  it('registers exactly 60 tools in client registry', () => {
-    expect(tools.length).toBe(60)
+describe('Tool registry count after adding .gitignore Generator (#61)', () => {
+  it('registers exactly 61 tools in client registry', () => {
+    expect(tools.length).toBe(61)
   })
 
-  it('registers exactly 60 tools in Node SSG registry', () => {
-    expect(getAllAvailableTools().length).toBe(60)
+  it('registers exactly 61 tools in Node SSG registry', () => {
+    expect(getAllAvailableTools().length).toBe(61)
   })
 
   it('contains qr-code-generator with proper metadata', () => {
@@ -20,7 +20,15 @@ describe('QR Code Generator Tool (#60)', () => {
     expect(tool?.about.features.length).toBeGreaterThan(3)
   })
 
-  it('ensures all 60 tools have unique slugs and valid categories', () => {
+  it("contains gitignore-generator with proper metadata", () => {
+    const tool = getToolBySlug("gitignore-generator")
+    expect(tool).toBeDefined()
+    expect(tool?.name).toBe(".gitignore Generator")
+    expect(tool?.category).toBe("generate-tools")
+    expect(tool?.toolComponent).toBeDefined()
+  })
+
+  it('ensures all 61 tools have unique slugs and valid categories', () => {
     const slugs = new Set<string>()
     tools.forEach(t => {
       expect(t.slug).toBeTruthy()
