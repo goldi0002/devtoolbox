@@ -444,6 +444,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://toolbox4devs.com/qr-code-scanner</loc>
+    <lastmod>2026-08-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://toolbox4devs.com/gitignore-generator</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>

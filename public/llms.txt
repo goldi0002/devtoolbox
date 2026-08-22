@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 63 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 64 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -62,6 +62,7 @@
 
 ### Generation & Text Utilities
 - [QR Code Generator](https://toolbox4devs.com/qr-code-generator): Generate customizable, high-resolution QR codes from text, URLs, Wi-Fi logins, and contacts with SVG, PNG, and JPEG download.
+- [QR Code Scanner](https://toolbox4devs.com/qr-code-scanner): Scan and decode QR codes from your webcam or uploaded image files completely offline with automatic payload parsing (Wi-Fi, Contact, Email, SMS, URLs).
 - [Docker Run to Compose Converter](https://toolbox4devs.com/docker-run-to-compose): Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations.
 - [CSV to Markdown Table Converter](https://toolbox4devs.com/csv-to-markdown): Convert CSV or TSV data into neatly formatted Markdown tables for documentation and GitHub READMEs.
 - [MAC Address Generator](https://toolbox4devs.com/mac-address-generator): Generate random valid unicast MAC addresses with customizable delimiters and casing.

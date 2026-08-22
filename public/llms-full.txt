@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 63
+Total Tools: 64
 
 ---
 
-## Tool Registry & Technical Specifications (All 63 Tools)
+## Tool Registry & Technical Specifications (All 64 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -467,5 +467,16 @@ Total Tools: 63
 - Inputs: Prompt text or code block, selected LLM encoder (OpenAI o200k_base, cl100k_base, Gemini, Llama).
 - Outputs: Approximate token count, character/word density metrics, live highlighted visual tokens with alternating custom color layers, model-specific budget costs.
 - Features: Real-time visual BPE estimation, 4 major model families covered, custom templates for code reviews/JSON schemas/system instructions, budget calculations, detailed token segment breakdown table.
+
+
+
+### 64. QR Code Scanner
+- URL: https://toolbox4devs.com/qr-code-scanner
+- Category: Analyze Tools (analyze-tools)
+- Complexity: Moderate
+- Description: Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.
+- Inputs: Device webcam video stream, or uploaded image files.
+- Outputs: Decoded QR code content string with automatic classification and custom formatted details (Wi-Fi details, vCard contact cards, URLs, emails, SMS, phone, geo coordinates, or formatted plain text).
+- Features: Dual-mode scanner (webcam + drag-and-drop file upload), live video canvas frame analysis throttled for CPU efficiency, automatic camera selector, custom synthesized feedback audio beeps, link safety reminders, vCard field parser, and instant integration link back to the QR Code Generator.
 
 

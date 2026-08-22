@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 63,
+  "totalTools": 64,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -480,6 +480,14 @@
       "url": "https://toolbox4devs.com/qr-code-generator",
       "description": "Create customizable, high-resolution QR codes from text, URLs, Wi-Fi credentials, emails, and phone numbers with instant PNG, SVG, and JPEG download.",
       "keywords": ["qr code generator", "create qr code", "url to qr code", "wifi qr code", "svg qr code generator", "png qr code", "free qr code maker", "offline qr code generator"]
+    },
+    {
+      "slug": "qr-code-scanner",
+      "name": "QR Code Scanner",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/qr-code-scanner",
+      "description": "Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.",
+      "keywords": ["qr code scanner", "scan qr code", "decode qr code", "qr reader", "online qr code scanner", "camera qr scanner", "upload qr code", "offline qr reader"]
     },
     {
       "slug": "line-sorter",

@@ -2,7 +2,7 @@
   "id": "https://toolbox4devs.com/",
   "name": "ToolBox4Devs — Developer Utilities Suite",
   "short_name": "ToolBox4Devs",
-  "description": "63+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking.",
+  "description": "64+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking.",
   "theme_color": "#0f0f11",
   "background_color": "#0f0f11",
   "display": "standalone",
@@ -126,7 +126,7 @@
     {
       "name": "All Developer Tools",
       "short_name": "All Tools",
-      "description": "Browse complete catalog of 63+ utilities",
+      "description": "Browse complete catalog of 64+ utilities",
       "url": "/tools?source=shortcut",
       "icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
     }
