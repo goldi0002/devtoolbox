@@ -289,6 +289,7 @@ export default function QrCodeScanner() {
   const animationFrameId = useRef<number | null>(null)
   const lastScanTime = useRef<number>(0)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const requestedDeviceIdRef = useRef<string>('')
 
   // ── Camera Enumerate Devices ───────────────────────────────────────────────
 
@@ -299,16 +300,19 @@ export default function QrCodeScanner() {
       setDevices(videoDevices)
 
       // Auto-select a back/environment camera if possible, or default to first
-      if (videoDevices.length > 0 && !selectedDeviceId) {
-        const backCam = videoDevices.find(
-          d => d.label.toLowerCase().includes('back') || d.label.toLowerCase().includes('environment')
-        )
-        setSelectedDeviceId(backCam ? backCam.deviceId : videoDevices[0].deviceId)
+      if (videoDevices.length > 0) {
+        setSelectedDeviceId(prev => {
+          if (prev) return prev
+          const backCam = videoDevices.find(
+            d => d.label.toLowerCase().includes('back') || d.label.toLowerCase().includes('environment')
+          )
+          return backCam ? backCam.deviceId : videoDevices[0].deviceId
+        })
       }
     } catch (e) {
       console.warn('Enumerate devices failed:', e)
     }
-  }, [selectedDeviceId])
+  }, [])
 
   // Stop camera stream safely
   const stopCamera = useCallback(() => {
@@ -323,34 +327,65 @@ export default function QrCodeScanner() {
     if (videoRef.current) {
       videoRef.current.srcObject = null
     }
+    requestedDeviceIdRef.current = ''
     setCameraActive(false)
   }, [])
 
   // Start camera stream dynamically
   const startCamera = useCallback(async () => {
+    const currentRequestedId = selectedDeviceId || 'environment'
+
+    // If we opened 'environment' and now we have a specific deviceId assigned, check if we can bridge them
+    if (streamRef.current) {
+      if (requestedDeviceIdRef.current === 'environment' && selectedDeviceId) {
+        requestedDeviceIdRef.current = selectedDeviceId
+      }
+    }
+
+    // If we are already active on the requested device, do not restart
+    if (streamRef.current && requestedDeviceIdRef.current === currentRequestedId) {
+      setIsScanning(true)
+      return
+    }
+
+    // Stop current stream before starting a new requested device ID
     stopCamera()
     setCameraError(null)
+
+    // Set requested ID before asynchronous call to prevent concurrent overlapping starts
+    requestedDeviceIdRef.current = currentRequestedId
 
     try {
       const constraints: MediaStreamConstraints = {
         video: selectedDeviceId
-          ? { deviceId: { exact: selectedDeviceId } }
-          : { facingMode: 'environment' },
+          ? { deviceId: selectedDeviceId }
+          : {
+              facingMode: { ideal: 'environment' },
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+            },
       }
 
       const stream = await navigator.mediaDevices.getUserMedia(constraints)
       streamRef.current = stream
+      setCameraActive(true)
+      setIsScanning(true)
 
+      // Bind the stream if videoRef is already available
       if (videoRef.current) {
-        videoRef.current.srcObject = stream
-        videoRef.current.setAttribute('playsinline', 'true') // crucial for iOS
-        videoRef.current.play()
-        setCameraActive(true)
-        setIsScanning(true)
-
-        // Enumerate devices again after permission granted to retrieve actual device labels
-        await loadDevices()
+        if (videoRef.current.srcObject !== stream) {
+          videoRef.current.srcObject = stream
+        }
+        videoRef.current.setAttribute('playsinline', 'true')
+        videoRef.current.play().catch(playErr => {
+          if (playErr.name !== 'AbortError') {
+            console.warn('Benign video play exception caught:', playErr)
+          }
+        })
       }
+
+      // Enumerate devices again after permission granted to retrieve actual device labels
+      await loadDevices()
     } catch (err: any) {
       console.error('Camera access failed:', err)
       if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
@@ -381,8 +416,20 @@ export default function QrCodeScanner() {
           const ctx = canvas.getContext('2d', { willReadFrequently: true })
 
           if (ctx) {
-            const width = videoRef.current.videoWidth
-            const height = videoRef.current.videoHeight
+            let width = videoRef.current.videoWidth
+            let height = videoRef.current.videoHeight
+
+            // Scale down high-resolution frames for ultra-fast, robust mobile scanning
+            const maxScanDimension = 800
+            if (width > maxScanDimension || height > maxScanDimension) {
+              if (width > height) {
+                height = Math.round((height * maxScanDimension) / width)
+                width = maxScanDimension
+              } else {
+                width = Math.round((width * maxScanDimension) / height)
+                height = maxScanDimension
+              }
+            }
 
             canvas.width = width
             canvas.height = height
@@ -421,15 +468,40 @@ export default function QrCodeScanner() {
     }
   }, [cameraActive, isScanning])
 
-  // Stop camera when swapping tabs or on unmount
+  // Backup binder to handle race conditions where videoRef becomes available after startCamera completes
   useEffect(() => {
-    if (mode === 'file') {
+    const video = videoRef.current
+    const stream = streamRef.current
+    if (cameraActive && video && stream) {
+      if (video.srcObject !== stream) {
+        video.srcObject = stream
+        video.setAttribute('playsinline', 'true')
+        video.play().catch(playErr => {
+          if (playErr.name !== 'AbortError') {
+            console.warn('Backup video play exception caught:', playErr)
+          }
+        })
+      } else if (video.paused) {
+        video.play().catch(playErr => {
+          if (playErr.name !== 'AbortError') {
+            console.warn('Backup video play exception caught:', playErr)
+          }
+        })
+      }
+    }
+  }, [cameraActive])
+
+  // Auto-start camera when switching to camera mode, and stop when switching away or on unmount
+  useEffect(() => {
+    if (mode === 'camera') {
+      startCamera()
+    } else {
       stopCamera()
     }
     return () => {
       stopCamera()
     }
-  }, [mode, stopCamera])
+  }, [mode, startCamera, stopCamera])
 
   // ── File Scanning Handler ──────────────────────────────────────────────────
 
@@ -550,26 +622,26 @@ export default function QrCodeScanner() {
               <span>Wi-Fi Connection Details</span>
             </div>
             <div className="border border-border/80 rounded-lg overflow-hidden bg-surface/30 text-xs">
-              <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">Network SSID</span>
-                <span className="col-span-2 text-bright font-mono break-all">{wifi.ssid}</span>
+                <span className="sm:col-span-2 text-bright font-mono break-all">{wifi.ssid}</span>
               </div>
-              <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">Security</span>
-                <span className="col-span-2 text-bright font-mono uppercase">{wifi.encryption}</span>
+                <span className="sm:col-span-2 text-bright font-mono uppercase">{wifi.encryption}</span>
               </div>
               {wifi.password && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2 items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 items-start sm:items-center gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Password</span>
-                  <div className="col-span-2 flex items-center justify-between gap-2">
+                  <div className="sm:col-span-2 flex items-center justify-between gap-2">
                     <span className="text-bright font-mono select-all break-all">{wifi.password}</span>
                     <CopyButton text={wifi.password} />
                   </div>
                 </div>
               )}
-              <div className="grid grid-cols-3 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">Hidden SSID</span>
-                <span className="col-span-2 text-dim font-sans">{wifi.hidden ? 'Yes' : 'No'}</span>
+                <span className="sm:col-span-2 text-dim font-sans">{wifi.hidden ? 'Yes' : 'No'}</span>
               </div>
             </div>
           </div>
@@ -586,27 +658,27 @@ export default function QrCodeScanner() {
             </div>
             <div className="border border-border/80 rounded-lg overflow-hidden bg-surface/30 text-xs space-y-px">
               {contact.name && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Full Name</span>
-                  <span className="col-span-2 text-bright font-sans font-medium">{contact.name}</span>
+                  <span className="sm:col-span-2 text-bright font-sans font-medium">{contact.name}</span>
                 </div>
               )}
               {contact.org && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Organization</span>
-                  <span className="col-span-2 text-dim font-sans">{contact.org}</span>
+                  <span className="sm:col-span-2 text-dim font-sans">{contact.org}</span>
                 </div>
               )}
               {contact.title && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Job Title</span>
-                  <span className="col-span-2 text-dim font-sans">{contact.title}</span>
+                  <span className="sm:col-span-2 text-dim font-sans">{contact.title}</span>
                 </div>
               )}
               {contact.phone && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2 items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 items-start sm:items-center gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Phone</span>
-                  <div className="col-span-2 flex items-center justify-between gap-1.5">
+                  <div className="sm:col-span-2 flex items-center justify-between gap-1.5">
                     <a href={`tel:${contact.phone}`} className="text-accent hover:underline font-mono select-all">
                       {contact.phone}
                     </a>
@@ -615,9 +687,9 @@ export default function QrCodeScanner() {
                 </div>
               )}
               {contact.email && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2 items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 items-start sm:items-center gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Email</span>
-                  <div className="col-span-2 flex items-center justify-between gap-1.5">
+                  <div className="sm:col-span-2 flex items-center justify-between gap-1.5">
                     <a href={`mailto:${contact.email}`} className="text-accent hover:underline font-mono select-all">
                       {contact.email}
                     </a>
@@ -626,9 +698,9 @@ export default function QrCodeScanner() {
                 </div>
               )}
               {contact.url && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2 items-center">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 items-start sm:items-center gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Website</span>
-                  <div className="col-span-2 flex items-center justify-between gap-1.5">
+                  <div className="sm:col-span-2 flex items-center justify-between gap-1.5">
                     <a
                       href={contact.url}
                       target="_blank"
@@ -643,9 +715,9 @@ export default function QrCodeScanner() {
                 </div>
               )}
               {contact.address && (
-                <div className="grid grid-cols-3 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Address</span>
-                  <span className="col-span-2 text-dim font-sans">{contact.address}</span>
+                  <span className="sm:col-span-2 text-dim font-sans">{contact.address}</span>
                 </div>
               )}
             </div>
@@ -662,20 +734,20 @@ export default function QrCodeScanner() {
               <span>Email Message</span>
             </div>
             <div className="border border-border/80 rounded-lg overflow-hidden bg-surface/30 text-xs">
-              <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">To</span>
-                <span className="col-span-2 text-bright font-mono break-all">{email.to}</span>
+                <span className="sm:col-span-2 text-bright font-mono break-all">{email.to}</span>
               </div>
               {email.subject && (
-                <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Subject</span>
-                  <span className="col-span-2 text-bright font-sans">{email.subject}</span>
+                  <span className="sm:col-span-2 text-bright font-sans">{email.subject}</span>
                 </div>
               )}
               {email.body && (
-                <div className="grid grid-cols-3 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Body</span>
-                  <span className="col-span-2 text-dim font-sans whitespace-pre-wrap">{email.body}</span>
+                  <span className="sm:col-span-2 text-dim font-sans whitespace-pre-wrap">{email.body}</span>
                 </div>
               )}
             </div>
@@ -701,14 +773,14 @@ export default function QrCodeScanner() {
               <span>SMS Direct Action</span>
             </div>
             <div className="border border-border/80 rounded-lg overflow-hidden bg-surface/30 text-xs">
-              <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">Phone</span>
-                <span className="col-span-2 text-bright font-mono">{sms.phone}</span>
+                <span className="sm:col-span-2 text-bright font-mono">{sms.phone}</span>
               </div>
               {sms.message && (
-                <div className="grid grid-cols-3 px-3 py-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 px-3 py-2 gap-1 sm:gap-0">
                   <span className="text-subtle font-mono uppercase tracking-wider">Message</span>
-                  <span className="col-span-2 text-dim font-sans whitespace-pre-wrap">{sms.message}</span>
+                  <span className="sm:col-span-2 text-dim font-sans whitespace-pre-wrap">{sms.message}</span>
                 </div>
               )}
             </div>
@@ -732,13 +804,13 @@ export default function QrCodeScanner() {
               <span>Geolocation Coordinates</span>
             </div>
             <div className="border border-border/80 rounded-lg overflow-hidden bg-surface/30 text-xs">
-              <div className="grid grid-cols-3 border-b border-border/40 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 border-b border-border/40 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">Latitude</span>
-                <span className="col-span-2 text-bright font-mono">{geo.lat}</span>
+                <span className="sm:col-span-2 text-bright font-mono">{geo.lat}</span>
               </div>
-              <div className="grid grid-cols-3 px-3 py-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 px-3 py-2 gap-1 sm:gap-0">
                 <span className="text-subtle font-mono uppercase tracking-wider">Longitude</span>
-                <span className="col-span-2 text-bright font-mono">{geo.lng}</span>
+                <span className="sm:col-span-2 text-bright font-mono">{geo.lng}</span>
               </div>
             </div>
             <div className="flex justify-end">
@@ -940,12 +1012,18 @@ export default function QrCodeScanner() {
                 )
               }
             >
-              <div className="relative rounded-lg overflow-hidden border border-border bg-black/60 aspect-video flex flex-col items-center justify-center min-h-[300px]">
+              <div className="relative rounded-lg overflow-hidden border border-border bg-black/60 w-full aspect-square sm:aspect-video flex flex-col items-center justify-center min-h-[260px] sm:min-h-[360px]">
+                <video
+                  ref={videoRef}
+                  className={`w-full h-full object-cover ${cameraActive ? 'block' : 'hidden'}`}
+                  playsInline
+                  autoPlay
+                  muted
+                />
+                <canvas ref={canvasRef} className="hidden" />
+
                 {cameraActive ? (
                   <>
-                    <video ref={videoRef} className="w-full h-full object-cover" playNoControls="true" />
-                    <canvas ref={canvasRef} className="hidden" />
-
                     {/* Animated Scanning Guides */}
                     {isScanning && (
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
