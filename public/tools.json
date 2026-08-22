@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 60,
+  "totalTools": 61,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -496,6 +496,14 @@
       "url": "https://toolbox4devs.com/number-to-words",
       "description": "Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.",
       "keywords": ["number to words", "numbers to english", "spell out numbers", "number to text", "integer to words", "decimal to words", "write numbers in words", "amount in words"]
+    },
+    {
+      "slug": "gitignore-generator",
+      "name": ".gitignore Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/gitignore-generator",
+      "description": "Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system entirely in your browser.",
+      "keywords": ["gitignore generator", "generate gitignore", "git ignore file", "node gitignore", "react gitignore", "python gitignore", "vscode gitignore"]
     }
   ]
 }

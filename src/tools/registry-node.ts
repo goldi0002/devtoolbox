@@ -62,6 +62,7 @@ const toolMeta = [
     { slug: 'docker-run-to-compose',         category: 'generate-tools' },
     { slug: 'svg-to-jsx',                    category: 'web-tools'      },
     { slug: 'qr-code-generator',             category: 'generate-tools' },
+    { slug: 'gitignore-generator',           category: 'generate-tools' },
   ] as const
   
   export function getAllAvailableTools() {

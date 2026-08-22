@@ -59,6 +59,7 @@ import { NUMBER_TO_WORDS_META } from "./meta/number-to-words"
 import { DOCKER_RUN_TO_COMPOSE_META } from "./meta/docker-run-to-compose"
 import { SVG_TO_JSX_META } from "./meta/svg-to-jsx"
 import { QR_CODE_GENERATOR_META } from "./meta/qr-code-generator"
+import { GITIGNORE_GENERATOR_META } from "./meta/gitignore-generator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -77,6 +78,7 @@ export const tools: ToolMeta[] = [
   DOCKER_RUN_TO_COMPOSE_META,
   SVG_TO_JSX_META,
   QR_CODE_GENERATOR_META,
+  GITIGNORE_GENERATOR_META,
   HMAC_GENERATOR_META,
   BCRYPT_GENERATOR_META,
   CIDR_CALCULATOR_META,
