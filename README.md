@@ -1,98 +1,64 @@
 # Toolbox4Devs
 
-A fast, minimalist, privacy-first collection of browser-based developer utilities. No backend, no ads, and all tool processing is designed to happen locally in the browser.
+A fast, minimalist, privacy-first collection of browser-based developer utilities. No backend, no ads — all tool processing is designed to happen locally in the browser.
 
-## Tools
+[![Build status](https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Tool metadata is maintained in `src/tools/meta/` and surfaced through the registry. Current categories include:
+## Quick links
 
-| Category | Examples |
-|---|---|
-| JSON | JSON Formatter, JSON → Model Generator |
-| Encode / Decode | Base64, URL Encoder / Decoder, HTML Entity Tool |
-| Text | Text Diff, Case Converter, Slug Generator, Regex Tester |
-| Generators | UUID Generator, Password Generator, Lorem Ipsum Generator |
-| Authentication | JWT Decoder, Basic Auth Header |
-| Web | HTML Formatter, Markdown Preview, HTTP Status Lookup, MIME Type Lookup, User Agent Parser, Query String Parser, HTTP Header Parser, Color Converter |
-| Data | Timestamp Converter, ASCII Table, Unix Permissions Calculator |
-| Crypto | SHA-256, Hash Comparator |
-| Analyze | Word Counter, Local AI Text Assistant |
+- Source: https://github.com/goldi0002/devtoolbox
+- Docs: /docs
 
-## Tech Stack
+## Quick start
 
-- **React 18** + **TypeScript**
-- **Vite** + **vite-react-ssg** for static generation
-- **React Router v6** for route records consumed by SSG
-- **Tailwind CSS** plus global theme variables
-- **CodeMirror** for code editors and previews
-- **vite-plugin-sitemap** for sitemap and robots output
+Requirements:
+- Node.js 18+ (LTS) recommended
+- npm 9+ or yarn 1/berry
 
-## Getting Started
+Install and run locally:
 
 ```bash
-# Install dependencies
-npm install
+# Install dependencies (use CI-friendly command)
+npm ci
 
-# Start dev server
+# Start dev server (hot reload)
 npm run dev
 
-# Lint source files
-npm run lint
-
-# Run TypeScript without emitting files
-npm run typecheck
-
-# Run the current smoke test command
-npm test
-
-# Build for production
+# Build production static output
 npm run build
 
-# Preview production build
+# Preview production build locally
 npm run preview
 ```
 
-> `npm test` currently aliases the type checker until a dedicated regression test framework is added.
+Useful scripts (from package.json):
+- dev — start dev server (vite)
+- build — SSG build using `vite-react-ssg`
+- preview — preview a production build
+- lint — run ESLint (type-aware rules)
+- typecheck — run TypeScript only
+- test — runs the temporary smoke checks (currently aliases to typecheck)
 
-## Architecture
+## Environment
 
-- `src/main.tsx` creates the `ViteReactSSG` root and installs a client-only preload-error recovery handler.
-- `src/routes.tsx` defines static routes for informational pages, tool categories, and every available tool slug.
-- `src/App.tsx` provides the shared layout: skip link, navigation, routed content, global footer, route scroll reset, and suspense boundary.
-- `src/pages/` contains top-level pages and `ToolPage`, which resolves a slug to tool metadata and renders the matching component.
-- `src/tools/registry.ts` is the browser registry; `src/tools/registry-node.ts` is the Node-safe registry used by Vite config for SSG routes and sitemap generation.
-- `src/components/tools/<category>/` contains runnable tool implementations.
-- `src/components/`, `src/components/ui/`, `src/hooks/`, `src/lib/`, and `src/utils/` contain shared UI, hooks, share-link logic, and utility helpers.
-
-See `docs/ARCHITECTURE.md` for the full architecture review, technical-debt findings, and verification workflow, and `docs/DESIGN.md` for the design tokens and shared component classes.
+Create a `.env` file (see `.env.example`) and set:
+- VITE_BASE_URL — base URL used in share links and the sitemap generation (e.g. https://yourdomain.com)
+- VITE_ENVIRONMENT — development | staging | production
+- VITE_PUBLIC_POSTHOG_HOST — (optional) self-hosted PostHog URL
+- VITE_PUBLIC_POSTHOG_KEY — (optional) PostHog project key
 
 ## Deployment
 
-### Vercel (recommended)
+Recommended: Vercel static hosting. See `docs/DEPLOYMENT.md` for CI/CD, Docker, and GitHub Actions examples.
 
-```bash
-npm run build
-npx vercel deploy
-```
+## Where to find things
+- Tool metadata: `src/tools/meta/`
+- Routes used by SSG: `src/routes.tsx` and `src/main.tsx`
+- Build: `npm run build` produces the static output used for deployments
 
-Or connect the repository to Vercel for automatic deployments. `vercel.json` is configured for static hosting with fallback rewrites.
-
-### Manual static host
-
-```bash
-npm run build
-# Upload the generated `dist/` folder to your host.
-```
-
-## Documentation
-
-- `docs/ARCHITECTURE.md` — current architecture and audit findings.
-- `docs/DESIGN.md` — design tokens, themes, component classes, and accessibility rules.
-- `docs/ROADMAP.md` — prioritized roadmap.
-- `docs/TASKS.md` — task backlog and completion status.
-
-Update documentation in the same change as meaningful product or architecture updates.
+## Contributing
+See `CONTRIBUTING.md` for development workflow, linting, and PR guidelines.
 
 ## License
-
 MIT
