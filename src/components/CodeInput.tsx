@@ -19,6 +19,8 @@ interface CodeInputProps {
   disabled?: boolean
   sampleValue?: string
   sampleLabel?: string
+  /** HTML rows attribute — accepted for compatibility but not used by CodeMirror */
+  rows?: number
 }
 
 export default function CodeInput({
@@ -36,6 +38,7 @@ export default function CodeInput({
   disabled = false,
   sampleValue,
   sampleLabel = 'Load Sample',
+  rows: _rows,
 }: CodeInputProps) {
   const [cursor, setCursor] = useState({ line: 1, col: 1 })
   const [isFocused, setIsFocused] = useState(false)

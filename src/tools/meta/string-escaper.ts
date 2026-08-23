@@ -8,7 +8,7 @@ export const STRING_ESCAPER_META: ToolMeta = {
   tag: 'ESCAPE',
   description: 'Escape and unescape strings for JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell.',
   keywords: ['string escaper', 'unescape string', 'escape json string', 'escape sql quotes', 'escape html', 'slash escape'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/StringEscaper')),
   seo: {
     title: 'String Escape & Unescape Tool — Multi-Language String Cleaner',

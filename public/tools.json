@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 66,
+  "totalTools": 68,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -544,6 +544,22 @@
       "url": "https://toolbox4devs.com/cron-generator",
       "description": "Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.",
       "keywords": ["cron generator", "crontab builder", "cron expression builder", "schedule builder", "cron job scheduler"]
+    },
+    {
+      "slug": "password-strength-analyzer",
+      "name": "Password Strength Analyzer",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/password-strength-analyzer",
+      "description": "Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.",
+      "keywords": ["password strength analyzer", "password entropy calculator", "crack time estimator", "password checker", "password security", "password audit"]
+    },
+    {
+      "slug": "faker-data-generator",
+      "name": "Faker Data Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/faker-data-generator",
+      "description": "Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.",
+      "keywords": ["faker data generator", "fake data generator", "mock data generator", "test data generator", "fake names generator", "dummy data"]
     }
   ]
 }

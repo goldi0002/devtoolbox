@@ -8,7 +8,7 @@ export const DOCKER_RUN_TO_COMPOSE_META: ToolMeta = {
   tag: 'DOCKER',
   description: 'Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations instantly.',
   keywords: ['docker run to compose', 'docker run to docker-compose', 'convert docker run', 'docker compose generator', 'docker compose converter', 'docker cli to yaml'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/Generators/DockerRunToCompose')),
   seo: {
     title: 'Docker Run to Docker Compose Converter — Instant Online YAML Generator',

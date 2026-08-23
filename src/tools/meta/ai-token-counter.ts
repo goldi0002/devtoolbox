@@ -36,7 +36,7 @@ export const AI_TOKEN_COUNTER_META: ToolMeta = {
     tip: 'Click on any template button to instantly load test prompts and compare tokenization counts across different encoders!'
   },
   addedAt: '2026-08-22',
-  complexity: 'medium',
+  complexity: 'moderate',
   featured: true,
   isNew: true,
   status: 'stable',

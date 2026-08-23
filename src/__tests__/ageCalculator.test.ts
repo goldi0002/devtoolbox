@@ -14,7 +14,7 @@ describe('Age Calculator Tool Registry & Integrity', () => {
   })
 
   it('contains valid SEO and About metadata', () => {
-    expect(AGE_CALCULATOR_META.seo.title).toContain('Age & Lifetime Milestone Calculator')
+    expect(AGE_CALCULATOR_META.seo?.title).toContain('Age & Lifetime Milestone Calculator')
     expect(AGE_CALCULATOR_META.about.features.length).toBeGreaterThan(3)
     expect(AGE_CALCULATOR_META.about.useCases.length).toBeGreaterThan(3)
   })

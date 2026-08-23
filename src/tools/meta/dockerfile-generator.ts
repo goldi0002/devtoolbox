@@ -8,7 +8,7 @@ export const DOCKERFILE_GENERATOR_META: ToolMeta = {
   tag: 'DOCKER',
   description: 'Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.',
   keywords: ['dockerfile generator', 'docker compose generator', 'docker best practices', 'multi-stage dockerfile', 'dockerignore generator', 'docker security linter'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/DockerfileGenerator')),
   seo: {
     title: 'Dockerfile & Container Generator — Multi-Stage Docker Creator',

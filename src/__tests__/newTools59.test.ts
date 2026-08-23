@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { tools, getToolBySlug } from '../tools/registry'
-import { getAllAvailableTools } from '../tools/registry-node'
+import { getAllAvailableTools } from '../tools/registry'
 
 describe('New Tools (#58 and #59): Docker Run to Compose & SVG to JSX', () => {
   it('registers tools in client registry', () => {

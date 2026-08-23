@@ -47,7 +47,7 @@ export default function HmacGenerator() {
 
       const cryptoKey = await window.crypto.subtle.importKey(
         'raw',
-        keyData,
+        keyData as unknown as ArrayBuffer,
         { name: 'HMAC', hash: { name: algo } },
         false,
         ['sign']

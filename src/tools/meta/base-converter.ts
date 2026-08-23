@@ -8,7 +8,7 @@ export const BASE_CONVERTER_META: ToolMeta = {
   tag: 'NUMBERS',
   description: 'Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two\'s complement details.',
   keywords: ['base converter', 'binary to hex', 'hex to decimal', 'octal converter', 'two\'s complement calculator', 'radix converter'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/BaseConverter')),
   seo: {
     title: 'Number Base Converter — Decimal, Binary, Hex & Octal Tool',

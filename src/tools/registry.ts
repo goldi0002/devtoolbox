@@ -65,6 +65,8 @@ import { TEXT_REPEATER_META } from "./meta/text-repeater"
 import { AI_TOKEN_COUNTER_META } from "./meta/ai-token-counter"
 import { JWT_ENCODER_META } from "./meta/jwt-encoder"
 import { CRON_GENERATOR_META } from "./meta/cron-generator"
+import { PASSWORD_STRENGTH_ANALYZER_META } from "./meta/password-strength-analyzer"
+import { FAKER_DATA_GENERATOR_META } from "./meta/faker-data-generator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -132,7 +134,9 @@ export const tools: ToolMeta[] = [
   TEXT_REPEATER_META,
   AI_TOKEN_COUNTER_META,
   JWT_ENCODER_META,
-  CRON_GENERATOR_META
+  CRON_GENERATOR_META,
+  PASSWORD_STRENGTH_ANALYZER_META,
+  FAKER_DATA_GENERATOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

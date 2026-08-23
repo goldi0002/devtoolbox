@@ -8,7 +8,7 @@ export const JSON_TO_CSV_META: ToolMeta = {
   tag: 'DATA',
   description: 'Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.',
   keywords: ['json to csv', 'csv to json', 'json spreadsheet converter', 'flatten json to csv', 'csv parser online', 'json table export'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/JsonCsvConverter')),
   seo: {
     title: 'JSON to CSV & CSV to JSON Converter — Table & Spreadsheet Tool',

@@ -8,7 +8,7 @@ export const BCRYPT_GENERATOR_META: ToolMeta = {
   tag: 'BCRYPT',
   description: 'Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.',
   keywords: ['bcrypt generator', 'bcrypt hash online', 'verify bcrypt password', 'bcrypt salt rounds', 'blowfish cipher', 'password hash generator'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/BcryptGenerator')),
   seo: {
     title: 'Bcrypt Hash Generator & Verifier — Password Hashing Tool',

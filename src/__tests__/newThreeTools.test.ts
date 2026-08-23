@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { tools } from '../tools/registry'
-import { getAllAvailableTools } from '../tools/registry-node'
+import { getAllAvailableTools } from '../tools/registry'
 
 describe('New Tools Suite (WCAG Contrast Checker, SemVer Calculator, JSON to SQL)', () => {
   it('registers all 3 new tools in the client-side registry', () => {

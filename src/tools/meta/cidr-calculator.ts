@@ -8,7 +8,7 @@ export const CIDR_CALCULATOR_META: ToolMeta = {
   tag: 'SUBNET',
   description: 'Calculate IPv4 CIDR blocks, usable host IP ranges, subnet masks, wildcard masks, and binary network breakdowns.',
   keywords: ['cidr calculator', 'subnet calculator', 'ipv4 subnetting', 'network address calculator', 'ip range calculator', 'wildcard mask'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/CidrCalculator')),
   seo: {
     title: 'CIDR & Subnet Calculator — IPv4 Network Addressing Tool',
