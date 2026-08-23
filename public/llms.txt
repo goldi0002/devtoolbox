@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 64 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 66 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -23,6 +23,7 @@
 - [SQL Formatter](https://toolbox4devs.com/sql-formatter): Beautify and indent complex SQL queries with syntax highlighting and keyword casing.
 - [GraphQL Formatter](https://toolbox4devs.com/graphql-formatter): Format and validate GraphQL queries, mutations, and schemas.
 - [Cron Expression Parser](https://toolbox4devs.com/cron-parser): Parse standard 5-part and 6-part cron expressions into plain English descriptions with upcoming execution schedules.
+- [Cron Expression Generator](https://toolbox4devs.com/cron-generator): Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
 - [Timestamp Converter](https://toolbox4devs.com/timestamp-converter): Convert between Unix epoch timestamps (seconds, milliseconds), ISO 8601, UTC, and local date-time strings.
 - [Unix Permissions Calculator](https://toolbox4devs.com/unix-permissions-calculator): Interactive chmod permissions calculator for octal (e.g. 755, 644) and symbolic notation (rwxr-xr-x).
 - [ASCII Table Lookup](https://toolbox4devs.com/ascii-table): Complete ASCII reference table with decimal, hex, octal, binary, and character descriptions.
@@ -39,6 +40,7 @@
 - [Bcrypt Hash Generator & Verifier](https://toolbox4devs.com/bcrypt-generator): Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.
 - [RSA Key Pair Generator](https://toolbox4devs.com/rsa-key-generator): Generate secure RSA public and private key pairs directly in browser memory using the Web Crypto API.
 - [JWT Decoder](https://toolbox4devs.com/jwt): Decode JSON Web Tokens to inspect Header, Payload claims, and Expiration timestamps with expiration warnings.
+- [JWT Encoder & Token Generator](https://toolbox4devs.com/jwt-encoder): Create and sign JSON Web Tokens with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
 - [HMAC Generator](https://toolbox4devs.com/hmac-generator): Compute Hash-based Message Authentication Codes using SHA-256, SHA-384, SHA-512, or SHA-1 with a secret key.
 - [SHA-256 Hash Generator](https://toolbox4devs.com/sha256): Compute SHA-256, SHA-384, SHA-512, and SHA-1 cryptographic digests using Web Crypto API.
 - [HTTP Basic Auth Header Generator](https://toolbox4devs.com/basic-auth-header): Generate standard `Authorization: Basic <base64>` HTTP headers from username and password.

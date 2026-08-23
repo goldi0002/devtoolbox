@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest'
 import { tools, getToolBySlug } from '../tools/registry'
 import { getAllAvailableTools } from '../tools/registry-node'
 
-describe('Tool registry count after adding QR Code Scanner (#64)', () => {
-  it('registers exactly 64 tools in client registry', () => {
-    expect(tools.length).toBe(64)
+describe('Tool registry count after adding QR Code Scanner and new tools', () => {
+  it('registers exactly 66 tools in client registry', () => {
+    expect(tools.length).toBe(66)
   })
 
-  it('registers exactly 64 tools in Node SSG registry', () => {
-    expect(getAllAvailableTools().length).toBe(64)
+  it('registers exactly 66 tools in Node SSG registry', () => {
+    expect(getAllAvailableTools().length).toBe(66)
   })
 
   it('contains qr-code-generator with proper metadata', () => {
@@ -28,7 +28,7 @@ describe('Tool registry count after adding QR Code Scanner (#64)', () => {
     expect(tool?.toolComponent).toBeDefined()
   })
 
-  it('ensures all 64 tools have unique slugs and valid categories', () => {
+  it('ensures all 66 tools have unique slugs and valid categories', () => {
     const slugs = new Set<string>()
     tools.forEach(t => {
       expect(t.slug).toBeTruthy()
