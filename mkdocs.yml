@@ -4,6 +4,8 @@ site_url: https://goldi0002.github.io/devtoolbox/
 repo_url: https://github.com/goldi0002/devtoolbox
 repo_name: goldi0002/devtoolbox
 edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site
 
 theme:
   name: material
