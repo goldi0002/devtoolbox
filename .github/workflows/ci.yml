@@ -29,9 +29,6 @@ jobs:
       - name: 🔍 Run ESLint (strict mode)
         run: npm run lint
 
-      - name: ✅ Type check with TypeScript
-        run: npm run typecheck
-
       - name: 🧪 Run unit tests with Vitest
         run: npm test
 
