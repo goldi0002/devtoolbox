@@ -68,6 +68,8 @@ const toolMeta = [
     { slug: 'ai-token-counter',              category: 'generate-tools' },
     { slug: 'jwt-encoder',                   category: 'auth-tools'     },
     { slug: 'cron-generator',                category: 'data-tools'     },
+    { slug: 'password-strength-analyzer',    category: 'analyze-tools'  },
+    { slug: 'faker-data-generator',          category: 'generate-tools' },
   ] as const
   
   export function getAllAvailableTools() {

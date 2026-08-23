@@ -8,7 +8,7 @@ export const SVG_TO_JSX_META: ToolMeta = {
   tag: 'REACT',
   description: 'Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.',
   keywords: ['svg to jsx', 'svg to react', 'svg to tsx', 'convert svg to react component', 'svg optimizer jsx', 'react svg icon generator'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/Web/SvgToJsx')),
   seo: {
     title: 'SVG to JSX / React Component Converter — Online TSX Icon Generator',

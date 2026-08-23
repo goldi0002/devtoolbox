@@ -8,7 +8,7 @@ export const CSS_UNIT_CONVERTER_META: ToolMeta = {
   tag: 'CSS',
   description: 'Convert between PX, REM, EM, VW, VH, %, and PT with Tailwind CSS class matching and fluid clamp() generator.',
   keywords: ['css unit converter', 'px to rem', 'rem to px', 'css clamp generator', 'fluid typography generator', 'tailwind spacing converter'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/CssUnitConverter')),
   seo: {
     title: 'CSS Unit Converter — PX to REM, Viewport Units & Fluid clamp()',

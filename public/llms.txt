@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 66 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 68 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -84,6 +84,8 @@
 - [.gitignore Generator](https://toolbox4devs.com/gitignore-generator): Generate a clean, deduplicated .gitignore file from language, framework, editor, and operating-system templates, with custom rules.
 - [Text Repeater & Multiplier](https://toolbox4devs.com/text-repeater): Replicate and repeat text, characters, or strings up to thousands of times with custom separators, line numbering, and case formatting.
 - [AI Token Counter & Visualizer](https://toolbox4devs.com/ai-token-counter): Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders with visual highlights.
+- [Password Strength Analyzer](https://toolbox4devs.com/password-strength-analyzer): Analyze password entropy, estimate crack times across online/offline/GPU attack scenarios, detect common patterns, and get actionable improvement tips.
+- [Faker Data Generator](https://toolbox4devs.com/faker-data-generator): Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences in JSON, CSV, or lines format for testing.
 
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:

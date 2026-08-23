@@ -17,7 +17,7 @@ export const QR_CODE_GENERATOR_META: ToolMeta = {
     'free qr code maker',
     'offline qr code generator'
   ],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/generate-tools/QrCodeGenerator')),
   seo: {
     title: 'QR Code Generator — Free, Private & High-Resolution Vector SVG / PNG Maker',

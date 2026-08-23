@@ -8,7 +8,7 @@ export const KEYCODE_INSPECTOR_META: ToolMeta = {
   tag: 'EVENTS',
   description: 'Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.',
   keywords: ['keycode', 'javascript keycode', 'keyboard event inspector', 'event.code', 'event.key', 'keyboard shortcuts generator'],
-  status: 'available',
+  status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/KeycodeInspector')),
   seo: {
     title: 'Keycode & Keyboard Event Inspector — JS Event Code Tool',

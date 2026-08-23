@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 66
+Total Tools: 68
 
 ---
 
-## Tool Registry & Technical Specifications (All 64 Tools)
+## Tool Registry & Technical Specifications (All 68 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -492,4 +492,18 @@ Total Tools: 66
 - Complexity: Simple
 - Description: Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
 - Features: Field-by-field UI controls, 14+ quick presets, weekday/weekend shortcuts, custom expression input, field breakdown visualization.
+
+### 67. Password Strength Analyzer
+- URL: https://toolbox4devs.com/password-strength-analyzer
+- Category: Analyze Tools (analyze-tools)
+- Complexity: Moderate
+- Description: Analyze password security by calculating information entropy, estimating crack times, and detecting common patterns.
+- Features: Entropy calculation in bits, crack time estimates for online (~100/s), offline (~100K/s), and GPU (~10B/s) attacks; common pattern and sequential character detection; character set breakdown (lowercase, uppercase, digits, special); visual strength meter (0–100 score); actionable improvement suggestions; copyable analysis report.
+
+### 68. Faker Data Generator
+- URL: https://toolbox4devs.com/faker-data-generator
+- Category: Generate Tools (generate-tools)
+- Complexity: Simple
+- Description: Generate realistic fake data for testing using a pure client-side pseudo-random number generator.
+- Features: 12 data type categories (names, emails, phones, addresses, companies, dates, IPs, hex colors, usernames, sentences, UUIDs, or all fields); three output formats (JSON, CSV, Lines); up to 100 records per generation; regenerate button for fresh data; international name diversity; zero external dependencies; one-click copy and file download.
 
