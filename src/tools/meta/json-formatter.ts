@@ -6,7 +6,7 @@ export const JSON_FORMATTER_META: ToolMeta = {
     name: 'JSON Formatter & Validator',
     description: 'Format, validate and minify JSON instantly — paste your JSON to beautify it, spot syntax errors, or compress it. Free, runs entirely in your browser.',
     category: 'json-tools',
-    tag: 'json',
+    tag: 'JSON',
     toolComponent: lazy(() => import('../../components/tools/json-tools/JsonFormatter')),
     keywords: [
         'json formatter',

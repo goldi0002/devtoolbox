@@ -6,7 +6,7 @@ export const YAML_JSON_CONVERTER_META: ToolMeta = {
   name: 'YAML <-> JSON Converter',
   description: 'Convert bidirectionally between YAML and JSON with real-time validation, key sorting, and custom indentation options.',
   category: 'data-tools',
-  tag: 'yaml',
+  tag: 'YAML',
   toolComponent: lazy(() => import('../../components/tools/data-tools/YamlJsonConverter')),
   keywords: [
     'yaml to json',
