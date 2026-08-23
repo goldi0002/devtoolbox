@@ -77,8 +77,8 @@ export default function Home() {
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
       <SEO
-        title="ToolBox4Devs — Fast, Private, 100% Client-Side Developer Tools"
-        description={`${tools.length}+ fast, private developer utilities running 100% in your browser. Formatters, decoders, encoders, UUID generators, JWT inspectors, and text utilities. Zero ads, zero tracking.`}
+        title="ToolBox4Devs — Private Client-Side Developer Tools"
+        description={`Access ${tools.length}+ fast, private client-side developer tools running 100% in your browser. Formatters, decoders, encoders, and generators with zero tracking.`}
         keywords={["developer tools", "json formatter", "jwt decoder", "base64 encoder", "uuid generator", "regex tester", "yaml to json", "cron parser", "free developer tools", "offline dev tools", "cidr calculator", "bcrypt generator"]}
         faqs={homeFaqs}
       />

@@ -50,8 +50,10 @@ export function SEO({
 }: SEOProps = {}) {
   const isHome = !slug || slug === '/'
   const fullTitle = title 
-    ? (title.includes(WEB_INFO.SITE_NAME) ? title : `${title} — ${WEB_INFO.SITE_NAME}`)
-    : `${WEB_INFO.SITE_NAME} — Fast, Private, 100% Client-Side Developer Tools`
+    ? (title.toLowerCase().includes(WEB_INFO.SITE_NAME.toLowerCase()) || title.length > 40
+        ? title 
+        : `${title} — ${WEB_INFO.SITE_NAME}`)
+    : `${WEB_INFO.SITE_NAME} — Private Client-Side Dev Tools`
   
   const desc = description ?? WEB_INFO.DEFAULT_DESCRIPTION
   const cleanSlug = slug?.replace(/^\/+/, '') ?? ''
