@@ -1,0 +1,45 @@
+name: CI — Lint, Type Check, Build, Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: 📚 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Run ESLint (strict mode)
+        run: npm run lint
+
+      - name: ✅ Type check with TypeScript
+        run: npm run typecheck
+
+      - name: 🧪 Run unit tests with Vitest
+        run: npm test
+
+      - name: 🏗️ Build SSG (verify pre-rendering)
+        run: npm run build
+
+      - name: 📊 Check build artifacts
+        run: |
+          test -d dist && echo "✅ dist/ exists" || (echo "❌ dist/ missing" && exit 1)
+          test -f dist/index.html && echo "✅ dist/index.html exists" || (echo "❌ dist/index.html missing" && exit 1)
+          test -f dist/robots.txt && echo "✅ dist/robots.txt exists" || (echo "❌ dist/robots.txt missing" && exit 1)
