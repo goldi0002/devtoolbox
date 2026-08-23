@@ -99,17 +99,22 @@ export default function Privacy() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="h-px w-10 bg-border" />
-          <span className="text-[10px] font-mono text-subtle tracking-[0.25em] uppercase">Privacy Architecture</span>
+      <section className="relative mb-16 pt-4">
+        {/* Ambient glow */}
+        <div className="absolute top-0 right-1/4 w-[400px] h-[200px] bg-emerald-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
+
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/8 text-emerald-400 text-[11px] font-mono font-medium mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Privacy Architecture
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-end">
           <div>
-            <h1 className="font-display text-[clamp(2.8rem,9vw,6.5rem)] text-bright leading-[0.9] mb-6 tracking-tight">
-              YOUR DATA<br />
-              <span className="text-accent">STAYS</span>
+            <h1 className="font-display text-[clamp(2.8rem,9vw,6.5rem)] leading-[0.9] mb-6 tracking-tight">
+              <span className="text-bright">YOUR DATA</span><br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400">STAYS</span>
               <span className="text-bright"> YOURS.</span>
             </h1>
             <p className="text-dim font-sans text-sm sm:text-base leading-relaxed max-w-xl">

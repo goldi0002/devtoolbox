@@ -97,17 +97,22 @@ export default function About() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="mb-20">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="h-px w-10 bg-border" />
-          <span className="text-[10px] font-mono text-subtle tracking-[0.25em] uppercase">Manifesto & Architecture</span>
+      <section className="relative mb-20 pt-4">
+        {/* Ambient glow */}
+        <div className="absolute top-0 left-1/4 w-[400px] h-[200px] bg-indigo-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
+
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/8 text-indigo-400 text-[11px] font-mono font-medium mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            Manifesto & Architecture
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end">
           <div>
-            <h1 className="font-display text-[clamp(3rem,9vw,6.5rem)] text-bright leading-[0.9] mb-8 tracking-tight">
-              BUILT FOR<br />
-              <span className="text-accent">DEVS</span>
+            <h1 className="font-display text-[clamp(3rem,9vw,6.5rem)] leading-[0.9] mb-8 tracking-tight">
+              <span className="text-bright">BUILT FOR</span><br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">DEVS</span>
               <span className="text-bright">.</span>
             </h1>
             <p className="text-dim font-sans text-base sm:text-lg leading-relaxed max-w-xl">
