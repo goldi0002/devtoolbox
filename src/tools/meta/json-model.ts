@@ -5,7 +5,7 @@ export const JSON_MODEL_META: ToolMeta = {
     slug: 'json-model',
     name: 'JSON → Model',
     description: 'Convert JSON to C# classes or TypeScript interfaces with proper types.',
-    category: 'json-tools',
+    category: 'JSON Tools',
     tag: 'codegen',
     keywords: ['json', 'model', 'csharp', 'typescript', 'interface', 'class'],
     toolComponent: lazy(() => import('../../components/tools/json-tools/JsonModelGenerator')),

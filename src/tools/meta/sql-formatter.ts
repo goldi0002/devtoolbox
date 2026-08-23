@@ -6,7 +6,7 @@ export const SQL_FORMATTER_META: ToolMeta = {
   name: 'SQL Formatter & Prettifier',
   description: 'Format, indent, validate, and minify SQL queries online. Capitalize keywords, format clauses, and clean up raw database queries.',
   category: 'data-tools',
-  tag: 'sql',
+  tag: 'SQL',
   toolComponent: lazy(() => import('../../components/tools/data-tools/SqlFormatter')),
   keywords: [
     'sql formatter',

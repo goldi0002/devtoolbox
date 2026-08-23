@@ -4,7 +4,7 @@ import { ToolMeta } from '../tool-meta'
 export const JSON_TO_ZOD_META: ToolMeta = {
   slug: 'json-to-zod',
   name: 'JSON to Zod Schema Generator',
-  category: 'json-tools',
+  category: 'JSON Tools',
   tag: 'JSON → Zod',
   description: 'Convert JSON payloads into strongly-typed Zod schemas and TypeScript types.',
   keywords: ['json', 'zod', 'schema', 'typescript', 'validator', 'inference', 'generator', 'type'],
