@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 64,
+  "totalTools": 66,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -528,6 +528,22 @@
       "url": "https://toolbox4devs.com/ai-token-counter",
       "description": "Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.",
       "keywords": ["ai token counter", "token calculator", "tiktoken online", "gpt token count", "claude token estimator", "gemini token counter", "tokenizer visualizer", "bpe encoder online"]
+    },
+    {
+      "slug": "jwt-encoder",
+      "name": "JWT Encoder & Token Generator",
+      "category": "auth-tools",
+      "url": "https://toolbox4devs.com/jwt-encoder",
+      "description": "Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.",
+      "keywords": ["jwt encoder", "create jwt", "generate jwt", "jwt generator", "sign jwt", "hs256", "bearer token"]
+    },
+    {
+      "slug": "cron-generator",
+      "name": "Cron Expression Generator",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/cron-generator",
+      "description": "Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.",
+      "keywords": ["cron generator", "crontab builder", "cron expression builder", "schedule builder", "cron job scheduler"]
     }
   ]
 }

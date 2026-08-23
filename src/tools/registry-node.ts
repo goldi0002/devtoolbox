@@ -66,6 +66,8 @@ const toolMeta = [
     { slug: 'gitignore-generator',           category: 'generate-tools' },
     { slug: 'text-repeater',                 category: 'text-tools'     },
     { slug: 'ai-token-counter',              category: 'generate-tools' },
+    { slug: 'jwt-encoder',                   category: 'auth-tools'     },
+    { slug: 'cron-generator',                category: 'data-tools'     },
   ] as const
   
   export function getAllAvailableTools() {

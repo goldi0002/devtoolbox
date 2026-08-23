@@ -63,6 +63,8 @@ import { QR_CODE_SCANNER_META } from "./meta/qr-code-scanner"
 import { GITIGNORE_GENERATOR_META } from "./meta/gitignore-generator"
 import { TEXT_REPEATER_META } from "./meta/text-repeater"
 import { AI_TOKEN_COUNTER_META } from "./meta/ai-token-counter"
+import { JWT_ENCODER_META } from "./meta/jwt-encoder"
+import { CRON_GENERATOR_META } from "./meta/cron-generator"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -128,7 +130,9 @@ export const tools: ToolMeta[] = [
   LINE_SORTER_META,
   NUMBER_TO_WORDS_META,
   TEXT_REPEATER_META,
-  AI_TOKEN_COUNTER_META
+  AI_TOKEN_COUNTER_META,
+  JWT_ENCODER_META,
+  CRON_GENERATOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

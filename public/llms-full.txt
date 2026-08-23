@@ -4,7 +4,7 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 64
+Total Tools: 66
 
 ---
 
@@ -479,4 +479,17 @@ Total Tools: 64
 - Outputs: Decoded QR code content string with automatic classification and custom formatted details (Wi-Fi details, vCard contact cards, URLs, emails, SMS, phone, geo coordinates, or formatted plain text).
 - Features: Dual-mode scanner (webcam + drag-and-drop file upload), live video canvas frame analysis throttled for CPU efficiency, automatic camera selector, custom synthesized feedback audio beeps, link safety reminders, vCard field parser, and instant integration link back to the QR Code Generator.
 
+### 65. JWT Encoder & Token Generator
+- URL: https://toolbox4devs.com/jwt-encoder
+- Category: Auth Tools (auth-tools)
+- Complexity: Simple
+- Description: Create and sign JSON Web Tokens with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
+- Features: Customizable header and payload JSON, algorithm selector (HS256/HS384/HS512), colored token display, copy-to-clipboard, Web Crypto API signing.
+
+### 66. Cron Expression Generator
+- URL: https://toolbox4devs.com/cron-generator
+- Category: Data Tools (data-tools)
+- Complexity: Simple
+- Description: Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
+- Features: Field-by-field UI controls, 14+ quick presets, weekday/weekend shortcuts, custom expression input, field breakdown visualization.
 
