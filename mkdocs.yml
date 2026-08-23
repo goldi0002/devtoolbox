@@ -38,4 +38,11 @@ plugins:
 
 nav:
   - Home: index.md
+  - Installation: INSTALLATION.md
   - Architecture: ARCHITECTURE.md
+  - Design System: DESIGN.md
+  - Usage: USAGE.md
+  - Deployment: DEPLOYMENT.md
+  - Roadmap: ROADMAP.md
+  - Tasks: TASKS.md
+  - Changelog: CHANGELOG.md

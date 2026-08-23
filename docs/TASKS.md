@@ -1,45 +1,43 @@
-# DevToolbox Tasks
+# Tasks
 
-Status legend: `[ ]` pending, `[~]` in progress, `[x]` complete.
+Status: ✅ done · 🔄 in progress · ⬜ pending
 
-## Current task
+## Current
 
-- [x] Expand tool catalog with JSON → Zod Schema Generator and Cron Expression Parser & Visualizer.
+- [x] Rewrite documentation for GitHub Pages (MkDocs deployment)
 
-## Next task
+## Pending Backlog
 
-- [ ] Task 8 below: Update README project structure and architecture notes to match the current codebase.
-
-## Pending backlog
-
-1. [x] Add a regression test framework (Vitest) and smoke coverage for shared utilities and critical tool behavior.
-2. [x] Audit browser-only APIs for SSG safety and guard any unsafe access (`share.ts`, `useSEO.tsx`, `CodeInput.tsx`).
-3. [x] Harden share-link parsing with payload size limits (250KB max) and robust decode error handling.
-4. [ ] Validate security-sensitive tools with tests and clear local-only user guidance.
-5. [x] Add explicit `typecheck` and `test` npm scripts and document the verification workflow.
-6. [x] Centralize duplicated CodeMirror language extension mapping used by `CodeBlock` and `CodeInput` into `editorLanguage.ts`.
-7. [x] Normalize naming and typos such as `isCommingSoon` while preserving compatibility (`isComingSoon`).
-8. [ ] Update the README project structure and architecture notes to match the current codebase.
-9. [ ] Add contribution guidelines for adding tools, metadata, changelog entries, and checks.
-10. [x] Audit keyboard and screen-reader accessibility across navigation, theme picker, editors, and tool controls.
-11. [x] Standardize empty and error states across all tools (`ErrorBanner`, `SectionPanel`).
-12. [x] Improve tool discovery with better filtering, ordering, and status handling.
-13. [x] Strengthen per-tool SEO metadata, Open Graph, Twitter Cards, Breadcrumbs JSON-LD, and sitemap coverage.
-14. [ ] Review bundle splitting and lazy loading for editor-heavy tools.
-15. [x] Reduce repeated runtime work in frequently-rendered components (`CodeInput` byte calculation optimization).
-16. [ ] Add dependency health and bundle-size audit checks.
-17. [x] Complete and polish beta or coming-soon tools represented in metadata; added `json-to-zod` and `cron-parser`.
-18. [ ] Evaluate local file import/export affordances for relevant tools.
-19. [ ] Persist safe user preferences, such as editor settings, with documented local-storage behavior.
-20. [ ] Redesign milestone 2: replace hard-coded colors inside tool components and editors (`CodeInput`, `CodeBlock`, `RegexTester`, `UrlEncoderDecoder`) with design tokens.
+| # | Task | Priority | Status |
+|---|---|---|---|
+| 1 | Add regression test framework (Vitest) and smoke coverage | P0 | ✅ |
+| 2 | Audit browser-only APIs for SSG safety | P0 | ✅ |
+| 3 | Harden share-link parsing with size limits and error handling | P0 | ✅ |
+| 4 | Validate security-sensitive tools with tests and local-only guidance | P0 | ⬜ |
+| 5 | Add explicit `typecheck` and `test` npm scripts | P1 | ✅ |
+| 6 | Centralize CodeMirror language extension mapping | P1 | ✅ |
+| 7 | Fix typos (`isCommingSoon`) while preserving compatibility | P1 | ✅ |
+| 8 | Update README to match current codebase | P1 | ✅ |
+| 9 | Add contribution guidelines | P1 | ✅ |
+| 10 | Improve keyboard and screen-reader accessibility | P2 | ✅ |
+| 11 | Add empty/error states consistently across tools | P2 | ✅ |
+| 12 | Improve tool discovery (search, favorites, command palette) | P2 | ✅ |
+| 13 | Strengthen per-tool SEO metadata, Open Graph, Twitter Cards | P2 | ✅ |
+| 14 | Review bundle splitting and lazy loading | P3 | ⬜ |
+| 15 | Reduce repeated runtime work in frequently-rendered components | P3 | ✅ |
+| 16 | Add dependency health and bundle-size audit checks | P3 | ⬜ |
+| 17 | Complete and polish beta/coming-soon tools | P4 | ✅ |
+| 18 | Add file import/export for relevant tools | P4 | ⬜ |
+| 19 | Persist safe user preferences (editor settings, etc.) | P4 | ⬜ |
+| 20 | Finish visual redesign inside tool components (milestone 2) | P4 | ⬜ |
 
 ## Completed
 
-- [x] Added Vitest regression test suite with 100% passing tests for share compression/decompression limits, registry metadata, editor languages, JSON to Zod, and Cron parser.
-- [x] Added `json-to-zod` (JSON to Zod Schema Generator) and `cron-parser` (Cron Expression Parser & Visualizer) to tool registry and SSG routes.
-- [x] Enhanced SEO with Open Graph, Twitter cards, keywords, and Schema.org BreadcrumbList structured data.
-- [x] Centralized CodeMirror language extension mapper in `src/lib/editorLanguage.ts`.
-- [x] Redesign milestone 1: accent-driven theme tokens for all ten themes, fixed Tailwind alpha modifiers, shared component classes, new hero/tools index/tool shell, global footer, and accessibility baseline. Documented in `docs/DESIGN.md`.
-- [x] Added a command palette, global search shortcut, local favorites, and recently used tools for faster discovery.
-- [x] Initial architecture review and backlog documentation created.
-- [x] Added explicit `typecheck` and `test` scripts plus architecture and verification documentation.
+- Added Vitest test suite with tests for share compression, registry metadata, editor languages, JSON to Zod, and Cron parser
+- Added `json-to-zod` and `cron-parser` tools to registry and SSG routes
+- Enhanced SEO with Open Graph, Twitter cards, keywords, and Schema.org BreadcrumbList
+- Centralized CodeMirror language extension mapper in `src/lib/editorLanguage.ts`
+- Redesign milestone 1: accent-driven theme tokens for all ten themes, shared component classes
+- Added command palette, global search, local favorites, and recently used tools
+- Initial architecture review and backlog documentation
+- Rewrote documentation for GitHub Pages deployment with MkDocs

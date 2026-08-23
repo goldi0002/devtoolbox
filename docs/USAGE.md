@@ -1,24 +1,58 @@
 # Usage
 
-Common commands
+## Development Commands
 
-- Start dev server: `npm run dev` (open at http://localhost:3000)
-- Build for production: `npm run build`
-- Preview production build: `npm run preview`
-- Lint: `npm run lint`
-- Typecheck: `npm run typecheck`
+```bash
+# Start dev server (hot reload)
+npm run dev
 
-Share links and compressed state
-- The app uses compressed share-links via `lz-string`. If share-links fail to load, check your browser console for decompression errors and ensure `VITE_BASE_URL` is configured correctly when generating sitemaps or share URLs.
+# Build for production
+npm run build
 
-Troubleshooting
-- Build failures: run `npm run typecheck` and `npm run lint` locally to find TypeScript and linting errors.
-- Dev server not starting: ensure no other process occupies port 3000 or run `npm run dev -- --port <other>`.
-- Missing tool pages after build: run `node --loader ts-node/esm scripts/dump-routes.mjs` (if present) or examine `src/tools/registry-node.ts` to ensure metadata is exported for SSG.
+# Preview the production build
+npm run preview
 
-Debugging tips
-- Use browser devtools to inspect failures and network requests. Many tools are client-only and rely on in-browser APIs.
-- To test a production build locally: `npm run build && npm run preview` and then open the preview URL.
+# Lint source files
+npm run lint
 
-Contact & analytics
-- PostHog analytics are optional. To enable, set `VITE_PUBLIC_POSTHOG_HOST` and `VITE_PUBLIC_POSTHOG_KEY` in your environment.
+# Type check (no emit)
+npm run typecheck
+
+# Run tests
+npm test
+```
+
+The dev server runs on port 3000 by default.
+
+## Share Links
+
+ToolBox4Devs supports compressed share URLs. When a tool produces output, you can generate a share link that encodes the state in the URL hash using `lz-string` compression. This means:
+
+- No server-side storage is needed
+- Share links work across browsers and devices
+- All data stays client-side
+
+If share links fail to load, check the browser console for decompression errors. This usually means the URL was truncated or corrupted.
+
+## Troubleshooting
+
+**Dev server won't start**
+
+- Ensure no other process is using port 3000: `lsof -i :3000`
+- Try a different port: `npm run dev -- --port 4000`
+
+**Build fails**
+
+- Run `npm run typecheck` to find TypeScript errors
+- Run `npm run lint` to find linting issues
+- Check for missing dependencies: `npm install`
+
+**Tool pages missing after build**
+
+- Verify the tool is registered in both `src/tools/registry.ts` and `src/tools/registry-node.ts`
+- Ensure the slug matches in `src/routes.tsx`
+
+**Share links not working**
+
+- Verify `VITE_BASE_URL` is set in your `.env` file
+- Check for JavaScript errors in the browser console

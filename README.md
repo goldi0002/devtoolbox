@@ -1,64 +1,72 @@
 # Toolbox4Devs
 
-A fast, minimalist, privacy-first collection of browser-based developer utilities. No backend, no ads — all tool processing is designed to happen locally in the browser.
+A fast, minimalist, privacy-first collection of **60+ browser-based developer utilities**. No backend, no ads — all tool processing happens locally in the browser.
 
 [![Build status](https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## Quick links
-
-- Source: https://github.com/goldi0002/devtoolbox
-- Docs: /docs
-
-## Quick start
-
-Requirements:
-- Node.js 18+ (LTS) recommended
-- npm 9+ or yarn 1/berry
-
-Install and run locally:
+## Quick Start
 
 ```bash
-# Install dependencies (use CI-friendly command)
-npm ci
-
-# Start dev server (hot reload)
+git clone https://github.com/goldi0002/devtoolbox.git
+cd devtoolbox
+npm install
 npm run dev
-
-# Build production static output
-npm run build
-
-# Preview production build locally
-npm run preview
 ```
 
-Useful scripts (from package.json):
-- dev — start dev server (vite)
-- build — SSG build using `vite-react-ssg`
-- preview — preview a production build
-- lint — run ESLint (type-aware rules)
-- typecheck — run TypeScript only
-- test — runs the temporary smoke checks (currently aliases to typecheck)
+The dev server starts at `http://localhost:3000`.
 
-## Environment
+## Scripts
 
-Create a `.env` file (see `.env.example`) and set:
-- VITE_BASE_URL — base URL used in share links and the sitemap generation (e.g. https://yourdomain.com)
-- VITE_ENVIRONMENT — development | staging | production
-- VITE_PUBLIC_POSTHOG_HOST — (optional) self-hosted PostHog URL
-- VITE_PUBLIC_POSTHOG_KEY — (optional) PostHog project key
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server with hot reload |
+| `npm run build` | Build static site for production |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Run TypeScript type checking |
+| `npm test` | Run Vitest test suite |
 
-## Deployment
+## Tools
 
-Recommended: Vercel static hosting. See `docs/DEPLOYMENT.md` for CI/CD, Docker, and GitHub Actions examples.
+Toolbox4Devs includes 60+ tools across these categories:
 
-## Where to find things
-- Tool metadata: `src/tools/meta/`
-- Routes used by SSG: `src/routes.tsx` and `src/main.tsx`
-- Build: `npm run build` produces the static output used for deployments
+| Category | Examples |
+|---|---|
+| JSON | Formatter, CSV Converter, Model Generator, To SQL, To Zod |
+| Encode / Decode | Base64, URL Encoder/Decoder, HTML Entity, Hex, String Escaper |
+| Text | Case Converter, Text Diff, Regex Tester, Slug Generator, Line Sorter |
+| Generators | UUID, Password, Lorem Ipsum, QR Code, Gitignore, Faker Data |
+| Authentication | JWT Decoder, JWT Encoder, Basic Auth Header, HMAC Generator |
+| Web | HTML Formatter, Markdown Preview, Color Converter, Curl Converter, MIME Type |
+| Data | Timestamp Converter, ASCII Table, Unix Permissions, Cron Generator/Parser |
+| Crypto | SHA-256, Hash Comparator, RSA Key Generator, Bcrypt Generator |
+| Analyze | Word Counter, Password Strength, QR Code Scanner, AI Token Counter |
+
+## Documentation
+
+Full documentation is available at **[goldi0002.github.io/devtoolbox](https://goldi0002.github.io/devtoolbox/)**:
+
+- [Installation](https://goldi0002.github.io/devtoolbox/installation/) — Prerequisites and local setup
+- [Architecture](https://goldi0002.github.io/devtoolbox/architecture/) — Application flow and codebase structure
+- [Design System](https://goldi0002.github.io/devtoolbox/design-system/) — Theme tokens and component classes
+- [Usage](https://goldi0002.github.io/devtoolbox/usage/) — Commands and troubleshooting
+- [Deployment](https://goldi0002.github.io/devtoolbox/deployment/) — Vercel, Docker, and CI/CD
+- [Roadmap](https://goldi0002.github.io/devtoolbox/roadmap/) — Prioritized backlog and milestones
+
+## Tech Stack
+
+- **React 18** + **TypeScript** (strict mode)
+- **Vite** + **vite-react-ssg** for static site generation
+- **Tailwind CSS** with a token-driven design system
+- **CodeMirror** for code editors and previews
+- **React Router v6** for client-side routing
+- **Vitest** for testing
 
 ## Contributing
-See `CONTRIBUTING.md` for development workflow, linting, and PR guidelines.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding tools, code standards, and the verification checklist.
 
 ## License
+
 MIT
