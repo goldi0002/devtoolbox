@@ -56,7 +56,7 @@ export function SEO({
     : `${WEB_INFO.SITE_NAME} — Private Client-Side Dev Tools`
   
   const desc = description ?? WEB_INFO.DEFAULT_DESCRIPTION
-  const cleanSlug = slug?.replace(/^\/+/, '') ?? ''
+  const cleanSlug = slug?.replace(/^\/+/, '').replace(/\/+$/, '').toLowerCase() ?? ''
   const url = cleanSlug ? `${WEB_INFO.BASE_URL}/${cleanSlug}` : WEB_INFO.BASE_URL
   const ogImage = `${WEB_INFO.BASE_URL}/images/og-1200x630.png`
 

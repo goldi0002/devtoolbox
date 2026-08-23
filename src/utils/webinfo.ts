@@ -1,10 +1,15 @@
+const rawBaseUrl = import.meta.env.VITE_BASE_URL
+const cleanBaseUrl = (!rawBaseUrl || rawBaseUrl.includes('example.com')) 
+  ? 'https://toolbox4devs.com' 
+  : rawBaseUrl.replace(/\/+$/, '') // Remove trailing slash if present
+
 export const WEB_INFO = {
     SITE_NAME: import.meta.env.VITE_SITE_NAME ?? 'Toolbox4Devs',
-    BASE_URL: import.meta.env.VITE_BASE_URL ?? 'https://toolbox4devs.com',
+    BASE_URL: cleanBaseUrl,
     DEFAULT_DESCRIPTION:
         'A free collection of browser-based developer utilities. ' +
         'JSON formatter, UUID generator, JWT decoder, Base64 encoder and more.',
-    LOGO: `${import.meta.env.VITE_BASE_URL ?? 'https://toolbox4devs.com'}/images/icon-96.png`,
+    LOGO: `${cleanBaseUrl}/images/icon-96.png`,
     PRIVACY_POLICY_LAST_UPDATED: '2026-08-21', //yyyy-mm-dd
     CONTACT_QUESTIONS_EMAIL: import.meta.env.VITE_CONCAT_QUESTIONS_EMAIL,
     WEB_OWNER_GITHUB_PROFILE: import.meta.env.VITE_WEB_OWNER_GIT_PROFILE_URL,
