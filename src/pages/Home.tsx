@@ -205,7 +205,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative pb-2 border-b border-border">
+        <div className="relative pb-3 border-b border-border">
           <div className="flex items-center gap-2 overflow-x-auto py-1 no-scrollbar scroll-smooth">
             <button
               type="button"
@@ -262,7 +262,7 @@ export default function Home() {
 
         {/* Tool Cards Grid */}
         <ErrorBoundary label="Tool listing">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             {filteredTools.map((tool, i) => (
               <ToolCard
                 key={tool.slug}
