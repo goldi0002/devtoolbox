@@ -16,6 +16,20 @@ export const createRoot = ViteReactSSG(
     // Apply saved font configuration
     initCustomFonts()
 
+    // Catch unhandled promise rejections (e.g. failed lazy chunk loads)
+    window.addEventListener('unhandledrejection', (event) => {
+      const reason = event.reason
+      const msg = reason instanceof Error ? reason.message : String(reason)
+      // Chunk/network errors during lazy loading — reload once to recover
+      if (/Failed to fetch|ChunkLoadError|Loading chunk|dynamic import/i.test(msg)) {
+        event.preventDefault()
+        reportError('Unhandled chunk load rejection', reason)
+        if (readStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY) === '1') return
+        if (!writeStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY, '1')) return
+        window.location.reload()
+      }
+    })
+
     window.addEventListener('vite:preloadError', (event) => {
       event.preventDefault()
       reportError('Failed to preload a chunk', (event as Event & { payload?: unknown }).payload ?? event)
