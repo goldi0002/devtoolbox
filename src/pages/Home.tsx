@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ToolCard from '../components/ToolCard'
+import ErrorBoundary from '../components/ErrorBoundary'
 import { tools, categoryLabels, getFeaturedTools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
@@ -237,6 +238,7 @@ export default function Home() {
 
         {/* Recent Tools Bar (if available) */}
         {recentToolsList.length > 0 && !searchQuery && selectedCategory === 'all' && (
+          <ErrorBoundary label="Recent tools">
           <div className="mb-8 p-4 bg-surface border border-border rounded-xl">
             <div className="flex items-center gap-2 mb-3 text-xs font-mono text-dim font-medium">
               <Clock size={14} className="text-indigo-400" />
@@ -255,21 +257,24 @@ export default function Home() {
               ))}
             </div>
           </div>
+          </ErrorBoundary>
         )}
 
         {/* Tool Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredTools.map((tool, i) => (
-            <ToolCard
-              key={tool.slug}
-              slug={tool.slug}
-              title={tool.name}
-              description={tool.description}
-              tag={tool.tag}
-              index={i}
-            />
-          ))}
-        </div>
+        <ErrorBoundary label="Tool listing">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredTools.map((tool, i) => (
+              <ToolCard
+                key={tool.slug}
+                slug={tool.slug}
+                title={tool.name}
+                description={tool.description}
+                tag={tool.tag}
+                index={i}
+              />
+            ))}
+          </div>
+        </ErrorBoundary>
 
         {filteredTools.length === 0 && (
           <div className="text-center py-12 bg-surface border border-border rounded-2xl">
