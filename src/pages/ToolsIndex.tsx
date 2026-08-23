@@ -133,14 +133,24 @@ export default function ToolsIndex() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="mb-12 animate-fade-in">
-        <p className="eyebrow mb-4">Toolbox</p>
+      <section className="relative mb-12 pt-4 pb-6 text-center sm:text-left animate-fade-in">
+        {/* Ambient glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-violet-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
 
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
-            <h1 className="font-display text-[clamp(2.75rem,8vw,5rem)] text-bright leading-[0.9] tracking-tight">
-              ALL <span className="text-accent">TOOLS</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/8 text-violet-400 text-[11px] font-mono font-medium mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+              {tools.length} Browser Utilities • Zero Server Calls
+            </div>
+
+            <h1 className="font-display text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.9] tracking-tight">
+              <span className="text-bright">ALL</span>{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400">
+                TOOLS
+              </span>
             </h1>
+
             <p className="mt-4 max-w-lg font-sans text-sm leading-relaxed text-dim">
               Search {tools.length} browser-based utilities, filter by category, and star the ones you
               reach for daily.
