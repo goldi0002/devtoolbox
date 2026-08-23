@@ -297,7 +297,7 @@ export default function FakerDataGenerator() {
   const activeFields = useMemo(() => {
     const record = generateRecord(0, dataType)
     return Object.keys(record)
-  }, [dataType, seed])
+  }, [dataType])
 
   return (
     <ToolLayout
