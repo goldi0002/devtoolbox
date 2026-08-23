@@ -1,39 +1,56 @@
-site_name: DevToolbox Docs
-site_description: Architecture, design system, and roadmap for Toolbox4Devs
-site_url: https://goldi0002.github.io/devtoolbox/
-repo_url: https://github.com/goldi0002/devtoolbox
-repo_name: goldi0002/devtoolbox
-edit_uri: edit/main/docs/
+name: Deploy MkDocs to GitHub Pages
 
-theme:
-  name: material
-  palette:
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-  features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.top
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-    - content.code.annotate
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/mkdocs.yml'
+  workflow_dispatch:
 
-plugins:
-  - search
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-nav:
-  - Home: index.md
-  - Architecture: ARCHITECTURE.md
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+
+      - name: Build MkDocs
+        run: mkdocs build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
