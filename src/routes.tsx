@@ -8,6 +8,8 @@ const Home = lazy(() => import('./pages/Home'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const ToolsIndex = lazy(() => import('./pages/ToolsIndex'))
 const About = lazy(() => import('./pages/About'))
+const BlogIndex = lazy(() => import('./pages/BlogIndex'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
 const ToolPage = lazy(() => import('./pages/ToolPage'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Privacy = lazy(() => import('./pages/Privacy'))
@@ -25,6 +27,8 @@ export const routes: RouteRecord[] = [
       { path: 'tools', element: <ToolsIndex /> },
       { path: 'tools/:category', element: <ToolsIndex /> },
       { path: 'about', element: <About /> },
+      { path: 'blog', element: <BlogIndex /> },
+      { path: 'blog/:slug', element: <BlogPost /> },
       { path: 'privacy', element: <Privacy /> },
       ...toolSlugs.map(slug => ({
         path: slug,
