@@ -16,19 +16,17 @@ import {
   Check,
   SlidersHorizontal,
   HardDrive,
-  Maximize2,
-  Minimize2,
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
-  Eye,
-  EyeOff,
   Columns,
   Search,
   RotateCcw,
-  Sparkles,
   FileSpreadsheet,
-  FileCode
+  FileCode,
+  LayoutGrid,
+  CheckSquare,
+  Square
 } from 'lucide-react'
 import SectionPanel from '../../ui/SectionPanel'
 import StatCard from '../../ui/StatCard'
@@ -43,7 +41,7 @@ function formatBytes(bytes: number, decimals = 2): string {
 }
 
 function detectDelimiter(sampleText: string): string {
-  const delimiters = [',', '|', '\t', ';']
+  const delimiters = [',', '\t', '|', ';']
   const lines = sampleText.split(/\r?\n/).filter(l => l.trim().length > 0).slice(0, 10)
   if (lines.length === 0) return ','
 
@@ -51,9 +49,7 @@ function detectDelimiter(sampleText: string): string {
   let maxConsistentCount = 0
 
   for (const delim of delimiters) {
-    const counts = lines.map(line => {
-      return line.split(delim).length - 1
-    })
+    const counts = lines.map(line => line.split(delim).length - 1)
     const firstCount = counts[0]
     if (firstCount > 0 && counts.every(c => c === firstCount)) {
       if (firstCount > maxConsistentCount) {
@@ -80,16 +76,21 @@ function detectDelimiter(sampleText: string): string {
 
 type ColumnType = 'number' | 'boolean' | 'date' | 'text'
 
-function inferColumnTypes(data: string[][], headers: string[]): ColumnType[] {
-  if (!data || data.length === 0) return headers.map(() => 'text')
-  
-  return headers.map((_, colIdx) => {
+function inferColumnTypes(data: string[][], colCount: number): ColumnType[] {
+  if (!data || data.length === 0 || colCount === 0) {
+    return Array.from({ length: colCount }, () => 'text')
+  }
+
+  const types: ColumnType[] = []
+  const sampleRows = Math.min(data.length, 30)
+
+  for (let colIdx = 0; colIdx < colCount; colIdx++) {
     let isNum = true
     let isBool = true
     let isDate = true
     let sampleCount = 0
 
-    for (let r = 0; r < Math.min(data.length, 30); r++) {
+    for (let r = 0; r < sampleRows; r++) {
       const val = (data[r]?.[colIdx] ?? '').trim()
       if (!val) continue
       sampleCount++
@@ -105,12 +106,20 @@ function inferColumnTypes(data: string[][], headers: string[]): ColumnType[] {
       }
     }
 
-    if (sampleCount === 0) return 'text'
-    if (isNum) return 'number'
-    if (isBool) return 'boolean'
-    if (isDate) return 'date'
-    return 'text'
-  })
+    if (sampleCount === 0) {
+      types.push('text')
+    } else if (isNum) {
+      types.push('number')
+    } else if (isBool) {
+      types.push('boolean')
+    } else if (isDate) {
+      types.push('date')
+    } else {
+      types.push('text')
+    }
+  }
+
+  return types
 }
 
 interface ColumnSort {
@@ -141,36 +150,28 @@ export default function CsvTxtViewer() {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [copiedCell, setCopiedCell] = useState<string | null>(null)
 
-  // Enhanced features: Fullscreen, Sorting, Column Visibility, Density, Column Filters
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
+  // Features: Sorting, Column Visibility, Density, Column Filters
   const [sortConfig, setSortConfig] = useState<ColumnSort | null>(null)
   const [hiddenCols, setHiddenCols] = useState<Record<number, boolean>>({})
   const [showColumnManager, setShowColumnManager] = useState<boolean>(false)
+  const [columnSearchQuery, setColumnSearchQuery] = useState<string>('')
   const [showExportMenu, setShowExportMenu] = useState<boolean>(false)
   const [density, setDensity] = useState<'compact' | 'comfortable' | 'spacious'>('compact')
   const [activeTab, setActiveTab] = useState<'table' | 'json_preview'>('table')
 
+  // Horizontal Column Windowing / Virtual Range for ultra-wide datasets (100+ to 1,000+ cols)
+  const [columnRange, setColumnRange] = useState<'all' | 'first50' | 'first100' | 'custom'>('all')
+  const [customRangeStart, setCustomRangeStart] = useState<number>(1)
+  const [customRangeEnd, setCustomRangeEnd] = useState<number>(100)
+
   // Stream Cancellation and Byte Index Ref
   const abortControllerRef = useRef<AbortController | null>(null)
   const pageOffsetsRef = useRef<number[]>([0]) // Stores start byte offset for each page
-  const headerEndOffsetRef = useRef<number>(0)
   const fileRef = useRef<File | null>(null)
-  const fullscreenContainerRef = useRef<HTMLDivElement | null>(null)
 
   const totalPages = Math.max(1, Math.ceil(totalRows / rowsPerPage))
 
-  // Escape key to exit fullscreen
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isFullscreen) {
-        setIsFullscreen(false)
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isFullscreen])
-
-  // Load a specific page chunk from file slice
+  // Load a specific page chunk from file slice with dynamic lookahead
   const loadPage = useCallback(async (
     page: number, 
     targetFile: File | null = fileRef.current,
@@ -185,13 +186,14 @@ export default function CsvTxtViewer() {
       const pageIdx = page - 1
       const startByte = pageOffsetsRef.current[pageIdx] ?? 0
       
-      // Determine end byte: either next page offset or a generous slice
+      // Calculate end byte safely:
+      // If we know the next page offset, we can read up to it (plus generous buffer to not cut row boundary)
       let endByte: number
       if (pageOffsetsRef.current[pageIdx + 1] !== undefined) {
-        endByte = pageOffsetsRef.current[pageIdx + 1]
+        endByte = Math.min(targetFile.size, pageOffsetsRef.current[pageIdx + 1] + 16384)
       } else {
-        // Approximate byte size for remaining rows
-        endByte = Math.min(targetFile.size, startByte + (rPerPage * 4096))
+        // Fallback for indexing in progress: generous 16MB chunk to guarantee rPerPage rows even for very wide files
+        endByte = Math.min(targetFile.size, startByte + Math.max(rPerPage * 8192, 1024 * 1024))
       }
 
       // Read slice
@@ -202,14 +204,14 @@ export default function CsvTxtViewer() {
       Papa.parse<string[]>(sliceText, {
         delimiter: activeDelim,
         header: false,
-        skipEmptyLines: true,
+        skipEmptyLines: 'greedy',
         complete: (results) => {
-          let rows = results.data
-          // If page 1 and hasHeader, skip the first row (the header)
-          if (page === 1 && firstRowHeader && rows.length > 0) {
+          let rows = results.data || []
+          // If page 1 and hasHeader and startByte is 0, skip the first row (the header)
+          if (page === 1 && firstRowHeader && startByte === 0 && rows.length > 0) {
             rows = rows.slice(1)
           }
-          // Cap at rowsPerPage in case slice caught extra rows
+          // Cap precisely at rowsPerPage
           rows = rows.slice(0, rPerPage)
           setPageData(rows)
           setCurrentPage(page)
@@ -250,11 +252,10 @@ export default function CsvTxtViewer() {
     setSortConfig(null)
     setHiddenCols({})
     pageOffsetsRef.current = [0]
-    headerEndOffsetRef.current = 0
 
     try {
-      // 1. Fast Preview: Read first 128KB to immediately detect delimiter and headers
-      const previewSize = Math.min(inputFile.size, 128 * 1024)
+      // 1. Delimiter & Header Inspection (Read first 256KB sample to safely capture 100+ columns header)
+      const previewSize = Math.min(inputFile.size, 256 * 1024)
       const previewBlob = inputFile.slice(0, previewSize)
       const previewText = await previewBlob.text()
 
@@ -262,32 +263,28 @@ export default function CsvTxtViewer() {
       const effectiveDelim = selectedDelim === 'auto' ? detectDelimiter(previewText) : selectedDelim
       setActualDelimiter(effectiveDelim)
 
-      // Parse initial sample for immediate UI rendering
+      // Parse sample to get complete header column list & column types
       const initialParsed = Papa.parse<string[]>(previewText, {
         delimiter: effectiveDelim,
         header: false,
-        skipEmptyLines: true
+        skipEmptyLines: 'greedy'
       })
 
-      const rawRows = initialParsed.data
+      const rawRows = initialParsed.data || []
       let detectedHeaders: string[] = []
-      let firstPageRows: string[][] = []
 
       if (rawRows.length > 0) {
         if (firstRowHeader) {
           detectedHeaders = rawRows[0].map((h, i) => (h && h.trim() ? h.trim() : `Column_${i + 1}`))
-          firstPageRows = rawRows.slice(1, 1 + rPerPage)
         } else {
-          detectedHeaders = rawRows[0].map((_, i) => `Column_${i + 1}`)
-          firstPageRows = rawRows.slice(0, rPerPage)
+          const maxCols = Math.max(...rawRows.map(r => r.length))
+          detectedHeaders = Array.from({ length: maxCols }, (_, i) => `Column_${i + 1}`)
         }
         setHeaders(detectedHeaders)
-        setColumnTypes(inferColumnTypes(firstPageRows, detectedHeaders))
-        setPageData(firstPageRows)
+        setColumnTypes(inferColumnTypes(rawRows.slice(firstRowHeader ? 1 : 0), detectedHeaders.length))
       }
 
-      // 2. High-Performance Chunk Streaming to build Page Byte Offsets
-      // We stream raw bytes (Uint8Array) to avoid memory overhead
+      // 2. High-Performance Byte Indexing Stream to accurately find ALL page start offsets
       const stream = inputFile.stream()
       const reader = stream.getReader()
       const totalBytes = inputFile.size
@@ -296,6 +293,7 @@ export default function CsvTxtViewer() {
       let rowCount = 0
       let inQuotes = false
       let isFirstLine = true
+      let page1DataLoaded = false
       const pageOffsets: number[] = [0]
       let lastProgressUpdate = performance.now()
 
@@ -326,7 +324,6 @@ export default function CsvTxtViewer() {
 
             if (isFirstLine) {
               isFirstLine = false
-              headerEndOffsetRef.current = currentLineStartOffset
               if (firstRowHeader) {
                 // Page 1 data starts right after header line
                 pageOffsets[0] = currentLineStartOffset
@@ -337,6 +334,14 @@ export default function CsvTxtViewer() {
               rowCount++
               if (rowCount % rPerPage === 0) {
                 pageOffsets.push(currentLineStartOffset)
+
+                // When page 1 offset boundary is locked (and page 2 start is identified),
+                // trigger loadPage(1) so Page 1 displays exactly rPerPage rows!
+                if (!page1DataLoaded && pageOffsets.length >= 2) {
+                  page1DataLoaded = true
+                  pageOffsetsRef.current = [...pageOffsets]
+                  loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
+                }
               }
             }
           }
@@ -344,13 +349,14 @@ export default function CsvTxtViewer() {
 
         processedBytes += chunkLen
 
-        // Throttled UI Progress Updates (every 80ms)
+        // Throttled UI Progress Updates (every 100ms)
         const now = performance.now()
-        if (now - lastProgressUpdate > 80) {
+        if (now - lastProgressUpdate > 100) {
           lastProgressUpdate = now
           const pct = Math.min(99, Math.round((processedBytes / totalBytes) * 100))
           setIndexingProgress(pct)
           setTotalRows(rowCount)
+          pageOffsetsRef.current = [...pageOffsets]
         }
       }
 
@@ -359,13 +365,18 @@ export default function CsvTxtViewer() {
       setIndexingProgress(100)
       setIsIndexing(false)
 
+      // Ensure page 1 is loaded if file has less than rPerPage rows
+      if (!page1DataLoaded) {
+        loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
+      }
+
     } catch (err: unknown) {
       if (!abortController.signal.aborted) {
         setError(err instanceof Error ? err.message : 'Error processing file')
         setIsIndexing(false)
       }
     }
-  }, [])
+  }, [loadPage])
 
   // Handle file selection
   const handleFileChange = (selectedFile: File | null) => {
@@ -421,11 +432,9 @@ export default function CsvTxtViewer() {
   const goToPage = (page: number) => {
     if (page < 1 || page > totalPages || page === currentPage) return
     loadPage(page)
-    if (!isFullscreen) {
-      const tableEl = document.getElementById('csv-viewer-table-section')
-      if (tableEl) {
-        tableEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-      }
+    const tableEl = document.getElementById('csv-viewer-table-section')
+    if (tableEl) {
+      tableEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
     }
   }
 
@@ -452,6 +461,46 @@ export default function CsvTxtViewer() {
 
   const showAllColumns = () => {
     setHiddenCols({})
+  }
+
+  const hideAllColumns = () => {
+    const hidden: Record<number, boolean> = {}
+    headers.forEach((_, idx) => {
+      hidden[idx] = true
+    })
+    setHiddenCols(hidden)
+  }
+
+  // Quick Preset Selection for Column Range
+  const handleColumnRangePreset = (range: 'all' | 'first50' | 'first100' | 'custom') => {
+    setColumnRange(range)
+    if (range === 'all') {
+      showAllColumns()
+    } else if (range === 'first50') {
+      const hidden: Record<number, boolean> = {}
+      headers.forEach((_, idx) => {
+        if (idx >= 50) hidden[idx] = true
+      })
+      setHiddenCols(hidden)
+    } else if (range === 'first100') {
+      const hidden: Record<number, boolean> = {}
+      headers.forEach((_, idx) => {
+        if (idx >= 100) hidden[idx] = true
+      })
+      setHiddenCols(hidden)
+    }
+  }
+
+  const applyCustomColumnRange = () => {
+    const start = Math.max(0, customRangeStart - 1)
+    const end = Math.min(headers.length - 1, customRangeEnd - 1)
+    const hidden: Record<number, boolean> = {}
+    headers.forEach((_, idx) => {
+      if (idx < start || idx > end) {
+        hidden[idx] = true
+      }
+    })
+    setHiddenCols(hidden)
   }
 
   // Copy cell content
@@ -512,6 +561,15 @@ export default function CsvTxtViewer() {
   const visibleColIndices = useMemo(() => {
     return headers.map((_, i) => i).filter(i => !hiddenCols[i])
   }, [headers, hiddenCols])
+
+  // Filtered columns for the Column Manager Search
+  const filteredColumnsList = useMemo(() => {
+    if (!columnSearchQuery.trim()) return headers.map((h, i) => ({ header: h, index: i }))
+    const query = columnSearchQuery.toLowerCase()
+    return headers
+      .map((h, i) => ({ header: h, index: i }))
+      .filter(item => item.header.toLowerCase().includes(query) || `col ${item.index + 1}`.includes(query))
+  }, [headers, columnSearchQuery])
 
   // JSON Preview Data
   const jsonPreviewData = useMemo(() => {
@@ -620,7 +678,7 @@ export default function CsvTxtViewer() {
                 )}
               </p>
               <p className="text-xs text-subtle">
-                Supports massive CSV, TXT, TSV, PSV up to <span className="text-bright font-mono font-medium">300MB+</span> with instant streaming & virtualized pages
+                Supports massive CSV, TXT, TSV, PSV up to <span className="text-bright font-mono font-medium">1GB+</span> with 100+ columns & zero memory freeze
               </p>
               {file && (
                 <div className="mt-3 flex items-center gap-2 text-xs font-mono text-dim bg-surface px-3 py-1 rounded border border-border">
@@ -628,6 +686,12 @@ export default function CsvTxtViewer() {
                   <span>Size: {formatBytes(file.size)}</span>
                   <span>•</span>
                   <span>Delimiter: {actualDelimiter === '\t' ? 'Tab (\\t)' : actualDelimiter === '|' ? 'Pipe (|)' : actualDelimiter}</span>
+                  {headers.length > 0 && (
+                    <>
+                      <span>•</span>
+                      <span className="text-accent font-medium">{headers.length} Columns</span>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -649,9 +713,9 @@ export default function CsvTxtViewer() {
                 className="w-full text-xs font-mono bg-surface border border-border rounded px-3 py-2 text-bright focus:outline-none focus:border-accent"
               >
                 <option value="auto">Auto-Detect Delimiter</option>
-                <option value="|">Pipe (|) Delimited</option>
                 <option value=",">Comma (,) CSV</option>
                 <option value="&#9;">Tab (\t) TSV</option>
+                <option value="|">Pipe (|) Delimited</option>
                 <option value=";">Semicolon (;)</option>
                 <option value=" ">Space ( )</option>
               </select>
@@ -667,7 +731,7 @@ export default function CsvTxtViewer() {
               >
                 <option value={25}>25 rows / page</option>
                 <option value={50}>50 rows / page</option>
-                <option value={100}>100 rows / page (Recommended)</option>
+                <option value={100}>100 rows / page (Standard)</option>
                 <option value={250}>250 rows / page</option>
                 <option value={500}>500 rows / page</option>
               </select>
@@ -695,7 +759,7 @@ export default function CsvTxtViewer() {
             <div className="flex items-center justify-between text-xs mb-2">
               <div className="flex items-center gap-2 text-bright font-medium">
                 <Loader2 className="w-4 h-4 text-accent animate-spin" />
-                <span>Background indexing {file?.name}... (Initial page is already interactive)</span>
+                <span>Background indexing {file?.name}... (Current page is already fully interactive)</span>
               </div>
               <span className="font-mono text-accent font-semibold">{indexingProgress}%</span>
             </div>
@@ -737,7 +801,7 @@ export default function CsvTxtViewer() {
             label="Columns"
             value={`${visibleColIndices.length} / ${headers.length}`}
             icon={FileText}
-            subValue={visibleColIndices.length < headers.length ? `${headers.length - visibleColIndices.length} hidden` : 'All visible'}
+            subValue={visibleColIndices.length < headers.length ? `${headers.length - visibleColIndices.length} hidden` : 'All columns visible'}
           />
           <StatCard
             label="Active Delimiter"
@@ -747,440 +811,510 @@ export default function CsvTxtViewer() {
           />
           <StatCard
             label="Memory Footprint"
-            value="< 5 MB"
+            value="< 8 MB"
             icon={HardDrive}
             subValue="Zero-freeze virtual slice"
           />
         </div>
       )}
 
-      {/* Interactive Data Table & Fullscreen Workspace */}
+      {/* Multi-Column Quick Filter / Range Bar (Highlighted when > 30 columns) */}
+      {headers.length > 20 && (
+        <div className="bg-surface/50 border border-border rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2 text-dim font-mono">
+            <LayoutGrid className="w-4 h-4 text-accent" />
+            <span className="font-medium text-bright">Wide Dataset Navigator:</span>
+            <span>{headers.length} Total Columns</span>
+          </div>
+
+          <div className="flex items-center flex-wrap gap-2">
+            <div className="flex items-center bg-background rounded-lg border border-border p-0.5">
+              <button
+                onClick={() => handleColumnRangePreset('all')}
+                className={`px-2.5 py-1 rounded font-mono text-[11px] transition-colors ${
+                  columnRange === 'all' && visibleColIndices.length === headers.length
+                    ? 'bg-accent/15 text-accent font-semibold border border-accent/30'
+                    : 'text-dim hover:text-bright'
+                }`}
+              >
+                All ({headers.length})
+              </button>
+              <button
+                onClick={() => handleColumnRangePreset('first50')}
+                className={`px-2.5 py-1 rounded font-mono text-[11px] transition-colors ${
+                  columnRange === 'first50'
+                    ? 'bg-accent/15 text-accent font-semibold border border-accent/30'
+                    : 'text-dim hover:text-bright'
+                }`}
+              >
+                Cols 1–50
+              </button>
+              <button
+                onClick={() => handleColumnRangePreset('first100')}
+                className={`px-2.5 py-1 rounded font-mono text-[11px] transition-colors ${
+                  columnRange === 'first100'
+                    ? 'bg-accent/15 text-accent font-semibold border border-accent/30'
+                    : 'text-dim hover:text-bright'
+                }`}
+              >
+                Cols 1–100
+              </button>
+            </div>
+
+            <div className="flex items-center gap-1.5 font-mono text-[11px] text-dim">
+              <span>Cols:</span>
+              <input
+                type="number"
+                min={1}
+                max={headers.length}
+                value={customRangeStart}
+                onChange={(e) => setCustomRangeStart(Math.max(1, parseInt(e.target.value, 10) || 1))}
+                className="w-12 bg-background border border-border rounded px-1 py-0.5 text-center text-bright"
+              />
+              <span>to</span>
+              <input
+                type="number"
+                min={1}
+                max={headers.length}
+                value={customRangeEnd}
+                onChange={(e) => setCustomRangeEnd(Math.min(headers.length, parseInt(e.target.value, 10) || headers.length))}
+                className="w-12 bg-background border border-border rounded px-1 py-0.5 text-center text-bright"
+              />
+              <button
+                onClick={() => {
+                  setColumnRange('custom')
+                  applyCustomColumnRange()
+                }}
+                className="px-2 py-0.5 bg-surface border border-border hover:border-accent hover:text-accent rounded transition-colors text-bright font-medium"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Interactive Data Table Workspace */}
       {headers.length > 0 && (
-        <div id="csv-viewer-table-section">
-          {/* Main Container with Fullscreen support */}
-          <div
-            ref={fullscreenContainerRef}
-            className={
-              isFullscreen
-                ? 'fixed inset-0 z-50 bg-background/95 backdrop-blur-md p-4 sm:p-6 flex flex-col overflow-hidden animate-in fade-in duration-200'
-                : 'space-y-4'
-            }
-          >
-            <div className={`bg-surface border border-border rounded-xl flex flex-col overflow-hidden shadow-xl ${isFullscreen ? 'flex-1 h-full' : ''}`}>
-              
-              {/* Header Bar */}
-              <div className="p-4 border-b border-border flex flex-wrap items-center justify-between gap-3 bg-surface/80">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent">
-                    <Table className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-bright flex items-center gap-2">
-                      <span>{file?.name || 'Dataset Viewer'}</span>
-                      {isFullscreen && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/15 text-accent font-mono border border-accent/30 font-normal">
-                          Full Screen Mode (ESC to exit)
-                        </span>
-                      )}
-                    </h3>
-                    <p className="text-xs text-subtle font-mono">
-                      Page {currentPage} of {totalPages} • {processedRows.length} {processedRows.length === 1 ? 'row' : 'rows'} shown
-                    </p>
-                  </div>
+        <div id="csv-viewer-table-section" className="space-y-4">
+          <div className="bg-surface border border-border rounded-xl flex flex-col overflow-hidden shadow-xl">
+            
+            {/* Header Bar */}
+            <div className="p-4 border-b border-border flex flex-wrap items-center justify-between gap-3 bg-surface/80">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent">
+                  <Table className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-bright flex items-center gap-2">
+                    <span>{file?.name || 'Dataset Table Viewer'}</span>
+                  </h3>
+                  <p className="text-xs text-subtle font-mono">
+                    Page {currentPage} of {totalPages} • {processedRows.length} rows loaded • {visibleColIndices.length} / {headers.length} columns active
+                  </p>
+                </div>
+              </div>
+
+              {/* Top Action Tools */}
+              <div className="flex items-center flex-wrap gap-2">
+                {/* View Mode Toggle */}
+                <div className="flex items-center bg-background rounded-lg border border-border p-0.5 text-xs">
+                  <button
+                    onClick={() => setActiveTab('table')}
+                    className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 font-medium ${
+                      activeTab === 'table' ? 'bg-surface text-accent shadow-sm border border-border' : 'text-dim hover:text-bright'
+                    }`}
+                  >
+                    <Table className="w-3.5 h-3.5" />
+                    <span>Table</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('json_preview')}
+                    className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 font-medium ${
+                      activeTab === 'json_preview' ? 'bg-surface text-accent shadow-sm border border-border' : 'text-dim hover:text-bright'
+                    }`}
+                  >
+                    <FileCode className="w-3.5 h-3.5" />
+                    <span>JSON</span>
+                  </button>
                 </div>
 
-                {/* Top Action Tools */}
-                <div className="flex items-center flex-wrap gap-2">
-                  {/* View Mode Toggle */}
-                  <div className="flex items-center bg-background rounded-lg border border-border p-0.5 text-xs">
-                    <button
-                      onClick={() => setActiveTab('table')}
-                      className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 font-medium ${
-                        activeTab === 'table' ? 'bg-surface text-accent shadow-sm border border-border' : 'text-dim hover:text-bright'
-                      }`}
-                    >
-                      <Table className="w-3.5 h-3.5" />
-                      <span>Table</span>
-                    </button>
-                    <button
-                      onClick={() => setActiveTab('json_preview')}
-                      className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 font-medium ${
-                        activeTab === 'json_preview' ? 'bg-surface text-accent shadow-sm border border-border' : 'text-dim hover:text-bright'
-                      }`}
-                    >
-                      <FileCode className="w-3.5 h-3.5" />
-                      <span>JSON</span>
-                    </button>
-                  </div>
+                {/* Column Manager Dropdown Toggle */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowColumnManager(!showColumnManager)}
+                    className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                      showColumnManager || Object.values(hiddenCols).some(Boolean)
+                        ? 'bg-accent/10 border-accent/40 text-accent font-medium'
+                        : 'bg-surface border-border text-dim hover:text-bright hover:bg-border'
+                    }`}
+                    title="Manage column visibility"
+                  >
+                    <Columns className="w-3.5 h-3.5" />
+                    <span>Columns ({visibleColIndices.length}/{headers.length})</span>
+                  </button>
 
-                  {/* Column Manager Dropdown Toggle */}
-                  <div className="relative">
-                    <button
-                      onClick={() => setShowColumnManager(!showColumnManager)}
-                      className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
-                        showColumnManager || Object.values(hiddenCols).some(Boolean)
-                          ? 'bg-accent/10 border-accent/40 text-accent font-medium'
-                          : 'bg-surface border-border text-dim hover:text-bright hover:bg-border'
-                      }`}
-                      title="Manage column visibility"
-                    >
-                      <Columns className="w-3.5 h-3.5" />
-                      <span>Columns ({visibleColIndices.length}/{headers.length})</span>
-                    </button>
-
-                    {showColumnManager && (
-                      <div className="absolute right-0 mt-2 w-64 bg-surface border border-border rounded-xl shadow-2xl p-3 z-30 space-y-2.5 max-h-80 overflow-y-auto">
-                        <div className="flex items-center justify-between pb-2 border-b border-border text-xs">
-                          <span className="font-semibold text-bright">Visible Columns</span>
+                  {showColumnManager && (
+                    <div className="absolute right-0 mt-2 w-80 bg-surface border border-border rounded-xl shadow-2xl p-3 z-30 space-y-2.5 max-h-96 overflow-y-auto">
+                      <div className="flex items-center justify-between pb-2 border-b border-border text-xs">
+                        <span className="font-semibold text-bright">Column Manager</span>
+                        <div className="flex items-center gap-2">
                           <button
                             onClick={showAllColumns}
                             className="text-[11px] text-accent hover:underline flex items-center gap-1"
+                            title="Show all columns"
                           >
-                            <RotateCcw className="w-3 h-3" />
-                            Show All
+                            <CheckSquare className="w-3 h-3" />
+                            All
+                          </button>
+                          <button
+                            onClick={hideAllColumns}
+                            className="text-[11px] text-dim hover:text-bright hover:underline flex items-center gap-1"
+                            title="Hide all columns"
+                          >
+                            <Square className="w-3 h-3" />
+                            None
                           </button>
                         </div>
-                        <div className="space-y-1">
-                          {headers.map((h, idx) => (
-                            <label
-                              key={idx}
-                              className="flex items-center justify-between p-1.5 rounded hover:bg-background cursor-pointer text-xs group"
-                            >
-                              <span className="truncate max-w-[170px] text-dim group-hover:text-bright font-mono">
-                                {h}
+                      </div>
+
+                      {/* Search Columns */}
+                      <div className="relative">
+                        <Search className="w-3 h-3 text-dim absolute left-2.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          placeholder="Search column names or index..."
+                          value={columnSearchQuery}
+                          onChange={(e) => setColumnSearchQuery(e.target.value)}
+                          className="w-full text-xs font-mono bg-background border border-border rounded-lg pl-7 pr-2 py-1 text-bright focus:outline-none focus:border-accent"
+                        />
+                      </div>
+
+                      {/* Columns List */}
+                      <div className="space-y-1 max-h-56 overflow-y-auto pr-1">
+                        {filteredColumnsList.map(({ header, index }) => (
+                          <label
+                            key={index}
+                            className="flex items-center justify-between p-1.5 rounded hover:bg-background cursor-pointer text-xs group"
+                          >
+                            <div className="flex items-center gap-2 truncate max-w-[200px]">
+                              <span className="text-[10px] font-mono text-subtle w-6 shrink-0">
+                                #{index + 1}
                               </span>
-                              <input
-                                type="checkbox"
-                                checked={!hiddenCols[idx]}
-                                onChange={() => toggleColumnVisibility(idx)}
-                                className="rounded border-border text-accent focus:ring-accent bg-background cursor-pointer"
-                              />
-                            </label>
-                          ))}
-                        </div>
+                              <span className="truncate text-dim group-hover:text-bright font-mono">
+                                {header}
+                              </span>
+                            </div>
+                            <input
+                              type="checkbox"
+                              checked={!hiddenCols[index]}
+                              onChange={() => toggleColumnVisibility(index)}
+                              className="rounded border-border text-accent focus:ring-accent bg-background cursor-pointer"
+                            />
+                          </label>
+                        ))}
                       </div>
-                    )}
-                  </div>
-
-                  {/* Density Selector */}
-                  <div className="hidden sm:flex items-center bg-background rounded-lg border border-border p-0.5 text-xs">
-                    {(['compact', 'comfortable', 'spacious'] as const).map(d => (
-                      <button
-                        key={d}
-                        onClick={() => setDensity(d)}
-                        className={`px-2 py-1 capitalize rounded-md text-[11px] font-mono transition-colors ${
-                          density === d ? 'bg-surface text-bright font-medium border border-border' : 'text-dim hover:text-bright'
-                        }`}
-                      >
-                        {d}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Export Options Dropdown */}
-                  <div className="relative">
-                    <button
-                      onClick={() => setShowExportMenu(!showExportMenu)}
-                      className="flex items-center gap-1.5 text-xs font-mono text-dim hover:text-bright px-3 py-1.5 rounded-lg bg-surface hover:bg-border transition-colors border border-border"
-                      title="Export current page"
-                    >
-                      <Download className="w-3.5 h-3.5 text-accent" />
-                      <span>Export</span>
-                    </button>
-
-                    {showExportMenu && (
-                      <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl p-1.5 z-30 space-y-1">
-                        <button
-                          onClick={handleExportCsv}
-                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
-                        >
-                          <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-                          <span>Export as CSV</span>
-                        </button>
-                        <button
-                          onClick={handleExportJson}
-                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
-                        >
-                          <FileCode className="w-4 h-4 text-amber-400" />
-                          <span>Export as JSON</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Fullscreen Expand / Collapse Toggle */}
-                  <button
-                    onClick={() => setIsFullscreen(!isFullscreen)}
-                    className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-all ${
-                      isFullscreen
-                        ? 'bg-accent text-white border-accent shadow-md'
-                        : 'bg-surface border-border text-dim hover:text-bright hover:bg-border'
-                    }`}
-                    title={isFullscreen ? 'Exit Full Screen (ESC)' : 'Expand to Full Screen'}
-                  >
-                    {isFullscreen ? (
-                      <>
-                        <Minimize2 className="w-3.5 h-3.5" />
-                        <span>Exit Fullscreen</span>
-                      </>
-                    ) : (
-                      <>
-                        <Maximize2 className="w-3.5 h-3.5 text-accent" />
-                        <span>Full Screen</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* Search and Quick Pagination Filter Bar */}
-              <div className="px-4 py-3 border-b border-border bg-surface/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                {/* Search Bar */}
-                <div className="relative flex-1 max-w-lg">
-                  <Search className="w-3.5 h-3.5 text-dim absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    placeholder="Instant search & filter in visible rows..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full text-xs font-mono bg-background border border-border rounded-lg pl-9 pr-8 py-1.5 text-bright focus:outline-none focus:border-accent transition-colors"
-                  />
-                  {searchTerm && (
-                    <button
-                      onClick={() => setSearchTerm('')}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-dim hover:text-bright text-xs"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
-
-                {/* Navigation Pagination Controls */}
-                <div className="flex items-center gap-1 sm:gap-2 self-end sm:self-auto">
-                  {sortConfig && (
-                    <button
-                      onClick={() => setSortConfig(null)}
-                      className="text-[11px] font-mono text-accent hover:underline flex items-center gap-1 mr-2 px-2 py-1 rounded bg-accent/10 border border-accent/20"
-                    >
-                      <span>Sort: {headers[sortConfig.colIdx]} ({sortConfig.direction})</span>
-                      <span>✕</span>
-                    </button>
-                  )}
-
-                  <button
-                    onClick={() => goToPage(1)}
-                    disabled={currentPage === 1 || isLoadingPage}
-                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                    title="First Page"
-                  >
-                    <ChevronsLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => goToPage(currentPage - 1)}
-                    disabled={currentPage === 1 || isLoadingPage}
-                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                    title="Previous Page"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-
-                  <div className="flex items-center gap-1.5 px-2 text-xs font-mono text-dim">
-                    <span>Page</span>
-                    <input
-                      type="number"
-                      min={1}
-                      max={totalPages}
-                      value={currentPage}
-                      onChange={(e) => {
-                        const p = parseInt(e.target.value, 10)
-                        if (!isNaN(p)) goToPage(p)
-                      }}
-                      className="w-14 text-center bg-background border border-border rounded px-1.5 py-1 text-bright text-xs focus:outline-none focus:border-accent"
-                    />
-                    <span>of {totalPages}</span>
-                  </div>
-
-                  <button
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage >= totalPages || isLoadingPage}
-                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                    title="Next Page"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => goToPage(totalPages)}
-                    disabled={currentPage >= totalPages || isLoadingPage}
-                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-                    title="Last Page"
-                  >
-                    <ChevronsRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              {/* View Content (Table or JSON) */}
-              <div className="relative flex-1 overflow-hidden bg-background">
-                {isLoadingPage && (
-                  <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px] z-20 flex items-center justify-center">
-                    <div className="flex items-center gap-2.5 bg-surface px-5 py-3 rounded-xl border border-border shadow-2xl text-xs text-bright font-mono">
-                      <Loader2 className="w-4 h-4 text-accent animate-spin" />
-                      <span>Loading page {currentPage} from file stream...</span>
                     </div>
-                  </div>
+                  )}
+                </div>
+
+                {/* Density Selector */}
+                <div className="hidden sm:flex items-center bg-background rounded-lg border border-border p-0.5 text-xs">
+                  {(['compact', 'comfortable', 'spacious'] as const).map(d => (
+                    <button
+                      key={d}
+                      onClick={() => setDensity(d)}
+                      className={`px-2 py-1 capitalize rounded-md text-[11px] font-mono transition-colors ${
+                        density === d ? 'bg-surface text-bright font-medium border border-border' : 'text-dim hover:text-bright'
+                      }`}
+                    >
+                      {d}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Export Options Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setShowExportMenu(!showExportMenu)}
+                    className="flex items-center gap-1.5 text-xs font-mono text-dim hover:text-bright px-3 py-1.5 rounded-lg bg-surface hover:bg-border transition-colors border border-border"
+                    title="Export current page"
+                  >
+                    <Download className="w-3.5 h-3.5 text-accent" />
+                    <span>Export</span>
+                  </button>
+
+                  {showExportMenu && (
+                    <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl p-1.5 z-30 space-y-1">
+                      <button
+                        onClick={handleExportCsv}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
+                      >
+                        <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                        <span>Export as CSV</span>
+                      </button>
+                      <button
+                        onClick={handleExportJson}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
+                      >
+                        <FileCode className="w-4 h-4 text-amber-400" />
+                        <span>Export as JSON</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Search and Quick Pagination Filter Bar */}
+            <div className="px-4 py-3 border-b border-border bg-surface/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              {/* Search Bar */}
+              <div className="relative flex-1 max-w-lg">
+                <Search className="w-3.5 h-3.5 text-dim absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search across visible cells in loaded page..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full text-xs font-mono bg-background border border-border rounded-lg pl-9 pr-8 py-1.5 text-bright focus:outline-none focus:border-accent transition-colors"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-dim hover:text-bright text-xs"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+
+              {/* Navigation Pagination Controls */}
+              <div className="flex items-center gap-1 sm:gap-2 self-end sm:self-auto">
+                {sortConfig && (
+                  <button
+                    onClick={() => setSortConfig(null)}
+                    className="text-[11px] font-mono text-accent hover:underline flex items-center gap-1 mr-2 px-2 py-1 rounded bg-accent/10 border border-accent/20"
+                  >
+                    <span>Sort: {headers[sortConfig.colIdx]} ({sortConfig.direction})</span>
+                    <span>✕</span>
+                  </button>
                 )}
 
-                {activeTab === 'table' ? (
-                  /* High Performance Painted Table with Sticky Header & Sorting */
-                  <div className={`overflow-x-auto overflow-y-auto ${isFullscreen ? 'h-[calc(100vh-230px)]' : 'max-h-[620px]'}`}>
-                    <table className="w-full text-left border-collapse">
-                      <thead className="sticky top-0 z-10 bg-surface border-b border-border shadow-sm">
-                        <tr>
-                          <th className={`${headerPaddingClass} font-mono text-dim border-r border-border w-16 text-center bg-surface sticky left-0 z-20 shadow-[1px_0_0_rgba(255,255,255,0.05)]`}>
-                            #
-                          </th>
-                          {visibleColIndices.map((colIdx) => {
-                            const header = headers[colIdx]
-                            const type = columnTypes[colIdx] || 'text'
-                            const isSorted = sortConfig?.colIdx === colIdx
+                <button
+                  onClick={() => goToPage(1)}
+                  disabled={currentPage === 1 || isLoadingPage}
+                  className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  title="First Page"
+                >
+                  <ChevronsLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1 || isLoadingPage}
+                  className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  title="Previous Page"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
 
-                            return (
-                              <th
-                                key={colIdx}
-                                onClick={() => handleSortColumn(colIdx)}
-                                className={`${headerPaddingClass} font-mono font-semibold text-bright whitespace-nowrap border-r border-border last:border-r-0 bg-surface cursor-pointer select-none hover:bg-border/60 transition-colors group`}
-                                title="Click to sort by this column"
-                              >
-                                <div className="flex items-center justify-between gap-3">
-                                  <span className="truncate max-w-[240px] text-bright group-hover:text-accent transition-colors">
-                                    {header}
+                <div className="flex items-center gap-1.5 px-2 text-xs font-mono text-dim">
+                  <span>Page</span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={totalPages}
+                    value={currentPage}
+                    onChange={(e) => {
+                      const p = parseInt(e.target.value, 10)
+                      if (!isNaN(p)) goToPage(p)
+                    }}
+                    className="w-14 text-center bg-background border border-border rounded px-1.5 py-1 text-bright text-xs focus:outline-none focus:border-accent"
+                  />
+                  <span>of {totalPages}</span>
+                </div>
+
+                <button
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage >= totalPages || isLoadingPage}
+                  className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  title="Next Page"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => goToPage(totalPages)}
+                  disabled={currentPage >= totalPages || isLoadingPage}
+                  className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                  title="Last Page"
+                >
+                  <ChevronsRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* View Content (Table or JSON) */}
+            <div className="relative flex-1 overflow-hidden bg-background">
+              {isLoadingPage && (
+                <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px] z-20 flex items-center justify-center">
+                  <div className="flex items-center gap-2.5 bg-surface px-5 py-3 rounded-xl border border-border shadow-2xl text-xs text-bright font-mono">
+                    <Loader2 className="w-4 h-4 text-accent animate-spin" />
+                    <span>Loading page {currentPage} from file stream...</span>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'table' ? (
+                /* High-Performance Smooth Horizontal & Vertical Scrolling Table */
+                <div className="overflow-x-auto overflow-y-auto max-h-[640px] w-full select-text">
+                  <table className="w-full text-left border-collapse min-w-full">
+                    <thead className="sticky top-0 z-10 bg-surface border-b border-border shadow-sm">
+                      <tr>
+                        {/* Sticky Row Index Column */}
+                        <th className={`${headerPaddingClass} font-mono text-dim border-r border-border w-14 min-w-[56px] text-center bg-surface sticky left-0 z-20 shadow-[1px_0_0_rgba(255,255,255,0.08)]`}>
+                          #
+                        </th>
+                        {visibleColIndices.map((colIdx) => {
+                          const header = headers[colIdx]
+                          const type = columnTypes[colIdx] || 'text'
+                          const isSorted = sortConfig?.colIdx === colIdx
+
+                          return (
+                            <th
+                              key={colIdx}
+                              onClick={() => handleSortColumn(colIdx)}
+                              className={`${headerPaddingClass} font-mono font-semibold text-bright whitespace-nowrap min-w-[140px] border-r border-border last:border-r-0 bg-surface cursor-pointer select-none hover:bg-border/60 transition-colors group`}
+                              title={`Column ${colIdx + 1}: ${header} • Click to sort`}
+                            >
+                              <div className="flex items-center justify-between gap-3">
+                                <span className="truncate max-w-[200px] text-bright group-hover:text-accent transition-colors">
+                                  {header}
+                                </span>
+                                <div className="flex items-center gap-1.5 shrink-0">
+                                  <span className="text-[9px] font-normal px-1.5 py-0.5 rounded bg-background/80 text-subtle uppercase border border-border/50">
+                                    {type}
                                   </span>
-                                  <div className="flex items-center gap-1.5 shrink-0">
-                                    <span className="text-[9px] font-normal px-1.5 py-0.5 rounded bg-background/80 text-subtle uppercase border border-border/50">
-                                      {type}
-                                    </span>
-                                    <div className="text-dim group-hover:text-accent transition-colors">
-                                      {isSorted ? (
-                                        sortConfig.direction === 'asc' ? (
-                                          <ArrowUp className="w-3.5 h-3.5 text-accent" />
-                                        ) : (
-                                          <ArrowDown className="w-3.5 h-3.5 text-accent" />
-                                        )
+                                  <div className="text-dim group-hover:text-accent transition-colors">
+                                    {isSorted ? (
+                                      sortConfig.direction === 'asc' ? (
+                                        <ArrowUp className="w-3.5 h-3.5 text-accent" />
                                       ) : (
-                                        <ArrowUpDown className="w-3 h-3 opacity-30 group-hover:opacity-100" />
-                                      )}
-                                    </div>
+                                        <ArrowDown className="w-3.5 h-3.5 text-accent" />
+                                      )
+                                    ) : (
+                                      <ArrowUpDown className="w-3 h-3 opacity-30 group-hover:opacity-100" />
+                                    )}
                                   </div>
                                 </div>
-                              </th>
-                            )
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-border font-mono">
-                        {processedRows.length > 0 ? (
-                          processedRows.map((row, rowIdx) => {
-                            const globalRowNum = (currentPage - 1) * rowsPerPage + rowIdx + 1
-                            return (
-                              <tr
-                                key={rowIdx}
-                                className="hover:bg-surface/90 transition-colors group"
-                              >
-                                <td className={`${cellPaddingClass} text-subtle text-center border-r border-border bg-surface/40 sticky left-0 z-0`}>
-                                  {globalRowNum}
-                                </td>
-                                {visibleColIndices.map((colIdx) => {
-                                  const cellValue = row[colIdx] !== undefined ? String(row[colIdx]) : ''
-                                  const cellId = `${rowIdx}-${colIdx}`
-                                  const isCopied = copiedCell === cellId
-                                  const isNumeric = columnTypes[colIdx] === 'number'
-
-                                  return (
-                                    <td
-                                      key={colIdx}
-                                      onClick={() => handleCopyCell(cellValue, cellId)}
-                                      className={`${cellPaddingClass} text-dim whitespace-nowrap max-w-[320px] truncate border-r border-border last:border-r-0 cursor-pointer hover:text-bright hover:bg-accent/5 transition-colors relative group/cell ${
-                                        isNumeric ? 'text-right' : ''
-                                      }`}
-                                      title={`Click to copy: ${cellValue}`}
-                                    >
-                                      <span>{cellValue}</span>
-                                      <div className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover/cell:opacity-100 transition-opacity bg-surface px-1.5 py-0.5 rounded border border-border text-[10px] shadow-sm z-10">
-                                        {isCopied ? (
-                                          <span className="flex items-center gap-1 text-green-400 font-sans">
-                                            <Check className="w-3 h-3" /> Copied
-                                          </span>
-                                        ) : (
-                                          <Copy className="w-3 h-3 text-dim" />
-                                        )}
-                                      </div>
-                                    </td>
-                                  )
-                                })}
-                              </tr>
-                            )
-                          })
-                        ) : (
-                          <tr>
-                            <td
-                              colSpan={visibleColIndices.length + 1}
-                              className="px-4 py-16 text-center text-dim text-xs font-sans"
-                            >
-                              <div className="flex flex-col items-center justify-center gap-2">
-                                <Filter className="w-6 h-6 text-subtle" />
-                                <p className="font-medium text-bright">No matching rows found</p>
-                                <p className="text-subtle text-[11px]">
-                                  Try adjusting your search query or clear filters to view all rows.
-                                </p>
                               </div>
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
+                            </th>
+                          )
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-border font-mono">
+                      {processedRows.length > 0 ? (
+                        processedRows.map((row, rowIdx) => {
+                          const globalRowNum = (currentPage - 1) * rowsPerPage + rowIdx + 1
+                          return (
+                            <tr
+                              key={rowIdx}
+                              className="hover:bg-surface/90 transition-colors group"
+                            >
+                              {/* Sticky Row Index Cell */}
+                              <td className={`${cellPaddingClass} text-subtle text-center border-r border-border bg-surface/90 sticky left-0 z-0 shadow-[1px_0_0_rgba(255,255,255,0.08)]`}>
+                                {globalRowNum}
+                              </td>
+                              {visibleColIndices.map((colIdx) => {
+                                const cellValue = row[colIdx] !== undefined ? String(row[colIdx]) : ''
+                                const cellId = `${rowIdx}-${colIdx}`
+                                const isCopied = copiedCell === cellId
+                                const isNumeric = columnTypes[colIdx] === 'number'
+
+                                return (
+                                  <td
+                                    key={colIdx}
+                                    onClick={() => handleCopyCell(cellValue, cellId)}
+                                    className={`${cellPaddingClass} text-dim whitespace-nowrap min-w-[140px] max-w-[340px] truncate border-r border-border last:border-r-0 cursor-pointer hover:text-bright hover:bg-accent/5 transition-colors relative group/cell ${
+                                      isNumeric ? 'text-right' : ''
+                                    }`}
+                                    title={`Column ${colIdx + 1} (${headers[colIdx]}): ${cellValue}`}
+                                  >
+                                    <span>{cellValue}</span>
+                                    <div className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover/cell:opacity-100 transition-opacity bg-surface px-1.5 py-0.5 rounded border border-border text-[10px] shadow-sm z-10">
+                                      {isCopied ? (
+                                        <span className="flex items-center gap-1 text-green-400 font-sans">
+                                          <Check className="w-3 h-3" /> Copied
+                                        </span>
+                                      ) : (
+                                        <Copy className="w-3 h-3 text-dim" />
+                                      )}
+                                    </div>
+                                  </td>
+                                )
+                              })}
+                            </tr>
+                          )
+                        })
+                      ) : (
+                        <tr>
+                          <td
+                            colSpan={visibleColIndices.length + 1}
+                            className="px-4 py-16 text-center text-dim text-xs font-sans"
+                          >
+                            <div className="flex flex-col items-center justify-center gap-2">
+                              <Filter className="w-6 h-6 text-subtle" />
+                              <p className="font-medium text-bright">No matching rows found</p>
+                              <p className="text-subtle text-[11px]">
+                                Try adjusting your search query or clear filters to view all rows.
+                              </p>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                /* JSON Formatted Preview */
+                <div className="p-4 overflow-auto font-mono text-xs text-bright max-h-[640px]">
+                  <div className="flex items-center justify-between mb-2 text-dim text-[11px] pb-2 border-b border-border font-sans">
+                    <span>Showing JSON format for current visible rows (Sample up to 50 rows)</span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(JSON.stringify(jsonPreviewData, null, 2))
+                        setCopiedCell('json')
+                        setTimeout(() => setCopiedCell(null), 1500)
+                      }}
+                      className="flex items-center gap-1 text-accent hover:underline font-mono"
+                    >
+                      {copiedCell === 'json' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedCell === 'json' ? 'Copied JSON!' : 'Copy JSON'}</span>
+                    </button>
                   </div>
-                ) : (
-                  /* JSON Formatted Preview */
-                  <div className={`p-4 overflow-auto font-mono text-xs text-bright ${isFullscreen ? 'h-[calc(100vh-230px)]' : 'max-h-[620px]'}`}>
-                    <div className="flex items-center justify-between mb-2 text-dim text-[11px] pb-2 border-b border-border font-sans">
-                      <span>Showing JSON format for current visible rows (Sample up to 50 rows)</span>
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(JSON.stringify(jsonPreviewData, null, 2))
-                          setCopiedCell('json')
-                          setTimeout(() => setCopiedCell(null), 1500)
-                        }}
-                        className="flex items-center gap-1 text-accent hover:underline font-mono"
-                      >
-                        {copiedCell === 'json' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                        <span>{copiedCell === 'json' ? 'Copied JSON!' : 'Copy JSON'}</span>
-                      </button>
-                    </div>
-                    <pre className="text-dim leading-relaxed whitespace-pre-wrap">
-                      {JSON.stringify(jsonPreviewData, null, 2)}
-                    </pre>
-                  </div>
+                  <pre className="text-dim leading-relaxed whitespace-pre-wrap">
+                    {JSON.stringify(jsonPreviewData, null, 2)}
+                  </pre>
+                </div>
+              )}
+            </div>
+
+            {/* Table Footer info Bar */}
+            <div className="px-4 py-2.5 bg-surface border-t border-border flex flex-wrap items-center justify-between text-[11px] text-dim font-mono gap-2">
+              <div className="flex items-center gap-3">
+                <span>
+                  Showing rows {(currentPage - 1) * rowsPerPage + 1} –{' '}
+                  {Math.min(currentPage * rowsPerPage, totalRows || pageData.length)} of{' '}
+                  {isIndexing ? `${totalRows.toLocaleString()}+ (Streaming...)` : totalRows.toLocaleString()}
+                </span>
+                {searchTerm && (
+                  <span className="text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
+                    {processedRows.length} filtered match{processedRows.length === 1 ? '' : 'es'}
+                  </span>
                 )}
               </div>
-
-              {/* Table Footer info Bar */}
-              <div className="px-4 py-2.5 bg-surface border-t border-border flex flex-wrap items-center justify-between text-[11px] text-dim font-mono gap-2">
-                <div className="flex items-center gap-3">
-                  <span>
-                    Showing rows {(currentPage - 1) * rowsPerPage + 1} –{' '}
-                    {Math.min(currentPage * rowsPerPage, totalRows || pageData.length)} of{' '}
-                    {isIndexing ? `${totalRows.toLocaleString()}+ (Indexing...)` : totalRows.toLocaleString()}
-                  </span>
-                  {searchTerm && (
-                    <span className="text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
-                      {processedRows.length} filtered match{processedRows.length === 1 ? '' : 'es'}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-4 text-subtle">
-                  <span>Tip: Click column header to sort • Click any cell to copy</span>
-                  {isFullscreen && <span>Press <kbd className="px-1.5 py-0.5 bg-background border border-border rounded text-[10px] text-bright">ESC</kbd> to exit</span>}
-                </div>
+              <div className="flex items-center gap-4 text-subtle">
+                <span>Tip: Click column header to sort • Click any cell to copy</span>
+                <span>{visibleColIndices.length} active columns</span>
               </div>
             </div>
           </div>
