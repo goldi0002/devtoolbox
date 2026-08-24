@@ -169,7 +169,8 @@ export default function CsvTxtViewer() {
   const pageOffsetsRef = useRef<number[]>([0]) // Stores start byte offset for each page
   const fileRef = useRef<File | null>(null)
 
-  const totalPages = Math.max(1, Math.ceil(totalRows / rowsPerPage))
+  const effectiveTotalRows = Math.max(totalRows, (currentPage - 1) * rowsPerPage + pageData.length)
+  const totalPages = Math.max(1, Math.ceil(effectiveTotalRows / rowsPerPage))
 
   // Load a specific page chunk from file slice with dynamic lookahead
   const loadPage = useCallback(async (
@@ -216,6 +217,9 @@ export default function CsvTxtViewer() {
           setPageData(rows)
           setCurrentPage(page)
           setIsLoadingPage(false)
+
+          // Sync totalRows if current slice loaded more rows than previously known
+          setTotalRows(prev => Math.max(prev, (page - 1) * rPerPage + rows.length))
         },
         error: (err: Error) => {
           setError(`Error reading page ${page}: ${err.message}`)
@@ -293,6 +297,7 @@ export default function CsvTxtViewer() {
       let rowCount = 0
       let inQuotes = false
       let isFirstLine = true
+      let hasNonWhitespaceOnCurrentLine = false
       let page1DataLoaded = false
       const pageOffsets: number[] = [0]
       let lastProgressUpdate = performance.now()
@@ -316,6 +321,11 @@ export default function CsvTxtViewer() {
         for (let i = 0; i < chunkLen; i++) {
           const byte = chunk[i]
 
+          // Detect non-whitespace character (byte > 32)
+          if (byte > 32) {
+            hasNonWhitespaceOnCurrentLine = true
+          }
+
           // Handle double quotes for RFC 4180 CSVs
           if (byte === 34) { // '"'
             inQuotes = !inQuotes
@@ -328,22 +338,27 @@ export default function CsvTxtViewer() {
                 // Page 1 data starts right after header line
                 pageOffsets[0] = currentLineStartOffset
               } else {
-                rowCount++
+                if (hasNonWhitespaceOnCurrentLine) {
+                  rowCount++
+                }
               }
             } else {
-              rowCount++
-              if (rowCount % rPerPage === 0) {
-                pageOffsets.push(currentLineStartOffset)
+              if (hasNonWhitespaceOnCurrentLine) {
+                rowCount++
+                if (rowCount % rPerPage === 0) {
+                  pageOffsets.push(currentLineStartOffset)
 
-                // When page 1 offset boundary is locked (and page 2 start is identified),
-                // trigger loadPage(1) so Page 1 displays exactly rPerPage rows!
-                if (!page1DataLoaded && pageOffsets.length >= 2) {
-                  page1DataLoaded = true
-                  pageOffsetsRef.current = [...pageOffsets]
-                  loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
+                  // When page 1 offset boundary is locked (and page 2 start is identified),
+                  // trigger loadPage(1) so Page 1 displays exactly rPerPage rows!
+                  if (!page1DataLoaded && pageOffsets.length >= 2) {
+                    page1DataLoaded = true
+                    pageOffsetsRef.current = [...pageOffsets]
+                    loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
+                  }
                 }
               }
             }
+            hasNonWhitespaceOnCurrentLine = false
           }
         }
 
@@ -360,12 +375,24 @@ export default function CsvTxtViewer() {
         }
       }
 
+      // Handle trailing line without ending newline
+      if (hasNonWhitespaceOnCurrentLine) {
+        if (isFirstLine) {
+          isFirstLine = false
+          if (!firstRowHeader) {
+            rowCount++
+          }
+        } else {
+          rowCount++
+        }
+      }
+
       pageOffsetsRef.current = pageOffsets
       setTotalRows(rowCount)
       setIndexingProgress(100)
       setIsIndexing(false)
 
-      // Ensure page 1 is loaded if file has less than rPerPage rows
+      // Ensure page 1 is loaded if file has less than rPerPage rows or not loaded yet
       if (!page1DataLoaded) {
         loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
       }
@@ -788,10 +815,10 @@ export default function CsvTxtViewer() {
             value={
               isIndexing ? (
                 <span className="flex items-center gap-1.5">
-                  {totalRows.toLocaleString()}+ <Loader2 className="w-3 h-3 animate-spin text-accent" />
+                  {effectiveTotalRows.toLocaleString()}+ <Loader2 className="w-3 h-3 animate-spin text-accent" />
                 </span>
               ) : (
-                totalRows.toLocaleString()
+                effectiveTotalRows.toLocaleString()
               )
             }
             icon={Table}
