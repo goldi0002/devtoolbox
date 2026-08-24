@@ -26,10 +26,18 @@ import {
   FileCode,
   LayoutGrid,
   CheckSquare,
-  Square
+  Square,
+  Eye,
+  Maximize2,
+  Minimize2,
+  Sparkles
 } from 'lucide-react'
 import SectionPanel from '../../ui/SectionPanel'
 import StatCard from '../../ui/StatCard'
+import RowDetailModal from './csv-viewer/RowDetailModal'
+import ReadMetricsCard, { ReadMetrics } from './csv-viewer/ReadMetricsCard'
+import FileMetadataPanel, { FileDetails } from './csv-viewer/FileMetadataPanel'
+import { createCsvIndexWorker, IndexWorkerMessage } from './csv-viewer/csvIndexWorker'
 
 function formatBytes(bytes: number, decimals = 2): string {
   if (!+bytes) return '0 Bytes'
@@ -164,10 +172,34 @@ export default function CsvTxtViewer() {
   const [customRangeStart, setCustomRangeStart] = useState<number>(1)
   const [customRangeEnd, setCustomRangeEnd] = useState<number>(100)
 
-  // Stream Cancellation and Byte Index Ref
+  // Stream Cancellation, Worker, and Byte Index Ref
   const abortControllerRef = useRef<AbortController | null>(null)
+  const activeWorkerRef = useRef<{ terminate: () => void } | null>(null)
   const pageOffsetsRef = useRef<number[]>([0]) // Stores start byte offset for each page
   const fileRef = useRef<File | null>(null)
+
+  // Clean up worker on unmount
+  useEffect(() => {
+    return () => {
+      if (activeWorkerRef.current) {
+        activeWorkerRef.current.terminate()
+      }
+    }
+  }, [])
+
+  // Read Timing Benchmarks & File Details
+  const [readMetrics, setReadMetrics] = useState<ReadMetrics>({
+    initialInspectionTimeMs: 0,
+    totalIndexingTimeMs: 0,
+    pageReadTimeMs: 0,
+    bytesPerSecond: 0,
+    totalBytesProcessed: 0,
+    totalRowsIndexed: 0
+  })
+  const [fileDetails, setFileDetails] = useState<FileDetails | null>(null)
+
+  // Row Detail Inspector State
+  const [inspectedRowIndex, setInspectedRowIndex] = useState<number | null>(null)
 
   const effectiveTotalRows = Math.max(totalRows, (currentPage - 1) * rowsPerPage + pageData.length)
   const totalPages = Math.max(1, Math.ceil(effectiveTotalRows / rowsPerPage))
@@ -182,18 +214,18 @@ export default function CsvTxtViewer() {
   ) => {
     if (!targetFile) return
     setIsLoadingPage(true)
+    const pageStartTime = performance.now()
 
     try {
       const pageIdx = page - 1
       const startByte = pageOffsetsRef.current[pageIdx] ?? 0
       
       // Calculate end byte safely:
-      // If we know the next page offset, we can read up to it (plus generous buffer to not cut row boundary)
       let endByte: number
       if (pageOffsetsRef.current[pageIdx + 1] !== undefined) {
         endByte = Math.min(targetFile.size, pageOffsetsRef.current[pageIdx + 1] + 16384)
       } else {
-        // Fallback for indexing in progress: generous 16MB chunk to guarantee rPerPage rows even for very wide files
+        // Fallback for indexing in progress: generous 16MB chunk
         endByte = Math.min(targetFile.size, startByte + Math.max(rPerPage * 8192, 1024 * 1024))
       }
 
@@ -207,6 +239,7 @@ export default function CsvTxtViewer() {
         header: false,
         skipEmptyLines: 'greedy',
         complete: (results) => {
+          const sliceElapsed = performance.now() - pageStartTime
           let rows = results.data || []
           // If page 1 and hasHeader and startByte is 0, skip the first row (the header)
           if (page === 1 && firstRowHeader && startByte === 0 && rows.length > 0) {
@@ -217,6 +250,12 @@ export default function CsvTxtViewer() {
           setPageData(rows)
           setCurrentPage(page)
           setIsLoadingPage(false)
+
+          // Update page slice latency metric
+          setReadMetrics(prev => ({
+            ...prev,
+            pageReadTimeMs: sliceElapsed
+          }))
 
           // Sync totalRows if current slice loaded more rows than previously known
           setTotalRows(prev => Math.max(prev, (page - 1) * rPerPage + rows.length))
@@ -255,10 +294,14 @@ export default function CsvTxtViewer() {
     setPageData([])
     setSortConfig(null)
     setHiddenCols({})
+    setInspectedRowIndex(null)
     pageOffsetsRef.current = [0]
 
+    const startIndexingTime = performance.now()
+
     try {
-      // 1. Delimiter & Header Inspection (Read first 256KB sample to safely capture 100+ columns header)
+      // 1. Delimiter & Header Inspection
+      const inspectStartTime = performance.now()
       const previewSize = Math.min(inputFile.size, 256 * 1024)
       const previewBlob = inputFile.slice(0, previewSize)
       const previewText = await previewBlob.text()
@@ -276,6 +319,7 @@ export default function CsvTxtViewer() {
 
       const rawRows = initialParsed.data || []
       let detectedHeaders: string[] = []
+      let inferredTypes: ColumnType[] = []
 
       if (rawRows.length > 0) {
         if (firstRowHeader) {
@@ -284,118 +328,115 @@ export default function CsvTxtViewer() {
           const maxCols = Math.max(...rawRows.map(r => r.length))
           detectedHeaders = Array.from({ length: maxCols }, (_, i) => `Column_${i + 1}`)
         }
+        inferredTypes = inferColumnTypes(rawRows.slice(firstRowHeader ? 1 : 0), detectedHeaders.length)
         setHeaders(detectedHeaders)
-        setColumnTypes(inferColumnTypes(rawRows.slice(firstRowHeader ? 1 : 0), detectedHeaders.length))
+        setColumnTypes(inferredTypes)
       }
 
-      // 2. High-Performance Byte Indexing Stream to accurately find ALL page start offsets
-      const stream = inputFile.stream()
-      const reader = stream.getReader()
-      const totalBytes = inputFile.size
+      const inspectElapsed = performance.now() - inspectStartTime
 
-      let processedBytes = 0
-      let rowCount = 0
-      let inQuotes = false
-      let isFirstLine = true
-      let hasNonWhitespaceOnCurrentLine = false
-      let page1DataLoaded = false
-      const pageOffsets: number[] = [0]
-      let lastProgressUpdate = performance.now()
+      // Detect line ending type
+      const hasCRLF = previewText.includes('\r\n')
+      const hasLF = previewText.includes('\n')
+      const lineEndingType = hasCRLF ? 'CRLF (Windows)' : hasLF ? 'LF (Unix/macOS)' : 'Mixed / Unknown'
 
-      let isReading = true
-      while (isReading) {
-        if (abortController.signal.aborted) {
-          reader.cancel()
-          return
-        }
-
-        const { done, value } = await reader.read()
-        if (done) {
-          isReading = false
-          break
-        }
-
-        const chunk = value
-        const chunkLen = chunk.length
-
-        for (let i = 0; i < chunkLen; i++) {
-          const byte = chunk[i]
-
-          // Detect non-whitespace character (byte > 32)
-          if (byte > 32) {
-            hasNonWhitespaceOnCurrentLine = true
-          }
-
-          // Handle double quotes for RFC 4180 CSVs
-          if (byte === 34) { // '"'
-            inQuotes = !inQuotes
-          } else if (byte === 10 && !inQuotes) { // '\n'
-            const currentLineStartOffset = processedBytes + i + 1
-
-            if (isFirstLine) {
-              isFirstLine = false
-              if (firstRowHeader) {
-                // Page 1 data starts right after header line
-                pageOffsets[0] = currentLineStartOffset
-              } else {
-                if (hasNonWhitespaceOnCurrentLine) {
-                  rowCount++
-                }
-              }
-            } else {
-              if (hasNonWhitespaceOnCurrentLine) {
-                rowCount++
-                if (rowCount % rPerPage === 0) {
-                  pageOffsets.push(currentLineStartOffset)
-
-                  // When page 1 offset boundary is locked (and page 2 start is identified),
-                  // trigger loadPage(1) so Page 1 displays exactly rPerPage rows!
-                  if (!page1DataLoaded && pageOffsets.length >= 2) {
-                    page1DataLoaded = true
-                    pageOffsetsRef.current = [...pageOffsets]
-                    loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
-                  }
-                }
-              }
-            }
-            hasNonWhitespaceOnCurrentLine = false
-          }
-        }
-
-        processedBytes += chunkLen
-
-        // Throttled UI Progress Updates (every 100ms)
-        const now = performance.now()
-        if (now - lastProgressUpdate > 100) {
-          lastProgressUpdate = now
-          const pct = Math.min(99, Math.round((processedBytes / totalBytes) * 100))
-          setIndexingProgress(pct)
-          setTotalRows(rowCount)
-          pageOffsetsRef.current = [...pageOffsets]
-        }
+      // Count column types breakdown
+      const typeBreakdown = {
+        number: inferredTypes.filter(t => t === 'number').length,
+        text: inferredTypes.filter(t => t === 'text').length,
+        date: inferredTypes.filter(t => t === 'date').length,
+        boolean: inferredTypes.filter(t => t === 'boolean').length
       }
 
-      // Handle trailing line without ending newline
-      if (hasNonWhitespaceOnCurrentLine) {
-        if (isFirstLine) {
-          isFirstLine = false
-          if (!firstRowHeader) {
-            rowCount++
-          }
-        } else {
-          rowCount++
+      // Populate initial file details early
+      setFileDetails({
+        name: inputFile.name,
+        size: inputFile.size,
+        type: inputFile.type || 'text/csv',
+        lastModified: inputFile.lastModified,
+        lineEnding: lineEndingType,
+        detectedDelimiter: effectiveDelim,
+        totalColumns: detectedHeaders.length,
+        columnTypeBreakdown: typeBreakdown,
+        averageRowBytes: 0,
+        estimatedTotalRows: 0,
+        hasQuotes: previewText.includes('"')
+      })
+
+      // Immediately load page 1 so user sees content instantly in milliseconds
+      loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
+
+      // 2. High-Performance Multi-Threaded Web Worker Background Indexing
+      if (activeWorkerRef.current) {
+        activeWorkerRef.current.terminate()
+      }
+
+      const { worker, terminate } = createCsvIndexWorker()
+      activeWorkerRef.current = { terminate }
+
+      worker.onmessage = (e: MessageEvent<IndexWorkerMessage>) => {
+        const msg = e.data
+        if (msg.type === 'progress') {
+          if (msg.pct !== undefined) setIndexingProgress(msg.pct)
+          if (msg.rowCount !== undefined) setTotalRows(msg.rowCount)
+          if (msg.pageOffsets) pageOffsetsRef.current = msg.pageOffsets
+          setReadMetrics(prev => ({
+            ...prev,
+            initialInspectionTimeMs: inspectElapsed,
+            totalIndexingTimeMs: msg.elapsedMs || 0,
+            bytesPerSecond: msg.bytesPerSec || 0,
+            totalBytesProcessed: msg.processedBytes || 0,
+            totalRowsIndexed: msg.rowCount || 0
+          }))
+        } else if (msg.type === 'complete') {
+          const finalRows = msg.rowCount || 0
+          const finalDuration = msg.elapsedMs || (performance.now() - startIndexingTime)
+          const finalBps = msg.bytesPerSec || (finalDuration > 0 ? (inputFile.size / (finalDuration / 1000)) : 0)
+
+          if (msg.pageOffsets) pageOffsetsRef.current = msg.pageOffsets
+          setTotalRows(finalRows)
+          setIndexingProgress(100)
+          setIsIndexing(false)
+
+          setReadMetrics({
+            initialInspectionTimeMs: inspectElapsed,
+            totalIndexingTimeMs: finalDuration,
+            pageReadTimeMs: 0,
+            bytesPerSecond: finalBps,
+            totalBytesProcessed: inputFile.size,
+            totalRowsIndexed: finalRows
+          })
+
+          setFileDetails(prev => prev ? {
+            ...prev,
+            averageRowBytes: finalRows > 0 ? (inputFile.size / finalRows) : 0,
+            estimatedTotalRows: finalRows
+          } : null)
+
+          activeWorkerRef.current?.terminate()
+          activeWorkerRef.current = null
+        } else if (msg.type === 'error') {
+          console.error('CSV Index Worker Error:', msg.error)
+          setIsIndexing(false)
+          activeWorkerRef.current?.terminate()
+          activeWorkerRef.current = null
         }
       }
 
-      pageOffsetsRef.current = pageOffsets
-      setTotalRows(rowCount)
-      setIndexingProgress(100)
-      setIsIndexing(false)
-
-      // Ensure page 1 is loaded if file has less than rPerPage rows or not loaded yet
-      if (!page1DataLoaded) {
-        loadPage(1, inputFile, effectiveDelim, firstRowHeader, rPerPage)
+      worker.onerror = (err) => {
+        console.error('CSV Index Worker error event:', err)
+        setIsIndexing(false)
+        activeWorkerRef.current?.terminate()
+        activeWorkerRef.current = null
       }
+
+      // Launch worker with 8MB chunks for maximum OS DMA I/O throughput
+      worker.postMessage({
+        file: inputFile,
+        rowsPerPage: rPerPage,
+        firstRowHeader,
+        chunkSize: 8 * 1024 * 1024
+      })
 
     } catch (err: unknown) {
       if (!abortController.signal.aborted) {
@@ -429,6 +470,68 @@ export default function CsvTxtViewer() {
     if (droppedFile) {
       handleFileChange(droppedFile)
     }
+  }
+
+  // Quick Demo Dataset Loader for Instant Testing
+  const handleLoadSampleDataset = (type: 'ecommerce' | 'logs' | 'pipe_db') => {
+    let content = ''
+    let filename = 'sample_dataset.csv'
+    let mimeType = 'text/csv'
+
+    if (type === 'ecommerce') {
+      filename = 'ecommerce_transactions_sample.csv'
+      const sampleHeaders = ['order_id', 'customer_name', 'customer_email', 'product_sku', 'category', 'unit_price', 'quantity', 'total_amount', 'currency', 'payment_status', 'shipping_country', 'order_date', 'is_loyalty_member']
+      const rows: string[] = [sampleHeaders.join(',')]
+      const categories = ['Electronics', 'Home & Kitchen', 'Footwear', 'Apparel', 'Books & Media', 'Sports & Outdoors']
+      const statuses = ['COMPLETED', 'PROCESSING', 'DELIVERED', 'REFUNDED', 'PENDING']
+      const countries = ['US', 'CA', 'DE', 'GB', 'FR', 'JP', 'AU', 'IN', 'BR']
+
+      for (let i = 1; i <= 500; i++) {
+        const price = (Math.random() * 250 + 9.99).toFixed(2)
+        const qty = Math.floor(Math.random() * 4) + 1
+        const total = (parseFloat(price) * qty).toFixed(2)
+        const cat = categories[i % categories.length]
+        const st = statuses[i % statuses.length]
+        const ctry = countries[i % countries.length]
+        const d = new Date(Date.now() - i * 3600000 * 4).toISOString().split('T')[0]
+        rows.push(`ORD-${10000 + i},Customer_${i},user_${i}@example.com,SKU-${cat.substring(0, 3).toUpperCase()}-${100 + (i % 50)},"${cat}",${price},${qty},${total},USD,${st},${ctry},${d},${i % 3 === 0 ? 'true' : 'false'}`)
+      }
+      content = rows.join('\n')
+    } else if (type === 'pipe_db') {
+      filename = 'database_records_dump.psv'
+      const sampleHeaders = ['id', 'user_uuid', 'username', 'role', 'auth_provider', 'last_ip_address', 'login_attempts', 'is_active', 'created_at', 'last_login', 'api_quota_remaining', 'department']
+      const rows: string[] = [sampleHeaders.join('|')]
+      const roles = ['ADMIN', 'DEVELOPER', 'ANALYST', 'OPERATOR', 'VIEWER']
+      const depts = ['Engineering', 'Data Science', 'Security Ops', 'Infrastructure', 'Product Management']
+
+      for (let i = 1; i <= 600; i++) {
+        const role = roles[i % roles.length]
+        const dept = depts[i % depts.length]
+        const dt = new Date(Date.now() - i * 1800000).toISOString()
+        rows.push(`${i}|usr_uuid_${90000 + i}|dev_user_${i}|${role}|github_oauth|192.168.1.${(i % 250) + 1}|${i % 4}|${i % 7 !== 0 ? 'true' : 'false'}|2026-01-15T08:00:00Z|${dt}|${1000 - (i % 800)}|${dept}`)
+      }
+      content = rows.join('\n')
+    } else {
+      filename = 'server_access_traffic.log'
+      mimeType = 'text/plain'
+      const sampleHeaders = ['timestamp', 'http_method', 'endpoint_path', 'status_code', 'response_time_ms', 'client_ip', 'user_agent', 'bytes_sent', 'cache_hit']
+      const rows: string[] = [sampleHeaders.join('\t')]
+      const endpoints = ['/api/v1/users', '/api/v1/auth/login', '/api/v1/products', '/api/v1/orders/checkout', '/api/v1/metrics/stream', '/static/bundle.js']
+      const methods = ['GET', 'POST', 'PUT', 'DELETE']
+
+      for (let i = 1; i <= 750; i++) {
+        const ep = endpoints[i % endpoints.length]
+        const meth = ep.includes('login') || ep.includes('checkout') ? 'POST' : methods[i % methods.length]
+        const code = i % 19 === 0 ? 500 : i % 13 === 0 ? 404 : 200
+        const latency = (Math.random() * 120 + 2.5).toFixed(1)
+        const dt = new Date(Date.now() - i * 60000).toISOString()
+        rows.push(`${dt}\t${meth}\t${ep}\t${code}\t${latency}\t10.0.4.${(i % 254) + 1}\t"Mozilla/5.0 (ViteApp/1.0)"\t${Math.floor(Math.random() * 50000 + 400)}\t${i % 2 === 0 ? 'true' : 'false'}`)
+      }
+      content = rows.join('\n')
+    }
+
+    const mockFile = new File([content], filename, { type: mimeType, lastModified: Date.now() })
+    handleFileChange(mockFile)
   }
 
   // Handle delimiter re-selection
@@ -707,6 +810,45 @@ export default function CsvTxtViewer() {
               <p className="text-xs text-subtle">
                 Supports massive CSV, TXT, TSV, PSV up to <span className="text-bright font-mono font-medium">1GB+</span> with 100+ columns & zero memory freeze
               </p>
+
+              {/* Instant Demo Dataset Loaders */}
+              <div className="mt-4 pt-3 border-t border-border/70 flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono z-10">
+                <span className="text-subtle flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-accent" />
+                  Load Demo Data:
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleLoadSampleDataset('ecommerce')
+                  }}
+                  className="px-2.5 py-1 rounded bg-background hover:bg-surface border border-border hover:border-accent text-dim hover:text-bright transition-colors"
+                >
+                  500-Row E-Commerce CSV
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleLoadSampleDataset('pipe_db')
+                  }}
+                  className="px-2.5 py-1 rounded bg-background hover:bg-surface border border-border hover:border-accent text-dim hover:text-bright transition-colors"
+                >
+                  600-Row Pipe (|) DB Dump
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleLoadSampleDataset('logs')
+                  }}
+                  className="px-2.5 py-1 rounded bg-background hover:bg-surface border border-border hover:border-accent text-dim hover:text-bright transition-colors"
+                >
+                  750-Row Access TSV Log
+                </button>
+              </div>
+
               {file && (
                 <div className="mt-3 flex items-center gap-2 text-xs font-mono text-dim bg-surface px-3 py-1 rounded border border-border">
                   <HardDrive className="w-3.5 h-3.5 text-accent" />
@@ -843,6 +985,23 @@ export default function CsvTxtViewer() {
             subValue="Zero-freeze virtual slice"
           />
         </div>
+      )}
+
+      {/* Stream Read Metrics Card (Real-Time Read Process Timings) */}
+      {headers.length > 0 && (
+        <ReadMetricsCard
+          metrics={readMetrics}
+          isIndexing={isIndexing}
+          indexingProgress={indexingProgress}
+          currentPage={currentPage}
+          rowsPerPage={rowsPerPage}
+          totalFileSize={file?.size || 0}
+        />
+      )}
+
+      {/* Uploaded File Details & Schema Breakdown */}
+      {fileDetails && (
+        <FileMetadataPanel details={fileDetails} />
       )}
 
       {/* Multi-Column Quick Filter / Range Bar (Highlighted when > 30 columns) */}
@@ -1247,9 +1406,16 @@ export default function CsvTxtViewer() {
                               key={rowIdx}
                               className="hover:bg-surface/90 transition-colors group"
                             >
-                              {/* Sticky Row Index Cell */}
-                              <td className={`${cellPaddingClass} text-subtle text-center border-r border-border bg-surface/90 sticky left-0 z-0 shadow-[1px_0_0_rgba(255,255,255,0.08)]`}>
-                                {globalRowNum}
+                              {/* Sticky Row Index Cell with Quick Inspector Trigger */}
+                              <td
+                                onClick={() => setInspectedRowIndex(rowIdx)}
+                                className={`${cellPaddingClass} text-subtle text-center border-r border-border bg-surface/90 sticky left-0 z-0 shadow-[1px_0_0_rgba(255,255,255,0.08)] cursor-pointer hover:text-accent hover:bg-accent/10 transition-colors group/rowbtn`}
+                                title={`Click to inspect complete Row #${globalRowNum} details`}
+                              >
+                                <div className="flex items-center justify-center gap-1">
+                                  <span>{globalRowNum}</span>
+                                  <Eye className="w-3 h-3 opacity-0 group-hover/rowbtn:opacity-100 text-accent transition-opacity shrink-0" />
+                                </div>
                               </td>
                               {visibleColIndices.map((colIdx) => {
                                 const cellValue = row[colIdx] !== undefined ? String(row[colIdx]) : ''
@@ -1340,12 +1506,30 @@ export default function CsvTxtViewer() {
                 )}
               </div>
               <div className="flex items-center gap-4 text-subtle">
-                <span>Tip: Click column header to sort • Click any cell to copy</span>
+                <span>Tip: Click row # to inspect • Click column header to sort • Click any cell to copy</span>
                 <span>{visibleColIndices.length} active columns</span>
               </div>
             </div>
           </div>
         </div>
+      )}
+
+      {/* Row Detail Inspector Modal */}
+      {inspectedRowIndex !== null && (
+        <RowDetailModal
+          isOpen={inspectedRowIndex !== null}
+          onClose={() => setInspectedRowIndex(null)}
+          globalRowNumber={(currentPage - 1) * rowsPerPage + inspectedRowIndex + 1}
+          totalRows={effectiveTotalRows}
+          headers={headers}
+          rowData={processedRows[inspectedRowIndex] || []}
+          columnTypes={columnTypes}
+          delimiter={actualDelimiter}
+          hasPrevious={inspectedRowIndex > 0}
+          hasNext={inspectedRowIndex < processedRows.length - 1}
+          onNavigatePrevious={() => setInspectedRowIndex(prev => (prev !== null && prev > 0 ? prev - 1 : prev))}
+          onNavigateNext={() => setInspectedRowIndex(prev => (prev !== null && prev < processedRows.length - 1 ? prev + 1 : prev))}
+        />
       )}
     </div>
   )

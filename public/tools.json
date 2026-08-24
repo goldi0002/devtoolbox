@@ -99,11 +99,11 @@
     },
     {
       "slug": "csv-txt-viewer",
-      "name": "CSV/TXT File Viewer",
+      "name": "Large CSV & TXT Table Viewer (Up to 1GB)",
       "category": "data-tools",
       "url": "https://toolbox4devs.com/csv-txt-viewer",
-      "description": "View and analyze large CSV or TXT files in a paginated table format directly in your browser. Supports handling very large files up to 300MB efficiently.",
-      "keywords": ["csv", "txt", "viewer", "table", "data", "large file", "parser"]
+      "description": "View, parse, and analyze massive CSV or TXT files up to 1GB in a fast paginated table format directly in your browser with zero memory freeze.",
+      "keywords": ["csv", "txt", "viewer", "table", "data", "large file", "parser", "1gb csv viewer", "large text file"]
     },
     {
       "slug": "base-converter",

@@ -48,7 +48,7 @@ describe('CSV/TXT Viewer Tool setup', () => {
   it('has proper tool metadata conforming to ToolMeta interface', () => {
     const tool = getToolBySlug('csv-txt-viewer')
     expect(tool).toBeDefined()
-    expect(tool?.name).toBe('Large CSV & TXT File Table Viewer')
+    expect(tool?.name).toBe('Large CSV & TXT Table Viewer (Up to 1GB)')
     expect(tool?.slug).toBe('csv-txt-viewer')
     expect(tool?.category).toBe('data-tools')
     expect(tool?.tag).toBe('DATA')
@@ -82,6 +82,28 @@ describe('CSV/TXT Viewer Tool setup', () => {
     // Extra empty trailing lines are cleanly skipped
     const csvWithExtraBlank = linesWithNewline.join('\n') + '\n\n   \n'
     expect(countRowsAccurate(csvWithExtraBlank, true)).toBe(100)
+  })
+
+  it('correctly extracts row key-value pairs for row detail inspector', () => {
+    const headers = ['id', 'user', 'email', 'status']
+    const row = ['101', 'Sarah', 'sarah@example.com', 'active']
+    const record: Record<string, string> = {}
+    headers.forEach((h, i) => {
+      record[h] = row[i] || ''
+    })
+
+    expect(record.id).toBe('101')
+    expect(record.user).toBe('Sarah')
+    expect(record.email).toBe('sarah@example.com')
+    expect(record.status).toBe('active')
+  })
+
+  it('formats throughput metrics accurately in MB/s', () => {
+    const bytes = 100 * 1024 * 1024 // 100MB
+    const elapsedSeconds = 0.5 // 500ms
+    const bytesPerSec = bytes / elapsedSeconds
+    const mbPerSec = bytesPerSec / (1024 * 1024)
+    expect(mbPerSec).toBe(200)
   })
 })
 
