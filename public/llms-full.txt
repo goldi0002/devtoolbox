@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 68
+Total Tools: 69
 
 ---
 
-## Tool Registry & Technical Specifications (All 68 Tools)
+## Tool Registry & Technical Specifications (All 69 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -34,7 +34,14 @@ Total Tools: 68
 - Description: Automatically infer Zod validation schemas from JSON objects.
 - Features: Strict types, optionality handling, nested object parsing, schema export.
 
-### 4. JSON to CSV & CSV to JSON Converter
+### 4. CSV/TXT File Viewer
+- URL: https://toolbox4devs.com/csv-txt-viewer
+- Category: Data Tools (data-tools)
+- Complexity: Advanced
+- Description: View and analyze large CSV or TXT files in a paginated table format directly in your browser. Supports handling very large files up to 300MB efficiently.
+- Features: Handles large files (up to 300MB) without freezing the browser, customizable delimiters, fast paginated table view.
+
+### 5. JSON to CSV & CSV to JSON Converter
 - URL: https://toolbox4devs.com/json-to-csv
 - Category: Data Tools (data-tools)
 - Complexity: Moderate
@@ -500,7 +507,7 @@ Total Tools: 68
 - Description: Analyze password security by calculating information entropy, estimating crack times, and detecting common patterns.
 - Features: Entropy calculation in bits, crack time estimates for online (~100/s), offline (~100K/s), and GPU (~10B/s) attacks; common pattern and sequential character detection; character set breakdown (lowercase, uppercase, digits, special); visual strength meter (0–100 score); actionable improvement suggestions; copyable analysis report.
 
-### 68. Faker Data Generator
+### 69. Faker Data Generator
 - URL: https://toolbox4devs.com/faker-data-generator
 - Category: Generate Tools (generate-tools)
 - Complexity: Simple

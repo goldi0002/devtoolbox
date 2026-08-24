@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 68 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 69 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -10,6 +10,7 @@
 ## Tools Directory
 
 ### JSON & Data Tools
+- [CSV/TXT File Viewer](https://toolbox4devs.com/csv-txt-viewer): View and analyze large CSV or TXT files in a paginated table format directly in your browser. Supports handling very large files up to 300MB efficiently.
 - [Age & Lifetime Milestone Calculator](https://toolbox4devs.com/age-calculator): Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.
 - [JSON to SQL Schema & Query Converter](https://toolbox4devs.com/json-to-sql): Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support (Postgres, MySQL, SQLite, SQL Server, Oracle).
 - [SemVer Calculator & Range Tester](https://toolbox4devs.com/semver-calculator): Parse SemVer 2.0.0 version numbers, test compatibility ranges (^, ~, >=), calculate version bumps, and sort version tags.

@@ -14,6 +14,7 @@ import { CASE_CONVERTER_META } from "./meta/case-converter"
 import { SLUG_GENERATOR_META } from "./meta/slug-generator"
 import { MARKDOWN_PREVIEW_META } from "./meta/markdown-preview"
 import { SHA_256_META } from "./meta/sha-256"
+import { CSV_TXT_VIEWER_META } from "./meta/csv-txt-viewer"
 import { WORD_COUNTER_META } from "./meta/word-counter"
 import { TIMESTAMP_CONVERTER_META } from "./meta/timestamp-converter"
 import { QUERY_STRING_PARSER_META } from "./meta/query-string-parser"
@@ -91,6 +92,7 @@ export const tools: ToolMeta[] = [
   BCRYPT_GENERATOR_META,
   CIDR_CALCULATOR_META,
   STRING_ESCAPER_META,
+  CSV_TXT_VIEWER_META,
   BASE_CONVERTER_META,
   CSS_UNIT_CONVERTER_META,
   KEYCODE_INSPECTOR_META,

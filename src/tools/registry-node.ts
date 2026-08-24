@@ -16,6 +16,7 @@ const toolMeta = [
     { slug: 'hmac-generator',                category: 'crypto-tools'   },
     { slug: 'cidr-calculator',               category: 'data-tools'     },
     { slug: 'string-escaper',                category: 'encode-tools'   },
+    { slug: 'csv-txt-viewer',                category: 'data-tools'     },
     { slug: 'base-converter',                category: 'data-tools'     },
     { slug: 'css-unit-converter',            category: 'web-tools'      },
     { slug: 'json-to-csv',                   category: 'data-tools'     },
