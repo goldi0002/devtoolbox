@@ -16,7 +16,7 @@ import {
 interface RowDetailModalProps {
   isOpen: boolean
   onClose: () => void
-  rowIndex: number // 0-based index within current page
+  rowIndex?: number // 0-based index within current page
   globalRowNumber: number
   totalRows: number
   headers: string[]
