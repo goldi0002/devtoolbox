@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import type { RouteRecord } from 'vite-react-ssg'
 import { Layout } from './App'
 import { tools } from './tools/registry'
+import { blogSlugs } from './data/blog'
 
 // Lazy load pages for SSG
 const Home = lazy(() => import('./pages/Home'))
@@ -29,6 +30,10 @@ export const routes: RouteRecord[] = [
       { path: 'about', element: <About /> },
       { path: 'blog', element: <BlogIndex /> },
       { path: 'blog/:slug', element: <BlogPost /> },
+      ...blogSlugs.map(slug => ({
+        path: `blog/${slug}`,
+        element: <BlogPost />,
+      })),
       { path: 'privacy', element: <Privacy /> },
       ...toolSlugs.map(slug => ({
         path: slug,

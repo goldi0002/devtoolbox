@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import sitemap from 'vite-plugin-sitemap'
 import { getAllAvailableTools, getToolCategories } from './src/tools/registry-node'
+import { blogSlugs } from './src/data/blog'
 
 const dynamicRoutes = [
   '/',
@@ -9,6 +10,8 @@ const dynamicRoutes = [
   '/tools',
   '/about',
   '/privacy',
+  '/blog',
+  ...blogSlugs.map((slug) => `/blog/${slug}`),
   ...getToolCategories().map((category) => `/tools/${category.category}`),
   ...getAllAvailableTools().map((tool) => `/${tool.slug}`),
 ]

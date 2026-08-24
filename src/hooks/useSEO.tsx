@@ -127,8 +127,10 @@ export function SEO({
 
   // 4. BreadcrumbList Schema (if on child route)
   if (cleanSlug) {
+    const isBlogCategory = cleanSlug === 'blog'
+    const isBlogPost = cleanSlug.startsWith('blog/')
     const isToolCategory = cleanSlug.startsWith('tools/')
-    const isToolPage = !isToolCategory && cleanSlug !== 'tools' && cleanSlug !== 'about' && cleanSlug !== 'privacy'
+    const isToolPage = !isToolCategory && !isBlogCategory && !isBlogPost && cleanSlug !== 'tools' && cleanSlug !== 'about' && cleanSlug !== 'privacy'
 
     const breadcrumbItems: any[] = [
       {
@@ -137,36 +139,61 @@ export function SEO({
         'name': 'Home',
         'item': WEB_INFO.BASE_URL
       },
-      {
+    ]
+
+    if (isBlogCategory) {
+      breadcrumbItems.push({
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Blog',
+        'item': `${WEB_INFO.BASE_URL}/blog`
+      })
+    } else if (isBlogPost) {
+      breadcrumbItems.push(
+        {
+          '@type': 'ListItem',
+          'position': 2,
+          'name': 'Blog',
+          'item': `${WEB_INFO.BASE_URL}/blog`
+        },
+        {
+          '@type': 'ListItem',
+          'position': 3,
+          'name': title || cleanSlug.replace('blog/', ''),
+          'item': url
+        }
+      )
+    } else {
+      breadcrumbItems.push({
         '@type': 'ListItem',
         'position': 2,
         'name': 'Tools',
         'item': `${WEB_INFO.BASE_URL}/tools`
-      }
-    ]
+      })
 
-    if (isToolCategory) {
-      const catName = cleanSlug.replace('tools/', '')
-      breadcrumbItems.push({
-        '@type': 'ListItem',
-        'position': 3,
-        'name': `${catName.charAt(0).toUpperCase() + catName.slice(1)} Tools`,
-        'item': url
-      })
-    } else if (isToolPage) {
-      breadcrumbItems.push({
-        '@type': 'ListItem',
-        'position': 3,
-        'name': toolName || title || cleanSlug,
-        'item': url
-      })
-    } else {
-      breadcrumbItems.push({
-        '@type': 'ListItem',
-        'position': 3,
-        'name': title || cleanSlug,
-        'item': url
-      })
+      if (isToolCategory) {
+        const catName = cleanSlug.replace('tools/', '')
+        breadcrumbItems.push({
+          '@type': 'ListItem',
+          'position': 3,
+          'name': `${catName.charAt(0).toUpperCase() + catName.slice(1)} Tools`,
+          'item': url
+        })
+      } else if (isToolPage) {
+        breadcrumbItems.push({
+          '@type': 'ListItem',
+          'position': 3,
+          'name': toolName || title || cleanSlug,
+          'item': url
+        })
+      } else {
+        breadcrumbItems.push({
+          '@type': 'ListItem',
+          'position': 3,
+          'name': title || cleanSlug,
+          'item': url
+        })
+      }
     }
 
     schemas.push({

@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { ArrowLeft, ArrowRight, CalendarDays, Clock, Check, ExternalLink } from 'lucide-react'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -275,7 +275,13 @@ function RelatedPosts({ slugs, currentSlug }: { slugs: string[]; currentSlug: st
 
 /* ── Main page ──────────────────────────────────────────────────────────────── */
 export default function BlogPost() {
-  const { slug } = useParams<{ slug: string }>()
+  const { slug: paramSlug } = useParams<{ slug: string }>()
+  const { pathname } = useLocation()
+  const slug = useMemo(() => {
+    if (paramSlug) return paramSlug
+    const segments = pathname.split('/').filter(Boolean)
+    return segments.at(-1) ?? ''
+  }, [paramSlug, pathname])
   const post = slug ? getPostBySlug(slug) : undefined
 
   usePageTitle(post ? `${post.title}` : 'Post Not Found')

@@ -156,7 +156,8 @@ Because nothing is uploaded, there is no account to sign into and no state to re
 ]
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find(p => p.slug === slug)
+  const normalized = slug.trim().toLowerCase().replace(/^\/+|\/+$/g, '')
+  return blogPosts.find(p => p.slug === normalized)
 }
 
 /** Newest first. */
