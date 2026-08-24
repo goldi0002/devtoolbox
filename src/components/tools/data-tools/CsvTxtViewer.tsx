@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import Papa from 'papaparse'
 import {
   Upload,
@@ -15,7 +15,20 @@ import {
   Copy,
   Check,
   SlidersHorizontal,
-  HardDrive
+  HardDrive,
+  Maximize2,
+  Minimize2,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
+  Eye,
+  EyeOff,
+  Columns,
+  Search,
+  RotateCcw,
+  Sparkles,
+  FileSpreadsheet,
+  FileCode
 } from 'lucide-react'
 import SectionPanel from '../../ui/SectionPanel'
 import StatCard from '../../ui/StatCard'
@@ -39,7 +52,6 @@ function detectDelimiter(sampleText: string): string {
 
   for (const delim of delimiters) {
     const counts = lines.map(line => {
-      // count occurrences outside of quotes if possible, or basic split
       return line.split(delim).length - 1
     })
     const firstCount = counts[0]
@@ -66,7 +78,9 @@ function detectDelimiter(sampleText: string): string {
   return bestDelim
 }
 
-function inferColumnTypes(data: string[][], headers: string[]): string[] {
+type ColumnType = 'number' | 'boolean' | 'date' | 'text'
+
+function inferColumnTypes(data: string[][], headers: string[]): ColumnType[] {
   if (!data || data.length === 0) return headers.map(() => 'text')
   
   return headers.map((_, colIdx) => {
@@ -99,6 +113,11 @@ function inferColumnTypes(data: string[][], headers: string[]): string[] {
   })
 }
 
+interface ColumnSort {
+  colIdx: number
+  direction: 'asc' | 'desc'
+}
+
 export default function CsvTxtViewer() {
   const [file, setFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -112,7 +131,7 @@ export default function CsvTxtViewer() {
   const [indexingProgress, setIndexingProgress] = useState<number>(0)
   const [totalRows, setTotalRows] = useState<number>(0)
   const [headers, setHeaders] = useState<string[]>([])
-  const [columnTypes, setColumnTypes] = useState<string[]>([])
+  const [columnTypes, setColumnTypes] = useState<ColumnType[]>([])
   const [error, setError] = useState<string | null>(null)
 
   // Current page data
@@ -122,13 +141,34 @@ export default function CsvTxtViewer() {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [copiedCell, setCopiedCell] = useState<string | null>(null)
 
+  // Enhanced features: Fullscreen, Sorting, Column Visibility, Density, Column Filters
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
+  const [sortConfig, setSortConfig] = useState<ColumnSort | null>(null)
+  const [hiddenCols, setHiddenCols] = useState<Record<number, boolean>>({})
+  const [showColumnManager, setShowColumnManager] = useState<boolean>(false)
+  const [showExportMenu, setShowExportMenu] = useState<boolean>(false)
+  const [density, setDensity] = useState<'compact' | 'comfortable' | 'spacious'>('compact')
+  const [activeTab, setActiveTab] = useState<'table' | 'json_preview'>('table')
+
   // Stream Cancellation and Byte Index Ref
   const abortControllerRef = useRef<AbortController | null>(null)
   const pageOffsetsRef = useRef<number[]>([0]) // Stores start byte offset for each page
   const headerEndOffsetRef = useRef<number>(0)
   const fileRef = useRef<File | null>(null)
+  const fullscreenContainerRef = useRef<HTMLDivElement | null>(null)
 
   const totalPages = Math.max(1, Math.ceil(totalRows / rowsPerPage))
+
+  // Escape key to exit fullscreen
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isFullscreen])
 
   // Load a specific page chunk from file slice
   const loadPage = useCallback(async (
@@ -175,7 +215,7 @@ export default function CsvTxtViewer() {
           setCurrentPage(page)
           setIsLoadingPage(false)
         },
-        error: (err) => {
+        error: (err: Error) => {
           setError(`Error reading page ${page}: ${err.message}`)
           setIsLoadingPage(false)
         }
@@ -207,6 +247,8 @@ export default function CsvTxtViewer() {
     setTotalRows(0)
     setCurrentPage(1)
     setPageData([])
+    setSortConfig(null)
+    setHiddenCols({})
     pageOffsetsRef.current = [0]
     headerEndOffsetRef.current = 0
 
@@ -312,11 +354,6 @@ export default function CsvTxtViewer() {
         }
       }
 
-      // Handle final row if file doesn't end in newline
-      if (processedBytes > 0 && !isFirstLine && !firstRowHeader) {
-        // Already counted
-      }
-
       pageOffsetsRef.current = pageOffsets
       setTotalRows(rowCount)
       setIndexingProgress(100)
@@ -384,10 +421,37 @@ export default function CsvTxtViewer() {
   const goToPage = (page: number) => {
     if (page < 1 || page > totalPages || page === currentPage) return
     loadPage(page)
-    const tableEl = document.getElementById('csv-viewer-table-section')
-    if (tableEl) {
-      tableEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    if (!isFullscreen) {
+      const tableEl = document.getElementById('csv-viewer-table-section')
+      if (tableEl) {
+        tableEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      }
     }
+  }
+
+  // Sorting Handler for current view
+  const handleSortColumn = (colIdx: number) => {
+    setSortConfig(current => {
+      if (!current || current.colIdx !== colIdx) {
+        return { colIdx, direction: 'asc' }
+      }
+      if (current.direction === 'asc') {
+        return { colIdx, direction: 'desc' }
+      }
+      return null // reset sort
+    })
+  }
+
+  // Column Visibility toggle
+  const toggleColumnVisibility = (colIdx: number) => {
+    setHiddenCols(prev => ({
+      ...prev,
+      [colIdx]: !prev[colIdx]
+    }))
+  }
+
+  const showAllColumns = () => {
+    setHiddenCols({})
   }
 
   // Copy cell content
@@ -397,30 +461,106 @@ export default function CsvTxtViewer() {
     setTimeout(() => setCopiedCell(null), 1500)
   }
 
-  // Filtered page data based on search term
-  const filteredPageData = pageData.filter(row => {
-    if (!searchTerm.trim()) return true
-    const term = searchTerm.toLowerCase()
-    return row.some(cell => String(cell).toLowerCase().includes(term))
-  })
+  // Process and sort filtered page data
+  const processedRows = useMemo(() => {
+    let result = pageData
 
-  // Export current page
-  const handleExportCurrentPage = () => {
-    if (!headers.length || !pageData.length) return
+    // 1. Filter
+    if (searchTerm.trim()) {
+      const term = searchTerm.toLowerCase()
+      result = result.filter(row => row.some(cell => String(cell).toLowerCase().includes(term)))
+    }
+
+    // 2. Sort (if active)
+    if (sortConfig !== null) {
+      const { colIdx, direction } = sortConfig
+      const colType = columnTypes[colIdx] || 'text'
+      const dirMult = direction === 'asc' ? 1 : -1
+
+      result = [...result].sort((a, b) => {
+        const valA = (a[colIdx] ?? '').trim()
+        const valB = (b[colIdx] ?? '').trim()
+
+        if (!valA && !valB) return 0
+        if (!valA) return 1
+        if (!valB) return -1
+
+        if (colType === 'number') {
+          const numA = Number(valA)
+          const numB = Number(valB)
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return (numA - numB) * dirMult
+          }
+        }
+
+        if (colType === 'date') {
+          const dateA = Date.parse(valA)
+          const dateB = Date.parse(valB)
+          if (!isNaN(dateA) && !isNaN(dateB)) {
+            return (dateA - dateB) * dirMult
+          }
+        }
+
+        return valA.localeCompare(valB, undefined, { numeric: true, sensitivity: 'base' }) * dirMult
+      })
+    }
+
+    return result
+  }, [pageData, searchTerm, sortConfig, columnTypes])
+
+  // Visible columns indices
+  const visibleColIndices = useMemo(() => {
+    return headers.map((_, i) => i).filter(i => !hiddenCols[i])
+  }, [headers, hiddenCols])
+
+  // JSON Preview Data
+  const jsonPreviewData = useMemo(() => {
+    const visibleHeaders = visibleColIndices.map(i => headers[i])
+    return processedRows.slice(0, 50).map(row => {
+      const obj: Record<string, string> = {}
+      visibleColIndices.forEach((colIdx, i) => {
+        obj[visibleHeaders[i]] = row[colIdx] ?? ''
+      })
+      return obj
+    })
+  }, [processedRows, visibleColIndices, headers])
+
+  // Export current page (CSV or JSON)
+  const handleExportCsv = () => {
+    if (!headers.length || !processedRows.length) return
+    const visibleHeaders = visibleColIndices.map(i => headers[i])
+    const exportData = processedRows.map(row => visibleColIndices.map(i => row[i] ?? ''))
+
     const csvContent = Papa.unparse({
-      fields: headers,
-      data: pageData
+      fields: visibleHeaders,
+      data: exportData
     }, { delimiter: actualDelimiter })
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.setAttribute('href', url)
-    link.setAttribute('download', `page_${currentPage}_export.csv`)
+    link.setAttribute('download', `${file?.name?.replace(/\.[^/.]+$/, "") || 'data'}_page_${currentPage}.csv`)
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
     URL.revokeObjectURL(url)
+    setShowExportMenu(false)
+  }
+
+  const handleExportJson = () => {
+    if (!headers.length || !processedRows.length) return
+    const jsonStr = JSON.stringify(jsonPreviewData, null, 2)
+    const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.setAttribute('href', url)
+    link.setAttribute('download', `${file?.name?.replace(/\.[^/.]+$/, "") || 'data'}_page_${currentPage}.json`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+    setShowExportMenu(false)
   }
 
   // Clean up stream on unmount
@@ -431,6 +571,19 @@ export default function CsvTxtViewer() {
       }
     }
   }, [])
+
+  // Cell padding classes based on density
+  const cellPaddingClass = {
+    compact: 'px-3 py-1.5 text-xs',
+    comfortable: 'px-4 py-2.5 text-xs',
+    spacious: 'px-4 py-3.5 text-sm'
+  }[density]
+
+  const headerPaddingClass = {
+    compact: 'px-3 py-2 text-[11px]',
+    comfortable: 'px-4 py-3 text-xs',
+    spacious: 'px-4 py-3.5 text-xs'
+  }[density]
 
   return (
     <div className="space-y-6">
@@ -467,7 +620,7 @@ export default function CsvTxtViewer() {
                 )}
               </p>
               <p className="text-xs text-subtle">
-                Supports massive CSV, TXT, TSV, PSV up to <span className="text-bright font-mono font-medium">300MB+</span> with instant streaming
+                Supports massive CSV, TXT, TSV, PSV up to <span className="text-bright font-mono font-medium">300MB+</span> with instant streaming & virtualized pages
               </p>
               {file && (
                 <div className="mt-3 flex items-center gap-2 text-xs font-mono text-dim bg-surface px-3 py-1 rounded border border-border">
@@ -582,9 +735,9 @@ export default function CsvTxtViewer() {
           />
           <StatCard
             label="Columns"
-            value={headers.length.toLocaleString()}
+            value={`${visibleColIndices.length} / ${headers.length}`}
             icon={FileText}
-            subValue="Auto-detected schema"
+            subValue={visibleColIndices.length < headers.length ? `${headers.length - visibleColIndices.length} hidden` : 'All visible'}
           />
           <StatCard
             label="Active Delimiter"
@@ -601,193 +754,436 @@ export default function CsvTxtViewer() {
         </div>
       )}
 
-      {/* Table Data Viewer */}
+      {/* Interactive Data Table & Fullscreen Workspace */}
       {headers.length > 0 && (
         <div id="csv-viewer-table-section">
-          <SectionPanel
-            title="Tabular Data Viewer"
-            label="Tabular Data Viewer"
-            action={
-              <button
-                onClick={handleExportCurrentPage}
-                className="flex items-center gap-1.5 text-xs font-mono text-dim hover:text-bright px-2.5 py-1 rounded bg-surface hover:bg-border transition-colors border border-border"
-                title="Export current page as CSV"
-              >
-                <Download className="w-3.5 h-3.5 text-accent" />
-                <span>Export Page</span>
-              </button>
+          {/* Main Container with Fullscreen support */}
+          <div
+            ref={fullscreenContainerRef}
+            className={
+              isFullscreen
+                ? 'fixed inset-0 z-50 bg-background/95 backdrop-blur-md p-4 sm:p-6 flex flex-col overflow-hidden animate-in fade-in duration-200'
+                : 'space-y-4'
             }
           >
-            {/* Table Controls (Search & Pagination Bar) */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-border">
-              {/* Quick Filter */}
-              <div className="relative flex-1 max-w-md">
-                <Filter className="w-3.5 h-3.5 text-dim absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Filter visible page rows..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full text-xs font-mono bg-surface border border-border rounded pl-9 pr-3 py-1.5 text-bright focus:outline-none focus:border-accent"
-                />
-              </div>
-
-              {/* Pagination Controls */}
-              <div className="flex items-center gap-1 sm:gap-2 self-end sm:self-auto">
-                <button
-                  onClick={() => goToPage(1)}
-                  disabled={currentPage === 1 || isLoadingPage}
-                  className="p-1.5 rounded border border-border bg-surface text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed"
-                  title="First Page"
-                >
-                  <ChevronsLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => goToPage(currentPage - 1)}
-                  disabled={currentPage === 1 || isLoadingPage}
-                  className="p-1.5 rounded border border-border bg-surface text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed"
-                  title="Previous Page"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-
-                <div className="flex items-center gap-1 px-2 text-xs font-mono text-dim">
-                  <span>Page</span>
-                  <input
-                    type="number"
-                    min={1}
-                    max={totalPages}
-                    value={currentPage}
-                    onChange={(e) => {
-                      const p = parseInt(e.target.value, 10)
-                      if (!isNaN(p)) goToPage(p)
-                    }}
-                    className="w-14 text-center bg-surface border border-border rounded px-1.5 py-1 text-bright text-xs focus:outline-none focus:border-accent"
-                  />
-                  <span>of {totalPages}</span>
-                </div>
-
-                <button
-                  onClick={() => goToPage(currentPage + 1)}
-                  disabled={currentPage >= totalPages || isLoadingPage}
-                  className="p-1.5 rounded border border-border bg-surface text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed"
-                  title="Next Page"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => goToPage(totalPages)}
-                  disabled={currentPage >= totalPages || isLoadingPage}
-                  className="p-1.5 rounded border border-border bg-surface text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed"
-                  title="Last Page"
-                >
-                  <ChevronsRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Table View */}
-            <div className="relative border border-border rounded-lg overflow-hidden bg-surface">
-              {isLoadingPage && (
-                <div className="absolute inset-0 bg-surface/80 backdrop-blur-[1px] z-10 flex items-center justify-center">
-                  <div className="flex items-center gap-2 bg-surface px-4 py-2 rounded-lg border border-border text-xs text-bright">
-                    <Loader2 className="w-4 h-4 text-accent animate-spin" />
-                    <span>Loading page {currentPage}...</span>
+            <div className={`bg-surface border border-border rounded-xl flex flex-col overflow-hidden shadow-xl ${isFullscreen ? 'flex-1 h-full' : ''}`}>
+              
+              {/* Header Bar */}
+              <div className="p-4 border-b border-border flex flex-wrap items-center justify-between gap-3 bg-surface/80">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent">
+                    <Table className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-bright flex items-center gap-2">
+                      <span>{file?.name || 'Dataset Viewer'}</span>
+                      {isFullscreen && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/15 text-accent font-mono border border-accent/30 font-normal">
+                          Full Screen Mode (ESC to exit)
+                        </span>
+                      )}
+                    </h3>
+                    <p className="text-xs text-subtle font-mono">
+                      Page {currentPage} of {totalPages} • {processedRows.length} {processedRows.length === 1 ? 'row' : 'rows'} shown
+                    </p>
                   </div>
                 </div>
-              )}
 
-              <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
-                <table className="w-full text-xs text-left border-collapse">
-                  <thead className="sticky top-0 z-10 bg-surface border-b border-border shadow-sm">
-                    <tr>
-                      <th className="px-3 py-2.5 font-mono text-[11px] text-dim border-r border-border w-14 text-center bg-surface/90">
-                        #
-                      </th>
-                      {headers.map((header, colIdx) => (
-                        <th
-                          key={colIdx}
-                          className="px-3 py-2.5 font-mono text-[11px] font-semibold text-bright whitespace-nowrap border-r border-border last:border-r-0 bg-surface/90"
-                        >
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="truncate max-w-[200px]" title={header}>
-                              {header}
-                            </span>
-                            <span className="text-[9px] font-normal px-1 py-0.5 rounded bg-border text-subtle uppercase">
-                              {columnTypes[colIdx] || 'text'}
-                            </span>
-                          </div>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {filteredPageData.length > 0 ? (
-                      filteredPageData.map((row, rowIdx) => {
-                        const globalRowNum = (currentPage - 1) * rowsPerPage + rowIdx + 1
-                        return (
-                          <tr
-                            key={rowIdx}
-                            className="hover:bg-surface/80 transition-colors group"
+                {/* Top Action Tools */}
+                <div className="flex items-center flex-wrap gap-2">
+                  {/* View Mode Toggle */}
+                  <div className="flex items-center bg-background rounded-lg border border-border p-0.5 text-xs">
+                    <button
+                      onClick={() => setActiveTab('table')}
+                      className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 font-medium ${
+                        activeTab === 'table' ? 'bg-surface text-accent shadow-sm border border-border' : 'text-dim hover:text-bright'
+                      }`}
+                    >
+                      <Table className="w-3.5 h-3.5" />
+                      <span>Table</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('json_preview')}
+                      className={`px-2.5 py-1 rounded-md transition-colors flex items-center gap-1.5 font-medium ${
+                        activeTab === 'json_preview' ? 'bg-surface text-accent shadow-sm border border-border' : 'text-dim hover:text-bright'
+                      }`}
+                    >
+                      <FileCode className="w-3.5 h-3.5" />
+                      <span>JSON</span>
+                    </button>
+                  </div>
+
+                  {/* Column Manager Dropdown Toggle */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowColumnManager(!showColumnManager)}
+                      className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-colors ${
+                        showColumnManager || Object.values(hiddenCols).some(Boolean)
+                          ? 'bg-accent/10 border-accent/40 text-accent font-medium'
+                          : 'bg-surface border-border text-dim hover:text-bright hover:bg-border'
+                      }`}
+                      title="Manage column visibility"
+                    >
+                      <Columns className="w-3.5 h-3.5" />
+                      <span>Columns ({visibleColIndices.length}/{headers.length})</span>
+                    </button>
+
+                    {showColumnManager && (
+                      <div className="absolute right-0 mt-2 w-64 bg-surface border border-border rounded-xl shadow-2xl p-3 z-30 space-y-2.5 max-h-80 overflow-y-auto">
+                        <div className="flex items-center justify-between pb-2 border-b border-border text-xs">
+                          <span className="font-semibold text-bright">Visible Columns</span>
+                          <button
+                            onClick={showAllColumns}
+                            className="text-[11px] text-accent hover:underline flex items-center gap-1"
                           >
-                            <td className="px-3 py-2 font-mono text-[11px] text-subtle text-center border-r border-border bg-surface/30">
-                              {globalRowNum}
-                            </td>
-                            {headers.map((_, colIdx) => {
-                              const cellValue = row[colIdx] !== undefined ? String(row[colIdx]) : ''
-                              const cellId = `${rowIdx}-${colIdx}`
-                              const isCopied = copiedCell === cellId
-
-                              return (
-                                <td
-                                  key={colIdx}
-                                  onClick={() => handleCopyCell(cellValue, cellId)}
-                                  className="px-3 py-2 font-mono text-dim whitespace-nowrap max-w-[280px] truncate border-r border-border last:border-r-0 cursor-pointer hover:text-bright hover:bg-accent/5 transition-colors relative group/cell"
-                                  title={`Click to copy: ${cellValue}`}
-                                >
-                                  <span>{cellValue}</span>
-                                  <div className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover/cell:opacity-100 transition-opacity bg-surface px-1 py-0.5 rounded border border-border text-[10px]">
-                                    {isCopied ? (
-                                      <Check className="w-3 h-3 text-green-400" />
-                                    ) : (
-                                      <Copy className="w-3 h-3 text-dim" />
-                                    )}
-                                  </div>
-                                </td>
-                              )
-                            })}
-                          </tr>
-                        )
-                      })
-                    ) : (
-                      <tr>
-                        <td
-                          colSpan={headers.length + 1}
-                          className="px-4 py-12 text-center text-dim text-xs"
-                        >
-                          {searchTerm
-                            ? `No rows matching "${searchTerm}" found on this page.`
-                            : 'No data available.'}
-                        </td>
-                      </tr>
+                            <RotateCcw className="w-3 h-3" />
+                            Show All
+                          </button>
+                        </div>
+                        <div className="space-y-1">
+                          {headers.map((h, idx) => (
+                            <label
+                              key={idx}
+                              className="flex items-center justify-between p-1.5 rounded hover:bg-background cursor-pointer text-xs group"
+                            >
+                              <span className="truncate max-w-[170px] text-dim group-hover:text-bright font-mono">
+                                {h}
+                              </span>
+                              <input
+                                type="checkbox"
+                                checked={!hiddenCols[idx]}
+                                onChange={() => toggleColumnVisibility(idx)}
+                                className="rounded border-border text-accent focus:ring-accent bg-background cursor-pointer"
+                              />
+                            </label>
+                          ))}
+                        </div>
+                      </div>
                     )}
-                  </tbody>
-                </table>
+                  </div>
+
+                  {/* Density Selector */}
+                  <div className="hidden sm:flex items-center bg-background rounded-lg border border-border p-0.5 text-xs">
+                    {(['compact', 'comfortable', 'spacious'] as const).map(d => (
+                      <button
+                        key={d}
+                        onClick={() => setDensity(d)}
+                        className={`px-2 py-1 capitalize rounded-md text-[11px] font-mono transition-colors ${
+                          density === d ? 'bg-surface text-bright font-medium border border-border' : 'text-dim hover:text-bright'
+                        }`}
+                      >
+                        {d}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Export Options Dropdown */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowExportMenu(!showExportMenu)}
+                      className="flex items-center gap-1.5 text-xs font-mono text-dim hover:text-bright px-3 py-1.5 rounded-lg bg-surface hover:bg-border transition-colors border border-border"
+                      title="Export current page"
+                    >
+                      <Download className="w-3.5 h-3.5 text-accent" />
+                      <span>Export</span>
+                    </button>
+
+                    {showExportMenu && (
+                      <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl p-1.5 z-30 space-y-1">
+                        <button
+                          onClick={handleExportCsv}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
+                        >
+                          <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                          <span>Export as CSV</span>
+                        </button>
+                        <button
+                          onClick={handleExportJson}
+                          className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
+                        >
+                          <FileCode className="w-4 h-4 text-amber-400" />
+                          <span>Export as JSON</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Fullscreen Expand / Collapse Toggle */}
+                  <button
+                    onClick={() => setIsFullscreen(!isFullscreen)}
+                    className={`flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-lg border transition-all ${
+                      isFullscreen
+                        ? 'bg-accent text-white border-accent shadow-md'
+                        : 'bg-surface border-border text-dim hover:text-bright hover:bg-border'
+                    }`}
+                    title={isFullscreen ? 'Exit Full Screen (ESC)' : 'Expand to Full Screen'}
+                  >
+                    {isFullscreen ? (
+                      <>
+                        <Minimize2 className="w-3.5 h-3.5" />
+                        <span>Exit Fullscreen</span>
+                      </>
+                    ) : (
+                      <>
+                        <Maximize2 className="w-3.5 h-3.5 text-accent" />
+                        <span>Full Screen</span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
 
-              {/* Table Footer info */}
-              <div className="px-4 py-2.5 bg-surface/50 border-t border-border flex items-center justify-between text-[11px] text-dim font-mono">
-                <span>
-                  Showing rows {(currentPage - 1) * rowsPerPage + 1} –{' '}
-                  {Math.min(currentPage * rowsPerPage, totalRows || pageData.length)} of{' '}
-                  {isIndexing ? `${totalRows.toLocaleString()}+ (Indexing...)` : totalRows.toLocaleString()}
-                </span>
-                <span className="text-subtle">
-                  Click any cell to copy value • Tip: Filter bar searches visible page
-                </span>
+              {/* Search and Quick Pagination Filter Bar */}
+              <div className="px-4 py-3 border-b border-border bg-surface/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                {/* Search Bar */}
+                <div className="relative flex-1 max-w-lg">
+                  <Search className="w-3.5 h-3.5 text-dim absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Instant search & filter in visible rows..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full text-xs font-mono bg-background border border-border rounded-lg pl-9 pr-8 py-1.5 text-bright focus:outline-none focus:border-accent transition-colors"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-dim hover:text-bright text-xs"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* Navigation Pagination Controls */}
+                <div className="flex items-center gap-1 sm:gap-2 self-end sm:self-auto">
+                  {sortConfig && (
+                    <button
+                      onClick={() => setSortConfig(null)}
+                      className="text-[11px] font-mono text-accent hover:underline flex items-center gap-1 mr-2 px-2 py-1 rounded bg-accent/10 border border-accent/20"
+                    >
+                      <span>Sort: {headers[sortConfig.colIdx]} ({sortConfig.direction})</span>
+                      <span>✕</span>
+                    </button>
+                  )}
+
+                  <button
+                    onClick={() => goToPage(1)}
+                    disabled={currentPage === 1 || isLoadingPage}
+                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    title="First Page"
+                  >
+                    <ChevronsLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => goToPage(currentPage - 1)}
+                    disabled={currentPage === 1 || isLoadingPage}
+                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    title="Previous Page"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+
+                  <div className="flex items-center gap-1.5 px-2 text-xs font-mono text-dim">
+                    <span>Page</span>
+                    <input
+                      type="number"
+                      min={1}
+                      max={totalPages}
+                      value={currentPage}
+                      onChange={(e) => {
+                        const p = parseInt(e.target.value, 10)
+                        if (!isNaN(p)) goToPage(p)
+                      }}
+                      className="w-14 text-center bg-background border border-border rounded px-1.5 py-1 text-bright text-xs focus:outline-none focus:border-accent"
+                    />
+                    <span>of {totalPages}</span>
+                  </div>
+
+                  <button
+                    onClick={() => goToPage(currentPage + 1)}
+                    disabled={currentPage >= totalPages || isLoadingPage}
+                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    title="Next Page"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => goToPage(totalPages)}
+                    disabled={currentPage >= totalPages || isLoadingPage}
+                    className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                    title="Last Page"
+                  >
+                    <ChevronsRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/* View Content (Table or JSON) */}
+              <div className="relative flex-1 overflow-hidden bg-background">
+                {isLoadingPage && (
+                  <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px] z-20 flex items-center justify-center">
+                    <div className="flex items-center gap-2.5 bg-surface px-5 py-3 rounded-xl border border-border shadow-2xl text-xs text-bright font-mono">
+                      <Loader2 className="w-4 h-4 text-accent animate-spin" />
+                      <span>Loading page {currentPage} from file stream...</span>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'table' ? (
+                  /* High Performance Painted Table with Sticky Header & Sorting */
+                  <div className={`overflow-x-auto overflow-y-auto ${isFullscreen ? 'h-[calc(100vh-230px)]' : 'max-h-[620px]'}`}>
+                    <table className="w-full text-left border-collapse">
+                      <thead className="sticky top-0 z-10 bg-surface border-b border-border shadow-sm">
+                        <tr>
+                          <th className={`${headerPaddingClass} font-mono text-dim border-r border-border w-16 text-center bg-surface sticky left-0 z-20 shadow-[1px_0_0_rgba(255,255,255,0.05)]`}>
+                            #
+                          </th>
+                          {visibleColIndices.map((colIdx) => {
+                            const header = headers[colIdx]
+                            const type = columnTypes[colIdx] || 'text'
+                            const isSorted = sortConfig?.colIdx === colIdx
+
+                            return (
+                              <th
+                                key={colIdx}
+                                onClick={() => handleSortColumn(colIdx)}
+                                className={`${headerPaddingClass} font-mono font-semibold text-bright whitespace-nowrap border-r border-border last:border-r-0 bg-surface cursor-pointer select-none hover:bg-border/60 transition-colors group`}
+                                title="Click to sort by this column"
+                              >
+                                <div className="flex items-center justify-between gap-3">
+                                  <span className="truncate max-w-[240px] text-bright group-hover:text-accent transition-colors">
+                                    {header}
+                                  </span>
+                                  <div className="flex items-center gap-1.5 shrink-0">
+                                    <span className="text-[9px] font-normal px-1.5 py-0.5 rounded bg-background/80 text-subtle uppercase border border-border/50">
+                                      {type}
+                                    </span>
+                                    <div className="text-dim group-hover:text-accent transition-colors">
+                                      {isSorted ? (
+                                        sortConfig.direction === 'asc' ? (
+                                          <ArrowUp className="w-3.5 h-3.5 text-accent" />
+                                        ) : (
+                                          <ArrowDown className="w-3.5 h-3.5 text-accent" />
+                                        )
+                                      ) : (
+                                        <ArrowUpDown className="w-3 h-3 opacity-30 group-hover:opacity-100" />
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              </th>
+                            )
+                          })}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-border font-mono">
+                        {processedRows.length > 0 ? (
+                          processedRows.map((row, rowIdx) => {
+                            const globalRowNum = (currentPage - 1) * rowsPerPage + rowIdx + 1
+                            return (
+                              <tr
+                                key={rowIdx}
+                                className="hover:bg-surface/90 transition-colors group"
+                              >
+                                <td className={`${cellPaddingClass} text-subtle text-center border-r border-border bg-surface/40 sticky left-0 z-0`}>
+                                  {globalRowNum}
+                                </td>
+                                {visibleColIndices.map((colIdx) => {
+                                  const cellValue = row[colIdx] !== undefined ? String(row[colIdx]) : ''
+                                  const cellId = `${rowIdx}-${colIdx}`
+                                  const isCopied = copiedCell === cellId
+                                  const isNumeric = columnTypes[colIdx] === 'number'
+
+                                  return (
+                                    <td
+                                      key={colIdx}
+                                      onClick={() => handleCopyCell(cellValue, cellId)}
+                                      className={`${cellPaddingClass} text-dim whitespace-nowrap max-w-[320px] truncate border-r border-border last:border-r-0 cursor-pointer hover:text-bright hover:bg-accent/5 transition-colors relative group/cell ${
+                                        isNumeric ? 'text-right' : ''
+                                      }`}
+                                      title={`Click to copy: ${cellValue}`}
+                                    >
+                                      <span>{cellValue}</span>
+                                      <div className="absolute right-1 top-1/2 -translate-y-1/2 opacity-0 group-hover/cell:opacity-100 transition-opacity bg-surface px-1.5 py-0.5 rounded border border-border text-[10px] shadow-sm z-10">
+                                        {isCopied ? (
+                                          <span className="flex items-center gap-1 text-green-400 font-sans">
+                                            <Check className="w-3 h-3" /> Copied
+                                          </span>
+                                        ) : (
+                                          <Copy className="w-3 h-3 text-dim" />
+                                        )}
+                                      </div>
+                                    </td>
+                                  )
+                                })}
+                              </tr>
+                            )
+                          })
+                        ) : (
+                          <tr>
+                            <td
+                              colSpan={visibleColIndices.length + 1}
+                              className="px-4 py-16 text-center text-dim text-xs font-sans"
+                            >
+                              <div className="flex flex-col items-center justify-center gap-2">
+                                <Filter className="w-6 h-6 text-subtle" />
+                                <p className="font-medium text-bright">No matching rows found</p>
+                                <p className="text-subtle text-[11px]">
+                                  Try adjusting your search query or clear filters to view all rows.
+                                </p>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  /* JSON Formatted Preview */
+                  <div className={`p-4 overflow-auto font-mono text-xs text-bright ${isFullscreen ? 'h-[calc(100vh-230px)]' : 'max-h-[620px]'}`}>
+                    <div className="flex items-center justify-between mb-2 text-dim text-[11px] pb-2 border-b border-border font-sans">
+                      <span>Showing JSON format for current visible rows (Sample up to 50 rows)</span>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(JSON.stringify(jsonPreviewData, null, 2))
+                          setCopiedCell('json')
+                          setTimeout(() => setCopiedCell(null), 1500)
+                        }}
+                        className="flex items-center gap-1 text-accent hover:underline font-mono"
+                      >
+                        {copiedCell === 'json' ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                        <span>{copiedCell === 'json' ? 'Copied JSON!' : 'Copy JSON'}</span>
+                      </button>
+                    </div>
+                    <pre className="text-dim leading-relaxed whitespace-pre-wrap">
+                      {JSON.stringify(jsonPreviewData, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+
+              {/* Table Footer info Bar */}
+              <div className="px-4 py-2.5 bg-surface border-t border-border flex flex-wrap items-center justify-between text-[11px] text-dim font-mono gap-2">
+                <div className="flex items-center gap-3">
+                  <span>
+                    Showing rows {(currentPage - 1) * rowsPerPage + 1} –{' '}
+                    {Math.min(currentPage * rowsPerPage, totalRows || pageData.length)} of{' '}
+                    {isIndexing ? `${totalRows.toLocaleString()}+ (Indexing...)` : totalRows.toLocaleString()}
+                  </span>
+                  {searchTerm && (
+                    <span className="text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
+                      {processedRows.length} filtered match{processedRows.length === 1 ? '' : 'es'}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-4 text-subtle">
+                  <span>Tip: Click column header to sort • Click any cell to copy</span>
+                  {isFullscreen && <span>Press <kbd className="px-1.5 py-0.5 bg-background border border-border rounded text-[10px] text-bright">ESC</kbd> to exit</span>}
+                </div>
               </div>
             </div>
-          </SectionPanel>
+          </div>
         </div>
       )}
     </div>
