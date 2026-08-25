@@ -1,0 +1,573 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "ToolBox4Devs Catalog",
+  "url": "https://toolbox4devs.com",
+  "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
+  "totalTools": 69,
+  "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
+  "categories": [
+    { "id": "json-tools", "name": "JSON" },
+    { "id": "encode-tools", "name": "Encode / Decode" },
+    { "id": "text-tools", "name": "Text" },
+    { "id": "generate-tools", "name": "Generators" },
+    { "id": "auth-tools", "name": "Authentication" },
+    { "id": "web-tools", "name": "Web" },
+    { "id": "data-tools", "name": "Data" },
+    { "id": "crypto-tools", "name": "Crypto" },
+    { "id": "analyze-tools", "name": "Analyze" }
+  ],
+  "tools": [
+    {
+      "slug": "age-calculator",
+      "name": "Age & Lifetime Milestone Calculator",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/age-calculator",
+      "description": "Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.",
+      "keywords": ["age calculator", "calculate age", "date of birth calculator", "birthday countdown", "days lived", "hours lived", "minutes lived", "planetary age"]
+    },
+    {
+      "slug": "wcag-contrast-checker",
+      "name": "WCAG 2.1 Color Contrast Checker",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/wcag-contrast-checker",
+      "description": "Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.",
+      "keywords": ["color contrast checker", "wcag contrast", "accessibility checker", "color blindness simulator", "color ratio", "a11y contrast", "wcag 2.1"]
+    },
+    {
+      "slug": "semver-calculator",
+      "name": "SemVer Calculator & Range Tester",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/semver-calculator",
+      "description": "Parse, validate, compare, sort, and calculate version increments according to SemVer 2.0.0 rules and NPM range expressions.",
+      "keywords": ["semver calculator", "semantic versioning", "semver range tester", "version increment", "npm semver", "caret range", "tilde range"]
+    },
+    {
+      "slug": "json-to-sql",
+      "name": "JSON to SQL Schema & Query Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/json-to-sql",
+      "description": "Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.",
+      "keywords": ["json to sql", "json to create table", "json to insert", "sql generator", "json to postgres", "json to mysql", "json to sqlite"]
+    },
+    {
+      "slug": "json-to-csv",
+      "name": "JSON to CSV & CSV to JSON Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/json-to-csv",
+      "description": "Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.",
+      "keywords": ["json to csv", "csv to json", "json spreadsheet converter", "flatten json to csv", "csv parser online", "json table export"]
+    },
+    {
+      "slug": "bcrypt-generator",
+      "name": "Bcrypt Hash Generator & Verifier",
+      "category": "crypto-tools",
+      "url": "https://toolbox4devs.com/bcrypt-generator",
+      "description": "Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.",
+      "keywords": ["bcrypt generator", "bcrypt hash online", "verify bcrypt password", "bcrypt salt rounds", "blowfish cipher", "password hash generator"]
+    },
+    {
+      "slug": "keycode-inspector",
+      "name": "Keycode & Keyboard Event Inspector",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/keycode-inspector",
+      "description": "Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.",
+      "keywords": ["keycode", "javascript keycode", "keyboard event inspector", "event.code", "event.key", "keyboard shortcuts generator"]
+    },
+    {
+      "slug": "dockerfile-generator",
+      "name": "Dockerfile & Container Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/dockerfile-generator",
+      "description": "Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.",
+      "keywords": ["dockerfile generator", "docker compose generator", "docker best practices", "multi-stage dockerfile", "dockerignore generator", "docker security linter"]
+    },
+    {
+      "slug": "cidr-calculator",
+      "name": "CIDR & Subnet Calculator",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/cidr-calculator",
+      "description": "Calculate IPv4 CIDR blocks, usable host IP ranges, subnet masks, wildcard masks, and binary network breakdowns.",
+      "keywords": ["cidr calculator", "subnet calculator", "ipv4 subnetting", "network address calculator", "ip range calculator", "wildcard mask"]
+    },
+    {
+      "slug": "string-escaper",
+      "name": "String Escape & Unescape",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/string-escaper",
+      "description": "Escape and unescape strings for JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell.",
+      "keywords": ["string escaper", "unescape string", "escape json string", "escape sql quotes", "escape html", "slash escape"]
+    },
+    {
+      "slug": "csv-txt-viewer",
+      "name": "Large CSV & TXT Table Viewer (Up to 1GB)",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/csv-txt-viewer",
+      "description": "View, parse, and analyze massive CSV or TXT files up to 1GB in a fast paginated table format directly in your browser with zero memory freeze.",
+      "keywords": ["csv", "txt", "viewer", "table", "data", "large file", "parser", "1gb csv viewer", "large text file"]
+    },
+    {
+      "slug": "base-converter",
+      "name": "Number Base Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/base-converter",
+      "description": "Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two's complement details.",
+      "keywords": ["base converter", "binary to hex", "hex to decimal", "octal converter", "two's complement calculator", "radix converter"]
+    },
+    {
+      "slug": "css-unit-converter",
+      "name": "CSS Unit & Fluid clamp() Converter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/css-unit-converter",
+      "description": "Convert between PX, REM, EM, VW, VH, %, and PT with Tailwind CSS class matching and fluid clamp() generator.",
+      "keywords": ["css unit converter", "px to rem", "rem to px", "css clamp generator", "fluid typography generator", "tailwind spacing converter"]
+    },
+    {
+      "slug": "json-formatter",
+      "name": "JSON Formatter",
+      "category": "json-tools",
+      "url": "https://toolbox4devs.com/json-formatter",
+      "description": "Format, validate, minify, and inspect JSON with custom indentation and real-time syntax checking.",
+      "keywords": ["json formatter", "beautify json", "json validator", "json parser", "json minify", "clean json"]
+    },
+    {
+      "slug": "json-model",
+      "name": "JSON to Model",
+      "category": "json-tools",
+      "url": "https://toolbox4devs.com/json-model",
+      "description": "Convert JSON to TypeScript interfaces, Python Dataclasses, Go Structs, Rust Structs, Java POJO, or C# Classes.",
+      "keywords": ["json to typescript", "json to python", "json to go struct", "json to rust", "json to csharp"]
+    },
+    {
+      "slug": "json-to-zod",
+      "name": "JSON to Zod",
+      "category": "json-tools",
+      "url": "https://toolbox4devs.com/json-to-zod",
+      "description": "Generate TypeScript Zod validation schemas automatically from raw JSON payloads.",
+      "keywords": ["json to zod", "zod schema generator", "infer zod from json", "typescript zod schema"]
+    },
+    {
+      "slug": "yaml-json-converter",
+      "name": "YAML <-> JSON Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/yaml-json-converter",
+      "description": "Bidirectional conversion between YAML and JSON with real-time validation and key sorting.",
+      "keywords": ["yaml to json", "json to yaml", "yaml converter", "kubernetes yaml to json", "docker compose yaml"]
+    },
+    {
+      "slug": "curl-converter",
+      "name": "cURL to Code Converter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/curl-converter",
+      "description": "Convert terminal cURL commands into JavaScript Fetch, Axios, Python Requests, Go, Rust, and PHP.",
+      "keywords": ["curl to fetch", "curl to python", "curl to node axios", "curl to go", "curl to rust"]
+    },
+    {
+      "slug": "sql-formatter",
+      "name": "SQL Formatter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/sql-formatter",
+      "description": "Beautify and indent SQL queries with customizable keyword casing and spacing.",
+      "keywords": ["sql formatter", "format sql online", "beautify sql", "postgres sql formatter", "mysql formatter"]
+    },
+    {
+      "slug": "graphql-formatter",
+      "name": "GraphQL Formatter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/graphql-formatter",
+      "description": "Format and validate GraphQL queries, mutations, and schemas with proper indentation.",
+      "keywords": ["graphql formatter", "format graphql online", "graphql beautifier", "gql formatter"]
+    },
+    {
+      "slug": "hmac-generator",
+      "name": "HMAC Generator",
+      "category": "crypto-tools",
+      "url": "https://toolbox4devs.com/hmac-generator",
+      "description": "Generate Hash-based Message Authentication Codes using SHA-256, SHA-384, SHA-512, and SHA-1.",
+      "keywords": ["hmac generator", "hmac sha256", "generate hmac online", "webhook signature verification"]
+    },
+    {
+      "slug": "base64",
+      "name": "Base64",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/base64",
+      "description": "Encode plain text to Base64 or decode Base64 back to plain text instantly.",
+      "keywords": ["base64 encoder", "base64 decoder", "encode to base64", "decode base64", "base64 online"]
+    },
+    {
+      "slug": "url-encoder",
+      "name": "URL Encoder / Decoder",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/url-encoder",
+      "description": "Encode text for URL query parameters or decode percent-encoded URL strings.",
+      "keywords": ["url encoder", "url decoder", "encodeURIComponent", "percent encoding", "url escape"]
+    },
+    {
+      "slug": "html-entity",
+      "name": "HTML Entity Encoder",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/html-entity",
+      "description": "Encode special characters to HTML entities or decode HTML entities back to characters.",
+      "keywords": ["html entity encoder", "html decoder", "escape html", "unescape html"]
+    },
+    {
+      "slug": "text-diff",
+      "name": "Text Diff Checker",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/text-diff",
+      "description": "Compare two blocks of text side-by-side with visual insertion and deletion highlights.",
+      "keywords": ["text diff", "diff checker", "compare text", "string diff", "file diff"]
+    },
+    {
+      "slug": "uuid",
+      "name": "UUID Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/uuid",
+      "description": "Generate RFC 4122 compliant UUID v4 and v1 strings individually or in batches.",
+      "keywords": ["uuid generator", "guid generator", "uuid v4", "generate uuid online", "random uuid"]
+    },
+    {
+      "slug": "jwt",
+      "name": "JWT Decoder",
+      "category": "auth-tools",
+      "url": "https://toolbox4devs.com/jwt",
+      "description": "Decode and inspect JSON Web Tokens without secrets — inspect claims, header, and expiry.",
+      "keywords": ["jwt decoder", "json web token", "jwt inspector", "decode jwt", "jwt expiry"]
+    },
+    {
+      "slug": "html-formatter",
+      "name": "HTML Formatter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/html-formatter",
+      "description": "Format and beautify HTML markup with clean indentation and syntax structure.",
+      "keywords": ["html formatter", "beautify html", "clean html", "format html code"]
+    },
+    {
+      "slug": "password-generator",
+      "name": "Password Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/password-generator",
+      "description": "Generate cryptographically secure random passwords with customizable length and character sets.",
+      "keywords": ["password generator", "secure password", "random password", "strong password generator"]
+    },
+    {
+      "slug": "lorem-ipsum-generator",
+      "name": "Lorem Ipsum Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/lorem-ipsum-generator",
+      "description": "Generate standard placeholder Lorem Ipsum paragraphs, sentences, and words.",
+      "keywords": ["lorem ipsum generator", "placeholder text", "dummy text", "lipsum"]
+    },
+    {
+      "slug": "regex",
+      "name": "Regex Tester",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/regex",
+      "description": "Test regular expressions with real-time match highlighting, regex flags, and capture groups.",
+      "keywords": ["regex tester", "regular expression online", "regex match", "test regex"]
+    },
+    {
+      "slug": "case-converter",
+      "name": "Case Converter",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/case-converter",
+      "description": "Convert text between camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE, and Title Case.",
+      "keywords": ["case converter", "camelcase", "snake_case", "kebab-case", "pascalcase", "to uppercase"]
+    },
+    {
+      "slug": "slug-generator",
+      "name": "Slug Generator",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/slug-generator",
+      "description": "Generate clean, SEO-friendly URL slugs from any headline or text.",
+      "keywords": ["slug generator", "url slug", "string to slug", "seo slug generator"]
+    },
+    {
+      "slug": "markdown-preview",
+      "name": "Markdown Preview",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/markdown-preview",
+      "description": "Write Markdown with real-time live HTML preview and syntax formatting.",
+      "keywords": ["markdown preview", "markdown editor", "live markdown", "render markdown"]
+    },
+    {
+      "slug": "sha256",
+      "name": "SHA-256 Hash Generator",
+      "category": "crypto-tools",
+      "url": "https://toolbox4devs.com/sha256",
+      "description": "Compute SHA-256, SHA-384, and SHA-512 cryptographic hash digests in the browser.",
+      "keywords": ["sha256 generator", "hash generator", "sha-256 online", "checksum calculator"]
+    },
+    {
+      "slug": "word-counter",
+      "name": "Word Counter",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/word-counter",
+      "description": "Calculate word count, character count, reading time, speaking time, and paragraph count.",
+      "keywords": ["word counter", "character counter", "reading time calculator", "text statistics"]
+    },
+    {
+      "slug": "timestamp-converter",
+      "name": "Timestamp Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/timestamp-converter",
+      "description": "Convert Unix epoch timestamps (seconds/ms) to human-readable dates, ISO 8601, and UTC.",
+      "keywords": ["timestamp converter", "unix epoch converter", "epoch to date", "iso 8601 converter"]
+    },
+    {
+      "slug": "cron-parser",
+      "name": "Cron Expression Parser",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/cron-parser",
+      "description": "Parse cron expressions into human-readable schedules with next execution date forecasts.",
+      "keywords": ["cron parser", "cron expression", "crontab generator", "cron schedule explainer"]
+    },
+    {
+      "slug": "query-string-parser",
+      "name": "Query String Parser",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/query-string-parser",
+      "description": "Parse URL query parameters into formatted tables and JSON key-value objects.",
+      "keywords": ["query string parser", "parse url params", "url query to json"]
+    },
+    {
+      "slug": "color-converter",
+      "name": "Color Converter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/color-converter",
+      "description": "Convert colors between HEX, RGB, HSL, and HSV with live visual color previews.",
+      "keywords": ["color converter", "hex to rgb", "rgb to hex", "hex to hsl", "color picker"]
+    },
+    {
+      "slug": "http-status-lookup",
+      "name": "HTTP Status Code Lookup",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/http-status-lookup",
+      "description": "Fast reference lookup for all HTTP status codes (200, 301, 404, 500) and RFC specifications.",
+      "keywords": ["http status codes", "http status lookup", "404 not found", "500 internal server error"]
+    },
+    {
+      "slug": "mime-type-lookup",
+      "name": "MIME Type Lookup",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/mime-type-lookup",
+      "description": "Search MIME Content-Type headers, file extensions, and media category classifications.",
+      "keywords": ["mime type lookup", "content-type header", "file extension to mime", "mime list"]
+    },
+    {
+      "slug": "user-agent-parser",
+      "name": "User Agent Parser",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/user-agent-parser",
+      "description": "Parse User-Agent strings to identify browser version, engine, OS, device, and bot bots.",
+      "keywords": ["user agent parser", "parse user agent", "browser detection", "ua string inspector"]
+    },
+    {
+      "slug": "ascii-table",
+      "name": "ASCII Table",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/ascii-table",
+      "description": "Interactive ASCII table lookup for decimal, hexadecimal, octal, binary, and character codes.",
+      "keywords": ["ascii table", "ascii codes", "char to ascii", "ascii decimal hex"]
+    },
+    {
+      "slug": "hash-comparator",
+      "name": "Hash Comparator",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/hash-comparator",
+      "description": "Compare two cryptographic hashes or checksums side-by-side with visual match indication.",
+      "keywords": ["hash comparator", "compare hashes", "checksum validator", "verify sha256"]
+    },
+    {
+      "slug": "http-header-parser",
+      "name": "HTTP Header Parser",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/http-header-parser",
+      "description": "Parse raw HTTP request and response headers into structured key-value maps with security insights.",
+      "keywords": ["http header parser", "parse http headers", "security headers check", "response headers"]
+    },
+    {
+      "slug": "basic-auth-header",
+      "name": "Basic Auth Header Generator",
+      "category": "auth-tools",
+      "url": "https://toolbox4devs.com/basic-auth-header",
+      "description": "Generate standard Authorization: Basic <base64> HTTP headers from username and password.",
+      "keywords": ["basic auth header", "authorization basic generator", "http basic auth online"]
+    },
+    {
+      "slug": "unix-permissions-calculator",
+      "name": "Unix Permissions Calculator",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/unix-permissions-calculator",
+      "description": "Interactive chmod permissions calculator for octal (e.g., 755, 644) and symbolic notation.",
+      "keywords": ["chmod calculator", "unix permissions", "chmod 755", "chmod 644", "octal permissions"]
+    },
+    {
+      "slug": "local-ai-text-assistant",
+      "name": "Local AI Text Assistant",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/local-ai-text-assistant",
+      "description": "Client-side AI assistant for summarizing, rewriting, and analyzing developer text and code.",
+      "keywords": ["local ai text assistant", "browser ai assistant", "text summary tool"]
+    },
+    {
+      "slug": "csv-to-markdown",
+      "name": "CSV to Markdown Table Converter",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/csv-to-markdown",
+      "description": "Convert CSV or TSV tabular data into cleanly aligned Markdown tables with header toggling.",
+      "keywords": ["csv to markdown", "tsv to markdown", "markdown table generator", "convert csv to table", "csv to md"]
+    },
+    {
+      "slug": "hex-converter",
+      "name": "Hexadecimal String Converter",
+      "category": "encode-tools",
+      "url": "https://toolbox4devs.com/hex-converter",
+      "description": "Bidirectional conversion between UTF-8 text strings and hexadecimal representations.",
+      "keywords": ["hex converter", "text to hex", "hex to text", "hexadecimal encoder", "string to hex"]
+    },
+    {
+      "slug": "mac-address-generator",
+      "name": "MAC Address Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/mac-address-generator",
+      "description": "Generate valid unicast MAC addresses with custom delimiters (colon, hyphen, dot) and casing.",
+      "keywords": ["mac address generator", "random mac address", "mac generator", "hardware address generator"]
+    },
+    {
+      "slug": "rsa-key-generator",
+      "name": "RSA Key Pair Generator",
+      "category": "crypto-tools",
+      "url": "https://toolbox4devs.com/rsa-key-generator",
+      "description": "Generate secure RSA public and private key pairs (1024, 2048, 4096 bits) in PEM format using Web Crypto API.",
+      "keywords": ["rsa key generator", "generate rsa keys", "public private key generator", "pem generator", "rsa crypto"]
+    },
+    {
+      "slug": "svg-placeholder-generator",
+      "name": "SVG Placeholder Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/svg-placeholder-generator",
+      "description": "Generate fast, responsive, and customizable SVG placeholder images for UI layouts and wireframes.",
+      "keywords": ["svg placeholder", "placeholder image generator", "dummy image", "mock image", "svg generator"]
+    },
+    {
+      "slug": "url-parser",
+      "name": "URL & Query Component Parser",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/url-parser",
+      "description": "Parse URLs into their protocol, hostname, port, pathname, search params, and hash fragments.",
+      "keywords": ["url parser", "parse url", "query string parser", "uri parser", "url component extractor"]
+    },
+    {
+      "slug": "xml-formatter",
+      "name": "XML Formatter & Minifier",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/xml-formatter",
+      "description": "Format, beautify, and minify XML documents with adjustable indent sizes and real-time syntax checking.",
+      "keywords": ["xml formatter", "beautify xml", "minify xml", "xml pretty print", "format xml online"]
+    },
+    {
+      "slug": "docker-run-to-compose",
+      "name": "Docker Run to Compose Converter",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/docker-run-to-compose",
+      "description": "Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations instantly.",
+      "keywords": ["docker run to compose", "docker run to docker-compose", "convert docker run", "docker compose generator", "docker compose converter", "docker cli to yaml"]
+    },
+    {
+      "slug": "svg-to-jsx",
+      "name": "SVG to JSX / React Converter",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/svg-to-jsx",
+      "description": "Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.",
+      "keywords": ["svg to jsx", "svg to react", "svg to tsx", "convert svg to react component", "svg optimizer jsx", "react svg icon generator"]
+    },
+    {
+      "slug": "qr-code-generator",
+      "name": "Safe Vector QR Code Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/qr-code-generator",
+      "description": "100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.",
+      "keywords": ["safe qr code generator", "secure qr code generator", "qr code vector generator", "eps qr code generator", "qr code generator eps vector", "vectorize qr code", "create vector qr code", "qr code svg generator", "qr code generator svg download", "qr generator svg", "qr code generator transparent", "transparent qr code generator", "qr code generator svg free", "qr code generator png", "generate qr code png", "free qr code generator vector", "cod qr generator", "qr code generator", "create qr code", "wifi qr code"]
+    },
+    {
+      "slug": "qr-code-scanner",
+      "name": "QR Code Scanner",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/qr-code-scanner",
+      "description": "Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.",
+      "keywords": ["qr code scanner", "scan qr code", "decode qr code", "qr reader", "online qr code scanner", "camera qr scanner", "upload qr code", "offline qr reader"]
+    },
+    {
+      "slug": "line-sorter",
+      "name": "Line Sorter & Deduplicator",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/line-sorter",
+      "description": "Sort lines alphabetically, by length, or naturally — remove duplicates, trim whitespace, and drop empty lines.",
+      "keywords": ["line sorter", "sort lines", "remove duplicate lines", "deduplicate lines", "alphabetical sort", "natural sort", "line deduplicator", "remove empty lines"]
+    },
+    {
+      "slug": "number-to-words",
+      "name": "Number to Words Converter",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/number-to-words",
+      "description": "Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.",
+      "keywords": ["number to words", "numbers to english", "spell out numbers", "number to text", "integer to words", "decimal to words", "write numbers in words", "amount in words"]
+    },
+    {
+      "slug": "gitignore-generator",
+      "name": ".gitignore Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/gitignore-generator",
+      "description": "Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system entirely in your browser.",
+      "keywords": ["gitignore generator", "generate gitignore", "git ignore file", "node gitignore", "react gitignore", "python gitignore", "vscode gitignore"]
+    },
+    {
+      "slug": "text-repeater",
+      "name": "Text Repeater & Multiplier",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/text-repeater",
+      "description": "Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.",
+      "keywords": ["text repeater", "repeat text online", "string replicator", "text replicator", "text multiplier", "repeat text 1000 times", "duplicate text generator"]
+    },
+    {
+      "slug": "ai-token-counter",
+      "name": "AI Token Counter & Visualizer",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/ai-token-counter",
+      "description": "Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.",
+      "keywords": ["ai token counter", "token calculator", "tiktoken online", "gpt token count", "claude token estimator", "gemini token counter", "tokenizer visualizer", "bpe encoder online"]
+    },
+    {
+      "slug": "jwt-encoder",
+      "name": "JWT Encoder & Token Generator",
+      "category": "auth-tools",
+      "url": "https://toolbox4devs.com/jwt-encoder",
+      "description": "Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.",
+      "keywords": ["jwt encoder", "create jwt", "generate jwt", "jwt generator", "sign jwt", "hs256", "bearer token"]
+    },
+    {
+      "slug": "cron-generator",
+      "name": "Cron Expression Generator",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/cron-generator",
+      "description": "Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.",
+      "keywords": ["cron generator", "crontab builder", "cron expression builder", "schedule builder", "cron job scheduler"]
+    },
+    {
+      "slug": "password-strength-analyzer",
+      "name": "Password Strength Analyzer",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/password-strength-analyzer",
+      "description": "Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.",
+      "keywords": ["password strength analyzer", "password entropy calculator", "crack time estimator", "password checker", "password security", "password audit"]
+    },
+    {
+      "slug": "faker-data-generator",
+      "name": "Faker Data Generator",
+      "category": "generate-tools",
+      "url": "https://toolbox4devs.com/faker-data-generator",
+      "description": "Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.",
+      "keywords": ["faker data generator", "fake data generator", "mock data generator", "test data generator", "fake names generator", "dummy data"]
+    }
+  ]
+}

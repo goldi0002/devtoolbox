@@ -4,12 +4,13 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "vite-react-ssg build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "npm run typecheck"
+    "test": "vitest run",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@codemirror/lang-css": "^6.3.1",
@@ -21,20 +22,31 @@
     "@codemirror/lang-xml": "^6.1.0",
     "@codemirror/view": "^6.40.0",
     "@posthog/react": "^1.8.2",
+    "@types/bcryptjs": "^3.0.0",
+    "@types/qrcode": "^1.5.6",
     "@uiw/react-codemirror": "^4.25.8",
+    "bcryptjs": "^3.0.3",
     "diff": "^5.2.0",
+    "jsqr": "^1.4.0",
+    "lucide-react": "^1.27.0",
     "lz-string": "^1.5.0",
+    "papaparse": "^5.6.0",
     "posthog-js": "^1.360.0",
     "prettier": "^3.8.1",
+    "qrcode": "^1.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
     "uuid": "^9.0.1",
-    "vite-react-ssg": "^0.9.1-beta.1"
+    "vite-react-ssg": "0.9.1",
+    "xml-formatter": "^3.7.0",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/diff": "^5.2.1",
     "@types/node": "^20.11.24",
+    "@types/papaparse": "^5.5.2",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@types/uuid": "^9.0.8",
@@ -49,6 +61,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.6",
-    "vite-plugin-sitemap": "^0.8.2"
+    "vite-plugin-sitemap": "^0.8.2",
+    "vitest": "^4.1.10"
   }
 }

@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import type { ToolMeta } from '../tools/tool-meta'
 import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -13,29 +13,83 @@ const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] a
 export default function ToolsIndex() {
   const { category } = useParams<{ category: string }>()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const urlQuery = searchParams.get('q') || searchParams.get('query') || searchParams.get('search') || searchParams.get('queue') || ''
 
   // Derive from URL — not from useState so back/forward navigation works
   const activeCategory = category && categories.includes(category as any)
     ? category
     : 'all'
 
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(urlQuery)
   const { favoriteSet, favorites, recentTools, toggleFavorite } = useToolPreferences()
 
-  // Clear search when URL category changes (browser back/forward)
+  // Sync state if URL search query changes (e.g. from OpenSearch or browser history navigation)
   useEffect(() => {
-    setSearch('')
-  }, [category])
+    setSearch(urlQuery)
+  }, [urlQuery])
+
+  const categorySeoTitles: Record<string, string> = {
+    'all': 'Developer Tools Directory — 57+ Free Online Utilities',
+    'json-tools': 'JSON Tools — Free Online JSON Formatters, Validators & Converters',
+    'encode-tools': 'Encoder & Decoder Tools — Base64, URL & HTML Entities',
+    'text-tools': 'Text Tools & Utilities — Text Diff, Case Converter, Regex & Sorter',
+    'generate-tools': 'Online Generators — UUID v4, Passwords, Dockerfiles & Placeholders',
+    'auth-tools': 'Authentication Tools — JWT Decoders & Basic Auth Generators',
+    'web-tools': 'Web Development Tools — HTTP Status, WCAG Contrast & Formatters',
+    'data-tools': 'Data & Conversion Tools — CIDR, SemVer, SQL, CSV & Time',
+    'crypto-tools': 'Cryptography & Security Tools — SHA-256, Bcrypt, HMAC & RSA',
+    'analyze-tools': 'Code & Text Analysis Tools — Word Counter & Local AI'
+  }
+
+  const categoryDescriptions: Record<string, string> = {
+    'all': 'Explore 57+ free, browser-based developer utilities. JSON formatters, JWT decoders, UUID generators, cryptography tools, and text helpers. 100% private, zero server calls.',
+    'json-tools': 'Free online JSON formatters, validators, schema generators, and minifiers. Beautify raw JSON and fix syntax errors with 100% in-browser privacy.',
+    'encode-tools': 'Instant encoder and decoder utilities including Base64, URL encoding, HTML entities, and string escapers. Fast, private, and zero latency.',
+    'text-tools': 'Developer text utilities for side-by-side diffing, regex testing, case conversion, line sorting, and markdown editing.',
+    'generate-tools': 'Generate random UUID v4s, secure cryptographic passwords, Dockerfiles, SVG placeholders, and mock text directly in your browser.',
+    'auth-tools': 'Decode JSON Web Tokens (JWT), inspect claims, check token expiration, and generate HTTP Basic Auth authorization headers securely.',
+    'web-tools': 'Essential web developer utilities: WCAG color contrast checker, HTTP status lookup, cURL command converter, and HTML/XML formatters.',
+    'data-tools': 'Data manipulation tools: CIDR subnet calculator, SemVer tester, JSON to SQL schema generator, and CSV converters.',
+    'crypto-tools': 'Cryptographic hashing tools: SHA-256 hash calculator, Bcrypt generator, HMAC generator, and RSA keypair generator running in browser Web Crypto.',
+    'analyze-tools': 'In-browser text and code analysis tools including word counter, character statistics, and private local text analyzer.'
+  }
 
   const pageTitle = activeCategory !== 'all'
-    ? `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`
-    : 'All Tools'
+    ? (categorySeoTitles[activeCategory] || `${categoryLabels[activeCategory as ToolMeta['category']]} Tools`)
+    : search
+      ? `Search results for "${search}"`
+      : 'Developer Tools Directory'
 
-  usePageTitle(pageTitle)
+  usePageTitle(activeCategory !== 'all' ? `${categoryLabels[activeCategory as ToolMeta['category']]} Tools` : 'All Tools')
+
+  const handleSearchChange = (newQuery: string) => {
+    setSearch(newQuery)
+    const newParams = new URLSearchParams(searchParams)
+    if (newQuery.trim()) {
+      newParams.set('q', newQuery)
+      // clean up any legacy aliases
+      newParams.delete('query')
+      newParams.delete('search')
+      newParams.delete('queue')
+    } else {
+      newParams.delete('q')
+      newParams.delete('query')
+      newParams.delete('search')
+      newParams.delete('queue')
+    }
+    setSearchParams(newParams, { replace: true })
+  }
 
   const handleCategoryChange = (cat: string) => {
-    setSearch('')
-    navigate(cat === 'all' ? '/tools' : `/tools/${cat}`, { replace: true })
+    const targetPath = cat === 'all' ? '/tools' : `/tools/${cat}`
+    const qStr = search ? `?q=${encodeURIComponent(search)}` : ''
+    navigate(`${targetPath}${qStr}`, { replace: true })
+  }
+
+  const clearSearch = () => {
+    handleSearchChange('')
   }
 
   const filtered = useMemo(() => {
@@ -56,23 +110,47 @@ export default function ToolsIndex() {
 
   const showingAll = filtered.length === tools.length
 
+  const categoryKeywords = useMemo(() => {
+    if (activeCategory === 'all') {
+      return ['developer tools directory', 'online utilities', 'developer toolbox', 'browser developer tools', 'all developer utilities']
+    }
+    const catTools = tools.filter(t => t.category === activeCategory)
+    return [
+      `${categoryLabels[activeCategory as ToolMeta['category']]} tools`,
+      ...catTools.map(t => t.name.toLowerCase()),
+      ...catTools.flatMap(t => t.keywords).slice(0, 10)
+    ]
+  }, [activeCategory])
+
   return (
     <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
       <SEO
         title={pageTitle}
-        description={`${tools.length} free browser-based developer tools. JSON formatter, JWT decoder, UUID generator and more. No ads, no tracking.`}
+        description={categoryDescriptions[activeCategory] || `Explore free, client-side ${categoryLabels[activeCategory as ToolMeta['category']]} utilities. Run entirely in your browser memory with zero tracking.`}
         slug={activeCategory === 'all' ? 'tools' : `tools/${activeCategory}`}
+        keywords={categoryKeywords}
+        category={activeCategory !== 'all' ? activeCategory : undefined}
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="mb-12 animate-fade-in">
-        <p className="eyebrow mb-4">Toolbox</p>
+      <section className="relative mb-12 pt-4 pb-6 text-center sm:text-left animate-fade-in">
+        {/* Ambient glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-violet-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
 
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
-            <h1 className="font-display text-[clamp(2.75rem,8vw,5rem)] text-bright leading-[0.9] tracking-tight">
-              ALL <span className="text-accent">TOOLS</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/8 text-violet-400 text-[11px] font-mono font-medium mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
+              {tools.length} Browser Utilities • Zero Server Calls
+            </div>
+
+            <h1 className="font-display text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.9] tracking-tight">
+              <span className="text-bright">ALL</span>{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400">
+                TOOLS
+              </span>
             </h1>
+
             <p className="mt-4 max-w-lg font-sans text-sm leading-relaxed text-dim">
               Search {tools.length} browser-based utilities, filter by category, and star the ones you
               reach for daily.
@@ -132,14 +210,14 @@ export default function ToolsIndex() {
             <input
               type="text"
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={e => handleSearchChange(e.target.value)}
               placeholder="Search tools..."
               aria-label="Search tools"
               className="input-base pl-7 w-full"
             />
             {search && (
               <button
-                onClick={() => setSearch('')}
+                onClick={clearSearch}
                 aria-label="Clear search"
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle hover:text-dim
                            font-mono text-xs transition-colors"
@@ -150,13 +228,13 @@ export default function ToolsIndex() {
           </div>
 
           {/* Category filters */}
-          <div className="flex gap-1.5 flex-wrap">
+          <div className="flex gap-1.5 overflow-x-auto no-scrollbar max-w-full py-0.5">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => handleCategoryChange(cat)}
                 aria-pressed={activeCategory === cat && !search}
-                className={`chip ${activeCategory === cat && !search ? 'chip-active' : ''}`}
+                className={`chip whitespace-nowrap shrink-0 ${activeCategory === cat && !search ? 'chip-active' : ''}`}
               >
                 {cat === 'all'
                   ? `All (${tools.length})`
@@ -181,7 +259,7 @@ export default function ToolsIndex() {
           <p className="text-sm font-mono text-dim mb-2">No tools found</p>
           <p className="text-xs font-mono text-subtle mb-6">No results for "{search}"</p>
           <button
-            onClick={() => { setSearch(''); handleCategoryChange('all') }}
+            onClick={() => { clearSearch(); handleCategoryChange('all') }}
             className="text-xs font-mono text-subtle hover:text-dim transition-colors underline"
           >
             Clear search

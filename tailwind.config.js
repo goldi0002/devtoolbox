@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        mono: ['"JetBrains Mono"', '"Fira Code"', 'Consolas', 'monospace'],
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono, "JetBrains Mono")', '"Fira Code"', 'Consolas', 'monospace'],
+        sans: ['var(--font-sans, "DM Sans")', 'system-ui', 'sans-serif'],
         display: ['"Bebas Neue"', 'Impact', 'sans-serif'],
       },
       colors: {

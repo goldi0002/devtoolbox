@@ -89,11 +89,11 @@ export default function ThemePicker() {
             {/* Trigger button */}
             <button
                 onClick={() => setOpen(o => !o)}
-                className={`flex items-center justify-center w-7 h-7 border text-sm
-          transition-all duration-200
+                className={`flex items-center justify-center w-8 h-8 rounded-md border text-sm
+          transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent
           ${open
-                        ? 'border-subtle text-bright'
-                        : 'border-border text-dim hover:text-bright hover:border-subtle'
+                        ? 'border-subtle text-bright bg-surface'
+                        : 'border-border text-dim hover:text-bright hover:border-subtle hover:bg-surface'
                     }`}
                 aria-label="Change theme"
                 aria-expanded={open}

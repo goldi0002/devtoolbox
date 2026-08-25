@@ -12,22 +12,15 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
   const navigate = useNavigate()
   const inputRef = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
+  const [selectedIndex, setSelectedIndex] = useState(0)
   const { favoriteSet, recentTools } = useToolPreferences()
 
   useEffect(() => {
     if (!open) return
     setQuery('')
+    setSelectedIndex(0)
     window.setTimeout(() => inputRef.current?.focus(), 0)
   }, [open])
-
-  useEffect(() => {
-    if (!open) return
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onClose, open])
 
   const scoredTools = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -44,6 +37,40 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
       .sort((a, b) => b.score - a.score || a.tool.name.localeCompare(b.tool.name))
       .slice(0, 8)
   }, [favoriteSet, query, recentTools])
+
+  // Total selectable items: index 0 is "Browse all tools", 1..N are the scored tools
+  const totalItems = scoredTools.length + 1
+
+  useEffect(() => {
+    setSelectedIndex(0)
+  }, [query])
+
+  useEffect(() => {
+    if (!open) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        setSelectedIndex(prev => (prev + 1) % totalItems)
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        setSelectedIndex(prev => (prev - 1 + totalItems) % totalItems)
+      } else if (event.key === 'Enter') {
+        event.preventDefault()
+        if (selectedIndex === 0) {
+          onClose()
+          navigate('/tools')
+        } else if (scoredTools[selectedIndex - 1]) {
+          const targetTool = scoredTools[selectedIndex - 1].tool
+          onClose()
+          navigate(`/${targetTool.slug}`)
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [navigate, onClose, open, scoredTools, selectedIndex, totalItems])
 
   if (!open) return null
 
@@ -69,30 +96,53 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
           <kbd className="rounded border border-border px-2 py-1 text-[10px] font-mono text-muted">Esc</kbd>
         </div>
         <div className="max-h-[60vh] overflow-y-auto p-2">
-          <button onClick={goToTools} className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-left hover:bg-surface focus:bg-surface focus:outline-none">
+          <button
+            onClick={goToTools}
+            onMouseEnter={() => setSelectedIndex(0)}
+            className={`flex w-full items-center justify-between rounded-xl px-3 py-3 text-left transition-colors ${
+              selectedIndex === 0 ? 'bg-indigo-500/15 border border-indigo-500/30' : 'hover:bg-surface'
+            }`}
+          >
             <span>
               <span className="block text-sm font-medium text-bright">Browse all tools</span>
               <span className="block text-xs text-subtle">Open the complete categorized toolbox</span>
             </span>
             <span className="text-xs font-mono text-muted">/tools</span>
           </button>
+
           {scoredTools.length === 0 ? (
             <div className="rounded-xl border border-dashed border-border px-4 py-10 text-center">
               <p className="text-sm font-medium text-bright">No matching tools</p>
-              <p className="mt-1 text-xs text-subtle">Try JSON, JWT, color, hash, timestamp, or formatter.</p>
+              <p className="mt-1 text-xs text-subtle">Try cURL, JSON, SQL, JWT, color, hash, timestamp, or formatter.</p>
             </div>
-          ) : scoredTools.map(({ tool }) => (
-            <Link key={tool.slug} to={`/${tool.slug}`} onClick={onClose} className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-surface focus:bg-surface focus:outline-none">
-              <span className="min-w-0">
-                <span className="flex items-center gap-2 text-sm font-medium text-bright">
-                  {tool.name}
-                  {favoriteSet.has(tool.slug) && <span className="text-amber-400" aria-label="Favorite">★</span>}
-                </span>
-                <span className="block truncate text-xs text-subtle">{categoryLabels[tool.category]} · {tool.description}</span>
-              </span>
-              <span className="ml-4 shrink-0 text-xs font-mono text-muted">/{tool.slug}</span>
-            </Link>
-          ))}
+          ) : (
+            scoredTools.map(({ tool }, idx) => {
+              const itemIndex = idx + 1
+              const isSelected = selectedIndex === itemIndex
+              return (
+                <Link
+                  key={tool.slug}
+                  to={`/${tool.slug}`}
+                  onClick={onClose}
+                  onMouseEnter={() => setSelectedIndex(itemIndex)}
+                  className={`flex items-center justify-between rounded-xl px-3 py-3 transition-colors ${
+                    isSelected ? 'bg-indigo-500/15 border border-indigo-500/30' : 'hover:bg-surface'
+                  }`}
+                >
+                  <span className="min-w-0">
+                    <span className="flex items-center gap-2 text-sm font-medium text-bright">
+                      {tool.name}
+                      {favoriteSet.has(tool.slug) && <span className="text-amber-400" aria-label="Favorite">★</span>}
+                    </span>
+                    <span className="block truncate text-xs text-subtle">
+                      {categoryLabels[tool.category]} · {tool.description}
+                    </span>
+                  </span>
+                  <span className="ml-4 shrink-0 text-xs font-mono text-muted">/{tool.slug}</span>
+                </Link>
+              )
+            })
+          )}
         </div>
       </div>
     </div>

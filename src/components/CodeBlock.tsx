@@ -2,19 +2,11 @@ import CopyButton from './CopyButton'
 import ShareButton from './ui/ShareTool'
 import ClientOnly from './ClientOnly'
 import ReactCodeMirror from '@uiw/react-codemirror'
-import { javascript } from '@codemirror/lang-javascript'
-import { json } from '@codemirror/lang-json'
-import { html } from '@codemirror/lang-html'
-import { css } from '@codemirror/lang-css'
-import { xml } from '@codemirror/lang-xml'
-import { sql } from '@codemirror/lang-sql'
-import { markdown } from '@codemirror/lang-markdown'
+import { getEditorLanguageExtension } from '../lib/editorLanguage'
 import { ToolDataShare } from '../types/share'
 import { useState, useCallback, useMemo } from 'react'
 import type { Statistics } from '@uiw/react-codemirror'
 import { foldGutter, codeFolding } from '@codemirror/language'
-
-// import { vscodeDark } from '@uiw/codemirror-theme-vscode'
 
 type StatusType = 'ready' | 'editing' | 'saved' | 'error' | 'loading' | 'copied'
 
@@ -42,24 +34,6 @@ interface CodeBlockProps {
   status?: StatusType
 }
 
-// Map language string to CodeMirror extension
-function getExtension(language: string) {
-  switch (language.toLowerCase()) {
-    case 'javascript':
-    case 'js':
-    case 'typescript':
-    case 'ts': return [javascript({ typescript: true })]
-    case 'json': return [json()]
-    case 'html': return [html()]
-    case 'css': return [css()]
-    case 'xml': return [xml()]
-    case 'sql': return [sql()]
-    case 'markdown':
-    case 'md': return [markdown()]
-    default: return []
-  }
-}
-
 export default function CodeBlock({
   code,
   language = 'text',
@@ -78,7 +52,7 @@ export default function CodeBlock({
   const [cursorPos, setCursorPos] = useState({ line: 1, col: 1 })
 
   const extensions = useMemo(() => [
-    ...getExtension(language),
+    ...getEditorLanguageExtension(language),
     codeFolding(),
     foldGutter(),
   ], [language])

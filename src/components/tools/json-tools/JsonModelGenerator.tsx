@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
 import ErrorBanner from '../../ui/ErrorBanner'
-import { jsonToCSharp, jsonToTypeScript } from '../../../utils/modelGenerator'
+import { jsonToCSharp, jsonToTypeScript, jsonToPythonPydantic, jsonToGo, jsonToRust } from '../../../utils/modelGenerator'
 import { getErrorMessage } from '../../../utils/errors'
 
 const SAMPLE_JSON = `{
@@ -23,13 +23,21 @@ export default function JsonModelGenerator() {
   const [className, setClassName] = useState('MyModel')
   const [csharp, setCsharp] = useState('')
   const [typescript, setTypescript] = useState('')
+  const [python, setPython] = useState('')
+  const [go, setGo] = useState('')
+  const [rust, setRust] = useState('')
   const [error, setError] = useState('')
 
   const generate = () => {
     setError('')
+    const targetJson = input || SAMPLE_JSON
+    const targetName = className || 'MyModel'
     try {
-      setCsharp(jsonToCSharp(input || SAMPLE_JSON, className || 'MyModel'))
-      setTypescript(jsonToTypeScript(input || SAMPLE_JSON, className || 'MyModel'))
+      setCsharp(jsonToCSharp(targetJson, targetName))
+      setTypescript(jsonToTypeScript(targetJson, targetName))
+      setPython(jsonToPythonPydantic(targetJson, targetName))
+      setGo(jsonToGo(targetJson, targetName))
+      setRust(jsonToRust(targetJson, targetName))
     } catch (e) {
       setError(getErrorMessage(e, 'Failed to generate model'))
     }
@@ -39,6 +47,9 @@ export default function JsonModelGenerator() {
     setInput('')
     setCsharp('')
     setTypescript('')
+    setPython('')
+    setGo('')
+    setRust('')
     setError('')
     setClassName('MyModel')
   }
@@ -46,13 +57,13 @@ export default function JsonModelGenerator() {
   return (
     <ToolLayout
       title="JSON → Model Generator"
-      description="Convert JSON to C# classes or TypeScript interfaces"
+      description="Convert JSON into strongly-typed models across TypeScript, C#, Python (Pydantic), Go, and Rust"
       tag="codegen"
     >
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1">
-            <label className="block text-xs text-dim font-mono mb-1.5">Class / Interface Name</label>
+            <label className="block text-xs text-dim font-mono mb-1.5">Model / Struct Name</label>
             <input
               value={className}
               onChange={e => setClassName(e.target.value)}
@@ -61,17 +72,17 @@ export default function JsonModelGenerator() {
             />
           </div>
           <div className="flex items-end gap-2">
-            <button onClick={generate} className="btn-primary">Generate</button>
+            <button onClick={generate} className="btn-primary">Generate All Models</button>
             <button onClick={clear} className="btn-ghost">Clear</button>
           </div>
         </div>
 
         <div>
-          <label className="block text-xs text-dim font-mono mb-1.5 flex">
-            JSON Input
+          <label className="block text-xs text-dim font-mono mb-1.5 flex justify-between items-center">
+            <span>JSON Input</span>
             <button
               onClick={() => setInput(SAMPLE_JSON)}
-              className="ml-2 text-subtle hover:text-dim transition-colors"
+              className="text-subtle hover:text-dim transition-colors"
             >
               ← load example
             </button>
@@ -87,10 +98,17 @@ export default function JsonModelGenerator() {
 
         <ErrorBanner message={error} />
 
-        {csharp && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <CodeBlock code={csharp} language="C#" label="Model.cs" maxHeight='300px' minHeight='300px' />
-            <CodeBlock code={typescript} language="TypeScript" label="model.ts" maxHeight='300px' minHeight='300px' />
+        {typescript && (
+          <div className="space-y-6 mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <CodeBlock code={typescript} language="TypeScript" label="TypeScript interface" maxHeight='260px' minHeight='220px' />
+              <CodeBlock code={csharp} language="C#" label="C# class" maxHeight='260px' minHeight='220px' />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <CodeBlock code={python} language="Python" label="Python (Pydantic)" maxHeight='260px' minHeight='220px' />
+              <CodeBlock code={go} language="Go" label="Go struct" maxHeight='260px' minHeight='220px' />
+              <CodeBlock code={rust} language="Rust" label="Rust (serde struct)" maxHeight='260px' minHeight='220px' />
+            </div>
           </div>
         )}
       </div>

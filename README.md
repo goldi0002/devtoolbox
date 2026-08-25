@@ -1,97 +1,71 @@
 # Toolbox4Devs
 
-A fast, minimalist, privacy-first collection of browser-based developer utilities. No backend, no ads, and all tool processing is designed to happen locally in the browser.
+A fast, minimalist, privacy-first collection of **60+ browser-based developer utilities**. No backend, no ads — all tool processing happens locally in the browser.
+
+[![Build status](https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml/badge.svg)](https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## Quick Start
+
+```bash
+git clone https://github.com/goldi0002/devtoolbox.git
+cd devtoolbox
+npm install
+npm run dev
+```
+
+The dev server starts at `http://localhost:3000`.
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server with hot reload |
+| `npm run build` | Build static site for production |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
+| `npm run typecheck` | Run TypeScript type checking |
+| `npm test` | Run Vitest test suite |
 
 ## Tools
 
-Tool metadata is maintained in `src/tools/meta/` and surfaced through the registry. Current categories include:
+Toolbox4Devs includes 60+ tools across these categories:
 
 | Category | Examples |
 |---|---|
-| JSON | JSON Formatter, JSON → Model Generator |
-| Encode / Decode | Base64, URL Encoder / Decoder, HTML Entity Tool |
-| Text | Text Diff, Case Converter, Slug Generator, Regex Tester |
-| Generators | UUID Generator, Password Generator, Lorem Ipsum Generator |
-| Authentication | JWT Decoder, Basic Auth Header |
-| Web | HTML Formatter, Markdown Preview, HTTP Status Lookup, MIME Type Lookup, User Agent Parser, Query String Parser, HTTP Header Parser, Color Converter |
-| Data | Timestamp Converter, ASCII Table, Unix Permissions Calculator |
-| Crypto | SHA-256, Hash Comparator |
-| Analyze | Word Counter, Local AI Text Assistant |
-
-## Tech Stack
-
-- **React 18** + **TypeScript**
-- **Vite** + **vite-react-ssg** for static generation
-- **React Router v6** for route records consumed by SSG
-- **Tailwind CSS** plus global theme variables
-- **CodeMirror** for code editors and previews
-- **vite-plugin-sitemap** for sitemap and robots output
-
-## Getting Started
-
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-
-# Lint source files
-npm run lint
-
-# Run TypeScript without emitting files
-npm run typecheck
-
-# Run the current smoke test command
-npm test
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-> `npm test` currently aliases the type checker until a dedicated regression test framework is added.
-
-## Architecture
-
-- `src/main.tsx` creates the `ViteReactSSG` root and installs a client-only preload-error recovery handler.
-- `src/routes.tsx` defines static routes for informational pages, tool categories, and every available tool slug.
-- `src/App.tsx` provides the shared layout: skip link, navigation, routed content, global footer, route scroll reset, and suspense boundary.
-- `src/pages/` contains top-level pages and `ToolPage`, which resolves a slug to tool metadata and renders the matching component.
-- `src/tools/registry.ts` is the browser registry; `src/tools/registry-node.ts` is the Node-safe registry used by Vite config for SSG routes and sitemap generation.
-- `src/components/tools/<category>/` contains runnable tool implementations.
-- `src/components/`, `src/components/ui/`, `src/hooks/`, `src/lib/`, and `src/utils/` contain shared UI, hooks, share-link logic, and utility helpers.
-
-See `docs/ARCHITECTURE.md` for the full architecture review, technical-debt findings, and verification workflow, and `docs/DESIGN.md` for the design tokens and shared component classes.
-
-## Deployment
-
-### Vercel (recommended)
-
-```bash
-npm run build
-npx vercel deploy
-```
-
-Or connect the repository to Vercel for automatic deployments. `vercel.json` is configured for static hosting with fallback rewrites.
-
-### Manual static host
-
-```bash
-npm run build
-# Upload the generated `dist/` folder to your host.
-```
+| JSON | Formatter, CSV Converter, Model Generator, To SQL, To Zod |
+| Encode / Decode | Base64, URL Encoder/Decoder, HTML Entity, Hex, String Escaper |
+| Text | Case Converter, Text Diff, Regex Tester, Slug Generator, Line Sorter |
+| Generators | UUID, Password, Lorem Ipsum, QR Code, Gitignore, Faker Data |
+| Authentication | JWT Decoder, JWT Encoder, Basic Auth Header, HMAC Generator |
+| Web | HTML Formatter, Markdown Preview, Color Converter, Curl Converter, MIME Type |
+| Data | Timestamp Converter, ASCII Table, Unix Permissions, Cron Generator/Parser |
+| Crypto | SHA-256, Hash Comparator, RSA Key Generator, Bcrypt Generator |
+| Analyze | Word Counter, Password Strength, QR Code Scanner, AI Token Counter |
 
 ## Documentation
 
-- `docs/ARCHITECTURE.md` — current architecture and audit findings.
-- `docs/DESIGN.md` — design tokens, themes, component classes, and accessibility rules.
-- `docs/ROADMAP.md` — prioritized roadmap.
-- `docs/TASKS.md` — task backlog and completion status.
+Full documentation is available at **[goldi0002.github.io/devtoolbox](https://goldi0002.github.io/devtoolbox/)**:
 
-Update documentation in the same change as meaningful product or architecture updates.
+- [Installation](https://goldi0002.github.io/devtoolbox/installation/) — Prerequisites and local setup
+- [Architecture](https://goldi0002.github.io/devtoolbox/architecture/) — Application flow and codebase structure
+- [Design System](https://goldi0002.github.io/devtoolbox/design-system/) — Theme tokens and component classes
+- [Usage](https://goldi0002.github.io/devtoolbox/usage/) — Commands and troubleshooting
+- [Deployment](https://goldi0002.github.io/devtoolbox/deployment/) — Vercel, Docker, and CI/CD
+- [Roadmap](https://goldi0002.github.io/devtoolbox/roadmap/) — Prioritized backlog and milestones
+
+## Tech Stack
+
+- **React 18** + **TypeScript** (strict mode)
+- **Vite** + **vite-react-ssg** for static site generation
+- **Tailwind CSS** with a token-driven design system
+- **CodeMirror** for code editors and previews
+- **React Router v6** for client-side routing
+- **Vitest** for testing
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding tools, code standards, and the verification checklist.
 
 ## License
 

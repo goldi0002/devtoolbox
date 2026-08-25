@@ -2,6 +2,7 @@ import { ViteReactSSG } from 'vite-react-ssg'
 import { routes } from './routes'
 import { readStorage, removeStorage, writeStorage } from './lib/storage'
 import { reportError } from './utils/errors'
+import { initCustomFonts } from './utils/fonts'
 import './css/index.css'
 import './css/global.css'
 
@@ -11,6 +12,23 @@ export const createRoot = ViteReactSSG(
   { routes },
   ({ isClient }) => {
     if (!isClient || typeof window === 'undefined') return
+
+    // Apply saved font configuration
+    initCustomFonts()
+
+    // Catch unhandled promise rejections (e.g. failed lazy chunk loads)
+    window.addEventListener('unhandledrejection', (event) => {
+      const reason = event.reason
+      const msg = reason instanceof Error ? reason.message : String(reason)
+      // Chunk/network errors during lazy loading — reload once to recover
+      if (/Failed to fetch|ChunkLoadError|Loading chunk|dynamic import/i.test(msg)) {
+        event.preventDefault()
+        reportError('Unhandled chunk load rejection', reason)
+        if (readStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY) === '1') return
+        if (!writeStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY, '1')) return
+        window.location.reload()
+      }
+    })
 
     window.addEventListener('vite:preloadError', (event) => {
       event.preventDefault()
@@ -23,6 +41,15 @@ export const createRoot = ViteReactSSG(
 
       window.location.reload()
     })
+
+    // Register Service Worker for 100% offline support and caching
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch((err) => {
+          console.warn('[SW] Registration failed:', err)
+        })
+      })
+    }
 
     removeStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY)
   }

@@ -101,13 +101,74 @@ export default function JwtDecoder() {
     }
   }
 
+  const [secretKey, setSecretKey] = useState('')
+  const [verifyStatus, setVerifyStatus] = useState<'idle' | 'valid' | 'invalid'>('idle')
+
+  const verifySignature = async (token: string, secret: string, alg: string) => {
+    if (!secret || !token || !alg) {
+      setVerifyStatus('idle')
+      return
+    }
+    try {
+      const parts = token.trim().split('.')
+      if (parts.length !== 3) return
+
+      const hashAlg = alg === 'HS384' ? 'SHA-384' : alg === 'HS512' ? 'SHA-512' : 'SHA-256'
+      const encoder = new TextEncoder()
+      const keyData = encoder.encode(secret)
+      const dataToSign = encoder.encode(`${parts[0]}.${parts[1]}`)
+
+      const cryptoKey = await window.crypto.subtle.importKey(
+        'raw',
+        keyData,
+        { name: 'HMAC', hash: hashAlg },
+        false,
+        ['verify']
+      )
+
+      // Decode Base64URL signature to ArrayBuffer
+      let base64 = parts[2].replace(/-/g, '+').replace(/_/g, '/')
+      while (base64.length % 4) base64 += '='
+      const binarySig = atob(base64)
+      const sigBytes = new Uint8Array(binarySig.length)
+      for (let i = 0; i < binarySig.length; i++) {
+        sigBytes[i] = binarySig.charCodeAt(i)
+      }
+
+      const isValid = await window.crypto.subtle.verify(
+        'HMAC',
+        cryptoKey,
+        sigBytes,
+        dataToSign
+      )
+
+      setVerifyStatus(isValid ? 'valid' : 'invalid')
+    } catch {
+      setVerifyStatus('invalid')
+    }
+  }
+
+  const handleSecretChange = (val: string) => {
+    setSecretKey(val)
+    if (decoded && decoded.header.alg) {
+      verifySignature(input, val, String(decoded.header.alg))
+    }
+  }
+
   const expiry = decoded ? getExpiryStatus(decoded.payload.exp) : null
+  const iat = typeof decoded?.payload.iat === 'number' ? decoded.payload.iat : null
+  const exp = typeof decoded?.payload.exp === 'number' ? decoded.payload.exp : null
+  const nowSec = Math.floor(Date.now() / 1000)
+  const lifetimePct = (iat && exp && exp > iat)
+    ? Math.min(100, Math.max(0, ((nowSec - iat) / (exp - iat)) * 100))
+    : null
+
   const parts = input.trim().split('.')
 
   return (
     <ToolLayout
-      title="JWT Decoder"
-      description="Decode and inspect JSON Web Tokens"
+      title="JWT Decoder & Signature Verifier"
+      description="Decode, inspect, and verify JSON Web Token headers, claims, and HMAC signatures in real-time"
       tag="auth"
     >
       <div className="space-y-5">
@@ -116,7 +177,11 @@ export default function JwtDecoder() {
           <div className="flex items-center justify-between mb-1.5">
             <label className="text-xs text-dim font-mono">Paste JWT Token</label>
             <button
-              onClick={() => decode(SAMPLE_JWT)}
+              onClick={() => {
+                decode(SAMPLE_JWT)
+                setSecretKey('your-256-bit-secret')
+                verifySignature(SAMPLE_JWT, 'your-256-bit-secret', 'HS256')
+              }}
               className="text-xs text-subtle hover:text-dim transition-colors font-mono"
             >
               ← load example
@@ -136,7 +201,12 @@ export default function JwtDecoder() {
 
           <textarea
             value={input}
-            onChange={e => decode(e.target.value)}
+            onChange={e => {
+              decode(e.target.value)
+              if (secretKey && decoded) {
+                verifySignature(e.target.value, secretKey, String(decoded.header.alg))
+              }
+            }}
             className="textarea-base h-24"
             placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
             spellCheck={false}
@@ -162,6 +232,23 @@ export default function JwtDecoder() {
               )}
             </div>
 
+            {/* Token Lifetime Progress Bar */}
+            {lifetimePct !== null && (
+              <div className="p-3 bg-surface border border-border rounded space-y-1.5">
+                <div className="flex justify-between text-[11px] font-mono text-subtle">
+                  <span>Issued: {formatTimestamp(iat)}</span>
+                  <span>{lifetimePct >= 100 ? 'Expired' : `${Math.round(lifetimePct)}% Elapsed`}</span>
+                  <span>Expires: {formatTimestamp(exp)}</span>
+                </div>
+                <div className="w-full h-1.5 bg-muted/30 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all ${lifetimePct >= 100 ? 'bg-rose-500' : 'bg-emerald-500'}`}
+                    style={{ width: `${lifetimePct}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Three sections */}
             <div className="space-y-3">
               <SectionPanel
@@ -181,14 +268,39 @@ export default function JwtDecoder() {
               </SectionPanel>
 
               <SectionPanel
-                label="Signature"
+                label="Signature & Client-Side Verification"
                 dot="bg-[#98c379]"
                 copyText={decoded.signature}
               >
-                <p className="font-mono text-xs text-subtle break-all">{decoded.signature}</p>
-                <p className="text-[10px] font-sans text-muted mt-2">
-                  Signature verification requires the secret key and cannot be done client-side.
-                </p>
+                <p className="font-mono text-xs text-subtle break-all mb-3">{decoded.signature}</p>
+
+                <div className="pt-3 border-t border-border space-y-2">
+                  <label className="block text-xs font-mono text-dim">
+                    Verify Signature (HMAC Secret Key):
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={secretKey}
+                      onChange={e => handleSecretChange(e.target.value)}
+                      placeholder="Enter secret key (e.g. your-256-bit-secret)"
+                      className="input-base text-xs flex-1"
+                    />
+                    {verifyStatus === 'valid' && (
+                      <span className="px-3 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono flex items-center gap-1">
+                        ✓ Signature Verified
+                      </span>
+                    )}
+                    {verifyStatus === 'invalid' && (
+                      <span className="px-3 py-1.5 rounded bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono flex items-center gap-1">
+                        ✕ Invalid Signature
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[10px] font-sans text-muted">
+                    Verification runs 100% locally using Web Crypto API (`window.crypto.subtle`). Your secret never leaves your browser.
+                  </p>
+                </div>
               </SectionPanel>
             </div>
           </>

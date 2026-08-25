@@ -1,0 +1,6 @@
+{
+  "name": "Toolbox4Devs - Premier Developer Utility Suite",
+  "description": "Fast, private, 100% client-side developer tools including formatters, encoders, JWT decoders, generators, and text utilities.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

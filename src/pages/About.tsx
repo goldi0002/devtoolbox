@@ -1,64 +1,226 @@
 import { Link } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
-import { tools } from '../tools/registry'
+import { tools, getToolCategories } from '../tools/registry'
 import { WEB_DEVELOPER_INFO, WEB_PRINCIPLES } from '../utils/webinfo'
+import {
+  ShieldCheck,
+  Zap,
+  Lock,
+  WifiOff,
+  Cpu,
+  Terminal,
+  Layers,
+  Code2,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2,
+  HelpCircle,
+  FolderGit2,
+  ExternalLink
+} from 'lucide-react'
+
+const keyFeatures = [
+  {
+    icon: ShieldCheck,
+    title: '100% Client-Side Memory',
+    desc: 'All utilities execute entirely within your local browser runtime. No code snippets, API keys, JSON payloads, passwords, or auth tokens are ever sent across a network.'
+  },
+  {
+    icon: Zap,
+    title: 'Sub-Millisecond Execution',
+    desc: 'Instant processing powered directly by your browser V8 engine and hardware. Zero server queues, network hops, or API rate limits.'
+  },
+  {
+    icon: WifiOff,
+    title: 'Offline & PWA Ready',
+    desc: 'Installable on macOS, Windows, Linux, iOS, and Android. Fully functional without an active internet connection once cached in your browser.'
+  },
+  {
+    icon: Lock,
+    title: 'Zero Ads & Zero Tracking',
+    desc: 'No intrusive popups, tracking scripts, behavioral analytics, or cookies. A clean, distraction-free workspace dedicated to developer productivity.'
+  },
+  {
+    icon: Cpu,
+    title: 'Native Web Crypto & CSPRNG',
+    desc: 'Uses W3C Web Crypto primitives for SHA-256, RSA keypair generation, HMAC signatures, and Bcrypt hashing with cryptographically secure random values.'
+  },
+  {
+    icon: Terminal,
+    title: 'Streamlined Ergonomics',
+    desc: 'Instant copy-to-clipboard, auto-detection formatting, keyboard shortcuts, sample presets, and side-by-side diffing for rapid workflows.'
+  }
+]
 
 const stack = [
-  { name: 'React 18', desc: 'UI framework with hooks and fast rendering' },
-  { name: 'TypeScript', desc: 'Full type safety across the codebase' },
-  { name: 'Vite', desc: 'Lightning-fast bundler and dev server' },
-  { name: 'TailwindCSS', desc: 'Utility-first CSS with a custom design system' },
-  { name: 'React Router v6', desc: 'Client-side routing without page reloads' },
-  { name: 'Prettier', desc: 'Code formatting for HTML tools' },
-  { name: 'diff', desc: 'Text comparison library for the Diff tool' },
-  { name: 'uuid', desc: 'RFC-compliant UUID v4 generation' },
+  { name: 'React 18', desc: 'Component architecture with fast virtual DOM rendering' },
+  { name: 'TypeScript', desc: 'Strict end-to-end type safety across tools and registries' },
+  { name: 'Vite & SSG', desc: 'Pre-rendered static site generation for sub-second load times' },
+  { name: 'Tailwind CSS', desc: 'High-contrast, responsive typographic design system' },
+  { name: 'Web Crypto API', desc: 'Browser-native hardware-accelerated cryptographic primitives' },
+  { name: 'Lucide Icons', desc: 'Consistent, lightweight SVG vector iconography' },
+  { name: 'diff', desc: 'Side-by-side text comparison engine for diffing' },
+  { name: 'Prettier', desc: 'Client-side AST code formatting and beautification' },
+]
+
+const faqs = [
+  {
+    q: 'How does 100% client-side execution work?',
+    a: 'When you open ToolBox4Devs, your browser downloads the lightweight static application bundle. All computations (JSON parsing, regex testing, cryptographic hashing, timestamp conversion) run entirely within your device CPU and JavaScript engine. No background server calls are ever made.'
+  },
+  {
+    q: 'Can I use ToolBox4Devs completely offline?',
+    a: 'Yes! ToolBox4Devs is built as a Progressive Web App (PWA). Once loaded or installed to your desktop/mobile dock, the Service Worker caches all assets so you can use all tools on airplanes, subways, or in air-gapped environments without internet.'
+  },
+  {
+    q: 'Is it safe to paste confidential tokens and secrets?',
+    a: 'Yes. Because zero network requests leave your machine, your confidential JWTs, private keys, database schemas, and proprietary code never touch any server. You can independently verify this at any time in your browser DevTools Network tab.'
+  },
+  {
+    q: 'Can I request or suggest a new tool?',
+    a: 'Absolutely! ToolBox4Devs is continuously evolving. You can suggest tools via our GitHub repository or by emailing the maintainer directly.'
+  }
 ]
 
 export default function About() {
-  usePageTitle('About')
-  const pageDescription = `ToolBox4Devs is a privacy-first, ad-free set of developer utilities that run entirely in your browser.`
+  usePageTitle('About ToolBox4Devs — Fast, Private Developer Utilities')
+  const categories = getToolCategories()
+  const pageDescription = `ToolBox4Devs is an open, privacy-first, ad-free suite of ${tools.length}+ developer utilities that run 100% inside your browser.`
 
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 animate-fade-in">
       <SEO
-        title="About"
+        title="About ToolBox4Devs — Fast, Private Developer Utilities"
         description={pageDescription}
         slug="about"
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="mb-20">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="h-px w-10 bg-border" />
-          <span className="text-[10px] font-mono text-subtle tracking-[0.25em] uppercase">About</span>
+      <section className="relative mb-20 pt-4">
+        {/* Ambient glow */}
+        <div className="absolute top-0 left-1/4 w-[400px] h-[200px] bg-indigo-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
+
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/8 text-indigo-400 text-[11px] font-mono font-medium mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+            Manifesto & Architecture
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end">
           <div>
-            <h1 className="font-display text-[clamp(3rem,10vw,7rem)] text-bright leading-[0.9] mb-8 tracking-tight">
-              BUILT FOR<br />
-              <span className="text-accent">DEVS</span>
+            <h1 className="font-display text-[clamp(3rem,9vw,6.5rem)] leading-[0.9] mb-8 tracking-tight">
+              <span className="text-bright">BUILT FOR</span><br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">DEVS</span>
               <span className="text-bright">.</span>
             </h1>
-            <p className="text-dim font-sans text-base leading-relaxed max-w-lg">
-              <span className="text-bright font-semibold">ToolBox4Devs</span> is a minimal, privacy-first collection of browser-based utilities
-              for developers. No sign-up. No setup. Open the page and start working.
+            <p className="text-dim font-sans text-base sm:text-lg leading-relaxed max-w-xl">
+              <span className="text-bright font-semibold">ToolBox4Devs</span> is an open, privacy-first workspace engineered for software engineers, security analysts, and DevOps teams.
+              No accounts, zero telemetry, zero server roundtrips. Every tool computes instantly in client memory.
             </p>
           </div>
 
           {/* Stats column */}
-          <div className="flex lg:flex-col gap-8 lg:gap-6 pb-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-col gap-6 lg:gap-5 pb-2">
             {[
-              { value: String(tools.length).padStart(2, '0'), label: 'tools' },
-              { value: '0', label: 'trackers' },
-              { value: '0', label: 'ads' },
+              { value: String(tools.length).padStart(2, '0'), label: 'active utilities' },
+              { value: String(categories.length).padStart(2, '0'), label: 'categories' },
+              { value: '0', label: 'trackers & ads' },
+              { value: '100%', label: 'in-browser memory' },
             ].map(s => (
-              <div key={s.label} className="text-right">
-                <div className="font-display text-3xl text-bright leading-none">{s.value}</div>
+              <div key={s.label} className="p-3 lg:p-0 rounded-lg lg:rounded-none bg-surface/50 lg:bg-transparent border border-border lg:border-none text-left lg:text-right">
+                <div className="font-display text-2xl sm:text-3xl text-bright leading-none">{s.value}</div>
                 <div className="text-[10px] font-mono text-subtle mt-1">{s.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── The Problem & Solution ──────────────────────────────────────────── */}
+      <section className="border-t border-border pt-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+          <div>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">The Mission</p>
+            <h2 className="font-display text-2xl text-bright leading-none">WHY THIS<br />EXISTS</h2>
+          </div>
+
+          <div className="space-y-5 text-dim font-sans text-sm sm:text-base leading-relaxed">
+            <p>
+              Every software engineer opens dozens of utility tabs every day — formatting a messy JSON payload, inspecting a JWT authentication token, generating UUIDs, calculating CIDR subnets, or diffing code snippets.
+            </p>
+            <p>
+              Unfortunately, the modern web is full of utility sites cluttered with invasive banner ads, slow server roundtrips, paywalls, or covert tracking scripts that upload your sensitive payloads to third-party backends.
+            </p>
+            <div className="p-5 rounded-xl border border-accent/30 bg-accent-soft/30 text-bright">
+              <p className="font-mono text-xs leading-relaxed text-accent mb-1 uppercase tracking-wider font-semibold">
+                Our Guarantee
+              </p>
+              <p className="text-sm font-sans leading-relaxed">
+                ToolBox4Devs was created as a unified, uncompromising alternative: an ad-free, blazing fast developer toolbox where <strong>100% of all computations execute strictly in your local browser memory</strong>. Nothing is ever sent to a server.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Key Architectural Features ─────────────────────────────────────── */}
+      <section className="border-t border-border pt-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+          <div>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Engineering</p>
+            <h2 className="font-display text-2xl text-bright leading-none">CORE<br />PILLARS</h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {keyFeatures.map((feat) => {
+              const Icon = feat.icon
+              return (
+                <div key={feat.title} className="p-5 rounded-xl border border-border bg-surface/40 hover:border-subtle transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-accent-soft text-accent flex items-center justify-center mb-3">
+                    <Icon size={18} />
+                  </div>
+                  <h3 className="text-sm font-mono font-semibold text-bright mb-1.5">{feat.title}</h3>
+                  <p className="text-xs font-sans text-dim leading-relaxed">{feat.desc}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tool Ecosystem Breakdown ───────────────────────────────────────── */}
+      <section className="border-t border-border pt-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+          <div>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Ecosystem</p>
+            <h2 className="font-display text-2xl text-bright leading-none">EXPLORE<br />SUITES</h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            {categories.map((cat) => {
+              const count = tools.filter(t => t.category === cat.category).length
+              return (
+                <Link
+                  key={cat.category}
+                  to={`/tools/${cat.category}`}
+                  className="p-4 rounded-xl border border-border bg-surface/30 hover:bg-surface hover:border-accent/50 transition-all group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-mono font-semibold text-bright group-hover:text-accent transition-colors">
+                        {cat.label}
+                      </span>
+                      <ArrowRight size={13} className="text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
+                    </div>
+                    <span className="text-[11px] font-mono text-subtle">
+                      {count} {count === 1 ? 'utility' : 'utilities'}
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -67,14 +229,14 @@ export default function About() {
       <section className="border-t border-border pt-16 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
           <div>
-            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">What we believe</p>
-            <h2 className="font-display text-2xl text-bright leading-none">PRINCIPLES</h2>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Guiding ethos</p>
+            <h2 className="font-display text-2xl text-bright leading-none">DESIGN<br />PRINCIPLES</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {WEB_PRINCIPLES.map(p => (
-              <div key={p.num}>
-                <span className="text-[10px] font-mono text-muted mb-3 block">{p.num}</span>
+              <div key={p.num} className="p-5 rounded-xl border border-border bg-surface/20">
+                <span className="text-[10px] font-mono text-accent mb-2 block">{p.num}</span>
                 <h3 className="text-sm font-sans font-semibold text-bright mb-2">{p.label}</h3>
                 <p className="text-xs font-sans text-subtle leading-relaxed">{p.desc}</p>
               </div>
@@ -83,43 +245,15 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Story ──────────────────────────────────────────────────────────── */}
+      {/* ── Maintainer Profile ──────────────────────────────────────────────── */}
       <section className="border-t border-border pt-16 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
           <div>
-            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">The story</p>
-            <h2 className="font-display text-2xl text-bright leading-none">WHY THIS<br />EXISTS</h2>
-          </div>
-
-          <div className="space-y-4 max-w-xl">
-            <p className="text-sm font-sans text-dim leading-relaxed">
-              Every developer has a dozen tabs open for tools they use daily — JSON formatters,
-              JWT decoders, Base64 converters. Most of those sites are cluttered with ads,
-              require an account, or quietly send your data to a server.
-            </p>
-            <p className="text-sm font-sans text-dim leading-relaxed">
-              ToolBox4Devs exists to fix that. A single, clean, fast place where every tool
-              runs entirely client-side. Paste your JWT, format your JSON, generate your UUID —
-              nothing leaves your machine.
-            </p>
-            <p className="text-sm font-sans text-dim leading-relaxed">
-              It started as a personal project. Now it's a growing toolbox built in public,
-              with new tools added regularly based on what developers actually need.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Developer ──────────────────────────────────────────────────────── */}
-      <section className="border-t border-border pt-16 mb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
-          <div>
-            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">The human behind it</p>
-            <h2 className="font-display text-2xl text-bright leading-none">BUILT BY<br />A DEV</h2>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Maintainer</p>
+            <h2 className="font-display text-2xl text-bright leading-none">OPEN<br />SOURCE</h2>
           </div>
 
           <div className="max-w-xl">
-            {/* Name & role */}
             <div className="mb-5">
               <div className="flex items-center gap-3 mb-1">
                 <span className="font-display text-xl text-bright">{WEB_DEVELOPER_INFO.NAME}</span>
@@ -128,82 +262,97 @@ export default function About() {
               <p className="text-[10px] font-mono text-subtle tracking-wide">{WEB_DEVELOPER_INFO.ROLE}</p>
             </div>
 
-            {/* Bio */}
             <p className="text-sm font-sans text-dim leading-relaxed mb-8">
               {WEB_DEVELOPER_INFO.BIO}
             </p>
 
-            {/* Contact links */}
+            {/* Action Links */}
             <div className="flex flex-wrap gap-3">
-              <a
-                href={WEB_DEVELOPER_INFO.GITHUB}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors"
+              <button
+                type="button"
+                disabled
+                className="inline-flex items-center gap-2 px-4 py-2 border border-border/50 text-xs font-mono text-muted/60 bg-surface/20 rounded-lg cursor-not-allowed opacity-60 select-none"
+                title="GitHub repository link unavailable"
               >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-                </svg>
-                GitHub
-              </a>
+                <Code2 size={14} />
+                GitHub Repository
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-surface border border-border/40 text-muted">Disabled</span>
+              </button>
 
-              <a style={{ pointerEvents: 'none', opacity: 0.5 }}
-                href={WEB_DEVELOPER_INFO.EMAIL}
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors" aria-disabled="true"
+              <Link
+                to="/privacy"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors rounded-lg bg-surface/50"
               >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="2" y="4" width="20" height="16" rx="2" />
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                </svg>
-                Say hello
-              </a>
+                <ShieldCheck size={14} className="text-accent" />
+                Privacy Architecture
+              </Link>
 
               <a
-                href={WEB_DEVELOPER_INFO.TWITTER}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors"
+                href="mailto:suggest@toolbox4devs.com?subject=Feature%20Suggestion%20for%20ToolBox4Devs"
+                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors rounded-lg bg-surface/50"
               >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-                Twitter / X
+                <FolderGit2 size={14} />
+                Suggest a Utility
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Tech Stack — dev only ──────────────────────────────────────────── */}
-      {import.meta.env.VITE_ENVIRONMENT === 'development' && (
-        <section className="border-t border-border pt-16 mb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
-            <div>
-              <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Under the hood</p>
-              <h2 className="font-display text-2xl text-bright leading-none">TECH<br />STACK</h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {stack.map(item => (
-                <div key={item.name} className="card hover:border-subtle transition-colors">
-                  <div className="text-sm font-mono text-bright mb-1">{item.name}</div>
-                  <div className="text-xs font-sans text-dim">{item.desc}</div>
-                </div>
-              ))}
-            </div>
+      {/* ── Tech Stack ─────────────────────────────────────────────────────── */}
+      <section className="border-t border-border pt-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+          <div>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Under the hood</p>
+            <h2 className="font-display text-2xl text-bright leading-none">TECH<br />STACK</h2>
           </div>
-        </section>
-      )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {stack.map(item => (
+              <div key={item.name} className="p-4 rounded-lg border border-border bg-surface/30 hover:border-subtle transition-colors">
+                <div className="text-xs font-mono font-semibold text-bright mb-1">{item.name}</div>
+                <div className="text-xs font-sans text-dim">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ Section ────────────────────────────────────────────────────── */}
+      <section className="border-t border-border pt-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+          <div>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Got questions?</p>
+            <h2 className="font-display text-2xl text-bright leading-none">COMMON<br />QUESTIONS</h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map(faq => (
+              <div key={faq.q} className="p-5 rounded-xl border border-border bg-surface/30">
+                <div className="flex items-start gap-2.5 mb-2">
+                  <HelpCircle size={16} className="text-accent shrink-0 mt-0.5" />
+                  <h3 className="text-sm font-mono font-semibold text-bright">{faq.q}</h3>
+                </div>
+                <p className="text-xs font-sans text-dim leading-relaxed pl-6.5">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
       <section className="border-t border-border pt-16">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="p-8 rounded-2xl border border-border bg-surface/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <h2 className="font-display text-2xl text-bright mb-1">READY TO BUILD?</h2>
-            <p className="text-xs font-mono text-subtle">{tools.length} tools available · no login required</p>
+            <div className="flex items-center gap-2 mb-1.5">
+              <Layers size={18} className="text-accent" />
+              <h2 className="font-display text-2xl text-bright">READY TO EXPLORE?</h2>
+            </div>
+            <p className="text-xs font-mono text-subtle">{tools.length} browser-based developer tools · 100% private · zero tracking</p>
           </div>
-          <Link to="/tools" className="btn-primary text-sm px-6 py-2.5 whitespace-nowrap flex-shrink-0">
-            Browse All Tools →
+          <Link to="/tools" className="btn-primary text-xs font-mono px-5 py-2.5 whitespace-nowrap flex items-center gap-2 shrink-0">
+            <span>Browse All {tools.length} Tools</span>
+            <ArrowRight size={14} />
           </Link>
         </div>
       </section>

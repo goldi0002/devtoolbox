@@ -40,46 +40,36 @@ Toolbox4Devs is a static, privacy-first React application for browser-based deve
 - `src/hooks/` contains clipboard, hash-data, analytics, SEO, and page-title hooks.
 - `src/utils/` contains tool-specific utilities and site metadata.
 
-## Findings from the repository review
+## Known Risks and Remaining Work
 
-### Duplicated code
+### Performance
 
-- CodeMirror language-extension mapping is duplicated in `CodeInput` and `CodeBlock`; it should be centralized in a shared editor utility.
-- Registry imports are intentionally duplicated between browser and Node contexts, but this creates maintenance risk when adding tools.
-
-### Technical debt
-
-- The public registry helper `isCommingSoon` contains a spelling error and should be replaced by `isComingSoon` while preserving compatibility.
-- There is no dedicated regression test framework yet. The new `test` script currently aliases type checking until real unit tests are added.
-- README project structure was older than the current category-based layout before this audit and should continue to be updated with architecture changes.
-
-### Performance risks
-
-- CodeMirror and formatter-heavy tools are the largest likely client bundles; lazy loading should be reviewed per tool.
-- `CodeInput` computes byte size with multiple `Blob` constructions during render and can be simplified.
+- CodeMirror and formatter-heavy tools are the largest client bundles; lazy loading should be reviewed per tool.
 - Parser/formatter tools should avoid expensive recomputation on every keystroke where live updates are not required.
 
-### Accessibility risks
+### Accessibility
 
-- Theme picker, mobile navigation, editor controls, copy/share buttons, and tool forms need a WCAG AA keyboard and screen-reader audit.
+- A full WCAG AA audit of the theme picker, editor controls, and per-tool forms remains.
 - Decorative macOS window controls in editor chrome should remain non-interactive to assistive technology.
-- Error and empty states are not yet standardized across all tools.
 
-### SEO risks
+### SEO
 
-- Core metadata exists for tool pages, but structured data/rich snippets are not yet emitted per tool.
-- Internal linking is present through related tools and indexes but can be improved with category and use-case links.
+- Internal linking can be improved with category and use-case links.
 - Sitemap generation depends on registry parity between browser and Node registries.
 
-### Security and privacy risks
+### Security and Privacy
 
-- Share-link decompression currently needs payload-size limits and stronger error handling.
-- Security-sensitive tools such as JWT decoding, Basic Auth, password generation, hashing, and permissions need clearer local-only guidance and regression coverage.
-- Browser-only APIs are mostly client-guarded or used inside effects/components, but a full SSG safety audit remains required.
+- Security-sensitive tools (JWT decoding, Basic Auth, password generation, hashing, permissions) need clearer local-only guidance.
+- Browser-only APIs are mostly client-guarded, but a full SSG safety audit remains.
 
-## Verification workflow
+### Technical Debt
 
-Use this baseline before merging changes:
+- `npm test` runs Vitest. Coverage expansion is ongoing.
+- Registry imports are intentionally duplicated between browser and Node contexts; this creates maintenance risk when adding tools.
+
+## Verification Workflow
+
+Run these before merging changes:
 
 ```bash
 npm run lint
@@ -87,5 +77,3 @@ npm run typecheck
 npm run build
 npm test
 ```
-
-`npm test` currently runs the type checker as a temporary smoke check. Replace it with a real unit/integration test runner as soon as the regression test framework task is implemented.
