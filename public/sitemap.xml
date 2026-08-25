@@ -126,7 +126,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Developer Utilities (51 Tools) -->
+  <!-- Developer Utilities (68 Tools) -->
   <url>
     <loc>https://toolbox4devs.com/json-formatter</loc>
     <lastmod>2026-08-18</lastmod>
@@ -526,6 +526,18 @@
   <url>
     <loc>https://toolbox4devs.com/faker-data-generator</loc>
     <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://toolbox4devs.com/jwt-encoder</loc>
+    <lastmod>2026-08-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://toolbox4devs.com/cron-generator</loc>
+    <lastmod>2026-08-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
