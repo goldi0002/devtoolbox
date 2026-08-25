@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState, useEffect, useMemo, useRef, lazy, Suspense } from 'react'
 import SectionPanel from '../../ui/SectionPanel'
 import TextInputField from '../../ui/TextInputField'
 import TextAreaField from '../../ui/TextAreaField'
@@ -34,7 +34,8 @@ import {
   RefreshCw,
   Eye,
   CreditCard,
-  MapPin
+  MapPin,
+  Grid3x3
 } from 'lucide-react'
 
 type InputType = 'url' | 'text' | 'wifi' | 'vcard' | 'email' | 'phone' | 'sms' | 'crypto' | 'geo'
@@ -49,7 +50,10 @@ const PRESET_LOGOS = [
   { id: 'crypto', label: 'Bitcoin', icon: CreditCard },
 ]
 
+const BulkQrGenerator = lazy(() => import('./BulkQrGenerator'))
+
 export default function QrCodeGenerator() {
+  const [mode, setMode] = useState<'single' | 'bulk'>('single')
   const [inputType, setInputType] = useState<InputType>('url')
   const [textValue, setTextValue] = useState('https://toolbox4devs.com')
 
@@ -327,8 +331,64 @@ export default function QrCodeGenerator() {
     setTimeout(() => setCopiedFormat(null), 2000)
   }
 
+  // If bulk mode, render the bulk generator
+  if (mode === 'bulk') {
+    return (
+      <div className="space-y-6">
+        {/* Mode Toggle */}
+        <div className="flex items-center gap-3 p-3 bg-surface border border-border rounded-xl">
+          <span className="text-xs font-medium text-subtle">Mode:</span>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => setMode('single')}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-subtle hover:text-bright hover:bg-hover rounded-lg transition-all"
+            >
+              <QrCodeIcon className="w-3.5 h-3.5" />
+              <span>Single QR</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setMode('bulk')}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-accent text-white shadow-xs rounded-lg transition-all"
+            >
+              <Grid3x3 className="w-3.5 h-3.5" />
+              <span>Bulk QR</span>
+            </button>
+          </div>
+        </div>
+        <Suspense fallback={<div className="text-center py-12 text-muted text-xs">Loading bulk generator...</div>}>
+          <BulkQrGenerator />
+        </Suspense>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
+      {/* ── Mode Toggle ──────────────────────────────────────────── */}
+      <div className="flex items-center gap-3 p-3 bg-surface border border-border rounded-xl">
+        <span className="text-xs font-medium text-subtle">Mode:</span>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setMode('single')}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-accent text-white shadow-xs rounded-lg transition-all"
+          >
+            <QrCodeIcon className="w-3.5 h-3.5" />
+            <span>Single QR</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode('bulk')}
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-subtle hover:text-bright hover:bg-hover rounded-lg transition-all"
+          >
+            <Grid3x3 className="w-3.5 h-3.5" />
+            <span>Bulk QR</span>
+          </button>
+        </div>
+      </div>
+
       {/* ── Privacy & Safety Guarantee Banner ─────────────────────── */}
       <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
         <div className="flex items-center gap-2.5 text-emerald-300 font-medium">
