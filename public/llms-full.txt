@@ -436,14 +436,14 @@ Total Tools: 69
 - Outputs: React JSX / TSX Component code with interfaces.
 - Features: Hyphenated SVG to React camelCase attribute mapping, inline style string to style object converter, TypeScript interface (SVGProps<SVGSVGElement>), forwardRef, React.memo, currentColor replace, and interactive live SVG preview.
 
-### 60. QR Code Generator
+### 60. Safe Vector QR Code Generator
 - URL: https://toolbox4devs.com/qr-code-generator
 - Category: Generator Tools (generate-tools)
-- Complexity: Simple
-- Description: Create customizable, high-resolution QR codes from text, URLs, Wi-Fi credentials, emails, and phone numbers with instant PNG, SVG, and JPEG download.
-- Inputs: Plain text, URLs, Wi-Fi credentials (SSID/Password), Email, Phone, or SMS string.
-- Outputs: Downloadable PNG, vector SVG, and JPEG images, plus Base64 Data URL and raw SVG strings.
-- Features: Real-time generation, Reed-Solomon Error Correction (L, M, Q, H), custom foreground/background colors, transparent background option, margin/quiet zone adjustment, high-resolution print exports up to 1200px, 100% in-browser private computation.
+- Complexity: Moderate
+- Description: 100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.
+- Inputs: Plain text, URLs, Wi-Fi credentials (WPA3/WPA2/WEP/Open), vCard contacts, Email, Phone, SMS, Crypto addresses (BTC, ETH, SOL), or Geo location.
+- Outputs: Downloadable pure vector SVG, Encapsulated PostScript (EPS) for Adobe Illustrator / print shops, high-resolution PNG / JPEG up to 4096px (4K print), plus Base64 Data URLs and raw vector code.
+- Features: 100% in-browser offline generation with zero redirect links (static QR codes never expire); custom module shapes (Squares, Dots, Rounded, Squircles); custom corner eye styles (Square, Rounded, Circle); transparent background support; Reed-Solomon Error Correction (L, M, Q, H); center logo / icon overlay with automatic Error Correction boost.
 
 
 

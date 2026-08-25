@@ -483,11 +483,11 @@
     },
     {
       "slug": "qr-code-generator",
-      "name": "QR Code Generator",
+      "name": "Safe Vector QR Code Generator",
       "category": "generate-tools",
       "url": "https://toolbox4devs.com/qr-code-generator",
-      "description": "Create customizable, high-resolution QR codes from text, URLs, Wi-Fi credentials, emails, and phone numbers with instant PNG, SVG, and JPEG download.",
-      "keywords": ["qr code generator", "create qr code", "url to qr code", "wifi qr code", "svg qr code generator", "png qr code", "free qr code maker", "offline qr code generator"]
+      "description": "100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.",
+      "keywords": ["safe qr code generator", "secure qr code generator", "qr code vector generator", "eps qr code generator", "qr code generator eps vector", "vectorize qr code", "create vector qr code", "qr code svg generator", "qr code generator svg download", "qr generator svg", "qr code generator transparent", "transparent qr code generator", "qr code generator svg free", "qr code generator png", "generate qr code png", "free qr code generator vector", "cod qr generator", "qr code generator", "create qr code", "wifi qr code"]
     },
     {
       "slug": "qr-code-scanner",
