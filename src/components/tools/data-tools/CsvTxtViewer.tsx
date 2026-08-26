@@ -238,7 +238,7 @@ export default function CsvTxtViewer() {
         delimiter: activeDelim,
         header: false,
         skipEmptyLines: 'greedy',
-        complete: (results) => {
+        complete: (results: { data: string[][] }) => {
           const sliceElapsed = performance.now() - pageStartTime
           let rows = results.data || []
           // If page 1 and hasHeader and startByte is 0, skip the first row (the header)
@@ -323,9 +323,9 @@ export default function CsvTxtViewer() {
 
       if (rawRows.length > 0) {
         if (firstRowHeader) {
-          detectedHeaders = rawRows[0].map((h, i) => (h && h.trim() ? h.trim() : `Column_${i + 1}`))
+          detectedHeaders = rawRows[0].map((h: string, i: number) => (h && h.trim() ? h.trim() : `Column_${i + 1}`))
         } else {
-          const maxCols = Math.max(...rawRows.map(r => r.length))
+          const maxCols = Math.max(...rawRows.map((r: string[]) => r.length))
           detectedHeaders = Array.from({ length: maxCols }, (_, i) => `Column_${i + 1}`)
         }
         inferredTypes = inferColumnTypes(rawRows.slice(firstRowHeader ? 1 : 0), detectedHeaders.length)

@@ -31,7 +31,7 @@ describe('Tool Catalog & Specification Synchronization', () => {
     const content = fs.readFileSync(sitemapPath, 'utf8')
     const sitemapSlugs = [...content.matchAll(/https:\/\/toolbox4devs\.com\/([a-z0-9-]+)<\/loc>/g)]
       .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools'].includes(slug) && !slug.startsWith('tools/'))
+      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/'))
       .sort()
 
     expect(sitemapSlugs).toEqual(registeredSlugs)
@@ -42,7 +42,7 @@ describe('Tool Catalog & Specification Synchronization', () => {
     const llmsTxtContent = fs.readFileSync(llmsTxtPath, 'utf8')
     const llmsTxtSlugs = [...llmsTxtContent.matchAll(/https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
       .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'llms-full'].includes(slug) && !slug.startsWith('tools/'))
+      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog', 'llms-full'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/'))
       .sort()
 
     expect(llmsTxtSlugs).toEqual(registeredSlugs)
@@ -51,7 +51,7 @@ describe('Tool Catalog & Specification Synchronization', () => {
     const llmsFullTxtContent = fs.readFileSync(llmsFullTxtPath, 'utf8')
     const llmsFullSlugs = [...llmsFullTxtContent.matchAll(/URL: https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
       .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools'].includes(slug) && !slug.startsWith('tools/'))
+      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/'))
       .sort()
 
     expect(llmsFullSlugs).toEqual(registeredSlugs)
