@@ -528,3 +528,11 @@ Total Tools: 69
 - Description: Decode and inspect PEM SSL/TLS X.509 certificates, Subject/Issuer DNs, SANs, validity dates, and fingerprints privately.
 - Features: ASN.1 DER parser; validity countdown and expiration status; Subject and Issuer DN extraction; Subject Alternative Names (SANs); public key algorithm and key size; SHA-256 and SHA-1 fingerprints via WebCrypto; zero network transmission.
 
+### 72. DevFlow Pipeline Studio
+- URL: https://toolbox4devs.com/pipeline-studio
+- Category: Analyze Tools (analyze-tools)
+- Complexity: Advanced
+- Description: Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
+- Features: Visual sequential transformation chain; Base64 encode/decode, URL encode/decode, JSON prettify/minify, JSON key path extraction, JWT header/payload decoding, regex replace/extract, case conversion, line cleaning/sorting, and SHA-256 hashing; reorderable and toggleable steps; real-time execution timing in milliseconds; shareable compressed URL hash configurations; zero network transmission.
+
+

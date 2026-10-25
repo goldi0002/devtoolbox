@@ -1,33 +1,31 @@
-# ToolBox4Devs — GitHub CI Fix, Quick Favorites & Recents Drawer, and New Developer Utilities
+# ToolBox4Devs — Growth Strategy & DevFlow Pipeline Studio
 
-A comprehensive plan to resolve GitHub Actions installation failures, introduce a seamless Pinned Favorites & Quick Recents Drawer with in-place pinning, and expand the developer suite with two high-demand client-side utilities: **JSON Schema Generator & Validator** and **X.509 Certificate Decoder & Inspector**.
+A high-impact transformation roadmap to transition ToolBox4Devs from an isolated utility library into a daily-driver workflow tool for full-stack and backend developers, powered by an interactive multi-tool Pipeline Studio and high-intent SEO architecture.
 
 ---
 
-## User Review & Critical Decisions
-
 > [!IMPORTANT]
-> Based on your answers during Phase 1 clarification:
-> - **CI Installation Resolution**: We will configure `npm ci --legacy-peer-deps` alongside a repository `.npmrc` (`legacy-peer-deps=true`) and setup-node caching to guarantee deterministic, zero-failure CI runs without peer dependency conflicts. We will also harden `mkdocs.yml` against Python 3.12+ externally-managed-environment errors.
-> - **Platform & UX Enhancement**: We will introduce a global slide-out **Pinned Favorites & Quick Recents Drawer** with instant tool switching, search, unpinning, and direct card-level favorite buttons on Home and Tool catalogs.
-> - **New Tool Additions**: Adding two enterprise-grade client-side developer utilities:
->   1. **JSON Schema Generator & Validator** (`/json-schema-generator`) — Generates Draft-07 / 2020-12 / OpenAPI JSON Schemas with type & format inference and live payload validation.
->   2. **X.509 Certificate Decoder & Inspector** (`/certificate-decoder`) — Decodes PEM SSL/TLS certificates and CSRs, extracting SANs, validity countdowns, public keys, and SHA-256 fingerprints in browser memory.
-> - **Mandatory ToolBox4Devs Sync**: All 8 mandatory files will be synchronized (Registry, Node SSG, Routes, Catalog `tools.json` updated to 71 tools, Sitemap, LLM specs, and HTML/OpenSearch metadata).
+> **Confirmed Strategic Priorities**:
+> - **Primary Growth Vector**: High-intent search engine optimization (SEO) targeting specific developer tasks and queries.
+> - **Killer Differentiator**: **DevFlow Pipeline Studio** — a visual workspace chaining multiple client-side developer tools into reusable pipelines.
+> - **Primary Target Audience**: Full-stack and backend web developers handling APIs, authentication, data formatting, and token transformations.
 
 ---
 
 ## 1. Overview & Core Concept
 
-- **What It Does**:
-  1. **Fixes GitHub Actions Workflows**: Eliminates CI install step failures caused by npm peer dependency conflicts (specifically `@vitest/mocker` requiring Vite 6-8 while Vite 5.4 is pinned by SSG) and ensures reliable automated builds on every push/PR.
-  2. **Pinned Favorites & Quick Recents Drawer**: A slide-out drawer accessible from any page via top-bar star button or keyboard shortcut (`Shift+F` / `Ctrl+B`), giving developers instantaneous access to their most-used utilities and recent sessions.
-  3. **In-Place Pinning**: Developers can now star/unstar any tool directly from the tool cards on the Home page, Dashboard, or Tools directory without entering the tool page first.
-  4. **Two New Client-Side Utilities**:
-     - `JSON Schema Generator & Validator`: Converts sample JSON data to standardized JSON Schema with format detection (`date-time`, `uuid`, `email`, `uri`), required-field customization, and interactive client-side payload validation.
-     - `X.509 Certificate Decoder & Inspector`: Parses PEM certificates client-side using WebCrypto and native ASN.1 parser to display issuer, subject, expiration countdown, SANs, algorithms, and fingerprints.
-- **Target Audience**: Full-stack engineers, DevOps specialists, backend developers, and security practitioners who need rapid, zero-latency, private tools.
-- **Key Value**: Uninterrupted CI/CD automation, frictionless tool switching for power users, and expanded coverage of critical web and security workflows.
+### Why Nobody is Using It Right Now (Root Cause Analysis)
+
+1. **The Discovery Void**: Developers never search for a generic "Toolbox". They search for specific crisis queries on Google: *"decode jwt rs256 without sending to server"*, *"format minified json 50mb client side"*, or *"convert curl to docker run"*. Without high-intent SEO landing pages, rich snippet schema, and deep-linked recipe routes, the platform remains invisible.
+2. **The "Single-Tool Dead End"**: In CyberChef, DevToys, or standard online utilities, each tool is an isolated silo. A developer decodes a Base64 string, copies it, navigates to a JSON formatter, pastes it, extracts a token, and navigates to a JWT decoder. This manual multi-tab copying friction causes users to abandon after one visit.
+3. **No Shareability or Community Retention**: Developers love sharing reproducible debugging recipes with teammates (e.g., *"Here is the pipeline I used to unpack our API auth webhook"*).
+
+### The Solution: DevFlow Pipeline Studio & Targeted Landing Pages
+
+- **DevFlow Visual Pipeline**: A fast, browser-memory canvas allowing developers to connect sequential tool operations:
+  $$\text{Input Payload} \;\longrightarrow\; [\text{Base64 Decode}] \;\longrightarrow\; [\text{JSON Format}] \;\longrightarrow\; [\text{JWT / Regex Extract}] \;\longrightarrow\; [\text{SHA256 Hash / Output}]$$
+- **Cross-Tool "Pipe To..." Action Bridge**: An instant one-click bridge on every existing tool's output panel, allowing users to pipe output directly to any other tool or load it into a new pipeline.
+- **High-Intent Workflow Recipe Landing Pages**: Dedicated static pages targeting long-tail developer searches (e.g. `/recipes/debug-webhook-payload`, `/recipes/jwt-payload-inspector`, `/recipes/curl-to-docker-pipeline`) with pre-filled sample data, schema markups, and one-click execution.
 
 ---
 
@@ -35,159 +33,129 @@ A comprehensive plan to resolve GitHub Actions installation failures, introduce 
 
 ### Key User Flows
 
-1. **GitHub Actions CI Flow**:
-   - Developer pushes code or opens PR.
-   - `ci.yml` runs `setup-node` with npm cache, executes `npm ci --legacy-peer-deps` without error, runs strict ESLint, TypeScript `--noEmit`, Vitest test suite, and SSG prerendering (`dist/` verification) seamlessly.
+1. **The Discovery & Search Entry Flow**:
+   - Developer lands from Google directly on a recipe page or specific tool page (e.g., `/recipes/jwt-payload-inspector`).
+   - The page instantly displays a live pre-configured pipeline with sample input, zero-latency execution output, and explicit "100% In-Browser Private" badge.
+   - Developer clicks "Try with your own data" or pastes their raw string; results compute synchronously with instant copy.
 
-2. **Accessing Pinned Favorites & Recents**:
-   - The user clicks the star icon button in the Navbar (or presses `Shift+F` / `Ctrl+B`).
-   - A drawer slides smoothly in from the right with a backdrop blur.
-   - The drawer features a top search filter, followed by two clean sections: "Pinned Favorites" and "Recent Tools".
-   - Each item shows the category tag, tool name, slug, and a quick unpin/remove button. Clicking any tool navigates instantly and closes the drawer.
-   - A "Clear recents" button allows one-click privacy reset.
+2. **The DevFlow Pipeline Workspace Flow**:
+   - User enters `/pipeline` or clicks "Open Pipeline Studio" in the top bar.
+   - User types or pastes input in the root source panel.
+   - User clicks `+ Add Step` (choosing from Base64, JSON Prettify, URL Decode, Regex Replace, JWT Decode, Hash, etc.).
+   - Each step displays input/output diff, live status indicators, timing in milliseconds (`tabular-nums`), and step toggles (enable/disable/bypass).
+   - User clicks "Share Recipe Link" which encodes the pipeline definition into a compact URL hash (`#recipe=...`) to paste in team Slack or GitHub issues.
 
-3. **Card-Level Favorite Toggling**:
-   - Hovering over any `ToolCard` (on Home, Dashboard, or `/tools`) displays a subtle, accessible star icon in the card header.
-   - Clicking the star toggles favorite state immediately with optimistic UI update and synchronization across all open tabs via `window.localStorage` and custom events.
+3. **The Quick-Pipe Flow (from any existing tool)**:
+   - When inspecting results in any tool (e.g. JWT Decoder or Base64 tool), the output panel features a `Pipe to Tool...` dropdown and a `Save as Pipeline` button.
 
-4. **JSON Schema Generator & Validator Flow**:
-   - User pastes a JSON object or array into CodeMirror.
-   - The tool instantly infers the schema structure (types, nested objects, array item schemas, formats like ISO dates, UUIDs, email, URI).
-   - User configures settings: Target draft (Draft-07 vs Draft 2020-12), required fields policy (All required, Top-level only, None), and `additionalProperties` flag.
-   - Output panel displays the formatted JSON Schema with one-click copy, download `.json`, and a live "Validate Payload" testing drawer.
+### Visual Identity & Theme Architecture
 
-5. **X.509 Certificate Decoder Flow**:
-   - User pastes a PEM certificate (`-----BEGIN CERTIFICATE-----...`) or selects a built-in sample (Let's Encrypt TLS cert, Self-Signed Dev Cert).
-   - Instant visual breakdown appears:
-     - Status card: "Valid" (with days remaining) or "Expired" / "Not Yet Valid".
-     - Subject & Issuer cards with Distinguished Name breakdown (CN, O, OU, C).
-     - Subject Alternative Names (SANs) listed as clean chips/text.
-     - Key specs: Public key algorithm (RSA 2048/4096, ECDSA P-256), Serial Number, Signature Algorithm.
-     - Cryptographic Fingerprints: SHA-256 and SHA-1 computed locally using `crypto.subtle`.
-
-### Visual Identity & Theme
-
-- **Design System Alignment**: Strictly adheres to the ToolBox4Devs design system using Tailwind tokens (`bg-bg`, `bg-surface`, `border-border`, `text-bright`, `text-dim`, `text-subtle`, `text-accent`, `bg-accent-soft`).
-- **Zero-Pill Discipline**: Metadata displayed as unboxed text with typographic separators (`·`, `/`). Interactive filter buttons and tabs use clean segmented controls.
-- **Tabular Figures**: All serial numbers, byte lengths, timestamps, countdowns, and line counts use `tabular-nums` and `font-mono`.
-- **Responsive Layout**: Full desktop width (up to 1440px) with fluid mobile transitions; drawer uses a max-width of 380px on desktop and full-width on mobile with `touch-action: pan-y`.
+- **Aesthetic Direction**: Professional Developer Studio — high-contrast dark/light slate theme with utilitarian typography, crisp hairline dividers, and minimal elevation.
+- **Palette & Tokens**:
+  - Neutral Canvas: Slate-950 (`#090D16`) for dark mode / Slate-50 (`#F8FAFC`) for light mode.
+  - Structural Surfaces: Slate-900 / Slate-100 with 1px borders (`border-slate-800` / `border-slate-200`).
+  - High-Intent Accents: Indigo-500 (`#6366F1`) and Emerald-500 (`#10B981`) strictly for active flow steps, success copies, and pipeline execution badges.
+- **Typography**:
+  - Display & Headings: `Plus Jakarta Sans` or `Manrope` with strict headline balance.
+  - Body & Microcopy: Clean sans with generous measure (65–75ch).
+  - Code & Execution Stats: `JetBrains Mono` with `tabular-nums` for timestamps and byte counters.
+- **Top Bar Contract**: Exactly 3 zones separated by `gap-8`:
+  $$\text{[ToolBox4Devs]} \quad\text{—}\quad \text{[All Tools} \;\cdot\; \text{Pipeline Studio} \;\cdot\; \text{Recipes} \;\cdot\; \text{Blog]} \quad\text{—}\quad \text{[Pipeline Studio (CTA)]}$$
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: NPM Dependency Peer Resolution in CI**
-  - *Chosen Approach*: Add `.npmrc` with `legacy-peer-deps=true` and update `ci.yml` to run `npm ci --legacy-peer-deps` with `cache: 'npm'`. Remove deprecated `@types/bcryptjs` stub package.
-  - *Why*: `vite-react-ssg` currently requires Vite 5, while `@vitest/mocker` in Vitest 4 has optional peer dependencies specifying Vite 6-8. In npm 7+ non-interactive CI environments, this causes strict `ERESOLVE` halts. `--legacy-peer-deps` allows `npm ci` to complete deterministically while maintaining exact locked package versions.
-  - *Alternatives Considered*: Forcing an upgrade to Vite 6 would break `vite-react-ssg 0.9.1` which does not yet support Vite 6.
+- **Decision 1: URL Hash-Based Pipeline Sharing vs. Backend Storage**
+  - *Approach*: Encode pipeline definitions (step sequences and configurations) directly into URL fragments (`window.location.hash`) using lz-string / base64url compression.
+  - *Why*: Upholds the project's non-negotiable **100% Client-Side** architecture. Zero servers, zero backend database overhead, zero risk of data leaks.
+  - *Alternatives Considered*: Cloud Firestore link sharing was rejected because it violates user trust regarding private developer payloads and enterprise compliance.
 
-- **Decision 2: Client-Side ASN.1 X.509 Certificate Parsing**
-  - *Chosen Approach*: Implement a lightweight, zero-dependency client-side ASN.1 DER parser and X.509 decoder in TypeScript (`src/utils/x509Decoder.ts`).
-  - *Why*: Zero external bundle bloat, zero security attack surface, and 100% compliance with the ToolBox4Devs zero-network-transmission privacy pledge.
-  - *Alternatives Considered*: Heavy libraries like `node-forge` or `pkijs` introduce large polyfills for `Buffer` and `crypto` that bloat the client bundle by over 200KB.
+- **Decision 2: Reusable Step Engine vs. Re-implementing Tools**
+  - *Approach*: Create a standardized `PipelineOperation` interface that wraps existing modular utility functions (`src/utils/*`) into pure synchronous transform functions `(input: string, options: Record<string, any>) => string`.
+  - *Why*: Maximum reliability and code reuse. Any improvements to core utils immediately benefit both single tools and pipeline workflows.
 
-- **Decision 3: Global Drawer vs Standalone Page for Favorites**
-  - *Chosen Approach*: Global slide-out drawer accessible everywhere via top navigation and keyboard shortcut, while keeping the full Dashboard page for deep analytics.
-  - *Why*: Developers switch between tools rapidly during active workflows; a lightweight drawer eliminates context switching.
+- **Decision 3: Programmatic Static Recipe Routes for SEO**
+  - *Approach*: Add curated developer recipe definitions in `src/data/recipes.ts` and prerender them through `vite-react-ssg` with rich `HowTo` and `SoftwareApplication` JSON-LD schemas.
+  - *Why*: Directly captures high-volume, high-intent developer searches where generic tool directories fail to rank.
 
 ---
 
 ## 4. Technical Architecture & Data Strategy
 
-### System & Component Architecture Diagram
+### System Architecture Diagram
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        ToolBox4Devs Architecture                       │
+│                        ToolBox4Devs Web Platform                       │
 ├────────────────────────────────────────────────────────────────────────┤
 │                                                                        │
-│  ┌─────────────────────── Top Navigation Bar ───────────────────────┐  │
-│  │ Logo · Desktop Nav Links · [★ Drawer Button] · Palette · Theme   │  │
-│  └───────────────────────────────────┬──────────────────────────────┘  │
-│                                      │ triggers                        │
-│                                      ▼                                 │
-│  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │             QuickFavoritesDrawer (Global Slide-Over)             │  │
-│  │  - Instant Search / Filter                                       │  │
-│  │  - Pinned Favorites List (drag/toggle/remove)                    │  │
-│  │  - Recent Tools List (last 6 tools, clear history)               │  │
-│  └───────────────────────────────────┬──────────────────────────────┘  │
-│                                      │ reads & writes                  │
-│                                      ▼                                 │
-│  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │            useToolPreferences Hook (localStorage & Events)       │  │
-│  │  - Key: 'toolbox4devs:favorites'                                 │  │
-│  │  - Key: 'toolbox4devs:recent-tools'                              │  │
-│  │  - Broadcast: CustomEvent('toolbox4devs:preferences-changed')    │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
+│   Top Navigation: Brand (1 line) ── Nav Links ── [Pipeline Studio CTA]  │
 │                                                                        │
-│  ┌────────────────────────── Tool Ecosystem ─────────────────────────┐  │
-│  │                                                                  │  │
-│  │  New: JSON Schema Generator        New: Certificate Decoder       │  │
-│  │  - Type & format inference         - Client ASN.1 / DER decoder  │  │
-│  │  - Draft-07 / 2020-12 / OpenAPI    - SANs, Validity, Fingerprints │  │
-│  │  - In-browser payload validator    - WebCrypto SHA-256 / SHA-1    │  │
-│  │                                                                  │  │
-│  │  Existing 69 Tools (JSON Formatter, cURL Converter, Regex, etc.) │  │
-│  └───────────────────────────────────┬──────────────────────────────┘  │
-│                                      │                                 │
-│                                      ▼                                 │
-│  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │                      Multi-File Catalog Sync                     │  │
-│  │  - registry.ts & registry-node.ts                                │  │
-│  │  - routes.tsx (lazy-loaded tool routes)                          │  │
-│  │  - public/tools.json (totalTools: 71)                            │  │
-│  │  - public/sitemap.xml (SEO URLs)                                 │  │
-│  │  - public/llms.txt & llms-full.txt                               │  │
-│  │  - index.html & public/manifest.json & opensearch.xml            │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
-│                                                                        │
-│  ┌────────────────────── CI/CD Automation (GitHub) ──────────────────┐  │
-│  │  .npmrc (legacy-peer-deps=true) · ci.yml (npm ci, cache: 'npm')   │  │
-│  │  mkdocs.yml (pip install --break-system-packages)                │  │
-│  └──────────────────────────────────────────────────────────────────┘  │
+│   ┌───────────────────────────┐      ┌─────────────────────────────┐   │
+│   │ Single Tool Pages (/slug) │      │  DevFlow Pipeline Studio    │   │
+│   │  - 60+ Existing Tools     │      │  - Multi-step visual chain  │   │
+│   │  - Instant Execution      │      │  - Step toggle & reorder    │   │
+│   │  - [Pipe To...] Bridge    │──┐   │  - Real-time diff & stats   │   │
+│   └───────────────────────────┘  │   └──────────────┬──────────────┘   │
+│                                  ▼                  │                  │
+│   ┌─────────────────────────────────────────────────┴──────────────┐   │
+│   │            Client-Side Pipeline Transformation Engine          │   │
+│   │   Pure Functional Transforms: Base64, JSON, JWT, Regex, Hash   │   │
+│   │   - Zero network requests                                      │   │
+│   │   - URL Hash State Serializer (Shareable Recipes)              │   │
+│   │   - 100% Browser Memory Execution                              │   │
+│   └────────────────────────────────────────────────────────────────┘   │
+│                                  │                                     │
+│   ┌──────────────────────────────▼─────────────────────────────────┐   │
+│   │      High-Intent Programmatic SEO & Structured Data            │   │
+│   │   - Pre-rendered SSG recipe routes (/recipes/*)                │   │
+│   │   - Schema.org WebApplication & HowTo JSON-LD snippets         │   │
+│   │   - Canonical tags, OpenGraph preview cards, sitemap sync     │   │
+│   └────────────────────────────────────────────────────────────────┘   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Data Model & Storage
+### Data Model & Core Interfaces
 
-- **Favorites State**: Stored in `localStorage` key `'toolbox4devs:favorites'` as `string[]` containing tool slugs.
-- **Recents State**: Stored in `localStorage` key `'toolbox4devs:recent-tools'` as `string[]` capped at 8 items.
-- **Cross-Component Sync**: `window.dispatchEvent(new CustomEvent('toolbox4devs:preferences-changed'))` ensures all mounted components update instantly without full reloads.
+```typescript
+export interface PipelineStep {
+  id: string
+  operationId: string // e.g. 'base64-decode', 'json-format', 'jwt-decode', 'regex-replace', 'sha256'
+  enabled: boolean
+  options: Record<string, string | number | boolean>
+}
 
-### Implementation Checklist Across Repositories & Catalogs
+export interface PipelineRecipe {
+  id: string
+  slug: string
+  title: string
+  description: string
+  category: 'api' | 'auth' | 'data' | 'security'
+  targetKeywords: string[]
+  sampleInput: string
+  steps: PipelineStep[]
+  faqs: { question: string; answer: string }[]
+}
+```
 
-1. **GitHub Actions & Dependency Configuration**:
-   - Create `/.npmrc` with `legacy-peer-deps=true`.
-   - Update `/.github/workflows/ci.yml`: Add `cache: 'npm'` and change `npm install` to `npm ci --legacy-peer-deps`.
-   - Update `/.github/workflows/mkdocs.yml`: Add `--break-system-packages` to pip install step.
-   - Clean `package.json`: Remove deprecated `@types/bcryptjs`.
+### Execution Phases & Deliverables
 
-2. **Favorites & Quick Recents Drawer**:
-   - Create `src/components/QuickFavoritesDrawer.tsx`.
-   - Update `src/components/Navbar.tsx`: Add star button with favorites badge count, shortcut listener (`Shift+F`), and drawer trigger.
-   - Update `src/components/ToolCard.tsx`: Add in-place star button to allow pinning directly from cards.
+1. **Phase 1: Pipeline Core Engine & Operations Registry**
+   - Implement pipeline transform registry (`src/utils/pipelineEngine.ts`) mapping operations to existing robust utilities.
+   - Build URL hash encoding/decoding for shareable recipes with zero server dependency.
 
-3. **New Tool 1: JSON Schema Generator & Validator**:
-   - Engine utility: `src/utils/jsonSchemaGenerator.ts`.
-   - Component: `src/components/tools/json-tools/JsonSchemaGenerator.tsx`.
-   - Metadata: `src/tools/meta/json-schema-generator.ts`.
+2. **Phase 2: DevFlow Pipeline Studio Component**
+   - Create the responsive, interactive workspace (`src/components/pipeline/DevFlowStudio.tsx`).
+   - Add step insertion, step reordering, parameter customization, and instant live execution.
 
-4. **New Tool 2: X.509 Certificate Decoder & Inspector**:
-   - Engine utility: `src/utils/x509Decoder.ts`.
-   - Component: `src/components/tools/crypto-tools/CertificateDecoder.tsx`.
-   - Metadata: `src/tools/meta/certificate-decoder.ts`.
+3. **Phase 3: High-Intent SEO & Developer Recipes**
+   - Define high-intent recipes targeting backend & full-stack workflows (e.g. Webhook Inspector, Auth Token Unpacker, Minified JSON Cleaner).
+   - Prerender recipe routes in `src/routes.tsx` and sync with `sitemap.xml`, `tools.json`, and `llms.txt`.
+   - Embed comprehensive `WebApplication` and `HowTo` JSON-LD schemas.
 
-5. **Mandatory Catalog & SEO Synchronizations (71 Tools Total)**:
-   - `src/tools/registry.ts` & `src/tools/registry-node.ts`: Add both new tool metas.
-   - `src/routes.tsx`: Register routes for `/json-schema-generator` and `/certificate-decoder`.
-   - `public/tools.json`: Add tool catalog objects and update `totalTools: 71`.
-   - `public/sitemap.xml`: Add `<url>` entries for both new tools.
-   - `public/llms.txt` and `public/llms-full.txt`: Document new tools.
-   - `public/opensearch.xml`, `public/manifest.json`, `index.html`, and `src/pages/Home.tsx`: Update total tool count copy to 71.
+4. **Phase 4: Cross-Tool "Pipe To..." Integration**
+   - Add the output action bridge across tool output panels to guide users seamlessly into pipelines or companion tools.
 
-6. **Unit Tests & Verification**:
-   - Create `src/__tests__/jsonSchemaGenerator.test.ts` for schema inference and validation.
-   - Create `src/__tests__/certificateDecoder.test.ts` for ASN.1 DER parsing and fingerprint calculation.
-   - Create `src/__tests__/quickFavoritesDrawer.test.ts` for favorite toggle and storage operations.
-   - Run `npm run lint` and `npm test` and `npm run build` to verify pre-rendering.
+5. **Phase 5: Verification & SSG Build**
+   - Run `npm test`, `lint_applet`, and `compile_applet` to ensure pristine static site pre-rendering across all new routes.

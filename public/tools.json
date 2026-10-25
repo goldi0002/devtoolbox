@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 71,
+  "totalTools": 72,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -584,6 +584,14 @@
       "url": "https://toolbox4devs.com/certificate-decoder",
       "description": "Decode and inspect PEM SSL/TLS X.509 certificates, SANs, validity dates, and fingerprints privately.",
       "keywords": ["x509 certificate decoder", "ssl certificate decoder", "tls cert parser", "pem decoder", "certificate inspector", "certificate fingerprint", "san inspector"]
+    },
+    {
+      "slug": "pipeline-studio",
+      "name": "DevFlow Pipeline Studio",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/pipeline-studio",
+      "description": "Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.",
+      "keywords": ["developer pipeline", "pipeline studio", "chain dev tools", "cyberchef alternative", "devflow", "decode and format json"]
     }
   ]
 }

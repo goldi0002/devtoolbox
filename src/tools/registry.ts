@@ -70,8 +70,10 @@ import { PASSWORD_STRENGTH_ANALYZER_META } from "./meta/password-strength-analyz
 import { FAKER_DATA_GENERATOR_META } from "./meta/faker-data-generator"
 import { JSON_SCHEMA_GENERATOR_META } from "./meta/json-schema-generator"
 import { CERTIFICATE_DECODER_META } from "./meta/certificate-decoder"
+import { PIPELINE_STUDIO_META } from "./meta/pipeline-studio"
 
 export const tools: ToolMeta[] = [
+  PIPELINE_STUDIO_META,
   JSON_FORMATTER_META,
   JSON_MODEL_META,
   JSON_TO_ZOD_META,

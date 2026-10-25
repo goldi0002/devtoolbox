@@ -18,7 +18,7 @@ export default function ToolPage() {
     const segments = pathname.split('/').filter(Boolean)
     return segments.at(-1) ?? ''
   }, [pathname])
-  const meta = tools.find(t => t.slug === slug)
+  const meta = tools.find(t => t.slug === slug || (slug === 'pipeline' && t.slug === 'pipeline-studio'))
   const { favoriteSet, recordRecentTool, toggleFavorite } = useToolPreferences()
   usePageTitle(meta?.name)
 

@@ -1,6 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import CopyButton from '../CopyButton'
-import { Download, WrapText, Check, AlertCircle } from 'lucide-react'
+import { Download, WrapText, Check, AlertCircle, Workflow, ChevronDown } from 'lucide-react'
+import { compress } from '../../lib/share'
+import { serializePipelineToHash } from '../../utils/pipelineEngine'
 
 interface OutputPanelProps {
   label?: string
@@ -24,8 +27,10 @@ export default function OutputPanel({
   surface = 'surface',
   language = 'text',
 }: OutputPanelProps) {
+  const navigate = useNavigate()
   const [wordWrap, setWordWrap] = useState(true)
   const [downloaded, setDownloaded] = useState(false)
+  const [pipeOpen, setPipeOpen] = useState(false)
 
   const textVal = value ?? content ?? ''
   const lineCount = textVal ? textVal.split('\n').length : 0
@@ -86,6 +91,95 @@ export default function OutputPanel({
             >
               {downloaded ? <Check size={14} className="text-emerald-400" /> : <Download size={14} />}
             </button>
+          )}
+
+          {/* Pipe To Dropdown */}
+          {textVal && !error && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setPipeOpen(!pipeOpen)}
+                title="Pipe output to another tool or pipeline"
+                className="flex items-center gap-1 px-2 py-1 rounded text-xs font-mono text-dim hover:text-bright hover:bg-muted transition-colors border border-border/50"
+              >
+                <Workflow size={12} className="text-accent" />
+                <span>Pipe to...</span>
+                <ChevronDown size={10} />
+              </button>
+
+              {pipeOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setPipeOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full mt-1 w-48 rounded-lg border border-border bg-surface shadow-lg z-50 py-1 text-xs font-mono">
+                    <button
+                      onClick={() => {
+                        setPipeOpen(false)
+                        const hash = serializePipelineToHash({
+                          input: textVal,
+                          steps: [
+                            { id: 'step-1', operationId: 'json-prettify', enabled: true, options: { indent: 2, sortKeys: false } }
+                          ]
+                        })
+                        navigate(`/pipeline-studio#recipe=${hash}`)
+                      }}
+                      className="w-full text-left px-3 py-1.5 hover:bg-muted text-bright flex items-center justify-between"
+                    >
+                      <span>Pipeline Studio</span>
+                      <span className="text-[10px] text-accent font-semibold">Chain</span>
+                    </button>
+                    <div className="h-px bg-border/60 my-1" />
+                    <button
+                      onClick={() => {
+                        setPipeOpen(false)
+                        navigate(`/json-formatter#${compress(textVal)}`)
+                      }}
+                      className="w-full text-left px-3 py-1.5 hover:bg-muted text-dim hover:text-bright"
+                    >
+                      JSON Formatter
+                    </button>
+                    <button
+                      onClick={() => {
+                        setPipeOpen(false)
+                        navigate(`/jwt#${compress(textVal)}`)
+                      }}
+                      className="w-full text-left px-3 py-1.5 hover:bg-muted text-dim hover:text-bright"
+                    >
+                      JWT Decoder
+                    </button>
+                    <button
+                      onClick={() => {
+                        setPipeOpen(false)
+                        navigate(`/base64#${compress(textVal)}`)
+                      }}
+                      className="w-full text-left px-3 py-1.5 hover:bg-muted text-dim hover:text-bright"
+                    >
+                      Base64 Encoder
+                    </button>
+                    <button
+                      onClick={() => {
+                        setPipeOpen(false)
+                        navigate(`/sha256#${compress(textVal)}`)
+                      }}
+                      className="w-full text-left px-3 py-1.5 hover:bg-muted text-dim hover:text-bright"
+                    >
+                      SHA-256 Checksum
+                    </button>
+                    <button
+                      onClick={() => {
+                        setPipeOpen(false)
+                        navigate(`/text-diff#${compress(textVal)}`)
+                      }}
+                      className="w-full text-left px-3 py-1.5 hover:bg-muted text-dim hover:text-bright"
+                    >
+                      Text Diff
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           )}
 
           {/* Copy Button */}

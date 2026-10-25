@@ -13,15 +13,16 @@ const QuickFavoritesDrawer = lazy(() => import('./QuickFavoritesDrawer'))
 
 // ── Nav config ─────────────────────────────────────────────────────────────
 const navLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'Dashboard', path: '/dashboard' },
   { label: 'Tools', path: '/tools' },
+  { label: 'Pipelines', path: '/pipeline-studio' },
+  { label: 'Recipes', path: '/recipes' },
+  { label: 'Dashboard', path: '/dashboard' },
   { label: 'Blog', path: '/blog' },
-  { label: 'About', path: '/about' },
 ]
 
 // Only in mobile menu — keeps desktop nav tight
 const mobileOnlyLinks = [
+  { label: 'About', path: '/about' },
   { label: 'Privacy', path: '/privacy' },
 ]
 
@@ -99,11 +100,17 @@ export default function Navbar() {
   const isActive = (path: string) => {
     if (!mounted) return false
     if (path === '/') return pathname === '/'
+    if (path === '/pipeline-studio') {
+      return pathname === '/pipeline-studio' || pathname === '/pipeline'
+    }
+    if (path === '/recipes') {
+      return pathname === '/recipes' || pathname.startsWith('/recipes/')
+    }
     if (path === '/tools') {
       return (
         pathname === '/tools' ||
         pathname.startsWith('/tools/') ||
-        toolSlugs.some(slug => pathname === `/${slug}`)
+        (toolSlugs.some(slug => pathname === `/${slug}`) && pathname !== '/pipeline-studio' && pathname !== '/pipeline')
       )
     }
     return pathname === path

@@ -5,7 +5,7 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import { tools, categoryLabels, getFeaturedTools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
-import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, Star, LayoutGrid } from 'lucide-react'
+import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, Star, LayoutGrid, Workflow } from 'lucide-react'
 
 // Show first 6 tools as featured
 const featuredTools = getFeaturedTools()
@@ -185,6 +185,41 @@ export default function Home() {
               </div>
             )
           })}
+        </div>
+      </section>
+
+      {/* ── DevFlow Pipeline Studio Spotlight Banner ───────────────────────── */}
+      <section className="mb-12 p-6 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-surface via-surface to-indigo-950/20 shadow-md">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div className="flex flex-col gap-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-indigo-400 font-semibold tracking-wide">
+              <Workflow size={14} />
+              <span>THE KILLER DIFFERENTIATOR</span>
+              <span aria-hidden="true">·</span>
+              <span className="text-emerald-400">100% In-Browser Memory</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-bright tracking-tight">
+              DevFlow Pipeline Studio — Chain Developer Tools Together
+            </h2>
+            <p className="text-xs sm:text-sm text-dim leading-relaxed">
+              Tired of copying and pasting across 5 browser tabs? Connect Base64 decoding, JSON formatting, JWT token inspection, regex filtering, and SHA-256 hashing into a seamless zero-latency workflow.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Link
+              to="/recipes"
+              className="px-4 py-2 text-xs font-medium rounded-lg border border-border bg-surface hover:bg-muted text-bright transition-colors"
+            >
+              Explore Recipes
+            </Link>
+            <Link
+              to="/pipeline-studio"
+              className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition-colors"
+            >
+              <Sparkles size={13} />
+              <span>Launch Studio</span>
+            </Link>
+          </div>
         </div>
       </section>
 

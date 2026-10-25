@@ -3,12 +3,12 @@ import { tools, getToolBySlug } from '../tools/registry'
 import { getAllAvailableTools } from '../tools/registry'
 
 describe('Tool registry count after adding QR Code Scanner and new tools', () => {
-  it('registers exactly 71 tools in client registry', () => {
-    expect(tools.length).toBe(71)
+  it('registers exactly 72 tools in client registry', () => {
+    expect(tools.length).toBe(72)
   })
 
-  it('registers exactly 71 tools in Node SSG registry', () => {
-    expect(getAllAvailableTools().length).toBe(71)
+  it('registers exactly 72 tools in Node SSG registry', () => {
+    expect(getAllAvailableTools().length).toBe(72)
   })
 
   it('contains qr-code-generator with proper metadata', () => {
