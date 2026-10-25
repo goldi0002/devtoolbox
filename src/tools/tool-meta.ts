@@ -25,7 +25,6 @@ export type ToolComplexity =
     | 'advanced'  // multi-step or expert-level (e.g. JWT debugger)
 
 
-// ── SEO / discovery metadata ──────────────────────────────────────────────
 export interface ToolSEO {
     /** Overrides the default "<name> — ToolBox4Devs" page title if set */
     title?: string
@@ -33,6 +32,8 @@ export interface ToolSEO {
     description?: string
     /** Extra keywords beyond tool.keywords */
     extraKeywords?: string[]
+    /** Alias for extraKeywords */
+    keywords?: string[]
 }
 
 export interface ToolAbout {

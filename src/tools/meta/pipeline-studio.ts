@@ -49,7 +49,7 @@ export const PIPELINE_STUDIO_META: ToolMeta = {
     seo: {
         title: 'DevFlow Pipeline Studio — Chain Developer Tools in Browser Memory',
         description: 'Visual multi-tool developer pipeline workspace. Chain Base64 decoding, JSON formatting, JWT token inspection, regex filtering, and cryptographic hashing in browser memory.',
-        keywords: [
+        extraKeywords: [
             'developer workflow pipeline',
             'cyberchef online modern alternative',
             'chain dev tools',

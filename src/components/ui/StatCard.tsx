@@ -10,9 +10,13 @@ interface StatCardProps {
   variant?: string
   /** Optional secondary text displayed below the main value */
   subValue?: string
+  /** Optional secondary text displayed below the main value (alias for subValue) */
+  subtext?: string
 }
 
-export default function StatCard({ label, value, valueClassName = '', icon: Icon, subValue }: StatCardProps) {
+export default function StatCard({ label, value, valueClassName = '', icon: Icon, subValue, subtext }: StatCardProps) {
+  const displaySubtext = subValue ?? subtext
+
   return (
     <div className="border border-border rounded px-3 py-2">
       <div className="text-subtle mb-1">{label}</div>
@@ -20,8 +24,8 @@ export default function StatCard({ label, value, valueClassName = '', icon: Icon
         {Icon && <Icon size={14} className="text-accent shrink-0" />}
         <div className={`text-bright ${valueClassName}`.trim()}>{value}</div>
       </div>
-      {subValue && (
-        <div className="text-[10px] font-mono text-dim mt-1 truncate">{subValue}</div>
+      {displaySubtext && (
+        <div className="text-[10px] font-mono text-dim mt-1 truncate">{displaySubtext}</div>
       )}
     </div>
   )
