@@ -30,6 +30,23 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       allowedHosts: true,
     },
+    resolve: {
+      dedupe: ['react', 'react-dom', 'react-router-dom'],
+    },
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react-router-dom',
+        'react/jsx-runtime',
+        'react/jsx-dev-runtime',
+        'lucide-react',
+        'papaparse',
+        'diff',
+        'yaml',
+        '@uiw/react-codemirror',
+      ],
+    },
     define: {
       'process.env.VITE_ENVIRONMENT': JSON.stringify(environment),
     },

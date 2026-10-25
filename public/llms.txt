@@ -90,6 +90,7 @@
 - [JSON Schema Generator & Validator](https://toolbox4devs.com/json-schema-generator): Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with format detection and live in-browser testing.
 - [X.509 Certificate Decoder & Inspector](https://toolbox4devs.com/certificate-decoder): Decode and inspect PEM SSL/TLS X.509 certificates, Subject/Issuer DNs, SANs, validity dates, public keys, and SHA-256 fingerprints privately.
 - [DevFlow Pipeline Studio](https://toolbox4devs.com/pipeline-studio): Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
+- [Delimited File Data Validator](https://toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
 
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:

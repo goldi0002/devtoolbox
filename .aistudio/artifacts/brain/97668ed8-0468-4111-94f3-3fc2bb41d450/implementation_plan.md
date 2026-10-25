@@ -1,31 +1,32 @@
-# ToolBox4Devs — Growth Strategy & DevFlow Pipeline Studio
+# Delimited File Data Validator (CSV / TSV / TXT)
 
-A high-impact transformation roadmap to transition ToolBox4Devs from an isolated utility library into a daily-driver workflow tool for full-stack and backend developers, powered by an interactive multi-tool Pipeline Studio and high-intent SEO architecture.
+A high-performance, 100% client-side tabular file validation utility for ToolBox4Devs. It allows developers, data engineers, and analysts to verify CSV, TSV, and delimited TXT files against custom user-defined validation rules (data types, required fields, regex patterns, numerical/date ranges, enum values, and unique constraints) with instant row-level error reporting and exportable audit summaries.
 
----
+## User Review & Critical Decisions
 
 > [!IMPORTANT]
-> **Confirmed Strategic Priorities**:
-> - **Primary Growth Vector**: High-intent search engine optimization (SEO) targeting specific developer tasks and queries.
-> - **Killer Differentiator**: **DevFlow Pipeline Studio** — a visual workspace chaining multiple client-side developer tools into reusable pipelines.
-> - **Primary Target Audience**: Full-stack and backend web developers handling APIs, authentication, data formatting, and token transformations.
+> The following user preferences were confirmed during Phase 1 interactive clarification:
+> - **Supported Formats**: CSV, TSV, and customizable delimited TXT files (comma, tab, pipe, semicolon, custom separator).
+> - **Rule Configuration Method**: Interactive visual rule builder with preset constraints (data types, required/not-null, regex patterns, min/max values/lengths, allowed options, uniqueness).
+> - **Validation Report & Error Output**: Interactive error table with direct row/cell error highlighting, category filtering, error search, and CSV export of invalid or flagged rows.
+
+- **Client-Side Processing Guarantee**: All file parsing, rule evaluation, and report generation execute 100% in browser memory with zero network requests or third-party telemetry, preserving strict data privacy.
+- **Rule Presets & Templates**: Includes pre-configured rule sets (e.g., Email, URL, UUID, ISO Date, Phone, Non-negative Number) and allows one-click export/import of rulesets as JSON for reproducible team workflows.
 
 ---
 
 ## 1. Overview & Core Concept
 
-### Why Nobody is Using It Right Now (Root Cause Analysis)
+### What It Does
+The **Delimited File Data Validator** parses structured tabular text files (CSV, TSV, TXT with headers) and validates each row and column against user-defined schema rules. Users can either upload a file or paste sample text, auto-detect column headers and data types, adjust validation constraints via an intuitive visual rule builder, run instantaneous validation, and inspect all violations highlighted down to the exact row, column, and reason.
 
-1. **The Discovery Void**: Developers never search for a generic "Toolbox". They search for specific crisis queries on Google: *"decode jwt rs256 without sending to server"*, *"format minified json 50mb client side"*, or *"convert curl to docker run"*. Without high-intent SEO landing pages, rich snippet schema, and deep-linked recipe routes, the platform remains invisible.
-2. **The "Single-Tool Dead End"**: In CyberChef, DevToys, or standard online utilities, each tool is an isolated silo. A developer decodes a Base64 string, copies it, navigates to a JSON formatter, pastes it, extracts a token, and navigates to a JWT decoder. This manual multi-tab copying friction causes users to abandon after one visit.
-3. **No Shareability or Community Retention**: Developers love sharing reproducible debugging recipes with teammates (e.g., *"Here is the pipeline I used to unpack our API auth webhook"*).
+### Target Audience / Persona
+- **Data Engineers & Analysts**: Verifying bulk ETL inputs, CSV database dumps, or warehouse export files before loading them into databases.
+- **Frontend & Full-Stack Developers**: Testing mock data, validating user import formats, and troubleshooting API ingestion schemas.
+- **Operations & QA Teams**: Auditing partner data feeds, user lists, and inventory spreadsheets for missing values or malformed formats.
 
-### The Solution: DevFlow Pipeline Studio & Targeted Landing Pages
-
-- **DevFlow Visual Pipeline**: A fast, browser-memory canvas allowing developers to connect sequential tool operations:
-  $$\text{Input Payload} \;\longrightarrow\; [\text{Base64 Decode}] \;\longrightarrow\; [\text{JSON Format}] \;\longrightarrow\; [\text{JWT / Regex Extract}] \;\longrightarrow\; [\text{SHA256 Hash / Output}]$$
-- **Cross-Tool "Pipe To..." Action Bridge**: An instant one-click bridge on every existing tool's output panel, allowing users to pipe output directly to any other tool or load it into a new pipeline.
-- **High-Intent Workflow Recipe Landing Pages**: Dedicated static pages targeting long-tail developer searches (e.g. `/recipes/debug-webhook-payload`, `/recipes/jwt-payload-inspector`, `/recipes/curl-to-docker-pipeline`) with pre-filled sample data, schema markups, and one-click execution.
+### Key Value
+Eliminates tedious manual spreadsheet checking and fragile custom validation scripts. Users get immediate, secure, zero-installation file validation directly in the browser with actionable error diagnostics and export capabilities.
 
 ---
 
@@ -33,129 +34,129 @@ A high-impact transformation roadmap to transition ToolBox4Devs from an isolated
 
 ### Key User Flows
 
-1. **The Discovery & Search Entry Flow**:
-   - Developer lands from Google directly on a recipe page or specific tool page (e.g., `/recipes/jwt-payload-inspector`).
-   - The page instantly displays a live pre-configured pipeline with sample input, zero-latency execution output, and explicit "100% In-Browser Private" badge.
-   - Developer clicks "Try with your own data" or pastes their raw string; results compute synchronously with instant copy.
+1. **File Input & Auto-Inspection**:
+   - The user drags and drops a CSV/TSV/TXT file or pastes raw delimited data into an input editor.
+   - The tool auto-detects delimiter (comma, pipe `|`, tab `\t`, semicolon `;`) and parses the first 10 rows to detect headers and infer likely column types (string, number, boolean, date, email, uuid).
+   - Instant statistics show total rows detected, column count, delimiter, and sample preview.
 
-2. **The DevFlow Pipeline Workspace Flow**:
-   - User enters `/pipeline` or clicks "Open Pipeline Studio" in the top bar.
-   - User types or pastes input in the root source panel.
-   - User clicks `+ Add Step` (choosing from Base64, JSON Prettify, URL Decode, Regex Replace, JWT Decode, Hash, etc.).
-   - Each step displays input/output diff, live status indicators, timing in milliseconds (`tabular-nums`), and step toggles (enable/disable/bypass).
-   - User clicks "Share Recipe Link" which encodes the pipeline definition into a compact URL hash (`#recipe=...`) to paste in team Slack or GitHub issues.
+2. **Visual Rule Configuration**:
+   - Each column card shows its detected name and type with customizable validation constraints:
+     - **Required / Non-empty**: Rejects null, blank, or whitespace-only cells.
+     - **Type Check**: String, Integer, Float/Number, Boolean, Date (ISO/custom), Email, UUID.
+     - **Range / Length Constraints**: Min/max value for numbers, min/max character length for text.
+     - **Regex Pattern**: Custom regex pattern with live regex validation (e.g. `^[A-Z]{3}-\d{4}$`).
+     - **Allowed Values (Enum)**: Comma-separated list of permitted values.
+     - **Uniqueness Check**: Flags duplicate values within the column.
+   - Quick actions: "Load Sample File & Rules", "Auto-Generate Rules from Data", "Reset Rules", "Export Rules JSON", "Import Rules JSON".
 
-3. **The Quick-Pipe Flow (from any existing tool)**:
-   - When inspecting results in any tool (e.g. JWT Decoder or Base64 tool), the output panel features a `Pipe to Tool...` dropdown and a `Save as Pipeline` button.
+3. **Validation Run & Health Summary**:
+   - Clicking "Validate File" runs the memory-efficient validation engine across all rows.
+   - A summary dashboard displays overall file status (Valid / Errors Found), total rows checked, valid row count, violation count, and error distribution by column and error type.
 
-### Visual Identity & Theme Architecture
+4. **Error Exploration & Export**:
+   - An interactive paginated error table displays violated rows with cell error callouts, exact row numbers, column names, offending values, and human-readable violation descriptions.
+   - Filter errors by column or rule type, and search for specific text.
+   - Quick export buttons: "Export Error Report (CSV)", "Export Invalid Rows Only (CSV)", and "Export Validated Clean Rows (CSV)".
 
-- **Aesthetic Direction**: Professional Developer Studio — high-contrast dark/light slate theme with utilitarian typography, crisp hairline dividers, and minimal elevation.
-- **Palette & Tokens**:
-  - Neutral Canvas: Slate-950 (`#090D16`) for dark mode / Slate-50 (`#F8FAFC`) for light mode.
-  - Structural Surfaces: Slate-900 / Slate-100 with 1px borders (`border-slate-800` / `border-slate-200`).
-  - High-Intent Accents: Indigo-500 (`#6366F1`) and Emerald-500 (`#10B981`) strictly for active flow steps, success copies, and pipeline execution badges.
-- **Typography**:
-  - Display & Headings: `Plus Jakarta Sans` or `Manrope` with strict headline balance.
-  - Body & Microcopy: Clean sans with generous measure (65–75ch).
-  - Code & Execution Stats: `JetBrains Mono` with `tabular-nums` for timestamps and byte counters.
-- **Top Bar Contract**: Exactly 3 zones separated by `gap-8`:
-  $$\text{[ToolBox4Devs]} \quad\text{—}\quad \text{[All Tools} \;\cdot\; \text{Pipeline Studio} \;\cdot\; \text{Recipes} \;\cdot\; \text{Blog]} \quad\text{—}\quad \text{[Pipeline Studio (CTA)]}$$
+### Visual Identity & Theme
+- **Aesthetic Direction**: Utilitarian, precision developer dashboard adhering to ToolBox4Devs design standards (dark slate `#0f0f11` background, crisp high-contrast neutral borders, purposeful emerald for valid states, rose/crimson for error alerts, and amber for rule warnings).
+- **Typography**: Clean sans-serif headings with `font-mono tabular-nums` for row numbers, column counts, and violation tallies.
+- **Zero-Pill Discipline**: Status labels and metadata use clean, unboxed typography with dot separators (`Row 14 · Column 'email' · Invalid Email Format`).
+- **Layout Presence**: Full 1440px desktop width layout with collapsible rule builder panel, sticky validation action bar, and responsive data grid.
 
 ---
 
 ## 3. Key Product Decisions & Trade-Offs
 
-- **Decision 1: URL Hash-Based Pipeline Sharing vs. Backend Storage**
-  - *Approach*: Encode pipeline definitions (step sequences and configurations) directly into URL fragments (`window.location.hash`) using lz-string / base64url compression.
-  - *Why*: Upholds the project's non-negotiable **100% Client-Side** architecture. Zero servers, zero backend database overhead, zero risk of data leaks.
-  - *Alternatives Considered*: Cloud Firestore link sharing was rejected because it violates user trust regarding private developer payloads and enterprise compliance.
+### Decision 1: Client-Side Streaming & Chunked Evaluation
+- **Chosen Approach**: Evaluate rows in micro-batches (chunks of 2,000–5,000 rows) with `requestAnimationFrame` / `setTimeout` yielding to keep the UI interactive even on large files (up to tens of thousands of rows).
+- **Why**: Prevents browser freeze, gives live progress indicators for larger files, and avoids complex external Web Worker messaging setup while remaining 100% client-side.
+- **Alternatives Considered**: Web Worker parsing (added bundling overhead and postMessage data duplication overhead for small-to-medium files).
 
-- **Decision 2: Reusable Step Engine vs. Re-implementing Tools**
-  - *Approach*: Create a standardized `PipelineOperation` interface that wraps existing modular utility functions (`src/utils/*`) into pure synchronous transform functions `(input: string, options: Record<string, any>) => string`.
-  - *Why*: Maximum reliability and code reuse. Any improvements to core utils immediately benefit both single tools and pipeline workflows.
-
-- **Decision 3: Programmatic Static Recipe Routes for SEO**
-  - *Approach*: Add curated developer recipe definitions in `src/data/recipes.ts` and prerender them through `vite-react-ssg` with rich `HowTo` and `SoftwareApplication` JSON-LD schemas.
-  - *Why*: Directly captures high-volume, high-intent developer searches where generic tool directories fail to rank.
+### Decision 2: Dual Mode (Visual Rule Builder + Preset Templates)
+- **Chosen Approach**: Provide an intuitive visual form with toggleable constraint chips for each column, backed by a simple JSON schema format that can be saved, copied, or loaded.
+- **Why**: Offers zero-friction configuration for casual checks while empowering power users to save and reuse strict rule definitions across repeating daily data files.
+- **Alternatives Considered**: JSON Schema only (too high a barrier for quick non-technical checks) or Visual only (lacks reusability across sessions).
 
 ---
 
 ## 4. Technical Architecture & Data Strategy
 
-### System Architecture Diagram
+### Architecture & Component Diagram
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│                        ToolBox4Devs Web Platform                       │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│   Top Navigation: Brand (1 line) ── Nav Links ── [Pipeline Studio CTA]  │
-│                                                                        │
-│   ┌───────────────────────────┐      ┌─────────────────────────────┐   │
-│   │ Single Tool Pages (/slug) │      │  DevFlow Pipeline Studio    │   │
-│   │  - 60+ Existing Tools     │      │  - Multi-step visual chain  │   │
-│   │  - Instant Execution      │      │  - Step toggle & reorder    │   │
-│   │  - [Pipe To...] Bridge    │──┐   │  - Real-time diff & stats   │   │
-│   └───────────────────────────┘  │   └──────────────┬──────────────┘   │
-│                                  ▼                  │                  │
-│   ┌─────────────────────────────────────────────────┴──────────────┐   │
-│   │            Client-Side Pipeline Transformation Engine          │   │
-│   │   Pure Functional Transforms: Base64, JSON, JWT, Regex, Hash   │   │
-│   │   - Zero network requests                                      │   │
-│   │   - URL Hash State Serializer (Shareable Recipes)              │   │
-│   │   - 100% Browser Memory Execution                              │   │
-│   └────────────────────────────────────────────────────────────────┘   │
-│                                  │                                     │
-│   ┌──────────────────────────────▼─────────────────────────────────┐   │
-│   │      High-Intent Programmatic SEO & Structured Data            │   │
-│   │   - Pre-rendered SSG recipe routes (/recipes/*)                │   │
-│   │   - Schema.org WebApplication & HowTo JSON-LD snippets         │   │
-│   │   - Canonical tags, OpenGraph preview cards, sitemap sync     │   │
-│   └────────────────────────────────────────────────────────────────┘   │
+│                        Delimited File Validator                        │
+│                 (src/components/tools/data-tools/CsvValidator.tsx)     │
+└────────────────────────────────────────────────────────────────────────┘
+                                    │
+    ┌───────────────────────────────┼───────────────────────────────┐
+    ▼                               ▼                               ▼
+┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────┐
+│  File & Delimiter    │  │  Visual Rule Engine  │  │  Validation Runner   │
+│  Input Area          │  │  & Schema Config     │  │  & Metrics State     │
+│  - Drag & Drop Drop  │  │  - Column rule cards │  │  - Row-by-row checks │
+│  - Paste text area   │  │  - Type & constraints│  │  - Duplicate tracker │
+│  - Delimiter detect  │  │  - JSON export/import│  │  - Violation store   │
+└──────────────────────┘  └──────────────────────┘  └──────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                        Results & Action Bar                            │
+│  - Pass / Fail Summary Cards (Total Rows, Valid Rows, Total Errors)    │
+│  - Interactive Error Data Grid with Row Filter & Search                │
+│  - Export Actions (Error Audit CSV, Invalid Rows CSV, Clean Rows CSV)  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Data Model & Core Interfaces
+### Data Structures & State Model
 
 ```typescript
-export interface PipelineStep {
-  id: string
-  operationId: string // e.g. 'base64-decode', 'json-format', 'jwt-decode', 'regex-replace', 'sha256'
-  enabled: boolean
-  options: Record<string, string | number | boolean>
+export type ColumnDataType = 'string' | 'number' | 'integer' | 'boolean' | 'date' | 'email' | 'uuid';
+
+export interface ColumnRule {
+  columnName: string;
+  dataType: ColumnDataType;
+  required: boolean;
+  unique: boolean;
+  min?: number;
+  max?: number;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string; // Regex string
+  allowedValues?: string[]; // Enum permitted values
 }
 
-export interface PipelineRecipe {
-  id: string
-  slug: string
-  title: string
-  description: string
-  category: 'api' | 'auth' | 'data' | 'security'
-  targetKeywords: string[]
-  sampleInput: string
-  steps: PipelineStep[]
-  faqs: { question: string; answer: string }[]
+export interface ValidationError {
+  id: string;
+  rowIndex: number; // 1-based data row number
+  columnName: string;
+  cellValue: string;
+  ruleType: 'required' | 'type' | 'range' | 'length' | 'pattern' | 'enum' | 'unique';
+  message: string;
+}
+
+export interface ValidationSummary {
+  totalRows: number;
+  validRows: number;
+  invalidRows: number;
+  totalErrors: number;
+  errorsByColumn: Record<string, number>;
+  errorsByRule: Record<string, number>;
+  executionTimeMs: number;
 }
 ```
 
-### Execution Phases & Deliverables
+### Mandatory Registry & SEO Synchronization Checklist
 
-1. **Phase 1: Pipeline Core Engine & Operations Registry**
-   - Implement pipeline transform registry (`src/utils/pipelineEngine.ts`) mapping operations to existing robust utilities.
-   - Build URL hash encoding/decoding for shareable recipes with zero server dependency.
-
-2. **Phase 2: DevFlow Pipeline Studio Component**
-   - Create the responsive, interactive workspace (`src/components/pipeline/DevFlowStudio.tsx`).
-   - Add step insertion, step reordering, parameter customization, and instant live execution.
-
-3. **Phase 3: High-Intent SEO & Developer Recipes**
-   - Define high-intent recipes targeting backend & full-stack workflows (e.g. Webhook Inspector, Auth Token Unpacker, Minified JSON Cleaner).
-   - Prerender recipe routes in `src/routes.tsx` and sync with `sitemap.xml`, `tools.json`, and `llms.txt`.
-   - Embed comprehensive `WebApplication` and `HowTo` JSON-LD schemas.
-
-4. **Phase 4: Cross-Tool "Pipe To..." Integration**
-   - Add the output action bridge across tool output panels to guide users seamlessly into pipelines or companion tools.
-
-5. **Phase 5: Verification & SSG Build**
-   - Run `npm test`, `lint_applet`, and `compile_applet` to ensure pristine static site pre-rendering across all new routes.
+In strict accordance with `AGENTS.md` and `GEMINI.md`:
+1. **Tool Component**: `src/components/tools/data-tools/CsvValidator.tsx`
+2. **Client Tool Metadata**: `src/tools/meta/csv-validator.ts`
+3. **Client Registry**: `src/tools/registry.ts`
+4. **Node / SSG Registry**: `src/tools/registry-node.ts`
+5. **App Routes**: `src/routes.tsx`
+6. **Tool Catalog & Counter**: `public/tools.json` (update `totalTools: 73`)
+7. **Sitemap**: `public/sitemap.xml`
+8. **LLM Specifications**: `public/llms.txt` and `public/llms-full.txt`
+9. **Global Tool Counters**: `public/opensearch.xml`, `public/manifest.json`, `index.html`, `src/pages/Home.tsx`
+10. **Test Coverage**: `src/__tests__/csvValidator.test.ts`

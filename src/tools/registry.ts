@@ -71,9 +71,11 @@ import { FAKER_DATA_GENERATOR_META } from "./meta/faker-data-generator"
 import { JSON_SCHEMA_GENERATOR_META } from "./meta/json-schema-generator"
 import { CERTIFICATE_DECODER_META } from "./meta/certificate-decoder"
 import { PIPELINE_STUDIO_META } from "./meta/pipeline-studio"
+import { CSV_VALIDATOR_META } from "./meta/csv-validator"
 
 export const tools: ToolMeta[] = [
   PIPELINE_STUDIO_META,
+  CSV_VALIDATOR_META,
   JSON_FORMATTER_META,
   JSON_MODEL_META,
   JSON_TO_ZOD_META,

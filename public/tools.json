@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 72,
+  "totalTools": 73,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -592,6 +592,14 @@
       "url": "https://toolbox4devs.com/pipeline-studio",
       "description": "Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.",
       "keywords": ["developer pipeline", "pipeline studio", "chain dev tools", "cyberchef alternative", "devflow", "decode and format json"]
+    },
+    {
+      "slug": "csv-validator",
+      "name": "Delimited File Data Validator (CSV / TSV / TXT)",
+      "category": "data-tools",
+      "url": "https://toolbox4devs.com/csv-validator",
+      "description": "Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.",
+      "keywords": ["csv validator", "file validator", "csv data verification", "tsv validator", "txt file validator", "validate csv online", "csv schema validator", "csv column check", "csv required field checker"]
     }
   ]
 }
