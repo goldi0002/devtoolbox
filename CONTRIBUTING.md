@@ -40,7 +40,8 @@ Thank you for your interest in contributing! This guide will help you understand
    ```bash
    npm run dev
    ```
-   The app will be available at `http://localhost:5173` (or the Vite-assigned port).
+   The app will be available at `http://localhost:3000`.
+   Live hosted application: [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
 
 4. **Verify your setup:**
    ```bash

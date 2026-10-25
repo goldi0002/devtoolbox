@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useMemo } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
 import { tools } from '../tools/registry'
 import ErrorBoundary from '../components/ErrorBoundary'
+import ToolIcon from '../components/ui/ToolIcon'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO, FAQItem, HowToStep } from '../hooks/useSEO'
 import { useToolPreferences } from '../hooks/useToolPreferences'
@@ -149,9 +150,12 @@ export default function ToolPage() {
       {/* ── Workspace Header ─────────────────────────────────────────────── */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 surface-panel px-4 py-3 animate-fade-in">
         <div className="flex items-center gap-3">
-          <span className="tag">{meta.tag}</span>
+          <ToolIcon slug={meta.slug} category={meta.category} name={meta.icon} withBadge badgeSize="md" size={18} />
           <div>
-            <h1 className="text-base sm:text-lg font-sans font-semibold text-bright">{meta.name}</h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-base sm:text-lg font-sans font-semibold text-bright">{meta.name}</h1>
+              <span className="tag text-[10px]">{meta.tag}</span>
+            </div>
             <p className="text-xs text-dim">100% In-Browser Execution · Zero External Calls · Private & Secure</p>
           </div>
         </div>

@@ -1,43 +1,46 @@
-# Tasks
+# Engineering Task Board
 
-Status: ✅ done · 🔄 in progress · ⬜ pending
+Status: ✅ Completed · 🔄 In Progress · ⬜ Backlog
 
-## Current
+---
 
-- [x] Rewrite documentation for GitHub Pages (MkDocs deployment)
+## 🌐 Hosted Web Application
 
-## Pending Backlog
+- **Live Production URL:** [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
+- **Documentation:** [https://goldi0002.github.io/devtoolbox/](https://goldi0002.github.io/devtoolbox/)
 
-| # | Task | Priority | Status |
-|---|---|---|---|
-| 1 | Add regression test framework (Vitest) and smoke coverage | P0 | ✅ |
-| 2 | Audit browser-only APIs for SSG safety | P0 | ✅ |
-| 3 | Harden share-link parsing with size limits and error handling | P0 | ✅ |
-| 4 | Validate security-sensitive tools with tests and local-only guidance | P0 | ⬜ |
-| 5 | Add explicit `typecheck` and `test` npm scripts | P1 | ✅ |
-| 6 | Centralize CodeMirror language extension mapping | P1 | ✅ |
-| 7 | Fix typos (`isCommingSoon`) while preserving compatibility | P1 | ✅ |
-| 8 | Update README to match current codebase | P1 | ✅ |
-| 9 | Add contribution guidelines | P1 | ✅ |
-| 10 | Improve keyboard and screen-reader accessibility | P2 | ✅ |
-| 11 | Add empty/error states consistently across tools | P2 | ✅ |
-| 12 | Improve tool discovery (search, favorites, command palette) | P2 | ✅ |
-| 13 | Strengthen per-tool SEO metadata, Open Graph, Twitter Cards | P2 | ✅ |
-| 14 | Review bundle splitting and lazy loading | P3 | ⬜ |
-| 15 | Reduce repeated runtime work in frequently-rendered components | P3 | ✅ |
-| 16 | Add dependency health and bundle-size audit checks | P3 | ⬜ |
-| 17 | Complete and polish beta/coming-soon tools | P4 | ✅ |
-| 18 | Add file import/export for relevant tools | P4 | ⬜ |
-| 19 | Persist safe user preferences (editor settings, etc.) | P4 | ⬜ |
-| 20 | Finish visual redesign inside tool components (milestone 2) | P4 | ⬜ |
+---
 
-## Completed
+## Current Sprint Tasks
 
-- Added Vitest test suite with tests for share compression, registry metadata, editor languages, JSON to Zod, and Cron parser
-- Added `json-to-zod` and `cron-parser` tools to registry and SSG routes
-- Enhanced SEO with Open Graph, Twitter cards, keywords, and Schema.org BreadcrumbList
-- Centralized CodeMirror language extension mapper in `src/lib/editorLanguage.ts`
-- Redesign milestone 1: accent-driven theme tokens for all ten themes, shared component classes
-- Added command palette, global search, local favorites, and recently used tools
-- Initial architecture review and backlog documentation
-- Rewrote documentation for GitHub Pages deployment with MkDocs
+| # | Task | Category | Priority | Status |
+|---|---|---|---|---|
+| 1 | Overhaul MkDocs technical documentation and sync with live URL | Docs | P0 | ✅ Completed |
+| 2 | Feature `https://www.toolbox4devs.com` across all docs and README | Docs | P0 | ✅ Completed |
+| 3 | Remove ephemeral preview/dev URLs from documentation | Docs | P0 | ✅ Completed |
+| 4 | Ensure all 25 Vitest test suites (166 tests) pass cleanly | Quality | P0 | ✅ Completed |
+| 5 | Verify zero-warning ESLint and TypeScript compilation | Quality | P0 | ✅ Completed |
+
+---
+
+## Completed Tasks
+
+- [x] **Core Architecture & SSG**: Static site generation configured with `vite-react-ssg` across all 73 tool routes.
+- [x] **Dual Tool Registry**: Separated browser component registry (`registry.ts`) from Node static pre-render registry (`registry-node.ts`).
+- [x] **Test Framework**: Installed Vitest and authored 25 unit/integration test suites covering converters, crypto, sharing, and data engines.
+- [x] **Share Link Security**: Enforced 250KB payload thresholds and safe error recovery in `src/lib/share.ts`.
+- [x] **Delimited Data Validator**: Implemented `csv-validator` with interactive visual constraint builder and CSV error export.
+- [x] **Command Palette (`Cmd + K`)**: Built fuzzy search with keyboard navigation, hotkeys, and quick actions.
+- [x] **Quick Favorites Drawer**: LocalStorage-persisted tool pinning with zero tracking telemetry.
+- [x] **PWA & Offline Service Worker**: Cached application shell, themes, and tool bundles for offline execution.
+- [x] **Design Tokens & Themes**: Built 10 developer themes (Dark, Nord, Dracula, Terminal, Monokai, Rose, Solarized, Sepia, etc.).
+- [x] **Documentation Migration**: Created dedicated MkDocs site deployed to GitHub Pages via automated workflow.
+
+---
+
+## Upcoming Backlog
+
+- [ ] **WASM SQLite Query Sandbox**: Run client-side SQL queries on CSV/JSON payloads.
+- [ ] **`.env` File Auditor & Diff Tool**: Compare `.env` and `.env.example`, detect exposed secrets, and sort keys.
+- [ ] **OpenAPI / Swagger 3.0 Explorer**: Client-side API viewer and mock fixture generator.
+- [ ] **Webhook Signature Simulator**: Validate Stripe/GitHub/Slack HMAC webhook signatures.

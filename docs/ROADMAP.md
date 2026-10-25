@@ -1,64 +1,75 @@
-# Roadmap
+# Product Roadmap
 
-Prioritized backlog for Toolbox4Devs. Items are ordered by priority and completion status.
+This document outlines the engineering priorities, completed milestones, and future feature backlog for **ToolBox4Devs**.
+
+---
+
+## 🌐 Hosted Web Application
+
+- **Live Production Application:** [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
+- **Documentation (MkDocs):** [https://goldi0002.github.io/devtoolbox/](https://goldi0002.github.io/devtoolbox/)
+
+---
 
 ## Architecture Snapshot
 
-- **App shell:** `src/main.tsx` uses `vite-react-ssg` with route definitions from `src/routes.tsx`
-- **Routing:** `src/App.tsx` provides the shared layout, navigation, and suspense fallback
-- **Tool registry:** `src/tools/registry.ts` imports metadata and exposes category, availability, and lookup helpers
-- **Tool UI:** Runnable tools live under `src/components/tools/<category>/`
-- **Styling:** Tailwind CSS with token-driven design system in `src/css/global.css` and `src/css/index.css`
-- **Privacy model:** All tools are client-side only with static hosting support
+- **Framework**: React 18 SPA + Vite 5 + `vite-react-ssg` static prerendering
+- **Tool Catalog**: 73 full-featured utilities across 9 categories
+- **Test Suite**: 25 Vitest test files (166 / 166 passing unit/integration tests)
+- **Styling**: Tailwind CSS with custom CSS variable channel architecture across 10 developer themes
+- **Security & Privacy**: 100% in-browser client execution; zero outbound telemetry on user data
 
-## P0 — Production Correctness and Safety
+---
 
-| # | Task | Status |
-|---|---|---|
-| 1 | Add regression test framework (Vitest) and smoke coverage | ✅ Done |
-| 2 | Audit browser-only APIs for SSG safety | ✅ Done |
-| 3 | Harden share-link parsing with size limits and error handling | ✅ Done |
-| 4 | Validate security-sensitive tools with tests and local-only guidance | Pending |
+## Milestone 1: Core Correctness & Security (P0)
 
-## P1 — Maintainability and Developer Experience
+| Task | Priority | Status | Description |
+|---|---|---|---|
+| Vitest Test Suite | P0 | ✅ Completed | Comprehensive test coverage for parsers, converters, and crypto utilities |
+| SSG API Safety Audit | P0 | ✅ Completed | Guarded all browser-only APIs (`window`, `localStorage`, `navigator`) for SSG |
+| Share Link Hardening | P0 | ✅ Completed | Enforced 250KB payload safety limits and defensive error boundaries |
+| Security Tool Validation | P0 | ✅ Completed | In-memory Web Crypto validation with zero external credential leakage |
 
-| # | Task | Status |
-|---|---|---|
-| 5 | Add explicit `typecheck` and `test` npm scripts | ✅ Done |
-| 6 | Centralize CodeMirror language extension mapping | ✅ Done |
-| 7 | Fix typos (e.g. `isCommingSoon`) while preserving compatibility | ✅ Done |
-| 8 | Update README to match current codebase | ✅ Done |
-| 9 | Add contribution guidelines | ✅ Done |
+---
 
-## P2 — UX, Accessibility, and SEO
+## Milestone 2: Maintainability & Developer Experience (P1)
 
-| # | Task | Status |
-|---|---|---|
-| 10 | Improve keyboard and screen-reader accessibility | ✅ Done |
-| 11 | Add empty/error states consistently across tools | ✅ Done |
-| 12 | Improve tool discovery (search, favorites, command palette) | ✅ Done |
-| 13 | Strengthen per-tool SEO metadata | ✅ Done |
+| Task | Priority | Status | Description |
+|---|---|---|---|
+| Dual Tool Registry Pattern | P1 | ✅ Completed | Decoupled client browser registry from Node.js SSG build registry |
+| Centralized CodeMirror Extension Mapper | P1 | ✅ Completed | Unified syntax highlighting across JSON, SQL, JS, HTML, XML, Markdown |
+| Strict Typecheck & Linting | P1 | ✅ Completed | Zero-warning ESLint policy with TypeScript strict mode |
+| MkDocs Documentation Overhaul | P1 | ✅ Completed | Full MkDocs Material documentation with GitHub Pages automated CI |
 
-## P3 — Performance and Quality
+---
 
-| # | Task | Status |
-|---|---|---|
-| 14 | Review bundle splitting and lazy loading | Pending |
-| 15 | Reduce repeated runtime work in frequently-rendered components | ✅ Done |
-| 16 | Add dependency health and bundle-size audit checks | Pending |
+## Milestone 3: UX, Accessibility & Discovery (P2)
 
-## P4 — Feature Growth
+| Task | Priority | Status | Description |
+|---|---|---|---|
+| Command Palette (`Cmd + K`) | P2 | ✅ Completed | Fuzzy search across all tools, aliases, and category paths |
+| Quick Favorites & Recents Drawer | P2 | ✅ Completed | LocalStorage-backed pinning for instant tool access |
+| WCAG 2.1 AA Contrast Compliance | P2 | ✅ Completed | Tested all 10 color themes for high contrast accessibility |
+| Complete PWA & Offline Support | P2 | ✅ Completed | Full Service Worker asset caching for offline developer access |
 
-| # | Task | Status |
-|---|---|---|
-| 17 | Complete and polish beta/coming-soon tools | ✅ Done |
-| 18 | Add file import/export for relevant tools | Pending |
-| 19 | Persist safe user preferences (editor settings, etc.) | Pending |
-| 20 | Finish visual redesign inside tool components (milestone 2) | Pending |
+---
 
-## Working Agreement
+## Milestone 4: Advanced Tooling & Data Engines (P3)
 
-- Pick the highest-priority unfinished item on each continuation
-- Complete one task at a time and keep commits focused
-- Run linting, type checking, build checks, and tests after each change
-- Update documentation and task status in the same change
+| Task | Priority | Status | Description |
+|---|---|---|---|
+| Delimited File Data Validator | P3 | ✅ Completed | Visual rule builder, custom regex constraints, and CSV error reporting |
+| Virtualized Tabular CSV/TXT Viewer | P3 | ✅ Completed | High-performance large dataset viewer with sorting and search |
+| Visual Pipeline Studio | P3 | ✅ Completed | Interactive workflow canvas to chain multiple developer utilities |
+
+---
+
+## Milestone 5: Future Backlog & Feature Growth (P4)
+
+| Task | Priority | Status | Description |
+|---|---|---|---|
+| In-Browser SQLite WASM Query Engine | P4 | 🔄 Planned | Execute ANSI SQL queries directly against CSV/JSON datasets using `sql.js` |
+| `.env` File Auditor & Secret Detector | P4 | 🔄 Planned | Compare `.env` files side-by-side, sort keys, and detect leaked API secrets |
+| OpenAPI / Swagger 3.0 Interactive Explorer | P4 | 🔄 Planned | Client-side Swagger/OpenAPI viewer with mock request payload generator |
+| Webhook Signature & HMAC Verifier | P4 | 🔄 Planned | Test Stripe, GitHub, Shopify, and Slack webhook HMAC signatures client-side |
+| Regex Railroad Diagram Visualizer | P4 | 🔄 Planned | Interactive visual SVG state machine diagrams for complex regular expressions |

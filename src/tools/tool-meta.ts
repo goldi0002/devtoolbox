@@ -53,6 +53,7 @@ export interface ToolMeta {
     category: ToolCategory
     tag: string
     keywords: string[],
+    icon?: string,
     seo?: ToolSEO,
     status?: ToolStatus,
     eta?: string, // e.g. "Q2 2025"

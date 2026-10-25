@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { categoryLabels, tools } from '../tools/registry'
 import { useToolPreferences } from '../hooks/useToolPreferences'
+import ToolIcon from './ui/ToolIcon'
+import { LayoutGrid } from 'lucide-react'
 
 interface CommandPaletteProps {
   open: boolean
@@ -103,10 +105,15 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
               selectedIndex === 0 ? 'bg-indigo-500/15 border border-indigo-500/30' : 'hover:bg-surface'
             }`}
           >
-            <span>
-              <span className="block text-sm font-medium text-bright">Browse all tools</span>
-              <span className="block text-xs text-subtle">Open the complete categorized toolbox</span>
-            </span>
+            <div className="flex items-center gap-3">
+              <div className="p-1.5 rounded-lg bg-surface border border-border text-subtle">
+                <LayoutGrid size={15} />
+              </div>
+              <span>
+                <span className="block text-sm font-medium text-bright">Browse all tools</span>
+                <span className="block text-xs text-subtle">Open the complete categorized toolbox</span>
+              </span>
+            </div>
             <span className="text-xs font-mono text-muted">/tools</span>
           </button>
 
@@ -129,15 +136,18 @@ export default function CommandPalette({ open, onClose }: CommandPaletteProps) {
                     isSelected ? 'bg-indigo-500/15 border border-indigo-500/30' : 'hover:bg-surface'
                   }`}
                 >
-                  <span className="min-w-0">
-                    <span className="flex items-center gap-2 text-sm font-medium text-bright">
-                      {tool.name}
-                      {favoriteSet.has(tool.slug) && <span className="text-amber-400" aria-label="Favorite">★</span>}
-                    </span>
-                    <span className="block truncate text-xs text-subtle">
-                      {categoryLabels[tool.category]} · {tool.description}
-                    </span>
-                  </span>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={14} />
+                    <div className="min-w-0">
+                      <span className="flex items-center gap-2 text-sm font-medium text-bright">
+                        <span className="truncate">{tool.name}</span>
+                        {favoriteSet.has(tool.slug) && <span className="text-amber-400" aria-label="Favorite">★</span>}
+                      </span>
+                      <span className="block truncate text-xs text-subtle">
+                        {categoryLabels[tool.category]} · {tool.description}
+                      </span>
+                    </div>
+                  </div>
                   <span className="ml-4 shrink-0 text-xs font-mono text-muted">/{tool.slug}</span>
                 </Link>
               )

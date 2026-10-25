@@ -1,62 +1,123 @@
-# Design System
+# Design System & UI Architecture
 
-The 2026 redesign replaced ad-hoc greyscale styling with a token-driven system so every theme,
-component, and page shares the same colour, radius, elevation, and typography vocabulary.
+ToolBox4Devs features a cohesive, token-driven developer design system. Built on top of Tailwind CSS with custom CSS variable channels, every theme, component, and tool interface shares the same color, radius, elevation, and typography vocabulary.
 
-## Colour tokens
+---
 
-Theme variables live in `src/css/global.css`. Every palette colour is declared twice:
+## 🌐 Hosted Web Application
+
+👉 **[https://www.toolbox4devs.com](https://www.toolbox4devs.com)**
+
+---
+
+## 1. Color Token Architecture
+
+Theme variables live in `src/css/global.css`. To support Tailwind CSS opacity modifiers (such as `bg-surface/80` or `border-border/60`), every palette color is declared twice:
 
 ```css
---color-bg-rgb: 255 255 255;        /* channels, used for alpha modifiers */
---color-bg:     rgb(var(--color-bg-rgb));
+/* 1. RGB channel format (consumed by Tailwind alpha modifiers) */
+--color-bg-rgb: 15 15 17;
+
+/* 2. Standard CSS color format */
+--color-bg: rgb(var(--color-bg-rgb));
 ```
 
-The channel form is what `tailwind.config.js` consumes
-(`bg: 'rgb(var(--color-bg-rgb) / <alpha-value>)'`), which is what makes opacity utilities such as
-`bg-bg/80` or `bg-surface/60` work. Before the redesign the config referenced the plain `var(...)`
-form, so any utility with an opacity modifier silently produced no CSS.
+In `tailwind.config.js`, tokens are mapped using the dynamic `<alpha-value>` placeholder:
 
-| Token | Purpose |
+```javascript
+colors: {
+  bg: 'rgb(var(--color-bg-rgb) / <alpha-value>)',
+  surface: 'rgb(var(--color-surface-rgb) / <alpha-value>)',
+  border: 'rgb(var(--color-border-rgb) / <alpha-value>)',
+  accent: 'rgb(var(--color-accent-rgb) / <alpha-value>)',
+  // ...
+}
+```
+
+### Core Design Tokens
+
+| Token | Semantic Purpose |
 |---|---|
-| `bg`, `surface` | Page and panel backgrounds |
-| `border`, `muted`, `subtle` | Hairlines, disabled text, quiet labels |
-| `dim`, `light`, `bright` | Body copy through primary headings |
-| `accent` | Brand/interaction colour: primary buttons, active nav, links, focus rings |
-| `accent-fg` | Foreground colour that is legible on top of `accent` |
-| `accent-soft` | Low-alpha accent tint for chips, badges, and hovers |
+| `bg` | Application background (viewport body) |
+| `surface` | Card surfaces, tool containers, modal backgrounds |
+| `border` | Hairlines, card borders, table dividers |
+| `muted` | Low-emphasis backgrounds, disabled states, subtle hover fills |
+| `subtle` | Quiet metadata labels, helper text, timestamps |
+| `dim` | Secondary copy, descriptions, non-active buttons |
+| `light` | High-readability body copy |
+| `bright` | Headings, primary metrics, active selection text |
+| `accent` | Brand & interaction color: primary buttons, active tabs, focus rings |
+| `accent-fg` | High-contrast foreground color on top of `accent` |
+| `accent-soft` | Low-alpha accent tint for badges, subtle tags, and highlights |
 
-Each theme (`dark`, `sepia`, `nord`, `terminal`, `toolbox4devs`, `dracula`, `solarized`, `rose`,
-`monokai`) defines its own accent so the redesign works across all of them.
+---
 
-## Shape and elevation
+## 2. The 10 Developer Themes
 
-`--radius-sm|md|lg` and `--shadow-soft|lift` are mapped to Tailwind's `rounded-*` and `shadow-*`
-scales. Interactive surfaces lift on hover (`hover:-translate-y-1 hover:shadow-lift`) instead of
-changing background colour.
+Users can toggle their preferred workspace theme at any time via the Theme Picker or Command Palette (`Cmd + K`):
 
-## Component classes
+1. **Dark (Default)**: Neutral slate `#0f0f11` background with vibrant indigo `#6366f1` accent.
+2. **Dracula**: Classic dark theme inspired by the vampire palette with iconic purple and pink highlights.
+3. **Nord**: Arctic, north-bluish palette based on the acclaimed Nord color palette.
+4. **Terminal / Matrix**: Retro CRT green-on-black phosphor look for terminal purists.
+5. **Monokai Pro**: Vibrant amber and magenta accents on rich charcoal.
+6. **Rose Pine**: Soft pastel dusk palette with gentle muted contrasts.
+7. **Solarized Dark**: Precision low-contrast color science designed for extended coding sessions.
+8. **Sepia / Warm**: Paper-like warm tones ideal for reading extensive logs and long documents.
+9. **High Contrast**: Maximum accessibility AA/AAA border definitions for daylight visibility.
+10. **ToolBox Brand**: Distinctive signature cyan and deep navy engineering aesthetic.
+
+---
+
+## 3. Typography Hierarchy
+
+The UI pairs crisp geometric sans-serif typefaces for structure with specialized monospace fonts for code and tabular numerals:
+
+- **Body & Controls**: `DM Sans`, `Inter`, `Plus Jakarta Sans`
+- **Code & Numeric Data**: `JetBrains Mono`, `Fira Code`, `Geist Mono` (`tabular-nums`)
+- **Display Headings**: `Space Grotesk`, `Bebas Neue`
+
+All code outputs, row numbers, byte counts, and execution metrics strictly use `font-mono` with `tabular-nums` alignment to prevent visual jitter during live updates.
+
+---
+
+## 4. Reusable Component Classes
 
 Defined in `src/css/index.css` under `@layer components`:
 
-- `btn-primary`, `btn-ghost` — accent-filled and outlined actions.
-- `input-base`, `textarea-base` — form fields with accent focus ring.
-- `card`, `surface-panel` — solid and translucent containers.
-- `tag`, `chip`, `chip-active` — metadata pills and filter toggles.
-- `eyebrow`, `section-heading` — the repeated uppercase label + display heading pattern.
+```css
+/* Primary Action Button */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-accent text-accent-fg px-4 py-2 rounded-md
+         text-sm font-medium font-sans shadow-soft transition-all duration-200
+         hover:-translate-y-px hover:shadow-lift active:translate-y-0 active:shadow-soft;
+}
 
-Prefer these classes over re-declaring the same utility strings in a page.
+/* Outlined Ghost Button */
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 bg-transparent border border-border text-dim
+         px-4 py-2 rounded-md text-sm font-medium font-sans transition-all duration-200
+         hover:border-accent hover:text-bright hover:bg-accent-soft;
+}
 
-## Accessibility rules baked into the system
+/* Card Container */
+.card {
+  @apply bg-surface border border-border rounded-lg p-5 transition-all duration-200;
+}
 
-- Global `:focus-visible` outline in the accent colour (`src/css/index.css`).
-- A "Skip to content" link in `src/App.tsx` targeting `#main-content`.
-- `prefers-reduced-motion` disables animations and smooth scrolling.
-- Filter chips and favourite toggles expose `aria-pressed`; icon-only buttons carry `aria-label`.
-- Diff highlighting, the page loader, and the coming-soon overlay use theme tokens instead of
-  hard-coded light/dark colours so contrast holds in every theme.
+/* Form Inputs */
+.input-base {
+  @apply bg-surface border border-border rounded-md px-3 py-2 text-sm text-bright
+         font-mono placeholder:text-subtle focus:outline-none focus:border-accent
+         focus:ring-2 focus:ring-accent-soft transition-colors duration-200 w-full;
+}
+```
 
-## Layout shell
+---
 
-`src/App.tsx` renders `Navbar` → routed content (`#main-content`) → `Footer`. The footer is global,
-so pages must not render their own footer rows.
+## 5. Accessibility & Zero-Pill Discipline
+
+- **Zero-Pill Typography**: Status headers and secondary metadata avoid excessive rounded badges; they use clean typographical separators (e.g. `Row 42 · Column 'email' · Invalid Regex`).
+- **Focus Rings**: Standard `:focus-visible` ring (`outline: 2px solid var(--color-accent)`) across all interactive buttons, inputs, and tab stops.
+- **Skip Link**: Top-level `<a href="#main-content">Skip to content</a>` enables rapid screen-reader navigation.
+- **Reduced Motion**: Respects `prefers-reduced-motion: reduce` by dampening all CSS transitions and transform animations.

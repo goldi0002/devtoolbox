@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ToolCard from '../components/ToolCard'
+import ToolIcon from '../components/ui/ToolIcon'
 import ErrorBoundary from '../components/ErrorBoundary'
 import { tools, categoryLabels, getFeaturedTools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -284,9 +285,12 @@ export default function Home() {
                 <Link
                   key={t.slug}
                   to={`/${t.slug}`}
-                  className="p-2.5 rounded-lg bg-muted/30 border border-border/60 hover:border-indigo-500/50 hover:bg-muted/60 transition-all flex items-center justify-between group"
+                  className="p-2.5 rounded-lg bg-muted/30 border border-border/60 hover:border-indigo-500/50 hover:bg-muted/60 transition-all flex items-center justify-between group gap-2"
                 >
-                  <span className="text-xs font-medium text-bright truncate">{t.name}</span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <ToolIcon slug={t.slug} category={t.category} name={t.icon} size={14} className="text-accent shrink-0" />
+                    <span className="text-xs font-medium text-bright truncate">{t.name}</span>
+                  </div>
                   <ArrowRight size={12} className="text-subtle group-hover:text-indigo-400 transition-colors shrink-0" />
                 </Link>
               ))}
@@ -305,6 +309,8 @@ export default function Home() {
                 title={tool.name}
                 description={tool.description}
                 tag={tool.tag}
+                category={tool.category}
+                icon={tool.icon}
                 index={i}
               />
             ))}

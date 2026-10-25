@@ -1,79 +1,114 @@
-# Toolbox4Devs Architecture
+# Technical Architecture & System Design
 
-This document records the current repository architecture and the main risks found during the July 25, 2026 codebase review.
+This document details the architectural principles, data flow, component design, and performance optimizations of **ToolBox4Devs**.
 
-## Product shape
+---
 
-Toolbox4Devs is a static, privacy-first React application for browser-based developer utilities. The production build is generated with Vite React SSG, so pages and available tool routes are pre-rendered and then hydrated in the browser.
+## 🌐 Hosted Deployments
 
-## Framework and deployment
+- **Production Hosted Website:** [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
+- **Documentation (MkDocs):** [https://goldi0002.github.io/devtoolbox/](https://goldi0002.github.io/devtoolbox/)
 
-- **Framework:** React 18 with TypeScript.
-- **Build system:** Vite with `vite-react-ssg` for static generation.
-- **Routing:** React Router route records exported from `src/routes.tsx` and consumed by `ViteReactSSG` in `src/main.tsx`.
-- **Styling:** Tailwind CSS plus global CSS variables and utility classes in `src/css/`.
-- **Deployment:** Static output from `npm run build`; `vercel.json` supports Vercel rewrites for client-side navigation.
-- **Sitemap/robots:** `vite-plugin-sitemap` builds sitemap and robots data from registry-driven routes in `vite.config.ts`.
+---
 
-## Application flow
+## 1. Architectural Philosophy
 
-1. `src/main.tsx` creates the SSG root and installs a client-only Vite preload-error recovery handler.
-2. `src/routes.tsx` declares the layout route, informational pages, category index routes, and one route for every available tool slug.
-3. `src/App.tsx` renders the shared layout: skip link, navigation, routed content inside `#main-content`, global footer, scroll reset, error boundary, and suspense fallback.
-4. `src/pages/ToolPage.tsx` resolves the current slug from the URL, looks up metadata in the tool registry, renders the tool component, and adds related-tool links plus about content.
-5. `src/hooks/useSEO.tsx` writes page-level title, description, canonical, Open Graph, and Twitter card tags through `vite-react-ssg`'s `Head` component.
+The architecture of ToolBox4Devs is founded on four non-negotiable pillars:
 
-## Tool system
-
-- `src/tools/tool-meta.ts` defines the metadata contract for every tool.
-- `src/tools/meta/*` stores per-tool metadata such as slug, category, description, status, SEO-facing about copy, and component references.
-- `src/tools/registry.ts` imports all metadata and exposes category labels, availability helpers, featured-tool helpers, and slug lookup.
-- `src/tools/registry-node.ts` mirrors the registry for Node-side Vite configuration so static routes and sitemap entries can be generated without browser-only component imports.
-- Runnable tools live in category folders under `src/components/tools/`, including JSON, encoding, text, generator, auth, web, data, crypto, and analyze utilities.
-
-## Shared UI and utilities
-
-- `src/components/CodeInput.tsx` and `src/components/CodeBlock.tsx` wrap CodeMirror for editable and read-only code experiences.
-- `src/components/ToolLayout.tsx`, `ToolCard.tsx`, `Footer.tsx`, `CopyButton.tsx`, and `src/components/ui/*` provide reusable layout, cards, clipboard, sharing, theme, loading, and tool-status UI.
-- Design tokens and shared component classes are described in `docs/DESIGN.md`; page-level styling should compose those classes rather than repeating utility strings.
-- `src/lib/share.ts` implements compressed hash-based share URLs with `lz-string`.
-- `src/hooks/` contains clipboard, hash-data, analytics, SEO, and page-title hooks.
-- `src/utils/` contains tool-specific utilities and site metadata.
-
-## Known Risks and Remaining Work
-
-### Performance
-
-- CodeMirror and formatter-heavy tools are the largest client bundles; lazy loading should be reviewed per tool.
-- Parser/formatter tools should avoid expensive recomputation on every keystroke where live updates are not required.
-
-### Accessibility
-
-- A full WCAG AA audit of the theme picker, editor controls, and per-tool forms remains.
-- Decorative macOS window controls in editor chrome should remain non-interactive to assistive technology.
-
-### SEO
-
-- Internal linking can be improved with category and use-case links.
-- Sitemap generation depends on registry parity between browser and Node registries.
-
-### Security and Privacy
-
-- Security-sensitive tools (JWT decoding, Basic Auth, password generation, hashing, permissions) need clearer local-only guidance.
-- Browser-only APIs are mostly client-guarded, but a full SSG safety audit remains.
-
-### Technical Debt
-
-- `npm test` runs Vitest. Coverage expansion is ongoing.
-- Registry imports are intentionally duplicated between browser and Node contexts; this creates maintenance risk when adding tools.
-
-## Verification Workflow
-
-Run these before merging changes:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
-npm test
 ```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        ToolBox4Devs Architecture                       │
+├─────────────────┬──────────────────┬─────────────────┬─────────────────┤
+│ 100% Client-    │ Static Site      │ Zero-Exfil      │ Stateless       │
+│ Side Memory     │ Generation (SSG) │ Privacy Model   │ State Sharing   │
+└─────────────────┴──────────────────┴─────────────────┴─────────────────┘
+```
+
+1. **100% Client-Side Processing**: Every transformation, parsing run, cryptographic calculation, and code formatting routine executes strictly in browser memory. No text or data entered by a user is ever sent over the network.
+2. **Static Site Generation (SSG)**: Pre-renders every tool page, category directory, and informational page into static HTML at build time using `vite-react-ssg`.
+3. **Zero-Exfiltration Privacy Guarantee**: Secure for sensitive enterprise data, proprietary code, production database dumps, JWT tokens, and private keys.
+4. **Stateless URL Sharing**: Shares state via URL hash fragments (`#data=...`) compressed with Lempel-Ziv-String (`lz-string`), eliminating the need for any server database.
+
+---
+
+## 2. System Architecture Diagram
+
+```
+                               ┌──────────────────────────┐
+                               │  Vite Build & SSG Engine │
+                               │     (vite-react-ssg)     │
+                               └────────────┬─────────────┘
+                                            │
+                       ┌────────────────────┴────────────────────┐
+                       ▼                                         ▼
+            ┌─────────────────────┐                   ┌─────────────────────┐
+            │ Browser Tool        │                   │ Node / SSG          │
+            │ Registry            │                   │ Registry            │
+            │ (src/tools/         │                   │ (src/tools/         │
+            │  registry.ts)       │                   │  registry-node.ts)  │
+            └──────────┬──────────┘                   └──────────┬──────────┘
+                       │                                         │
+        ┌──────────────┴──────────────┐                          │ Generates static
+        ▼                             ▼                          │ routes & sitemap
+┌──────────────┐              ┌──────────────┐                   ▼
+│ Interactive  │              │ Tool Metadata│           ┌──────────────┐
+│ Tool UI      │              │ & SEO Schema │           │ Static HTML  │
+│ Components   │              │ (useSEO.tsx) │           │ Pages        │
+└───────┬──────┘              └──────────────┘           │ (dist/*.html)│
+        │                                                └──────────────┘
+        ▼
+┌───────────────────────────────────────────────────────────┐
+│                    Browser Execution Layer                │
+│  - Web Crypto API (SHA-256, HMAC, RSA, AES)               │
+│  - CodeMirror 6 Editor Instances                          │
+│  - Virtualized Tabular Viewer & Streaming Parsers         │
+│  - Compressed State Hydration (lz-string in URL hash)     │
+│  - Service Worker Cache (public/sw.js)                    │
+└───────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 3. Two-Tier Tool Registry Pattern
+
+To enable static pre-rendering without bundling heavy browser-specific DOM dependencies (such as CodeMirror, HTML canvas, or camera scanner APIs) into the Node.js build process, ToolBox4Devs uses a **two-tier registry pattern**:
+
+### A. Client Registry (`src/tools/registry.ts`)
+- Imported inside browser React components.
+- Loads the interactive UI components via React `lazy()` for optimal code-splitting.
+- Associates Lucide icons, interactive behavior, and full tool implementations.
+
+### B. Node / SSG Registry (`src/tools/registry-node.ts`)
+- Imported by `vite.config.ts` during static site generation.
+- Contains only lightweight metadata (slugs, titles, descriptions, categories).
+- Has zero references to DOM APIs (`window`, `document`, `navigator`), allowing Node to safely pre-generate sitemaps and HTML pages.
+
+---
+
+## 4. Key Subsystems
+
+### 4.1. Compressed Stateless Sharing (`src/lib/share.ts`)
+- Rather than persisting user inputs in a remote database, tool state is serialized to JSON and compressed using `lz-string` into a Base64-safe URL hash payload.
+- On page load, `useHashData()` inspects `window.location.hash`, decompresses the payload, and validates payload length against a strict 250KB security threshold to prevent denial-of-service memory spikes.
+
+### 4.2. Delimited Data Validation Engine (`src/utils/csvValidatorEngine.ts`)
+- Evaluates tabular files (CSV, TSV, custom delimiters) against custom schema rules (types, regex, ranges, enums, unique checks).
+- Processes large datasets using micro-batches (2,000–5,000 rows per tick) to ensure the UI thread remains responsive and non-blocking.
+
+### 4.3. Pipeline Studio Studio Engine (`src/utils/pipelineEngine.ts`)
+- Implements an in-browser directed acyclic graph (DAG) dataflow.
+- Allows chaining multiple utilities (e.g. `cURL → HTTP Parser → JSON Formatter → JSON to Zod`).
+- Validates input/output compatibility between transformation steps.
+
+### 4.4. Offline PWA & Service Worker (`public/sw.js`)
+- Employs a Stale-While-Revalidate caching strategy for HTML and scripts.
+- Employs a Cache-First strategy for static assets, SVG icons, and web fonts.
+- Includes automatic update detection with in-app banner notification.
+
+---
+
+## 5. Security & Verification Strategy
+
+- **ESLint Strict Rules**: Enforces zero TypeScript warnings and unused variables.
+- **Vitest Unit & Integration Suites**: 25 test files covering cryptographic transformations, parser engines, share link security, and catalog synchronization.
+- **CSP & Content Security**: Static hosting requires no unsafe server eval; Web Crypto uses browser-native primitives.

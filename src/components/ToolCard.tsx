@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom'
 import { Star } from 'lucide-react'
 import { useToolPreferences } from '../hooks/useToolPreferences'
+import ToolIcon from './ui/ToolIcon'
+import type { ToolCategory } from '../tools/tool-meta'
 
 interface ToolCardProps {
   slug: string
   title: string
   description: string
   tag: string
+  category?: ToolCategory | string
+  icon?: string
   index?: number
 }
 
-export default function ToolCard({ slug, title, description, tag, index = 0 }: ToolCardProps) {
+export default function ToolCard({ slug, title, description, tag, category, icon, index = 0 }: ToolCardProps) {
   const { favoriteSet, toggleFavorite } = useToolPreferences()
   const isFavorited = favoriteSet.has(slug)
 
@@ -35,9 +39,12 @@ export default function ToolCard({ slug, title, description, tag, index = 0 }: T
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
       />
 
-      <div className="mb-3 flex items-start justify-between gap-3">
-        <span className="tag">{tag}</span>
-        <div className="flex items-center gap-1.5">
+      <div className="mb-3.5 flex items-start justify-between gap-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <ToolIcon slug={slug} category={category} name={icon} withBadge badgeSize="sm" size={15} />
+          <span className="tag truncate">{tag}</span>
+        </div>
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             type="button"
             onClick={handleFavoriteClick}

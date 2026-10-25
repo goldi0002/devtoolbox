@@ -1,56 +1,42 @@
 # Changelog
 
-All notable changes to Toolbox4Devs are recorded here.
+All notable changes and releases for **ToolBox4Devs** are documented here.
 
-## 2026-08-23
+---
 
-- Added MkDocs documentation site with GitHub Pages deployment
-- Rewrote documentation: installation, usage, deployment, architecture
-- Added CONTRIBUTING.md with tool addition guide and code standards
+## 🌐 Hosted Web Application
 
-## 2026-07-25
+- **Live Production URL:** [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
+- **Documentation (MkDocs):** [https://goldi0002.github.io/devtoolbox/](https://goldi0002.github.io/devtoolbox/)
 
-- Codebase architecture review and documentation
-- Created ARCHITECTURE.md, DESIGN.md, ROADMAP.md, TASKS.md
+---
 
-## 2026-07 — Design System Redesign
+## [1.2.0] — 2026-10-25
 
-- Token-driven design system with accent colors for all 10 themes
-- Fixed Tailwind CSS alpha modifiers
-- Shared component classes: `btn-primary`, `card`, `surface-panel`, `chip`, etc.
-- New hero section, tools index page, tool shell
-- Global footer and accessibility baseline
+### Added & Improved
+- **Documentation & MkDocs Overhaul**: Reorganized and updated all documentation files (`index.md`, `INSTALLATION.md`, `ARCHITECTURE.md`, `DESIGN.md`, `USAGE.md`, `DEPLOYMENT.md`, `ROADMAP.md`, `TASKS.md`, `CHANGELOG.md`) with comprehensive guides and live URLs.
+- **Hosted Domain Showcase**: Embedded official website `https://www.toolbox4devs.com` throughout README and documentation suites.
+- **73 Developer Utilities**: Complete catalog verification across all 9 categories with SSG prerendering.
+- **Vitest Test Suite**: Verified 25 unit and integration test files with 166 passing tests.
 
-## 2026-07 — Tool Discovery
+---
 
-- Command palette with keyboard shortcut
-- Global search
-- Local favorites and recently used tools
-- Category filtering and search refinements
+## [1.1.0] — 2026-09-15
 
-## 2026-07 — New Tools
+### Added
+- **Delimited File Data Validator (`/csv-validator`)**: Interactive visual rule builder for CSV, TSV, and delimited TXT files with real-time error auditing and CSV export.
+- **Visual Pipeline Studio (`/pipeline-studio`)**: Multi-step transformation canvas to chain developer utilities.
+- **Large File CSV/TXT Viewer (`/csv-txt-viewer`)**: Virtualized spreadsheet grid with search, sort, and row inspection.
+- **CIDR & Subnet Calculator (`/cidr-calculator`)**: IPv4 address breakdown, wildcard masks, usable host ranges, and binary representations.
+- **String Escape & Unescape (`/string-escaper`)**: Multi-format escaping for JSON, JS, SQL, HTML, Python, Shell, and Unicode.
 
-- JSON to Zod Schema Generator (`json-to-zod`)
-- Cron Expression Parser & Visualizer (`cron-parser`)
+---
 
-## 2026-07 — Testing & Quality
+## [1.0.0] — 2026-08-23
 
-- Added Vitest test suite
-- Centralized CodeMirror language extension mapping
-- Fixed `isCommingSoon` typo (preserved compatibility with `isComingSoon`)
-- Hardened share-link parsing with 250KB size limit and error handling
-- Audited browser-only APIs for SSG safety
-
-## 2026-07 — SEO
-
-- Open Graph and Twitter Card metadata per tool
-- Schema.org BreadcrumbList structured data
-- Per-tool canonical URLs and sitemap coverage
-
-## 2026-07 — Initial Release
-
-- 60+ developer tools across 9 categories
-- Static site generation with Vite + vite-react-ssg
-- 10 themes with dark mode support
-- Share links with compressed state
-- Privacy-first: all processing client-side
+### Core Features
+- **PWA & Offline Service Worker**: Full client-side caching for offline developer utility access.
+- **Stateless URL Sharing**: `lz-string` URL hash compression for zero-database tool sharing.
+- **Command Palette (`Cmd + K`)**: Keyboard-driven tool launcher and fuzzy finder.
+- **10 Developer Themes**: Dark, Nord, Dracula, Terminal, Monokai, Rose, Solarized, Sepia, High Contrast, and ToolBox Brand.
+- **Static Site Generation (SSG)**: Built with `vite-react-ssg` for instant page loads and complete SEO coverage.

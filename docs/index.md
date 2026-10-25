@@ -1,52 +1,64 @@
-# Toolbox4Devs Documentation
+# ToolBox4Devs Documentation
 
-Toolbox4Devs is a fast, privacy-first collection of **60+ browser-based developer utilities**. No backend, no ads — every tool runs entirely in your browser.
+Welcome to the technical documentation for **ToolBox4Devs** — a fast, privacy-first, 100% client-side collection of **70+ browser-based developer utilities**.
 
-This documentation covers the project's architecture, design system, setup, deployment, and roadmap.
+---
 
-## What is Toolbox4Devs?
+## 🌐 Hosted Website & Links
 
-Toolbox4Devs is a static React application built with Vite and `vite-react-ssg`. It provides developer tools across categories like JSON, encoding, text processing, generators, authentication, web utilities, data conversion, cryptography, and more.
+- 🌐 **Official Website:** [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
+- 📖 **Documentation Site (MkDocs):** [https://goldi0002.github.io/devtoolbox/](https://goldi0002.github.io/devtoolbox/)
+- 💻 **GitHub Repository:** [https://github.com/goldi0002/devtoolbox](https://github.com/goldi0002/devtoolbox)
 
-All processing happens client-side. No data ever leaves your browser.
+---
 
-## Quick Start
+## What is ToolBox4Devs?
 
-```bash
-git clone https://github.com/goldi0002/devtoolbox.git
-cd devtoolbox
-npm install
-npm run dev
-```
+ToolBox4Devs is an open-source web application providing daily developer tools across nine core disciplines:
+1. **JSON Utilities** (Format, Validate, Schema Generator, Zod types, Models, SQL, CSV)
+2. **Encoders & Decoders** (Base64, URL, HTML Entities, Hex, Checksum comparator)
+3. **Text Processing** (Case conversions, Regex tester, Text diff, CSV to Markdown, Sorter)
+4. **Generators** (UUIDs, Passwords, AI Token counter, Bulk QR codes, .gitignore, Faker data)
+5. **Authentication & Identity** (JWT Decoder & Signer, Basic Auth headers)
+6. **Web & Frontend Tools** (cURL converter, WCAG Contrast, CSS Units, HTML/XML/GraphQL formatters, User-Agent, HTTP headers)
+7. **Data & DevOps** (Delimited CSV/TSV validator, CSV/TXT viewer, Dockerfile generator, Docker Run to Compose, Pipeline Studio, CIDR calculator, Base converter, Cron parser/generator, SemVer, Unix permissions)
+8. **Cryptography** (Web Crypto SHA hashes, HMAC, RSA keypair generation, X.509 cert decoder, Bcrypt)
+9. **Analysis & Heuristics** (Local AI text analysis, Password strength, QR scanner, Word counter)
 
-The dev server starts at `http://localhost:3000`.
+### Core Architectural Guarantees
 
-## Documentation Pages
+!!! success "100% Client-Side Privacy"
+    Every transformation, calculation, and cryptographic operation happens purely inside browser memory using the Web Crypto API, Web Workers, and in-memory WebAssembly/JavaScript. **Zero network calls** are made to any remote backend when processing user data.
 
-| Page | Description |
+!!! info "Static Site Generation (SSG)"
+    All routes and tool pages are pre-rendered into static HTML via `vite-react-ssg` for lightning-fast First Contentful Paint (<100ms) and complete search-engine indexability.
+
+!!! tip "Full Offline & PWA Support"
+    A comprehensive Service Worker caches all assets, styles, and tools, allowing the application to function completely offline without an active internet connection.
+
+---
+
+## Quick Navigation
+
+| Document | Focus Area |
 |---|---|
-| [Installation](INSTALLATION.md) | Prerequisites, local setup, and editor configuration |
-| [Architecture](ARCHITECTURE.md) | Application flow, tool system, and codebase structure |
-| [Design System](DESIGN.md) | Theme tokens, component classes, and accessibility rules |
-| [Usage](USAGE.md) | Development commands, share links, and troubleshooting |
-| [Deployment](DEPLOYMENT.md) | Vercel, Docker, static hosting, and CI/CD setup |
-| [Roadmap](ROADMAP.md) | Prioritized backlog and milestones |
-| [Tasks](TASKS.md) | Current task status and completion tracking |
-| [Changelog](CHANGELOG.md) | Notable changes by date |
+| [Installation](INSTALLATION.md) | Prerequisites, local development setup, Docker, and scripts |
+| [Architecture](ARCHITECTURE.md) | End-to-end architecture, tool registry system, SSG pipeline, and security |
+| [Design System](DESIGN.md) | Theme tokens, 10 developer themes, component classes, and accessibility |
+| [Usage](USAGE.md) | Command Palette, keyboard shortcuts, compressed share links, and pipeline studio |
+| [Deployment](DEPLOYMENT.md) | Production hosting, Vercel, MkDocs on GitHub Pages, and CI/CD |
+| [Roadmap](ROADMAP.md) | Feature backlog, completed milestones, and engineering priorities |
+| [Tasks](TASKS.md) | Real-time task board and checklist |
+| [Changelog](CHANGELOG.md) | Chronological version history and notable release notes |
 
-## Tech Stack
+---
 
-- **React 18** + **TypeScript** (strict mode)
-- **Vite** + **vite-react-ssg** for static site generation
-- **Tailwind CSS** with a token-driven design system
-- **CodeMirror** for code editors and previews
-- **React Router v6** for client-side routing
-- **Vitest** for testing
+## Tech Stack Overview
 
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/goldi0002/devtoolbox/blob/main/CONTRIBUTING.md) for guidelines on adding tools, code standards, and the verification checklist.
-
-## License
-
-MIT
+- **Core Framework**: React 18 + TypeScript (Strict Mode)
+- **Bundler & SSG**: Vite 5 + `vite-react-ssg`
+- **Styling**: Tailwind CSS + Token-driven CSS custom properties
+- **Code Editors**: CodeMirror 6 with syntax extensions (JSON, SQL, JS, HTML, XML, Markdown)
+- **Cryptographic Engine**: Web Crypto API + `bcryptjs`
+- **Testing**: Vitest (unit & integration) + Playwright (end-to-end)
+- **Documentation**: MkDocs with Material for MkDocs

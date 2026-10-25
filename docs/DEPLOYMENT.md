@@ -1,90 +1,152 @@
-# Deployment
+# Production Deployment Guide
 
-ToolBox4Devs produces a static site via `vite-react-ssg`. The build output goes to `dist/` and can be hosted on any static file server.
+ToolBox4Devs compiles into a purely static website using `vite-react-ssg`. The static output in `dist/` can be deployed to any static host, CDN, or object store without any backend servers or runtime databases.
 
-## Build for Production
+---
+
+## 🌐 Hosted Web Application
+
+- **Live Hosted Application:** [https://www.toolbox4devs.com](https://www.toolbox4devs.com)
+- **Documentation Site (MkDocs on GitHub Pages):** [https://goldi0002.github.io/devtoolbox/](https://goldi0002.github.io/devtoolbox/)
+
+---
+
+## 1. Production Build
+
+To generate the production bundle:
 
 ```bash
 npm run build
 ```
 
-This generates the static output in `dist/` with pre-rendered pages for all tool routes and informational pages.
+This triggers `vite-react-ssg build`, which:
+1. Compiles client TypeScript bundles with code splitting.
+2. Runs static pre-rendering across all tool slugs defined in `src/tools/registry-node.ts`.
+3. Emits pre-rendered `.html` files for every route, sitemaps (`sitemap.xml`), robots (`robots.txt`), and asset manifests into `dist/`.
 
-## Hosting Options
+To test the generated build locally:
 
-### Vercel (Recommended)
+```bash
+npm run preview
+```
 
-The simplest path for automatic deployments:
+---
 
-1. Connect the repository at [vercel.com](https://vercel.com)
-2. Vercel auto-detects the framework — the default settings work
-3. A `vercel.json` is included with SPA fallback rewrites for client-side routing
+## 2. Hosting Platforms
 
-### GitHub Pages (Docs Site)
+### A. Vercel (Production Custom Domain: www.toolbox4devs.com)
 
-The documentation site is deployed to GitHub Pages using MkDocs:
+The repository includes a ready-to-use `vercel.json` with SPA rewrite rules:
 
-1. The workflow at `.github/workflows/mkdocs.yml` builds and deploys on every push to `main`
-2. It triggers when files in `docs/` or `mkdocs.yml` change
-3. The built site is served from `https://goldi0002.github.io/devtoolbox/`
+```json
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}
+```
 
-To preview docs locally:
+1. Connect the GitHub repository `goldi0002/devtoolbox` in Vercel.
+2. Set Build Command to `npm run build` and Output Directory to `dist`.
+3. Configure custom domain `www.toolbox4devs.com`.
 
+### B. Documentation Site (MkDocs on GitHub Pages)
+
+The documentation site is automatically compiled and published to GitHub Pages via `.github/workflows/mkdocs.yml`:
+
+```yaml
+name: Deploy MkDocs to GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/mkdocs.yml'
+```
+
+The live documentation is available at: **`https://goldi0002.github.io/devtoolbox/`**.
+
+To test MkDocs locally:
 ```bash
 pip install mkdocs mkdocs-material
 mkdocs serve
 ```
 
-### Netlify, Firebase Hosting, S3 + CloudFront
+### C. Docker & Nginx Deployment
 
-Any static host works. Upload the contents of `dist/` after building. Configure SPA fallback so that routes like `/json-formatter` resolve to `index.html`.
-
-### Docker
-
-For containerized deployments:
+For containerized cloud environments:
 
 ```dockerfile
-FROM node:18-alpine AS build
+FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --no-audit --prefer-offline
+RUN npm ci
 COPY . .
 RUN npm run build
 
 FROM nginx:stable-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
-Add an nginx config for SPA rewrites if using client-side routing.
+Nginx configuration (`nginx.conf`) for client-side routing and cache headers:
 
-## CI/CD
+```nginx
+server {
+    listen 80;
+    server_name www.toolbox4devs.com;
+    root /usr/share/nginx/html;
+    index index.html;
 
-A basic GitHub Actions workflow for the app build:
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
 
-```yaml
-name: CI
-on: [push, pull_request]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm run build
-      - run: npm test
+    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|woff2?)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+}
 ```
 
-## Environment Variables in Production
+---
 
-Set these on your hosting platform:
+## 3. Production Environment Variables
 
-| Variable | Description |
-|---|---|
-| `VITE_BASE_URL` | The production URL (e.g. `https://toolbox4devs.com`) |
-| `VITE_ENVIRONMENT` | Set to `production` |
+Set the following environment variables in your deployment pipeline:
+
+| Variable | Recommended Value | Purpose |
+|---|---|---|
+| `VITE_BASE_URL` | `https://www.toolbox4devs.com` | Sets canonical URLs and share link domains |
+| `VITE_ENVIRONMENT` | `production` | Enables production mode optimizations |
+
+---
+
+## 4. Continuous Integration (CI/CD)
+
+The GitHub Actions workflow runs on every push and pull request:
+
+```bash
+# Workflow stages
+1. npm ci
+2. npm run lint
+3. npm run typecheck
+4. npm run build
+5. npm test
+```

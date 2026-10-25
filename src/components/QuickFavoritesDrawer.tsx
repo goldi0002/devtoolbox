@@ -4,6 +4,7 @@ import { Star, Clock, X, Trash2, ArrowUpRight, Search, Sparkles } from 'lucide-r
 import { tools } from '../tools/registry'
 import type { ToolMeta } from '../tools/tool-meta'
 import { useToolPreferences } from '../hooks/useToolPreferences'
+import ToolIcon from './ui/ToolIcon'
 
 interface QuickFavoritesDrawerProps {
   isOpen: boolean
@@ -205,9 +206,7 @@ export default function QuickFavoritesDrawer({ isOpen, onClose }: QuickFavorites
                           onClick={onClose}
                           className="flex-1 min-w-0 flex items-center gap-2.5"
                         >
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-elevated text-subtle group-hover:text-accent border border-border/50 shrink-0">
-                            {tool.tag}
-                          </span>
+                          <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={13} />
                           <div className="truncate">
                             <h4 className="text-xs font-medium text-bright group-hover:text-accent truncate">
                               {tool.name}
@@ -284,9 +283,7 @@ export default function QuickFavoritesDrawer({ isOpen, onClose }: QuickFavorites
                           onClick={onClose}
                           className="flex-1 min-w-0 flex items-center gap-2.5"
                         >
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-elevated text-subtle group-hover:text-accent border border-border/50 shrink-0">
-                            {tool.tag}
-                          </span>
+                          <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={13} />
                           <div className="truncate">
                             <h4 className="text-xs font-medium text-bright group-hover:text-accent truncate">
                               {tool.name}

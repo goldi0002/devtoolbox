@@ -5,6 +5,7 @@ import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 import { useToolPreferences } from '../hooks/useToolPreferences'
+import ToolIcon from '../components/ui/ToolIcon'
 
 const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] as const
 
@@ -322,8 +323,11 @@ function ToolGridCard({ tool, index, isFavorite, onToggleFavorite }: { tool: Too
         className={`card flex flex-col gap-3 opacity-50 cursor-not-allowed animate-slide-up ${delay}`}
       >
         <div className="flex items-center justify-between">
-          <span className="tag">{tool.tag}</span>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-subtle">soon</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={14} />
+            <span className="tag truncate">{tool.tag}</span>
+          </div>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-subtle shrink-0">soon</span>
         </div>
         <div className="flex-1">
           <h3 className="text-bright font-sans font-semibold text-sm mb-1">{tool.name}</h3>
@@ -350,11 +354,14 @@ function ToolGridCard({ tool, index, isFavorite, onToggleFavorite }: { tool: Too
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
       />
       <div className="flex items-center justify-between">
-        <span className="tag">{tool.tag}</span>
+        <div className="flex items-center gap-2 min-w-0">
+          <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={14} />
+          <span className="tag truncate">{tool.tag}</span>
+        </div>
         <button
           type="button"
           onClick={event => { event.preventDefault(); onToggleFavorite(tool.slug) }}
-          className={`rounded-full text-sm transition-colors hover:text-accent ${isFavorite ? 'text-accent' : 'text-muted'}`}
+          className={`rounded-full text-sm transition-colors hover:text-accent shrink-0 ${isFavorite ? 'text-accent' : 'text-muted'}`}
           aria-label={isFavorite ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
           aria-pressed={isFavorite}
         >
