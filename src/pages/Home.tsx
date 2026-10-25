@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom'
 import ToolCard from '../components/ToolCard'
 import ToolIcon from '../components/ui/ToolIcon'
 import ErrorBoundary from '../components/ErrorBoundary'
-import { tools, categoryLabels, getFeaturedTools } from '../tools/registry'
+import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
-import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, Star, LayoutGrid, Workflow } from 'lucide-react'
-
-// Show first 6 tools as featured
-const featuredTools = getFeaturedTools()
+import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, LayoutGrid, Workflow, Copy, Check, Hash, Terminal } from 'lucide-react'
 
 // Category counts for the stats strip
 const categoryCounts = tools.reduce<Record<string, number>>((acc, t) => {
@@ -34,6 +31,8 @@ export default function Home() {
   const [recentSlugs, setRecentSlugs] = useState<string[]>([])
 
   const [copiedUuid, setCopiedUuid] = useState(false)
+  const [copiedHash, setCopiedHash] = useState(false)
+  const [copiedBase64, setCopiedBase64] = useState(false)
 
   useEffect(() => {
     try {
@@ -84,46 +83,45 @@ export default function Home() {
         faqs={homeFaqs}
       />
 
-      {/* ── Hero Section ─────────────────────────────────────────────────── */}
-      <section className="relative pt-8 pb-12 sm:pt-14 sm:pb-16 text-center">
+      {/* ── Modern Minimalist Hero Section ─────────────────────────────────── */}
+      <section className="relative pt-6 pb-12 sm:pt-12 sm:pb-16 text-center">
         {/* Glowing backdrop */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[32rem] h-[32rem] bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-mono font-medium mb-6">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-mono font-medium mb-6 shadow-xs">
           <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-          {tools.length} Developer Utilities • 100% Client-Side Execution
+          {tools.length} Production Utilities • 100% Client-Side V8 Runtime
         </div>
 
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-bright mb-4 font-sans">
-          Essential Tools for <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Modern Developers</span>
+          The Private Toolkit for <span className="text-indigo-400">Modern Engineers</span>
         </h1>
 
         <p className="max-w-2xl mx-auto text-dim text-base sm:text-lg leading-relaxed mb-8">
-          Formatters, encoders, generators, and inspectors running directly in your browser memory.
-          Never phones home, never leaks secrets.
+          Lightning-fast formatters, encoders, cryptographic generators, and inspectors running directly in your browser memory. Zero tracking, zero server calls.
         </p>
 
-        {/* Live Hero Search Bar */}
+        {/* Live Command Palette & Search Bar */}
         <div className="max-w-2xl mx-auto relative mb-6">
-          <div className="relative flex items-center">
+          <div className="relative flex items-center shadow-xl rounded-2xl bg-surface border border-border focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20 transition-all">
             <Search className="absolute left-4 text-subtle" size={20} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search tools (e.g. JSON, Base64, JWT, Hash, Regex)..."
-              className="w-full pl-12 pr-20 py-3.5 bg-surface border border-border rounded-xl text-bright placeholder:text-subtle text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-lg transition-all"
+              placeholder="Search tools instantly (e.g. JSON, Base64, JWT, Hash, Regex)..."
+              className="w-full pl-12 pr-24 py-4 bg-transparent text-bright placeholder:text-subtle text-sm focus:outline-none"
             />
-            <div className="absolute right-3 flex items-center gap-1">
+            <div className="absolute right-3 flex items-center gap-1.5">
               {searchQuery ? (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="text-xs font-mono text-subtle hover:text-bright px-2 py-1 rounded bg-muted/40"
+                  className="text-xs font-mono text-subtle hover:text-bright px-2.5 py-1 rounded-lg bg-muted/60 transition-colors"
                 >
                   Clear
                 </button>
               ) : (
-                <kbd className="hidden sm:inline-block px-2 py-1 text-[10px] font-mono text-subtle bg-muted/50 border border-border/80 rounded">
+                <kbd className="hidden sm:inline-block px-2.5 py-1 text-[11px] font-mono text-subtle bg-muted/60 border border-border/80 rounded-lg">
                   ⌘K
                 </kbd>
               )}
@@ -131,17 +129,18 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Quick Micro-Utility Dock */}
-        <div className="max-w-2xl mx-auto mb-8 p-3 bg-surface/60 backdrop-blur border border-border/80 rounded-xl shadow-xs">
-          <div className="text-[11px] font-mono text-subtle mb-2 text-left px-1 flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-indigo-400 font-medium">
-              <Sparkles size={12} />
-              Quick Micro-Actions
+        {/* Interactive Quick Utilities Dock */}
+        <div className="max-w-3xl mx-auto mb-10 p-4 bg-surface/80 backdrop-blur-md border border-border/80 rounded-2xl shadow-lg">
+          <div className="text-xs font-mono text-subtle mb-3 text-left px-1 flex items-center justify-between">
+            <span className="flex items-center gap-1.5 text-indigo-400 font-semibold">
+              <Sparkles size={14} />
+              Instant Client Quick Dock
             </span>
-            <span>Instant Client Runtime</span>
+            <span className="text-[11px] text-muted-foreground">Click to execute instantly in browser</span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {/* Quick UUID v4 */}
             <button
               onClick={() => {
                 const uuid = crypto.randomUUID()
@@ -149,38 +148,77 @@ export default function Home() {
                 setCopiedUuid(true)
                 setTimeout(() => setCopiedUuid(false), 2000)
               }}
-              className="px-3 py-2 text-xs font-mono bg-muted/40 hover:bg-indigo-600/20 hover:border-indigo-500/40 border border-border/60 rounded-lg text-bright transition-all text-left flex items-center justify-between group"
+              className="p-3 text-xs font-mono bg-muted/40 hover:bg-indigo-600/10 hover:border-indigo-500/50 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group"
             >
-              <span>{copiedUuid ? '✓ Copied UUID v4!' : '+ Generate UUID v4'}</span>
-              <span className="text-[10px] text-indigo-400 group-hover:opacity-100 transition-opacity">
-                {copiedUuid ? 'Copied' : 'Copy'}
-              </span>
+              <div className="flex items-center gap-2 truncate">
+                <div className="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center shrink-0">
+                  <Terminal size={14} />
+                </div>
+                <div className="truncate">
+                  <div className="font-semibold truncate">Generate UUID v4</div>
+                  <div className="text-[10px] text-subtle truncate">{copiedUuid ? 'Copied to clipboard!' : 'Copy random v4'}</div>
+                </div>
+              </div>
+              {copiedUuid ? <Check size={14} className="text-emerald-400 shrink-0" /> : <Copy size={14} className="text-subtle group-hover:text-indigo-400 transition-colors shrink-0" />}
             </button>
 
-            <Link
-              to="/json-formatter"
-              className="px-3 py-2 text-xs font-mono bg-muted/40 hover:bg-indigo-600/20 hover:border-indigo-500/40 border border-border/60 rounded-lg text-bright transition-all text-left flex items-center justify-between group"
+            {/* Quick SHA-256 Hash */}
+            <button
+              onClick={async () => {
+                const text = "dev-toolbox-sample-" + Date.now()
+                const msgBuffer = new TextEncoder().encode(text)
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
+                const hashArray = Array.from(new Uint8Array(hashBuffer))
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+                navigator.clipboard.writeText(hashHex)
+                setCopiedHash(true)
+                setTimeout(() => setCopiedHash(false), 2000)
+              }}
+              className="p-3 text-xs font-mono bg-muted/40 hover:bg-purple-600/10 hover:border-purple-500/50 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group"
             >
-              <span>Format JSON</span>
-              <ArrowRight size={12} className="text-subtle group-hover:text-indigo-400 transition-colors" />
-            </Link>
+              <div className="flex items-center gap-2 truncate">
+                <div className="w-7 h-7 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center shrink-0">
+                  <Hash size={14} />
+                </div>
+                <div className="truncate">
+                  <div className="font-semibold truncate">Generate SHA-256</div>
+                  <div className="text-[10px] text-subtle truncate">{copiedHash ? 'Hash copied!' : 'Copy sample hash'}</div>
+                </div>
+              </div>
+              {copiedHash ? <Check size={14} className="text-emerald-400 shrink-0" /> : <Copy size={14} className="text-subtle group-hover:text-purple-400 transition-colors shrink-0" />}
+            </button>
 
-            <Link
-              to="/base-64"
-              className="px-3 py-2 text-xs font-mono bg-muted/40 hover:bg-indigo-600/20 hover:border-indigo-500/40 border border-border/60 rounded-lg text-bright transition-all text-left flex items-center justify-between group col-span-2 sm:col-span-1"
+            {/* Quick Base64 Encode */}
+            <button
+              onClick={() => {
+                const sample = "ToolBox4Devs-" + new Date().toISOString()
+                const encoded = btoa(sample)
+                navigator.clipboard.writeText(encoded)
+                setCopiedBase64(true)
+                setTimeout(() => setCopiedBase64(false), 2000)
+              }}
+              className="p-3 text-xs font-mono bg-muted/40 hover:bg-cyan-600/10 hover:border-cyan-500/50 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group"
             >
-              <span>Base64 Tool</span>
-              <ArrowRight size={12} className="text-subtle group-hover:text-indigo-400 transition-colors" />
-            </Link>
+              <div className="flex items-center gap-2 truncate">
+                <div className="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center shrink-0">
+                  <Sparkles size={14} />
+                </div>
+                <div className="truncate">
+                  <div className="font-semibold truncate">Sample Base64</div>
+                  <div className="text-[10px] text-subtle truncate">{copiedBase64 ? 'Base64 copied!' : 'Encode & copy'}</div>
+                </div>
+              </div>
+              {copiedBase64 ? <Check size={14} className="text-emerald-400 shrink-0" /> : <Copy size={14} className="text-subtle group-hover:text-cyan-400 transition-colors shrink-0" />}
+            </button>
           </div>
         </div>
 
         {/* Perks Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-subtle">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-subtle">
           {PERKS.map(p => {
             const Icon = p.icon
             return (
-              <div key={p.label} className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface border border-border/60">
+              <div key={p.label} className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-border/80 shadow-xs">
                 <Icon size={14} className="text-indigo-400" />
                 <span>{p.label}</span>
               </div>
@@ -190,7 +228,7 @@ export default function Home() {
       </section>
 
       {/* ── DevFlow Pipeline Studio Spotlight Banner ───────────────────────── */}
-      <section className="mb-12 p-6 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-surface via-surface to-indigo-950/20 shadow-md">
+      <section className="mb-12 p-6 sm:p-8 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-surface via-surface to-indigo-950/30 shadow-lg">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex flex-col gap-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-indigo-400 font-semibold tracking-wide">
@@ -203,19 +241,19 @@ export default function Home() {
               DevFlow Pipeline Studio — Chain Developer Tools Together
             </h2>
             <p className="text-xs sm:text-sm text-dim leading-relaxed">
-              Tired of copying and pasting across 5 browser tabs? Connect Base64 decoding, JSON formatting, JWT token inspection, regex filtering, and SHA-256 hashing into a seamless zero-latency workflow.
+              Tired of copying and pasting across multiple browser tabs? Connect Base64 decoding, JSON formatting, JWT inspection, regex filtering, and SHA-256 hashing into a seamless zero-latency workflow.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3 shrink-0">
             <Link
               to="/recipes"
-              className="px-4 py-2 text-xs font-medium rounded-lg border border-border bg-surface hover:bg-muted text-bright transition-colors"
+              className="px-4 py-2.5 text-xs font-medium rounded-xl border border-border bg-surface hover:bg-muted text-bright transition-colors"
             >
               Explore Recipes
             </Link>
             <Link
               to="/pipeline-studio"
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-medium rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white shadow-xs transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-md transition-colors"
             >
               <Sparkles size={13} />
               <span>Launch Studio</span>
@@ -246,7 +284,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => setSelectedCategory('all')}
-              className={`px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-all duration-200 whitespace-nowrap shrink-0 ${
+              className={`px-4 py-2 text-xs font-mono font-medium rounded-full transition-all duration-200 whitespace-nowrap shrink-0 ${
                 selectedCategory === 'all'
                   ? 'bg-accent text-accent-fg shadow-soft font-semibold'
                   : 'bg-surface hover:bg-surface/80 text-dim hover:text-bright border border-border'
@@ -259,7 +297,7 @@ export default function Home() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-all duration-200 whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+                className={`px-4 py-2 text-xs font-mono font-medium rounded-full transition-all duration-200 whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
                   selectedCategory === cat
                     ? 'bg-accent text-accent-fg shadow-soft font-semibold'
                     : 'bg-surface hover:bg-surface/80 text-dim hover:text-bright border border-border'
@@ -275,7 +313,7 @@ export default function Home() {
         {/* Recent Tools Bar (if available) */}
         {recentToolsList.length > 0 && !searchQuery && selectedCategory === 'all' && (
           <ErrorBoundary label="Recent tools">
-          <div className="mb-8 p-4 bg-surface border border-border rounded-xl">
+          <div className="mb-8 mt-6 p-4 bg-surface border border-border rounded-xl">
             <div className="flex items-center gap-2 mb-3 text-xs font-mono text-dim font-medium">
               <Clock size={14} className="text-indigo-400" />
               <span>Recently Used Tools</span>
@@ -285,10 +323,10 @@ export default function Home() {
                 <Link
                   key={t.slug}
                   to={`/${t.slug}`}
-                  className="p-2.5 rounded-lg bg-muted/30 border border-border/60 hover:border-indigo-500/50 hover:bg-muted/60 transition-all flex items-center justify-between group gap-2"
+                  className="p-3 rounded-xl bg-muted/30 border border-border/60 hover:border-indigo-500/50 hover:bg-muted/60 transition-all flex items-center justify-between group gap-2"
                 >
-                  <div className="flex items-center gap-2 min-w-0">
-                    <ToolIcon slug={t.slug} category={t.category} name={t.icon} size={14} className="text-accent shrink-0" />
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <ToolIcon slug={t.slug} category={t.category} name={t.icon} size={16} className="text-accent shrink-0" />
                     <span className="text-xs font-medium text-bright truncate">{t.name}</span>
                   </div>
                   <ArrowRight size={12} className="text-subtle group-hover:text-indigo-400 transition-colors shrink-0" />
@@ -318,7 +356,7 @@ export default function Home() {
         </ErrorBoundary>
 
         {filteredTools.length === 0 && (
-          <div className="text-center py-12 bg-surface border border-border rounded-2xl">
+          <div className="text-center py-16 bg-surface border border-border rounded-2xl">
             <p className="text-sm text-dim mb-2">No tools match your filter "{searchQuery}"</p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
@@ -333,7 +371,7 @@ export default function Home() {
       {/* ── Security & Client-Side Proof ──────────────────────────────────── */}
       <section className="border-t border-border pt-12 pb-12 mb-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="p-6 bg-surface border border-border rounded-xl flex flex-col justify-between">
+          <div className="p-6 bg-surface border border-border rounded-xl flex flex-col justify-between shadow-xs">
             <div>
               <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4">
                 <ShieldCheck size={22} />
@@ -345,7 +383,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="p-6 bg-surface border border-border rounded-xl flex flex-col justify-between">
+          <div className="p-6 bg-surface border border-border rounded-xl flex flex-col justify-between shadow-xs">
             <div>
               <div className="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4">
                 <Zap size={22} />
@@ -357,9 +395,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="p-6 bg-surface border border-border rounded-xl flex flex-col justify-between">
+          <div className="p-6 bg-surface border border-border rounded-xl flex flex-col justify-between shadow-xs">
             <div>
-              <div className="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-4">
                 <Lock size={22} />
               </div>
               <h3 className="text-base font-bold text-bright mb-2">No Ads, Trackers, or Bloat</h3>

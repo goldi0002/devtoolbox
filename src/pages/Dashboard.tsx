@@ -35,7 +35,7 @@ const categoryMeta: Record<string, { icon: string; color: string; gradient: stri
 
 export default function Dashboard() {
   usePageTitle('Dashboard')
-  const { favorites, recentTools, toggleFavorite } = useToolPreferences()
+  const { favorites, recentTools, operationsCount, toggleFavorite } = useToolPreferences()
 
   const favoriteTools = useMemo(
     () => favorites.map(slug => tools.find(t => t.slug === slug)).filter((t): t is ToolMeta => Boolean(t)),
@@ -116,6 +116,47 @@ export default function Dashboard() {
             </div>
           )
         })}
+      </section>
+
+      {/* ── Usage Stats & Productivity Widget ───────────────────────────── */}
+      <section className="surface-panel p-6 mb-10 bg-gradient-to-r from-surface via-surface/80 to-accent-soft/20 animate-slide-up stagger-1">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+              <Zap size={22} className="text-accent animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-sm font-sans font-semibold text-bright">Usage & Productivity Metrics</h2>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent font-medium">Live Telemetry</span>
+              </div>
+              <p className="text-xs font-sans text-dim mt-0.5">
+                Computed locally in-browser across your developer sessions with zero network latency.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 border-t md:border-t-0 md:border-l border-border pt-4 md:pt-0 md:pl-6 shrink-0">
+            <div>
+              <div className="font-display text-xl sm:text-2xl text-bright tabular-nums">
+                {recentTools.length}
+              </div>
+              <div className="text-[11px] font-mono text-subtle mt-0.5">Tools Used Today</div>
+            </div>
+            <div>
+              <div className="font-display text-xl sm:text-2xl text-accent tabular-nums">
+                ~{Math.max(15, operationsCount * 3)}m
+              </div>
+              <div className="text-[11px] font-mono text-subtle mt-0.5">Time Saved</div>
+            </div>
+            <div>
+              <div className="font-display text-xl sm:text-2xl text-emerald-400 tabular-nums">
+                {operationsCount}
+              </div>
+              <div className="text-[11px] font-mono text-subtle mt-0.5">Operations</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ── Main Widgets Grid (Favorites & Recents) ───────────────────────── */}

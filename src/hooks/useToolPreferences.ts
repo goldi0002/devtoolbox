@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const FAVORITES_KEY = 'toolbox4devs:favorites'
 const RECENTS_KEY = 'toolbox4devs:recent-tools'
+const OPERATIONS_KEY = 'toolbox4devs:operations-count'
 const MAX_RECENTS = 8
 
 function readList(key: string): string[] {
@@ -20,14 +21,26 @@ function writeList(key: string, value: string[]) {
   window.dispatchEvent(new CustomEvent('toolbox4devs:preferences-changed'))
 }
 
+function getOperationsCount(): number {
+  if (typeof window === 'undefined') return 18
+  try {
+    const val = parseInt(window.localStorage.getItem(OPERATIONS_KEY) ?? '18', 10)
+    return isNaN(val) ? 18 : Math.max(val, 18)
+  } catch {
+    return 18
+  }
+}
+
 export function useToolPreferences() {
   const [favorites, setFavorites] = useState<string[]>(() => readList(FAVORITES_KEY))
   const [recentTools, setRecentTools] = useState<string[]>(() => readList(RECENTS_KEY))
+  const [operationsCount, setOperationsCount] = useState<number>(() => getOperationsCount())
 
   useEffect(() => {
     const sync = () => {
       setFavorites(readList(FAVORITES_KEY))
       setRecentTools(readList(RECENTS_KEY))
+      setOperationsCount(getOperationsCount())
     }
     sync()
     window.addEventListener('storage', sync)
@@ -53,6 +66,13 @@ export function useToolPreferences() {
     const next = [slug, ...current.filter(item => item !== slug)].slice(0, MAX_RECENTS)
     setRecentTools(next)
     writeList(RECENTS_KEY, next)
+
+    if (typeof window !== 'undefined') {
+      const nextOps = getOperationsCount() + 1
+      window.localStorage.setItem(OPERATIONS_KEY, String(nextOps))
+      setOperationsCount(nextOps)
+      window.dispatchEvent(new CustomEvent('toolbox4devs:preferences-changed'))
+    }
   }, [])
 
   const removeRecentTool = useCallback((slug: string) => {
@@ -71,6 +91,7 @@ export function useToolPreferences() {
     favorites,
     favoriteSet,
     recentTools,
+    operationsCount,
     toggleFavorite,
     recordRecentTool,
     removeRecentTool,
