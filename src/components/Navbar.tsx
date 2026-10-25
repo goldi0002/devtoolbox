@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
+
+import { useState, useEffect, useCallback, lazy, Suspense, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HardDrive, Download, WifiOff, Star } from 'lucide-react'
+import { HardDrive, Download, WifiOff, Star, ChevronDown } from 'lucide-react'
 import { tools } from '../tools/registry'
 import { usePWA } from '../hooks/usePWA'
 import { useToolPreferences } from '../hooks/useToolPreferences'
@@ -12,16 +13,15 @@ const PwaModal = lazy(() => import('./ui/PwaModal'))
 const QuickFavoritesDrawer = lazy(() => import('./QuickFavoritesDrawer'))
 
 // ── Nav config ─────────────────────────────────────────────────────────────
-const navLinks = [
+const primaryNavLinks = [
   { label: 'Tools', path: '/tools' },
-  { label: 'Pipelines', path: '/pipeline-studio' },
-  { label: 'Recipes', path: '/recipes' },
   { label: 'Dashboard', path: '/dashboard' },
-  { label: 'Blog', path: '/blog' },
+  { label: 'Pipelines', path: '/pipeline-studio' },
 ]
 
-// Only in mobile menu — keeps desktop nav tight
-const mobileOnlyLinks = [
+const secondaryNavLinks = [
+  { label: 'Recipes', path: '/recipes' },
+  { label: 'Blog', path: '/blog' },
   { label: 'About', path: '/about' },
   { label: 'Privacy', path: '/privacy' },
 ]
@@ -44,18 +44,34 @@ function LogoMark() {
 export default function Navbar() {
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
+  const [moreOpen, setMoreOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [showShortcutHint, setShowShortcutHint] = useState(false)
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [pwaOpen, setPwaOpen] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const moreRef = useRef<HTMLDivElement>(null)
 
   const { isOnline, isInstallable, promptInstall, isInstalled } = usePWA()
   const { favorites } = useToolPreferences()
 
   useEffect(() => { setMounted(true) }, [])
-  // Close mobile menu on route change
-  useEffect(() => { setOpen(false) }, [pathname])
+  // Close mobile menu & dropdown on route change
+  useEffect(() => {
+    setOpen(false)
+    setMoreOpen(false)
+  }, [pathname])
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+        setMoreOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   // Global keyboard shortcut: press "?" to open shortcut hint, "/" to jump to tools search
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -73,6 +89,7 @@ export default function Navbar() {
       setShowShortcutHint(false)
       setPwaOpen(false)
       setDrawerOpen(false)
+      setMoreOpen(false)
       return
     }
 
@@ -115,6 +132,8 @@ export default function Navbar() {
     }
     return pathname === path
   }
+
+  const isSecondaryActive = secondaryNavLinks.some(l => isActive(l.path))
   return (
     <>
       <nav className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-xl">
@@ -128,7 +147,7 @@ export default function Navbar() {
 
           {/* ── Desktop nav ───────────────────────────────────────────────── */}
           <div className="hidden sm:flex items-center gap-1">
-            {navLinks.map(link => (
+            {primaryNavLinks.map(link => (
               <Link
                 key={link.path}
                 to={link.path}
@@ -141,6 +160,40 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            {/* More Dropdown */}
+            <div className="relative" ref={moreRef}>
+              <button
+                onClick={() => setMoreOpen(o => !o)}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 text-sm rounded-full transition-all duration-200 font-sans cursor-pointer
+                  ${isSecondaryActive || moreOpen
+                    ? 'text-accent bg-accent-soft font-medium'
+                    : 'text-dim hover:text-bright hover:bg-surface'
+                  }`}
+                aria-expanded={moreOpen}
+              >
+                <span>More</span>
+                <ChevronDown size={14} className={`transition-transform duration-200 ${moreOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {moreOpen && (
+                <div className="absolute right-0 mt-2 w-48 rounded-xl border border-border bg-bg/95 shadow-lift backdrop-blur-xl py-1.5 z-50 animate-slide-up">
+                  {secondaryNavLinks.map(link => (
+                    <Link
+                      key={link.path}
+                      to={link.path}
+                      className={`block px-4 py-2 text-xs font-sans transition-colors ${
+                        isActive(link.path)
+                          ? 'text-accent bg-accent-soft font-medium'
+                          : 'text-dim hover:text-bright hover:bg-surface'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* ── Right controls ────────────────────────────────────────────── */}
@@ -248,7 +301,7 @@ export default function Navbar() {
         {/* ── Mobile nav ──────────────────────────────────────────────────── */}
         {open && (
           <div className="sm:hidden border-t border-border bg-bg px-4 py-3 flex flex-col gap-1 animate-fade-in">
-            {[...navLinks, ...mobileOnlyLinks].map(link => (
+            {[...primaryNavLinks, ...secondaryNavLinks].map(link => (
               <Link
                 key={link.path}
                 to={link.path}

@@ -1,22 +1,20 @@
-import { lazy } from 'react'
 import type { RouteRecord } from 'vite-react-ssg'
 import { Layout } from './App'
 import { tools } from './tools/registry'
 import { blogSlugs } from './data/blog'
 import { DEV_RECIPES } from './data/recipes'
 
-// Lazy load pages for SSG
-const Home = lazy(() => import('./pages/Home'))
-const Dashboard = lazy(() => import('./pages/Dashboard'))
-const ToolsIndex = lazy(() => import('./pages/ToolsIndex'))
-const About = lazy(() => import('./pages/About'))
-const BlogIndex = lazy(() => import('./pages/BlogIndex'))
-const BlogPost = lazy(() => import('./pages/BlogPost'))
-const ToolPage = lazy(() => import('./pages/ToolPage'))
-const RecipesIndex = lazy(() => import('./pages/RecipesIndex'))
-const RecipePage = lazy(() => import('./pages/RecipePage'))
-const NotFound = lazy(() => import('./pages/NotFound'))
-const Privacy = lazy(() => import('./pages/Privacy'))
+import Home from './pages/Home'
+import Dashboard from './pages/Dashboard'
+import ToolsIndex from './pages/ToolsIndex'
+import About from './pages/About'
+import BlogIndex from './pages/BlogIndex'
+import BlogPost from './pages/BlogPost'
+import ToolPage from './pages/ToolPage'
+import RecipesIndex from './pages/RecipesIndex'
+import RecipePage from './pages/RecipePage'
+import NotFound from './pages/NotFound'
+import Privacy from './pages/Privacy'
 
 const toolSlugs = tools.map(t => t.slug)
 
