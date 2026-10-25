@@ -3,12 +3,12 @@ import { tools, getToolBySlug } from '../tools/registry'
 import { getAllAvailableTools } from '../tools/registry'
 
 describe('Tool registry count after adding QR Code Scanner and new tools', () => {
-  it('registers exactly 73 tools in client registry', () => {
-    expect(tools.length).toBe(73)
+  it('registers exactly 74 tools in client registry', () => {
+    expect(tools.length).toBe(74)
   })
 
-  it('registers exactly 73 tools in Node SSG registry', () => {
-    expect(getAllAvailableTools().length).toBe(73)
+  it('registers exactly 74 tools in Node SSG registry', () => {
+    expect(getAllAvailableTools().length).toBe(74)
   })
 
   it('contains qr-code-generator with proper metadata', () => {
@@ -28,7 +28,7 @@ describe('Tool registry count after adding QR Code Scanner and new tools', () =>
     expect(tool?.toolComponent).toBeDefined()
   })
 
-  it('ensures all 69 tools have unique slugs and valid categories', () => {
+  it('ensures all tools have unique slugs and valid categories', () => {
     const slugs = new Set<string>()
     tools.forEach(t => {
       expect(t.slug).toBeTruthy()
