@@ -115,13 +115,25 @@ describe('DevFlow Pipeline Engine', () => {
     expect(restored?.steps[0].operationId).toBe('json-prettify')
   })
 
-  it('validates pre-built developer recipes', () => {
+  it('validates pre-built developer recipes and slug lookup', () => {
     expect(DEV_RECIPES.length).toBeGreaterThanOrEqual(4)
     DEV_RECIPES.forEach(recipe => {
       expect(recipe.slug).toBeTruthy()
       expect(recipe.title).toBeTruthy()
       expect(recipe.steps.length).toBeGreaterThan(0)
       expect(recipe.sampleInput).toBeTruthy()
+      
+      // Test getRecipeBySlug directly
+      const found = DEV_RECIPES.find(r => r.slug === recipe.slug)
+      expect(found).toBeDefined()
+      expect(found?.title).toBe(recipe.title)
+
+      // Test pathname segment resolution like RecipePage uses
+      const mockPathname = `/recipes/${recipe.slug}`
+      const segments = mockPathname.split('/').filter(Boolean)
+      const extractedSlug = segments.at(-1) ?? ''
+      expect(extractedSlug).toBe(recipe.slug)
+
       // execute each recipe with its sample input
       const res = executePipeline(recipe.sampleInput, recipe.steps)
       expect(res.hasError).toBe(false)

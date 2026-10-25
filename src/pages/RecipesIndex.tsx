@@ -93,9 +93,12 @@ export default function RecipesIndex() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between pt-6 mt-4 border-t border-border/60 text-xs font-medium text-bright group-hover:text-accent transition-colors">
-              <span>Open live recipe canvas</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <div className="flex items-center justify-between pt-6 mt-4 border-t border-border/60">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/10 border border-accent/30 text-accent text-xs font-medium group-hover:bg-accent group-hover:text-white transition-all">
+                <span>Open live recipe canvas</span>
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </span>
+              <span className="text-[11px] font-mono text-muted">Client-side runtime</span>
             </div>
           </Link>
         ))}

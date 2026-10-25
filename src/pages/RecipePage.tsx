@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useParams, Link, Navigate } from 'react-router-dom'
+import { useParams, useLocation, Link, Navigate } from 'react-router-dom'
 import { getRecipeBySlug, DEV_RECIPES } from '../data/recipes'
 import { tools } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -17,7 +17,13 @@ import {
 } from 'lucide-react'
 
 export default function RecipePage() {
-  const { slug } = useParams<{ slug: string }>()
+  const { slug: paramSlug } = useParams<{ slug: string }>()
+  const { pathname } = useLocation()
+  const slug = useMemo(() => {
+    if (paramSlug) return paramSlug
+    const segments = pathname.split('/').filter(Boolean)
+    return segments.at(-1) ?? ''
+  }, [paramSlug, pathname])
   const recipe = useMemo(() => (slug ? getRecipeBySlug(slug) : undefined), [slug])
 
   usePageTitle(recipe?.shortTitle ?? 'Developer Recipe')
@@ -93,7 +99,7 @@ export default function RecipePage() {
 
       {/* Live Interactive Studio Pre-configured with Recipe */}
       <div className="mb-12">
-        <DevFlowStudio initialRecipe={recipe} initialInput={recipe.sampleInput} />
+        <DevFlowStudio key={recipe.slug} initialRecipe={recipe} initialInput={recipe.sampleInput} />
       </div>
 
       {/* Problem & Solution Technical Deep-Dive */}
