@@ -71,6 +71,8 @@ const toolMeta = [
     { slug: 'cron-generator',                category: 'data-tools'     },
     { slug: 'password-strength-analyzer',    category: 'analyze-tools'  },
     { slug: 'faker-data-generator',          category: 'generate-tools' },
+    { slug: 'json-schema-generator',         category: 'json-tools'     },
+    { slug: 'certificate-decoder',           category: 'crypto-tools'   },
   ] as const
   
   export function getAllAvailableTools() {

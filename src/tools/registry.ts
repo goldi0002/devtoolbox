@@ -68,6 +68,8 @@ import { JWT_ENCODER_META } from "./meta/jwt-encoder"
 import { CRON_GENERATOR_META } from "./meta/cron-generator"
 import { PASSWORD_STRENGTH_ANALYZER_META } from "./meta/password-strength-analyzer"
 import { FAKER_DATA_GENERATOR_META } from "./meta/faker-data-generator"
+import { JSON_SCHEMA_GENERATOR_META } from "./meta/json-schema-generator"
+import { CERTIFICATE_DECODER_META } from "./meta/certificate-decoder"
 
 export const tools: ToolMeta[] = [
   JSON_FORMATTER_META,
@@ -138,7 +140,9 @@ export const tools: ToolMeta[] = [
   JWT_ENCODER_META,
   CRON_GENERATOR_META,
   PASSWORD_STRENGTH_ANALYZER_META,
-  FAKER_DATA_GENERATOR_META
+  FAKER_DATA_GENERATOR_META,
+  JSON_SCHEMA_GENERATOR_META,
+  CERTIFICATE_DECODER_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

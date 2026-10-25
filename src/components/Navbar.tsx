@@ -1,13 +1,15 @@
 import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HardDrive, Download, WifiOff } from 'lucide-react'
+import { HardDrive, Download, WifiOff, Star } from 'lucide-react'
 import { tools } from '../tools/registry'
 import { usePWA } from '../hooks/usePWA'
+import { useToolPreferences } from '../hooks/useToolPreferences'
 import ThemePicker from './ui/Themepicker'
 import FontPicker from './ui/FontPicker'
 
 const CommandPalette = lazy(() => import('./CommandPalette'))
 const PwaModal = lazy(() => import('./ui/PwaModal'))
+const QuickFavoritesDrawer = lazy(() => import('./QuickFavoritesDrawer'))
 
 // ── Nav config ─────────────────────────────────────────────────────────────
 const navLinks = [
@@ -45,8 +47,10 @@ export default function Navbar() {
   const [showShortcutHint, setShowShortcutHint] = useState(false)
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [pwaOpen, setPwaOpen] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const { isOnline, isInstallable, promptInstall, isInstalled } = usePWA()
+  const { favorites } = useToolPreferences()
 
   useEffect(() => { setMounted(true) }, [])
   // Close mobile menu on route change
@@ -67,6 +71,7 @@ export default function Navbar() {
     if (e.key === 'Escape') {
       setShowShortcutHint(false)
       setPwaOpen(false)
+      setDrawerOpen(false)
       return
     }
 
@@ -75,6 +80,10 @@ export default function Navbar() {
     if (e.key === '?') {
       e.preventDefault()
       setShowShortcutHint(h => !h)
+    }
+    if ((e.shiftKey && (e.key === 'F' || e.key === 'f')) || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'b')) {
+      e.preventDefault()
+      setDrawerOpen(d => !d)
     }
     if (e.key === '/' || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) {
       e.preventDefault()
@@ -154,6 +163,25 @@ export default function Navbar() {
               </button>
             )}
 
+            {/* Favorites & Recents Drawer Button */}
+            <button
+              onClick={() => setDrawerOpen(true)}
+              className={`relative flex items-center justify-center w-8 h-8 rounded-md border transition-colors ${
+                favorites.length > 0
+                  ? 'border-amber-500/40 text-amber-400 bg-amber-500/10 hover:border-amber-400'
+                  : 'border-border text-subtle hover:text-bright hover:border-accent'
+              }`}
+              aria-label="Favorites & Recent Tools (Shift+F)"
+              title="Favorites & Recent Tools (Shift+F)"
+            >
+              <Star className={`w-3.5 h-3.5 ${favorites.length > 0 ? 'fill-amber-400' : ''}`} />
+              {favorites.length > 0 && (
+                <span className="absolute -top-1 -right-1 px-1 min-w-[14px] h-3.5 flex items-center justify-center rounded-full bg-accent text-[9px] font-mono text-accent-fg font-semibold leading-none shadow-sm">
+                  {favorites.length}
+                </span>
+              )}
+            </button>
+
             {/* PWA & Cache Manager Button */}
             <button
               onClick={() => setPwaOpen(true)}
@@ -230,6 +258,23 @@ export default function Navbar() {
               </Link>
             ))}
 
+            {/* Mobile Favorites & Recents Link */}
+            <button
+              onClick={() => {
+                setOpen(false)
+                setDrawerOpen(true)
+              }}
+              className="px-3 py-2 text-sm rounded-md transition-all duration-200 font-sans flex items-center justify-between text-dim hover:text-bright hover:bg-surface text-left"
+            >
+              <span className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                Favorites & Recent Tools
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-surface-elevated text-bright border border-border">
+                {favorites.length} pinned
+              </span>
+            </button>
+
             {/* Mobile PWA & Offline Link */}
             <button
               onClick={() => {
@@ -278,6 +323,12 @@ export default function Navbar() {
         </Suspense>
       )}
 
+      {drawerOpen && (
+        <Suspense fallback={null}>
+          <QuickFavoritesDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
+        </Suspense>
+      )}
+
       {/* ── Keyboard shortcut modal ─────────────────────────────────────── */}
       {showShortcutHint && (
         <>
@@ -305,9 +356,10 @@ export default function Navbar() {
             <div className="divide-y divide-border">
               {[
                 { keys: ['?'], desc: 'Toggle this panel' },
+                { keys: ['Shift', 'F'], desc: 'Favorites & recents drawer' },
                 { keys: ['/'], desc: 'Go to Tools' },
-                { keys: ['F12'], desc: 'Open DevTools' },
                 { keys: ['Ctrl', 'K'], desc: 'Open command palette' },
+                { keys: ['F12'], desc: 'Open DevTools' },
               ].map(row => (
                 <div key={row.desc} className="flex items-center justify-between px-4 py-3">
                   <span className="text-xs font-sans text-subtle">{row.desc}</span>

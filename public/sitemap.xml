@@ -126,7 +126,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Developer Utilities (68 Tools) -->
+  <!-- Developer Utilities (51 Tools) -->
   <url>
     <loc>https://toolbox4devs.com/json-formatter</loc>
     <lastmod>2026-08-18</lastmod>
@@ -530,14 +530,14 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolbox4devs.com/jwt-encoder</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://toolbox4devs.com/json-schema-generator</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://toolbox4devs.com/cron-generator</loc>
-    <lastmod>2026-08-25</lastmod>
+    <loc>https://toolbox4devs.com/certificate-decoder</loc>
+    <lastmod>2026-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { Star } from 'lucide-react'
+import { useToolPreferences } from '../hooks/useToolPreferences'
 
 interface ToolCardProps {
   slug: string
@@ -9,8 +11,17 @@ interface ToolCardProps {
 }
 
 export default function ToolCard({ slug, title, description, tag, index = 0 }: ToolCardProps) {
+  const { favoriteSet, toggleFavorite } = useToolPreferences()
+  const isFavorited = favoriteSet.has(slug)
+
   const delays = ['stagger-1', 'stagger-2', 'stagger-3', 'stagger-4', 'stagger-5']
   const delay = delays[index % delays.length]
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    toggleFavorite(slug)
+  }
 
   return (
     <Link
@@ -26,9 +37,24 @@ export default function ToolCard({ slug, title, description, tag, index = 0 }: T
 
       <div className="mb-3 flex items-start justify-between gap-3">
         <span className="tag">{tag}</span>
-        <span className="text-subtle transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-accent">
-          →
-        </span>
+        <div className="flex items-center gap-1.5">
+          <button
+            type="button"
+            onClick={handleFavoriteClick}
+            className={`p-1 rounded transition-colors ${
+              isFavorited
+                ? 'text-amber-400 hover:text-amber-300'
+                : 'text-subtle/40 opacity-0 group-hover:opacity-100 hover:text-amber-400'
+            }`}
+            title={isFavorited ? 'Unpin tool' : 'Pin tool'}
+            aria-label={`${isFavorited ? 'Unpin' : 'Pin'} ${title}`}
+          >
+            <Star className={`w-3.5 h-3.5 ${isFavorited ? 'fill-amber-400' : ''}`} />
+          </button>
+          <span className="text-subtle transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-accent">
+            →
+          </span>
+        </div>
       </div>
 
       <h3 className="mb-1.5 font-sans text-sm font-semibold text-bright transition-colors group-hover:text-accent">

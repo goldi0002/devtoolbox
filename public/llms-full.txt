@@ -514,3 +514,17 @@ Total Tools: 69
 - Description: Generate realistic fake data for testing using a pure client-side pseudo-random number generator.
 - Features: 12 data type categories (names, emails, phones, addresses, companies, dates, IPs, hex colors, usernames, sentences, UUIDs, or all fields); three output formats (JSON, CSV, Lines); up to 100 records per generation; regenerate button for fresh data; international name diversity; zero external dependencies; one-click copy and file download.
 
+### 70. JSON Schema Generator & Validator
+- URL: https://toolbox4devs.com/json-schema-generator
+- Category: JSON Tools (json-tools)
+- Complexity: Moderate
+- Description: Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with format detection and live in-browser testing.
+- Features: Automatic type and format inference (date-time, date, email, uuid, uri, ipv4); customizable required field policies; strict additionalProperties toggle; interactive payload validator with live error reporting; 100% in-browser processing.
+
+### 71. X.509 Certificate Decoder & Inspector
+- URL: https://toolbox4devs.com/certificate-decoder
+- Category: Crypto Tools (crypto-tools)
+- Complexity: Moderate
+- Description: Decode and inspect PEM SSL/TLS X.509 certificates, Subject/Issuer DNs, SANs, validity dates, and fingerprints privately.
+- Features: ASN.1 DER parser; validity countdown and expiration status; Subject and Issuer DN extraction; Subject Alternative Names (SANs); public key algorithm and key size; SHA-256 and SHA-1 fingerprints via WebCrypto; zero network transmission.
+

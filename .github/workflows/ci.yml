@@ -21,9 +21,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       - name: 📚 Install dependencies
-        run: npm install
+        run: npm ci --legacy-peer-deps
 
       - name: 🔍 Run ESLint (strict mode)
         run: npm run lint

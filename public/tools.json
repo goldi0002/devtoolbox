@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 69,
+  "totalTools": 71,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -568,6 +568,22 @@
       "url": "https://toolbox4devs.com/faker-data-generator",
       "description": "Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.",
       "keywords": ["faker data generator", "fake data generator", "mock data generator", "test data generator", "fake names generator", "dummy data"]
+    },
+    {
+      "slug": "json-schema-generator",
+      "name": "JSON Schema Generator & Validator",
+      "category": "json-tools",
+      "url": "https://toolbox4devs.com/json-schema-generator",
+      "description": "Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with live validation.",
+      "keywords": ["json schema generator", "json to schema", "json schema validator", "draft-07", "draft 2020-12", "openapi schema", "schema generator online"]
+    },
+    {
+      "slug": "certificate-decoder",
+      "name": "X.509 Certificate Decoder & Inspector",
+      "category": "crypto-tools",
+      "url": "https://toolbox4devs.com/certificate-decoder",
+      "description": "Decode and inspect PEM SSL/TLS X.509 certificates, SANs, validity dates, and fingerprints privately.",
+      "keywords": ["x509 certificate decoder", "ssl certificate decoder", "tls cert parser", "pem decoder", "certificate inspector", "certificate fingerprint", "san inspector"]
     }
   ]
 }

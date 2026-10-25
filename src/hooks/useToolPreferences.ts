@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const FAVORITES_KEY = 'toolbox4devs:favorites'
 const RECENTS_KEY = 'toolbox4devs:recent-tools'
-const MAX_RECENTS = 6
+const MAX_RECENTS = 8
 
 function readList(key: string): string[] {
   if (typeof window === 'undefined') return []
@@ -55,5 +55,25 @@ export function useToolPreferences() {
     writeList(RECENTS_KEY, next)
   }, [])
 
-  return { favorites, favoriteSet, recentTools, toggleFavorite, recordRecentTool }
+  const removeRecentTool = useCallback((slug: string) => {
+    const current = readList(RECENTS_KEY)
+    const next = current.filter(item => item !== slug)
+    setRecentTools(next)
+    writeList(RECENTS_KEY, next)
+  }, [])
+
+  const clearRecentTools = useCallback(() => {
+    setRecentTools([])
+    writeList(RECENTS_KEY, [])
+  }, [])
+
+  return {
+    favorites,
+    favoriteSet,
+    recentTools,
+    toggleFavorite,
+    recordRecentTool,
+    removeRecentTool,
+    clearRecentTools
+  }
 }
