@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 69
+Total Tools: 74
 
 ---
 
-## Tool Registry & Technical Specifications (All 69 Tools)
+## Tool Registry & Technical Specifications (All 74 Tools)
 
 ### 1. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
@@ -541,6 +541,13 @@ Total Tools: 69
 - Complexity: Moderate
 - Description: Validate CSV, TSV, and delimited TXT files against custom schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
 - Features: Auto delimiter detection and support for comma, tab, pipe, and semicolon; interactive visual rule builder; auto-rule inference from data samples; validation rules for data types (string, integer, decimal number, boolean, date, email, uuid), required fields, numeric/date ranges, min/max length, regex patterns, allowed enum values, and unique constraints; interactive error explorer with column/rule filtering and text search; full row record inspection modal; exportable CSV error audit reports, invalid rows CSV, and clean valid rows CSV; JSON rule schema import/export; 100% private client-side execution.
+
+### 74. Markdown Table to JSON
+- URL: https://toolbox4devs.com/markdown-table-to-json
+- Category: Text Tools (text-tools)
+- Complexity: Simple
+- Description: Convert GitHub-flavored Markdown tables from READMEs, documentation, or LLM outputs into JSON objects keyed by the header row.
+- Features: Header and separator row parsing; optional leading and trailing pipes; messy spacing support; escaped pipe and punctuation handling; automatic conversion of numbers, booleans, and null while preserving other values as strings; sample Markdown table loader.
 
 
 

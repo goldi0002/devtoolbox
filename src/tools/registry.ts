@@ -72,10 +72,12 @@ import { JSON_SCHEMA_GENERATOR_META } from "./meta/json-schema-generator"
 import { CERTIFICATE_DECODER_META } from "./meta/certificate-decoder"
 import { PIPELINE_STUDIO_META } from "./meta/pipeline-studio"
 import { CSV_VALIDATOR_META } from "./meta/csv-validator"
+import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
 
 export const tools: ToolMeta[] = [
   PIPELINE_STUDIO_META,
   CSV_VALIDATOR_META,
+  MARKDOWN_TABLE_TO_JSON_META,
   JSON_FORMATTER_META,
   JSON_MODEL_META,
   JSON_TO_ZOD_META,

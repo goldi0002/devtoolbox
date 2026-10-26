@@ -75,6 +75,7 @@ const toolMeta = [
     { slug: 'certificate-decoder',           category: 'crypto-tools'   },
     { slug: 'pipeline-studio',               category: 'analyze-tools'  },
     { slug: 'csv-validator',                 category: 'data-tools'     },
+    { slug: 'markdown-table-to-json',        category: 'text-tools'     },
   ] as const
   
   export function getAllAvailableTools() {

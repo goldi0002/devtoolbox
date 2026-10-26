@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 73,
+  "totalTools": 74,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -416,6 +416,18 @@
       "url": "https://toolbox4devs.com/csv-to-markdown",
       "description": "Convert CSV or TSV tabular data into cleanly aligned Markdown tables with header toggling.",
       "keywords": ["csv to markdown", "tsv to markdown", "markdown table generator", "convert csv to table", "csv to md"]
+    },
+    {
+      "id": "markdown-table-to-json",
+      "slug": "markdown-table-to-json",
+      "name": "Markdown Table to JSON",
+      "category": "text-tools",
+      "url": "https://toolbox4devs.com/markdown-table-to-json",
+      "description": "Convert GitHub-flavored Markdown tables from READMEs, docs, or LLM outputs into JSON objects with typed values.",
+      "complexity": "simple",
+      "keywords": ["markdown table to json", "markdown to json", "table to json", "readme table to json", "markdown table parser"],
+      "faqs": ["Does it handle escaped pipes? Yes, escaped pipes remain inside their table cell.", "Which values are typed? Numbers, booleans, and null are converted; other values remain strings."],
+      "tips": ["Leading-zero values such as 0012 are preserved as strings."]
     },
     {
       "slug": "hex-converter",
