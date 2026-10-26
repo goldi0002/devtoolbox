@@ -12,7 +12,7 @@ export const WEB_INFO = {
     LOGO: `${cleanBaseUrl}/images/icon-96.png`,
     PRIVACY_POLICY_LAST_UPDATED: '2026-08-21', //yyyy-mm-dd
     CONTACT_QUESTIONS_EMAIL: import.meta.env.VITE_CONCAT_QUESTIONS_EMAIL,
-    WEB_OWNER_GITHUB_PROFILE: import.meta.env.VITE_WEB_OWNER_GIT_PROFILE_URL,
+    WEB_OWNER_GITHUB_PROFILE: import.meta.env.VITE_WEB_OWNER_GIT_PROFILE_URL || 'https://github.com/goldi0002/devtoolbox',
     WEB_OWNER_EMAIL: import.meta.env.VITE_WEB_OWNER_EMAIL_ADDRESS
 }
 export const WEB_DEVELOPER_INFO = {

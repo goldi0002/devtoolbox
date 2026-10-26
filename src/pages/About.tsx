@@ -13,8 +13,6 @@ import {
   Layers,
   Code2,
   ArrowRight,
-  Sparkles,
-  CheckCircle2,
   HelpCircle,
   FolderGit2,
   ExternalLink
@@ -99,10 +97,10 @@ export default function About() {
       {/* ── Header ─────────────────────────────────────────────────────────── */}
       <section className="relative mb-20 pt-4">
         {/* Ambient glow */}
-        <div className="absolute top-0 left-1/4 w-[400px] h-[200px] bg-indigo-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
+        <div className="absolute top-0 left-1/4 w-[450px] h-[220px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/8 text-indigo-400 text-[11px] font-mono font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 text-[11px] font-mono font-medium mb-6 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
             Manifesto & Architecture
           </div>
@@ -112,7 +110,7 @@ export default function About() {
           <div>
             <h1 className="font-display text-[clamp(3rem,9vw,6.5rem)] leading-[0.9] mb-8 tracking-tight">
               <span className="text-bright">BUILT FOR</span><br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">DEVS</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400">DEVS</span>
               <span className="text-bright">.</span>
             </h1>
             <p className="text-dim font-sans text-base sm:text-lg leading-relaxed max-w-xl">
@@ -129,9 +127,9 @@ export default function About() {
               { value: '0', label: 'trackers & ads' },
               { value: '100%', label: 'in-browser memory' },
             ].map(s => (
-              <div key={s.label} className="p-3 lg:p-0 rounded-lg lg:rounded-none bg-surface/50 lg:bg-transparent border border-border lg:border-none text-left lg:text-right">
+              <div key={s.label} className="p-4 lg:p-3 rounded-xl lg:rounded-lg bg-surface/60 lg:bg-surface/30 border border-border/80 lg:border-border text-left lg:text-right shadow-sm backdrop-blur-md">
                 <div className="font-display text-2xl sm:text-3xl text-bright leading-none">{s.value}</div>
-                <div className="text-[10px] font-mono text-subtle mt-1">{s.label}</div>
+                <div className="text-[10px] font-mono text-subtle mt-1.5 uppercase tracking-wider">{s.label}</div>
               </div>
             ))}
           </div>
@@ -153,11 +151,12 @@ export default function About() {
             <p>
               Unfortunately, the modern web is full of utility sites cluttered with invasive banner ads, slow server roundtrips, paywalls, or covert tracking scripts that upload your sensitive payloads to third-party backends.
             </p>
-            <div className="p-5 rounded-xl border border-accent/30 bg-accent-soft/30 text-bright">
-              <p className="font-mono text-xs leading-relaxed text-accent mb-1 uppercase tracking-wider font-semibold">
-                Our Guarantee
+            <div className="p-6 rounded-2xl border border-accent/30 bg-accent-soft/20 text-bright shadow-md backdrop-blur-sm">
+              <p className="font-mono text-xs leading-relaxed text-accent mb-2 uppercase tracking-wider font-bold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
+                Our Uncompromising Guarantee
               </p>
-              <p className="text-sm font-sans leading-relaxed">
+              <p className="text-sm font-sans leading-relaxed text-bright/90">
                 ToolBox4Devs was created as a unified, uncompromising alternative: an ad-free, blazing fast developer toolbox where <strong>100% of all computations execute strictly in your local browser memory</strong>. Nothing is ever sent to a server.
               </p>
             </div>
@@ -177,11 +176,11 @@ export default function About() {
             {keyFeatures.map((feat) => {
               const Icon = feat.icon
               return (
-                <div key={feat.title} className="p-5 rounded-xl border border-border bg-surface/40 hover:border-subtle transition-colors">
-                  <div className="w-8 h-8 rounded-lg bg-accent-soft text-accent flex items-center justify-center mb-3">
-                    <Icon size={18} />
+                <div key={feat.title} className="p-6 rounded-2xl border border-border bg-surface/50 hover:border-accent/50 hover:bg-surface/80 transition-all duration-300 shadow-sm group">
+                  <div className="w-10 h-10 rounded-xl bg-accent-soft text-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Icon size={20} />
                   </div>
-                  <h3 className="text-sm font-mono font-semibold text-bright mb-1.5">{feat.title}</h3>
+                  <h3 className="text-sm font-mono font-semibold text-bright mb-2">{feat.title}</h3>
                   <p className="text-xs font-sans text-dim leading-relaxed">{feat.desc}</p>
                 </div>
               )
@@ -198,24 +197,26 @@ export default function About() {
             <h2 className="font-display text-2xl text-bright leading-none">EXPLORE<br />SUITES</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {categories.map((cat) => {
               const count = tools.filter(t => t.category === cat.category).length
               return (
                 <Link
                   key={cat.category}
                   to={`/tools/${cat.category}`}
-                  className="p-4 rounded-xl border border-border bg-surface/30 hover:bg-surface hover:border-accent/50 transition-all group flex flex-col justify-between"
+                  className="p-5 rounded-2xl border border-border bg-surface/40 hover:bg-surface/80 hover:border-accent/60 transition-all duration-300 group flex flex-col justify-between shadow-sm"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs font-mono font-semibold text-bright group-hover:text-accent transition-colors">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-mono font-bold text-bright group-hover:text-accent transition-colors">
                         {cat.label}
                       </span>
-                      <ArrowRight size={13} className="text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
+                      <div className="w-6 h-6 rounded-lg bg-surface flex items-center justify-center group-hover:bg-accent-soft group-hover:text-accent transition-colors">
+                        <ArrowRight size={13} className="text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
+                      </div>
                     </div>
                     <span className="text-[11px] font-mono text-subtle">
-                      {count} {count === 1 ? 'utility' : 'utilities'}
+                      {count} {count === 1 ? 'utility' : 'utilities'} available
                     </span>
                   </div>
                 </Link>
@@ -235,10 +236,10 @@ export default function About() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {WEB_PRINCIPLES.map(p => (
-              <div key={p.num} className="p-5 rounded-xl border border-border bg-surface/20">
-                <span className="text-[10px] font-mono text-accent mb-2 block">{p.num}</span>
-                <h3 className="text-sm font-sans font-semibold text-bright mb-2">{p.label}</h3>
-                <p className="text-xs font-sans text-subtle leading-relaxed">{p.desc}</p>
+              <div key={p.num} className="p-6 rounded-2xl border border-border bg-surface/30 hover:border-subtle transition-all shadow-sm">
+                <span className="text-xs font-mono text-accent font-semibold mb-3 inline-block px-2.5 py-1 rounded bg-accent-soft">{p.num}</span>
+                <h3 className="text-sm font-sans font-bold text-bright mb-2">{p.label}</h3>
+                <p className="text-xs font-sans text-dim leading-relaxed">{p.desc}</p>
               </div>
             ))}
           </div>
@@ -254,45 +255,44 @@ export default function About() {
           </div>
 
           <div className="max-w-xl">
-            <div className="mb-5">
-              <div className="flex items-center gap-3 mb-1">
+            <div className="mb-6 p-6 rounded-2xl border border-border bg-surface/40 shadow-sm">
+              <div className="flex items-center justify-between mb-3">
                 <span className="font-display text-xl text-bright">{WEB_DEVELOPER_INFO.NAME}</span>
-                <span className="h-px flex-1 bg-border" />
+                <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-accent-soft text-accent border border-accent/20">Maintainer</span>
               </div>
-              <p className="text-[10px] font-mono text-subtle tracking-wide">{WEB_DEVELOPER_INFO.ROLE}</p>
+              <p className="text-xs font-mono text-subtle tracking-wide mb-4">{WEB_DEVELOPER_INFO.ROLE}</p>
+              <p className="text-sm font-sans text-dim leading-relaxed">
+                {WEB_DEVELOPER_INFO.BIO}
+              </p>
             </div>
-
-            <p className="text-sm font-sans text-dim leading-relaxed mb-8">
-              {WEB_DEVELOPER_INFO.BIO}
-            </p>
 
             {/* Action Links */}
             <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                disabled
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border/50 text-xs font-mono text-muted/60 bg-surface/20 rounded-lg cursor-not-allowed opacity-60 select-none"
-                title="GitHub repository link unavailable"
+              <a
+                href={WEB_DEVELOPER_INFO.GITHUB}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-border hover:border-accent text-xs font-mono text-dim hover:text-bright transition-all rounded-xl bg-surface/80 shadow-sm"
               >
-                <Code2 size={14} />
-                GitHub Repository
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-surface border border-border/40 text-muted">Disabled</span>
-              </button>
+                <Code2 size={15} className="text-accent" />
+                <span>GitHub Repository</span>
+                <ExternalLink size={12} className="text-muted" />
+              </a>
 
               <Link
                 to="/privacy"
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors rounded-lg bg-surface/50"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-border hover:border-accent text-xs font-mono text-dim hover:text-bright transition-all rounded-xl bg-surface/80 shadow-sm"
               >
-                <ShieldCheck size={14} className="text-accent" />
-                Privacy Architecture
+                <ShieldCheck size={15} className="text-accent" />
+                <span>Privacy Architecture</span>
               </Link>
 
               <a
                 href="mailto:suggest@toolbox4devs.com?subject=Feature%20Suggestion%20for%20ToolBox4Devs"
-                className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors rounded-lg bg-surface/50"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-border hover:border-accent text-xs font-mono text-dim hover:text-bright transition-all rounded-xl bg-surface/80 shadow-sm"
               >
-                <FolderGit2 size={14} />
-                Suggest a Utility
+                <FolderGit2 size={15} className="text-accent" />
+                <span>Suggest a Utility</span>
               </a>
             </div>
           </div>
@@ -307,11 +307,14 @@ export default function About() {
             <h2 className="font-display text-2xl text-bright leading-none">TECH<br />STACK</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {stack.map(item => (
-              <div key={item.name} className="p-4 rounded-lg border border-border bg-surface/30 hover:border-subtle transition-colors">
-                <div className="text-xs font-mono font-semibold text-bright mb-1">{item.name}</div>
-                <div className="text-xs font-sans text-dim">{item.desc}</div>
+              <div key={item.name} className="p-5 rounded-xl border border-border bg-surface/30 hover:border-accent/40 transition-colors shadow-sm">
+                <div className="text-xs font-mono font-semibold text-bright mb-1.5 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  {item.name}
+                </div>
+                <div className="text-xs font-sans text-dim leading-relaxed">{item.desc}</div>
               </div>
             ))}
           </div>
@@ -328,12 +331,12 @@ export default function About() {
 
           <div className="space-y-4">
             {faqs.map(faq => (
-              <div key={faq.q} className="p-5 rounded-xl border border-border bg-surface/30">
-                <div className="flex items-start gap-2.5 mb-2">
-                  <HelpCircle size={16} className="text-accent shrink-0 mt-0.5" />
-                  <h3 className="text-sm font-mono font-semibold text-bright">{faq.q}</h3>
+              <div key={faq.q} className="p-6 rounded-2xl border border-border bg-surface/40 shadow-sm">
+                <div className="flex items-start gap-3 mb-2.5">
+                  <HelpCircle size={18} className="text-accent shrink-0 mt-0.5" />
+                  <h3 className="text-sm font-mono font-bold text-bright">{faq.q}</h3>
                 </div>
-                <p className="text-xs font-sans text-dim leading-relaxed pl-6.5">{faq.a}</p>
+                <p className="text-xs font-sans text-dim leading-relaxed pl-7">{faq.a}</p>
               </div>
             ))}
           </div>
@@ -342,15 +345,15 @@ export default function About() {
 
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
       <section className="border-t border-border pt-16">
-        <div className="p-8 rounded-2xl border border-border bg-surface/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="p-8 rounded-2xl border border-border bg-surface/50 shadow-md backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Layers size={18} className="text-accent" />
+            <div className="flex items-center gap-2.5 mb-2">
+              <Layers size={20} className="text-accent" />
               <h2 className="font-display text-2xl text-bright">READY TO EXPLORE?</h2>
             </div>
             <p className="text-xs font-mono text-subtle">{tools.length} browser-based developer tools · 100% private · zero tracking</p>
           </div>
-          <Link to="/tools" className="btn-primary text-xs font-mono px-5 py-2.5 whitespace-nowrap flex items-center gap-2 shrink-0">
+          <Link to="/tools" className="btn-primary text-xs font-mono px-6 py-3 whitespace-nowrap flex items-center gap-2.5 shrink-0 shadow-sm">
             <span>Browse All {tools.length} Tools</span>
             <ArrowRight size={14} />
           </Link>

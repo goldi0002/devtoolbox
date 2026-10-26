@@ -99,34 +99,34 @@ export default function Privacy() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="relative mb-16 pt-4">
+      <section className="relative mb-20 pt-4">
         {/* Ambient glow */}
-        <div className="absolute top-0 right-1/4 w-[400px] h-[200px] bg-emerald-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
+        <div className="absolute top-0 right-1/4 w-[450px] h-[220px] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/8 text-emerald-400 text-[11px] font-mono font-medium mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 text-[11px] font-mono font-medium mb-6 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
             Privacy Architecture
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-end">
           <div>
             <h1 className="font-display text-[clamp(2.8rem,9vw,6.5rem)] leading-[0.9] mb-6 tracking-tight">
               <span className="text-bright">YOUR DATA</span><br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400">STAYS</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400">STAYS</span>
               <span className="text-bright"> YOURS.</span>
             </h1>
-            <p className="text-dim font-sans text-sm sm:text-base leading-relaxed max-w-xl">
+            <p className="text-dim font-sans text-base sm:text-lg leading-relaxed max-w-xl">
               ToolBox4Devs is designed from first principles around complete client-side isolation. No accounts, zero analytics, and zero telemetry. Here is our plain-English commitment to your security.
             </p>
           </div>
 
           {/* Last updated & Badge */}
-          <div className="p-4 rounded-xl border border-border bg-surface/50 text-left lg:text-right">
+          <div className="p-5 rounded-2xl border border-border bg-surface/60 backdrop-blur-md text-left lg:text-right shadow-sm">
             <div className="text-[10px] font-mono text-muted uppercase tracking-wider mb-1">Last updated</div>
-            <div className="font-mono text-xs text-bright font-semibold mb-2">{WEB_INFO.PRIVACY_POLICY_LAST_UPDATED}</div>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-accent-soft text-accent text-[11px] font-mono">
+            <div className="font-mono text-xs text-bright font-semibold mb-3">{WEB_INFO.PRIVACY_POLICY_LAST_UPDATED}</div>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[11px] font-mono font-medium">
               ● 100% Client-Side
             </span>
           </div>
@@ -134,7 +134,7 @@ export default function Privacy() {
       </section>
 
       {/* ── Core Commitments Grid ───────────────────────────────────────────── */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-20">
         {[
           { icon: ServerOff, title: 'Zero Backend Processing', desc: 'Inputs never leave your browser memory.' },
           { icon: EyeOff, title: 'Zero Trackers or Ads', desc: 'No Google Analytics, Meta Pixels, or cookies.' },
@@ -143,11 +143,11 @@ export default function Privacy() {
         ].map((item) => {
           const Icon = item.icon
           return (
-            <div key={item.title} className="p-5 rounded-xl border border-border bg-surface/30">
-              <div className="w-8 h-8 rounded-lg bg-accent-soft text-accent flex items-center justify-center mb-3">
-                <Icon size={16} />
+            <div key={item.title} className="p-6 rounded-2xl border border-border bg-surface/50 hover:border-indigo-500/30 transition-all shadow-sm group">
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                <Icon size={20} />
               </div>
-              <h3 className="text-xs font-mono font-semibold text-bright mb-1">{item.title}</h3>
+              <h3 className="text-xs font-mono font-bold text-bright mb-2">{item.title}</h3>
               <p className="text-xs font-sans text-subtle leading-relaxed">{item.desc}</p>
             </div>
           )
@@ -155,9 +155,9 @@ export default function Privacy() {
       </section>
 
       {/* ── Verification Step-by-Step ───────────────────────────────────────── */}
-      <section className="mb-20 p-6 sm:p-8 rounded-2xl border border-border bg-surface/40">
-        <div className="flex items-center gap-2 mb-2">
-          <Terminal size={18} className="text-accent" />
+      <section className="mb-20 p-6 sm:p-8 rounded-2xl border border-border bg-surface/50 backdrop-blur-md shadow-md">
+        <div className="flex items-center gap-2.5 mb-2">
+          <Terminal size={20} className="text-indigo-400" />
           <h2 className="font-display text-xl sm:text-2xl text-bright">HOW TO VERIFY IN 60 SECONDS</h2>
         </div>
         <p className="text-xs font-mono text-dim mb-6">
@@ -166,12 +166,12 @@ export default function Privacy() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {AUDIT_STEPS.map((step) => (
-            <div key={step.step} className="p-4 rounded-xl border border-border bg-surface/60">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono font-semibold text-accent">STEP {step.step}</span>
-                <CheckCircle2 size={14} className="text-muted" />
+            <div key={step.step} className="p-5 rounded-xl border border-border bg-surface/80 shadow-sm">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-mono font-bold text-indigo-400 px-2 py-0.5 rounded bg-indigo-500/10">STEP {step.step}</span>
+                <CheckCircle2 size={16} className="text-indigo-400/70" />
               </div>
-              <h3 className="text-xs font-mono font-semibold text-bright mb-1">{step.title}</h3>
+              <h3 className="text-xs font-mono font-semibold text-bright mb-1.5">{step.title}</h3>
               <p className="text-xs font-sans text-subtle leading-relaxed">{step.desc}</p>
             </div>
           ))}
@@ -186,8 +186,8 @@ export default function Privacy() {
             className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-8 py-12"
           >
             {/* Left */}
-            <div className="lg:pt-0.5">
-              <span className="text-[10px] font-mono text-accent mb-2 block">{section.num}</span>
+            <div className="lg:pt-1">
+              <span className="text-xs font-mono font-bold text-indigo-400 mb-2 inline-block px-2.5 py-1 rounded bg-indigo-500/10">{section.num}</span>
               <h2 className="font-display text-xl text-bright leading-tight">{section.title}</h2>
             </div>
 
@@ -201,13 +201,13 @@ export default function Privacy() {
                 <div className="flex flex-wrap gap-3 pt-4">
                   <a
                     href="mailto:privacy@toolbox4devs.com"
-                    className="inline-flex items-center gap-2 px-4 py-2 border border-border hover:border-subtle text-xs font-mono text-dim hover:text-bright transition-colors rounded-lg bg-surface/50"
+                    className="inline-flex items-center gap-2.5 px-4 py-2.5 border border-border hover:border-indigo-500/40 text-xs font-mono text-dim hover:text-bright transition-all rounded-xl bg-surface/80 shadow-sm"
                   >
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <svg className="w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <rect x="2" y="4" width="20" height="16" rx="2" />
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                     </svg>
-                    privacy@toolbox4devs.com
+                    <span>privacy@toolbox4devs.com</span>
                   </a>
                 </div>
               )}
@@ -217,17 +217,17 @@ export default function Privacy() {
       </div>
 
       {/* ── Explore CTA ────────────────────────────────────────────────────── */}
-      <section className="border-t border-border pt-12">
-        <div className="p-8 rounded-2xl border border-border bg-surface/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <section className="border-t border-border pt-16">
+        <div className="p-8 rounded-2xl border border-border bg-surface/50 shadow-md backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
-            <h2 className="font-display text-2xl text-bright mb-1">SAFE & PRIVATE BY DESIGN</h2>
+            <h2 className="font-display text-2xl text-bright mb-1.5">SAFE & PRIVATE BY DESIGN</h2>
             <p className="text-xs font-mono text-subtle">
               Browse all {tools.length} utilities running 100% in your browser. Zero telemetry.
             </p>
           </div>
           <Link
             to="/tools"
-            className="btn-primary text-xs font-mono px-5 py-2.5 whitespace-nowrap flex items-center gap-2 shrink-0"
+            className="btn-primary text-xs font-mono px-6 py-3 whitespace-nowrap flex items-center gap-2.5 shrink-0 shadow-sm"
           >
             <span>Explore All Tools</span>
             <ArrowRight size={14} />

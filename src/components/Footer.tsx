@@ -5,6 +5,7 @@ const productLinks = [
   { label: 'All tools', path: '/tools' },
   { label: 'About', path: '/about' },
   { label: 'Privacy', path: '/privacy' },
+  { label: 'GitHub Repo', path: 'https://github.com/goldi0002/devtoolbox', external: true },
 ]
 
 const popularTools = [
@@ -94,9 +95,21 @@ export default function Footer() {
           <ul className="space-y-2">
             {productLinks.map(link => (
               <li key={link.path}>
-                <Link to={link.path} className="text-xs text-dim hover:text-accent transition-colors">
-                  {link.label}
-                </Link>
+                {link.external ? (
+                  <a
+                    href={link.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-dim hover:text-accent transition-colors inline-flex items-center gap-1"
+                  >
+                    <span>{link.label}</span>
+                    <span className="text-[10px] text-muted">↗</span>
+                  </a>
+                ) : (
+                  <Link to={link.path} className="text-xs text-dim hover:text-accent transition-colors">
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
