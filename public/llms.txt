@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 74 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 75 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -47,6 +47,7 @@
 - [HTTP Basic Auth Header Generator](https://toolbox4devs.com/basic-auth-header): Generate standard `Authorization: Basic <base64>` HTTP headers from username and password.
 
 ### Web & API Tools
+- [Three.js 3D Scene Studio & Code Playground](https://toolbox4devs.com/three-js-playground): Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.
 - [WCAG 2.1 Color Contrast Checker](https://toolbox4devs.com/wcag-contrast-checker): Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
 - [URL & Query Component Parser](https://toolbox4devs.com/url-parser): Parse URLs into protocol, host, port, path, query parameters table, and hash fragments.
 - [XML Formatter & Minifier](https://toolbox4devs.com/xml-formatter): Beautify and minify XML markup with configurable indentation and syntax error diagnostics.

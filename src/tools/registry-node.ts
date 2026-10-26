@@ -2,6 +2,7 @@
 // Mirrors registry.ts but without toolComponent
 
 const toolMeta = [
+    { slug: 'three-js-playground',           category: 'web-tools'      },
     { slug: 'json-formatter',                category: 'json-tools'     },
     { slug: 'json-model',                    category: 'json-tools'     },
     { slug: 'json-to-zod',                   category: 'json-tools'     },

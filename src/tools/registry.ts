@@ -73,8 +73,10 @@ import { CERTIFICATE_DECODER_META } from "./meta/certificate-decoder"
 import { PIPELINE_STUDIO_META } from "./meta/pipeline-studio"
 import { CSV_VALIDATOR_META } from "./meta/csv-validator"
 import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
+import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
 
 export const tools: ToolMeta[] = [
+  THREE_JS_PLAYGROUND_META,
   PIPELINE_STUDIO_META,
   CSV_VALIDATOR_META,
   MARKDOWN_TABLE_TO_JSON_META,

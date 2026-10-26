@@ -4,13 +4,22 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 74
+Total Tools: 75
 
 ---
 
-## Tool Registry & Technical Specifications (All 74 Tools)
+## Tool Registry & Technical Specifications (All 75 Tools)
 
-### 1. JSON Formatter & Validator
+### 1. Three.js 3D Scene Studio & Code Playground
+- URL: https://toolbox4devs.com/three-js-playground
+- Category: Web Tools (web-tools)
+- Complexity: Advanced
+- Description: Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.
+- Inputs: Three.js JavaScript snippet
+- Outputs: Live WebGL 3D rendering preview with OrbitControls
+- Features: 12+ pre-installed procedural templates, WebGL2 rendering, ACESFilmicToneMapping, RoomEnvironment PBR reflections, live error feedback.
+
+### 2. JSON Formatter & Validator
 - URL: https://toolbox4devs.com/json-formatter
 - Category: JSON Tools (json-tools)
 - Complexity: Simple

@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 74,
+  "totalTools": 75,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -17,6 +17,14 @@
     { "id": "analyze-tools", "name": "Analyze" }
   ],
   "tools": [
+    {
+      "slug": "three-js-playground",
+      "name": "Three.js 3D Scene Studio & Code Playground",
+      "category": "web-tools",
+      "url": "https://toolbox4devs.com/three-js-playground",
+      "description": "Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.",
+      "keywords": ["three.js", "3d playground", "webgl studio", "3d scene editor", "threejs code editor", "pbr materials", "procedural 3d", "threejs templates"]
+    },
     {
       "slug": "age-calculator",
       "name": "Age & Lifetime Milestone Calculator",
