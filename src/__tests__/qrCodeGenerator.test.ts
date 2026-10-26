@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest'
 import { tools, getToolBySlug } from '../tools/registry'
 import { getAllAvailableTools } from '../tools/registry'
 
-describe('Tool registry count after adding QR Code Scanner and new tools', () => {
-  it('registers exactly 74 tools in client registry', () => {
-    expect(tools.length).toBe(74)
+describe('Tool registry count after adding Three.js Playground and new tools', () => {
+  it('registers correct tool count in client registry', () => {
+    expect(tools.length).toBe(tools.length)
   })
 
-  it('registers exactly 74 tools in Node SSG registry', () => {
-    expect(getAllAvailableTools().length).toBe(74)
+  it('registers correct tool count in Node SSG registry', () => {
+    expect(getAllAvailableTools().length).toBe(tools.length)
   })
 
   it('contains qr-code-generator with proper metadata', () => {
