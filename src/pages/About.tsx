@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
@@ -15,7 +16,13 @@ import {
   ArrowRight,
   HelpCircle,
   FolderGit2,
-  ExternalLink
+  ExternalLink,
+  Star,
+  GitFork,
+  RefreshCw,
+  Loader2,
+  AlertCircle,
+  Users
 } from 'lucide-react'
 
 const keyFeatures = [
@@ -85,6 +92,84 @@ export default function About() {
   usePageTitle('About ToolBox4Devs — Fast, Private Developer Utilities')
   const categories = getToolCategories()
   const pageDescription = `ToolBox4Devs is an open, privacy-first, ad-free suite of ${tools.length}+ developer utilities that run 100% inside your browser.`
+
+  interface RepoMetrics {
+    stargazers_count: number
+    forks_count: number
+    open_issues_count: number
+    html_url: string
+  }
+
+  interface Contributor {
+    id: number
+    login: string
+    avatar_url: string
+    html_url: string
+    contributions: number
+  }
+
+  const [metrics, setMetrics] = useState<RepoMetrics | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const [contributors, setContributors] = useState<Contributor[]>([])
+  const [contributorsLoading, setContributorsLoading] = useState<boolean>(true)
+  const [contributorsError, setContributorsError] = useState<string | null>(null)
+
+  const fetchAllData = () => {
+    setMetrics(null)
+    setLoading(true)
+    setError(null)
+    setContributors([])
+    setContributorsLoading(true)
+    setContributorsError(null)
+
+    // Fetch repo metrics
+    fetch('https://api.github.com/repos/goldi0002/devtoolbox', {
+      headers: { Accept: 'application/vnd.github.v3+json' }
+    })
+      .then(res => {
+        if (!res.ok) {
+          if (res.status === 403) throw new Error('GitHub API rate limit exceeded. Please try again later.')
+          throw new Error(`Failed to fetch repository data (${res.status})`)
+        }
+        return res.json()
+      })
+      .then(data => {
+        setMetrics(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err.message || 'Failed to load GitHub metrics')
+        setLoading(false)
+      })
+
+    // Fetch top contributors
+    fetch('https://api.github.com/repos/goldi0002/devtoolbox/contributors?per_page=5', {
+      headers: { Accept: 'application/vnd.github.v3+json' }
+    })
+      .then(res => {
+        if (!res.ok) {
+          if (res.status === 403) throw new Error('GitHub API rate limit exceeded.')
+          throw new Error(`Failed to fetch contributors (${res.status})`)
+        }
+        return res.json()
+      })
+      .then(data => {
+        if (Array.isArray(data)) {
+          setContributors(data.slice(0, 5))
+        }
+        setContributorsLoading(false)
+      })
+      .catch(err => {
+        setContributorsError(err.message || 'Failed to load contributors')
+        setContributorsLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    fetchAllData()
+  }, [])
 
   return (
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 animate-fade-in">
@@ -294,6 +379,160 @@ export default function About() {
                 <FolderGit2 size={15} className="text-accent" />
                 <span>Suggest a Utility</span>
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── GitHub Repository Metrics ──────────────────────────────────────── */}
+      <section className="border-t border-border pt-16 mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+          <div>
+            <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-1">Live Telemetry</p>
+            <h2 className="font-display text-2xl text-bright leading-none">GITHUB<br />METRICS</h2>
+          </div>
+
+          <div>
+            <div className="p-6 rounded-2xl border border-border bg-surface/50 shadow-sm backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-mono text-xs text-bright font-bold">goldi0002/devtoolbox</span>
+                    <a
+                      href="https://github.com/goldi0002/devtoolbox"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent hover:text-bright transition-colors inline-flex items-center gap-1 text-xs font-mono"
+                    >
+                      <span>View on GitHub</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  </div>
+                  <p className="text-xs font-sans text-subtle">
+                    Live repository statistics fetched directly from the GitHub REST API.
+                  </p>
+                </div>
+
+                <button
+                  onClick={fetchAllData}
+                  disabled={loading}
+                  className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-surface/80 hover:border-accent text-xs font-mono text-dim hover:text-bright transition-all disabled:opacity-50"
+                  title="Refresh metrics"
+                >
+                  <RefreshCw size={12} className={loading ? 'animate-spin' : ''} />
+                  <span>Refresh</span>
+                </button>
+              </div>
+
+              {loading && !metrics ? (
+                <div className="py-12 flex flex-col items-center justify-center gap-3 text-subtle">
+                  <Loader2 size={24} className="animate-spin text-accent" />
+                  <span className="text-xs font-mono">Fetching repository metrics from GitHub...</span>
+                </div>
+              ) : error ? (
+                <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 flex items-start gap-3">
+                  <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-mono font-semibold mb-1">Unable to load live metrics</p>
+                    <p className="text-xs font-sans text-red-300/90">{error}</p>
+                    <button
+                      onClick={fetchAllData}
+                      className="mt-3 text-[11px] font-mono underline hover:text-bright"
+                    >
+                      Retry request
+                    </button>
+                  </div>
+                </div>
+              ) : metrics ? (
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl border border-border/80 bg-surface/30 flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center shrink-0">
+                        <Star size={20} />
+                      </div>
+                      <div>
+                        <div className="font-display text-2xl text-bright leading-none">
+                          {metrics.stargazers_count.toLocaleString()}
+                        </div>
+                        <div className="text-[10px] font-mono text-subtle mt-1 uppercase tracking-wider">GitHub Stars</div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-border/80 bg-surface/30 flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
+                        <GitFork size={20} />
+                      </div>
+                      <div>
+                        <div className="font-display text-2xl text-bright leading-none">
+                          {metrics.forks_count.toLocaleString()}
+                        </div>
+                        <div className="text-[10px] font-mono text-subtle mt-1 uppercase tracking-wider">Forks</div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 rounded-xl border border-border/80 bg-surface/30 flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
+                        <AlertCircle size={20} />
+                      </div>
+                      <div>
+                        <div className="font-display text-2xl text-bright leading-none">
+                          {metrics.open_issues_count.toLocaleString()}
+                        </div>
+                        <div className="text-[10px] font-mono text-subtle mt-1 uppercase tracking-wider">Open Issues</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Top 5 Contributors Sub-section */}
+                  <div className="pt-6 border-t border-border/80">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Users size={16} className="text-accent" />
+                        <span className="text-xs font-mono font-bold text-bright uppercase tracking-wider">Top Contributors</span>
+                      </div>
+                      <span className="text-[10px] font-mono text-subtle">Top 5 active maintainers</span>
+                    </div>
+
+                    {contributorsLoading ? (
+                      <div className="py-6 flex items-center justify-center gap-2 text-subtle">
+                        <Loader2 size={16} className="animate-spin text-accent" />
+                        <span className="text-xs font-mono">Loading contributors...</span>
+                      </div>
+                    ) : contributorsError ? (
+                      <p className="text-xs font-mono text-dim italic">Unable to load top contributors.</p>
+                    ) : contributors.length > 0 ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
+                        {contributors.map((contrib) => (
+                          <a
+                            key={contrib.id}
+                            href={contrib.html_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-3 rounded-xl border border-border/60 bg-surface/40 hover:border-accent hover:bg-surface/80 transition-all flex items-center gap-3 group shadow-sm"
+                          >
+                            <img
+                              src={contrib.avatar_url}
+                              alt={contrib.login}
+                              className="w-9 h-9 rounded-full border border-border group-hover:border-accent transition-colors object-cover shrink-0"
+                            />
+                            <div className="min-w-0 flex-1">
+                              <div className="text-xs font-mono font-semibold text-bright truncate group-hover:text-accent transition-colors">
+                                @{contrib.login}
+                              </div>
+                              <div className="text-[10px] font-mono text-subtle">
+                                {contrib.contributions} {contrib.contributions === 1 ? 'commit' : 'commits'}
+                              </div>
+                            </div>
+                            <ExternalLink size={10} className="text-muted group-hover:text-accent shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </a>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs font-mono text-dim italic">No contributors found.</p>
+                    )}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
