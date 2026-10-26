@@ -1,4 +1,4 @@
-import { PipelineStep } from '../utils/pipelineEngine'
+import type { PipelineStep } from '../utils/pipelineEngine'
 
 export interface RecipeFaq {
   question: string
@@ -246,3 +246,5 @@ stripeSubscriptionId`,
 export function getRecipeBySlug(slug: string): DevRecipe | undefined {
   return DEV_RECIPES.find(r => r.slug === slug)
 }
+
+export const recipeSlugs = DEV_RECIPES.map(r => r.slug)

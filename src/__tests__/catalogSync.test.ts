@@ -42,7 +42,7 @@ describe('Tool Catalog & Specification Synchronization', () => {
     const llmsTxtContent = fs.readFileSync(llmsTxtPath, 'utf8')
     const llmsTxtSlugs = [...llmsTxtContent.matchAll(/https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
       .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog', 'llms-full'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/'))
+      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog', 'recipes', 'llms-full'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/') && !slug.startsWith('recipes/'))
       .sort()
 
     expect(llmsTxtSlugs).toEqual(registeredSlugs)

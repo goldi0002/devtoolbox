@@ -93,6 +93,14 @@
 - [DevFlow Pipeline Studio](https://toolbox4devs.com/pipeline-studio): Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
 - [Delimited File Data Validator](https://toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
 
+### Developer Workflow Recipes
+- [Developer Workflow Recipes Hub](https://toolbox4devs.com/recipes): Multi-step preconfigured pipelines chaining formatters, encoders, token decoders, and filters client-side.
+- [Webhook Payload Inspector](https://toolbox4devs.com/recipes/webhook-payload-inspector): Extract, decode base64 bodies, and prettify webhook payloads from Stripe, GitHub, or Shopify.
+- [JWT Auth Verifier](https://toolbox4devs.com/recipes/jwt-auth-verifier): Unpack, decode claims, and fingerprint JWT tokens in browser memory.
+- [Base64 to JSON Unpacker](https://toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 strings directly into clean, syntax-highlighted, formatted JSON.
+- [Server Log Cleaner](https://toolbox4devs.com/recipes/server-log-cleaner): Extract error lines and deduplicate stack trace signatures from server logs.
+- [SQL Identifier Sanitizer](https://toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch convert camelCase models into snake_case database column identifiers.
+
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:
 `https://toolbox4devs.com/tools.json`

@@ -549,5 +549,16 @@ Total Tools: 74
 - Description: Convert GitHub-flavored Markdown tables from READMEs, documentation, or LLM outputs into JSON objects keyed by the header row.
 - Features: Header and separator row parsing; optional leading and trailing pipes; messy spacing support; escaped pipe and punctuation handling; automatic conversion of numbers, booleans, and null while preserving other values as strings; sample Markdown table loader.
 
+## Developer Workflow Recipes
+- Hub URL: https://toolbox4devs.com/recipes
+- Description: Pre-assembled sequential multi-tool pipelines executing client-side with zero latency.
+- Recipes:
+  1. Webhook Payload Inspector (https://toolbox4devs.com/recipes/webhook-payload-inspector): Inspect, decode base64 bodies, and prettify webhook payloads from Stripe, GitHub, or Shopify.
+  2. JWT Auth Verifier (https://toolbox4devs.com/recipes/jwt-auth-verifier): Unpack, decode claims, and fingerprint JWT tokens in browser memory.
+  3. Base64 to JSON Unpacker (https://toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 strings directly into clean, syntax-highlighted, formatted JSON.
+  4. Server Log Cleaner (https://toolbox4devs.com/recipes/server-log-cleaner): Extract error lines and deduplicate stack trace signatures from server logs.
+  5. SQL Identifier Sanitizer (https://toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch convert camelCase models into snake_case database column identifiers.
+
+
 
 
