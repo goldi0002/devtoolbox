@@ -84,47 +84,47 @@ export default function Home() {
       />
 
       {/* ── Modern Glassmorphic Hero Section ───────────────────────────────── */}
-      <section className="relative pt-6 pb-16 sm:pt-12 sm:pb-20 text-center">
+      <section className="relative pt-4 pb-8 sm:pt-8 sm:pb-12 text-center">
         {/* Refined subtle gradient backdrop */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] h-[34rem] bg-gradient-to-tr from-indigo-500/10 via-violet-500/10 to-cyan-500/10 rounded-full blur-[100px] pointer-events-none -z-10" />
 
-        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-md text-indigo-400 text-xs font-mono font-medium mb-8 shadow-sm">
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-md text-indigo-500 dark:text-indigo-400 text-xs font-mono font-medium mb-6 shadow-xs">
           <Cpu size={14} className="animate-spin" style={{ animationDuration: '8s' }} />
           <span>{tools.length} High-Performance Utilities • 100% Local V8 Memory</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-bright mb-6 font-sans leading-[1.1]">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-bright mb-4 font-sans leading-[1.15]">
           The Private Toolkit for <br className="hidden sm:inline" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-500 dark:from-indigo-400 dark:via-violet-400 dark:to-cyan-400">
             Modern Engineers
           </span>
         </h1>
 
-        <p className="max-w-2xl mx-auto text-dim text-base sm:text-lg leading-relaxed mb-10">
+        <p className="max-w-2xl mx-auto text-dim text-sm sm:text-base leading-relaxed mb-8">
           Lightning-fast formatters, encoders, cryptographic generators, and inspectors running directly in your browser memory. Zero tracking, zero server calls.
         </p>
 
         {/* Live Command Palette & Search Bar */}
-        <div className="max-w-2xl mx-auto relative mb-8">
-          <div className="relative flex items-center shadow-2xl rounded-2xl bg-surface/80 dark:bg-slate-900/80 backdrop-blur-xl border border-indigo-500/30 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/20 transition-all">
-            <Search className="absolute left-4 text-indigo-400" size={20} />
+        <div className="max-w-2xl mx-auto relative mb-6">
+          <div className="relative flex items-center shadow-lg hover:shadow-xl rounded-2xl bg-surface/90 backdrop-blur-xl border border-border hover:border-indigo-500/50 focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-500/15 transition-all">
+            <Search className="absolute left-4 text-indigo-500 dark:text-indigo-400" size={20} />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search tools instantly (e.g. JSON, Base64, JWT, Hash, Regex)..."
-              className="w-full pl-12 pr-28 py-4 bg-transparent text-bright placeholder:text-subtle text-sm font-medium focus:outline-none"
+              className="w-full pl-12 pr-28 py-3.5 sm:py-4 bg-transparent text-bright placeholder:text-subtle text-sm font-medium focus:outline-none"
             />
             <div className="absolute right-3 flex items-center gap-1.5">
               {searchQuery ? (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="text-xs font-mono text-subtle hover:text-bright px-3 py-1 rounded-xl bg-muted hover:bg-muted/80 transition-colors"
+                  className="text-xs font-mono text-subtle hover:text-bright px-3 py-1 rounded-xl bg-muted/60 hover:bg-muted transition-colors"
                 >
                   Clear
                 </button>
               ) : (
-                <kbd className="hidden sm:inline-block px-2.5 py-1 text-[11px] font-mono text-indigo-300 bg-indigo-500/15 border border-indigo-500/30 rounded-xl">
+                <kbd className="hidden sm:inline-block px-2.5 py-1 text-[11px] font-mono text-indigo-500 dark:text-indigo-300 bg-indigo-500/10 border border-indigo-500/25 rounded-xl">
                   ⌘K
                 </kbd>
               )}
@@ -133,13 +133,13 @@ export default function Home() {
         </div>
 
         {/* Interactive Quick Utilities Dock */}
-        <div className="max-w-3xl mx-auto mb-12 p-5 bg-surface/70 dark:bg-slate-900/60 backdrop-blur-2xl border border-border/80 rounded-2xl shadow-xl">
-          <div className="text-xs font-mono text-subtle mb-3.5 text-left px-1 flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-indigo-400 font-bold uppercase tracking-wider text-[11px]">
+        <div className="max-w-3xl mx-auto mb-7 p-4 sm:p-5 bg-surface/80 backdrop-blur-2xl border border-border/80 rounded-2xl shadow-md">
+          <div className="text-xs font-mono text-subtle mb-3 text-left px-1 flex items-center justify-between">
+            <span className="flex items-center gap-1.5 text-indigo-500 dark:text-indigo-400 font-bold uppercase tracking-wider text-[11px]">
               <Sparkles size={14} className="animate-bounce" />
               Instant Client Quick Dock
             </span>
-            <span className="text-[11px] text-muted">Click to execute instantly in browser</span>
+            <span className="text-[11px] text-subtle">Click to execute instantly in browser</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -151,10 +151,10 @@ export default function Home() {
                 setCopiedUuid(true)
                 setTimeout(() => setCopiedUuid(false), 2000)
               }}
-              className="p-3.5 text-xs font-mono bg-surface/90 dark:bg-slate-800/80 hover:bg-indigo-600/15 hover:border-indigo-500/60 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group shadow-xs"
+              className="p-3 text-xs font-mono bg-bg/80 hover:bg-indigo-500/10 hover:border-indigo-500/50 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group shadow-2xs"
             >
               <div className="flex items-center gap-2.5 truncate">
-                <div className="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30 group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/20 group-hover:scale-105 transition-transform">
                   <Terminal size={15} />
                 </div>
                 <div className="truncate">
@@ -162,7 +162,7 @@ export default function Home() {
                   <div className="text-[10px] text-subtle truncate">{copiedUuid ? 'Copied to clipboard!' : 'Copy random v4'}</div>
                 </div>
               </div>
-              {copiedUuid ? <Check size={15} className="text-emerald-400 shrink-0" /> : <Copy size={15} className="text-subtle group-hover:text-indigo-400 transition-colors shrink-0" />}
+              {copiedUuid ? <Check size={15} className="text-emerald-500 shrink-0" /> : <Copy size={15} className="text-subtle group-hover:text-indigo-500 transition-colors shrink-0" />}
             </button>
 
             {/* Quick SHA-256 Hash */}
@@ -177,10 +177,10 @@ export default function Home() {
                 setCopiedHash(true)
                 setTimeout(() => setCopiedHash(false), 2000)
               }}
-              className="p-3.5 text-xs font-mono bg-surface/90 dark:bg-slate-800/80 hover:bg-purple-600/15 hover:border-purple-500/60 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group shadow-xs"
+              className="p-3 text-xs font-mono bg-bg/80 hover:bg-purple-500/10 hover:border-purple-500/50 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group shadow-2xs"
             >
               <div className="flex items-center gap-2.5 truncate">
-                <div className="w-8 h-8 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/30 group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-purple-500/10 text-purple-500 dark:text-purple-400 flex items-center justify-center shrink-0 border border-purple-500/20 group-hover:scale-105 transition-transform">
                   <Hash size={15} />
                 </div>
                 <div className="truncate">
@@ -188,7 +188,7 @@ export default function Home() {
                   <div className="text-[10px] text-subtle truncate">{copiedHash ? 'Hash copied!' : 'Copy sample hash'}</div>
                 </div>
               </div>
-              {copiedHash ? <Check size={15} className="text-emerald-400 shrink-0" /> : <Copy size={15} className="text-subtle group-hover:text-purple-400 transition-colors shrink-0" />}
+              {copiedHash ? <Check size={15} className="text-emerald-500 shrink-0" /> : <Copy size={15} className="text-subtle group-hover:text-purple-500 transition-colors shrink-0" />}
             </button>
 
             {/* Quick Base64 Encode */}
@@ -200,10 +200,10 @@ export default function Home() {
                 setCopiedBase64(true)
                 setTimeout(() => setCopiedBase64(false), 2000)
               }}
-              className="p-3.5 text-xs font-mono bg-surface/90 dark:bg-slate-800/80 hover:bg-pink-600/15 hover:border-pink-500/60 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group shadow-xs"
+              className="p-3 text-xs font-mono bg-bg/80 hover:bg-pink-500/10 hover:border-pink-500/50 border border-border/80 rounded-xl text-bright transition-all text-left flex items-center justify-between group shadow-2xs"
             >
               <div className="flex items-center gap-2.5 truncate">
-                <div className="w-8 h-8 rounded-xl bg-pink-500/15 text-pink-400 flex items-center justify-center shrink-0 border border-pink-500/30 group-hover:scale-110 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-pink-500/10 text-pink-500 dark:text-pink-400 flex items-center justify-center shrink-0 border border-pink-500/20 group-hover:scale-105 transition-transform">
                   <Sparkles size={15} />
                 </div>
                 <div className="truncate">
@@ -211,19 +211,19 @@ export default function Home() {
                   <div className="text-[10px] text-subtle truncate">{copiedBase64 ? 'Base64 copied!' : 'Encode & copy'}</div>
                 </div>
               </div>
-              {copiedBase64 ? <Check size={15} className="text-emerald-400 shrink-0" /> : <Copy size={15} className="text-subtle group-hover:text-pink-400 transition-colors shrink-0" />}
+              {copiedBase64 ? <Check size={15} className="text-emerald-500 shrink-0" /> : <Copy size={15} className="text-subtle group-hover:text-pink-500 transition-colors shrink-0" />}
             </button>
           </div>
         </div>
 
         {/* Perks Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-mono text-dim">
+        <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs font-mono text-dim mb-2">
           {PERKS.map(p => {
             const Icon = p.icon
             return (
-              <div key={p.label} className="flex items-center gap-2 px-4 py-2 rounded-full bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md border border-border/80 shadow-xs">
-                <Icon size={15} className="text-indigo-400" />
-                <span className="font-medium">{p.label}</span>
+              <div key={p.label} className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface/90 backdrop-blur-md border border-border text-dim shadow-2xs">
+                <Icon size={14} className="text-indigo-500 dark:text-indigo-400" />
+                <span className="font-medium text-xs text-bright/80">{p.label}</span>
               </div>
             )
           })}
@@ -231,7 +231,7 @@ export default function Home() {
       </section>
 
       {/* ── DevFlow Pipeline Studio Spotlight Banner ───────────────────────── */}
-      <section className="mb-14 p-6 sm:p-8 rounded-3xl border border-indigo-500/40 bg-gradient-to-r from-indigo-950/40 via-surface/90 to-purple-950/40 backdrop-blur-2xl shadow-2xl relative overflow-hidden">
+      <section className="mb-10 sm:mb-12 p-6 sm:p-8 rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-500/10 via-surface/90 to-purple-500/10 backdrop-blur-2xl shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col gap-2.5 max-w-2xl">
@@ -318,9 +318,9 @@ export default function Home() {
         {/* Recent Tools Bar (if available) */}
         {recentToolsList.length > 0 && !searchQuery && selectedCategory === 'all' && (
           <ErrorBoundary label="Recent tools">
-          <div className="mb-10 mt-8 p-5 bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/80 rounded-2xl shadow-lg">
+          <div className="mb-10 mt-8 p-5 bg-surface/85 backdrop-blur-xl border border-border/80 rounded-2xl shadow-md">
             <div className="flex items-center gap-2 mb-3.5 text-xs font-mono text-dim font-bold">
-              <Clock size={15} className="text-indigo-400" />
+              <Clock size={15} className="text-indigo-500 dark:text-indigo-400" />
               <span>Recently Used Tools</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -328,13 +328,13 @@ export default function Home() {
                 <Link
                   key={t.slug}
                   to={`/${t.slug}`}
-                  className="p-3.5 rounded-xl bg-surface/90 dark:bg-slate-800/80 border border-border/80 hover:border-indigo-500/60 hover:bg-indigo-500/10 transition-all flex items-center justify-between group gap-2 shadow-xs"
+                  className="p-3.5 rounded-xl bg-bg/80 border border-border/80 hover:border-indigo-500/60 hover:bg-indigo-500/10 transition-all flex items-center justify-between group gap-2 shadow-2xs"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
-                    <ToolIcon slug={t.slug} category={t.category} name={t.icon} size={16} className="text-indigo-400 shrink-0" />
+                    <ToolIcon slug={t.slug} category={t.category} name={t.icon} size={16} className="text-indigo-500 dark:text-indigo-400 shrink-0" />
                     <span className="text-xs font-bold text-bright truncate">{t.name}</span>
                   </div>
-                  <ArrowRight size={13} className="text-subtle group-hover:text-indigo-400 transition-colors shrink-0" />
+                  <ArrowRight size={13} className="text-subtle group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors shrink-0" />
                 </Link>
               ))}
             </div>
@@ -361,11 +361,11 @@ export default function Home() {
         </ErrorBoundary>
 
         {filteredTools.length === 0 && (
-          <div className="text-center py-20 bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border rounded-3xl shadow-xl mt-8">
+          <div className="text-center py-20 bg-surface/85 backdrop-blur-xl border border-border rounded-3xl shadow-lg mt-8">
             <p className="text-sm font-sans font-medium text-dim mb-2">No tools match your filter "{searchQuery}"</p>
             <button
               onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
-              className="text-xs font-mono text-indigo-400 hover:underline font-semibold"
+              className="text-xs font-mono text-indigo-500 dark:text-indigo-400 hover:underline font-semibold"
             >
               Reset filters
             </button>
@@ -374,11 +374,11 @@ export default function Home() {
       </section>
 
       {/* ── Security & Client-Side Proof ──────────────────────────────────── */}
-      <section className="border-t border-border/80 pt-14 pb-12 mb-12">
+      <section className="border-t border-border/80 pt-12 pb-10 mb-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="p-7 bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/80 rounded-2xl flex flex-col justify-between shadow-lg hover:border-indigo-500/40 transition-colors">
+          <div className="p-6 sm:p-7 bg-surface/85 backdrop-blur-xl border border-border/80 rounded-2xl flex flex-col justify-between shadow-md hover:border-indigo-500/40 transition-colors">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/30">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/20">
                 <ShieldCheck size={24} />
               </div>
               <h3 className="text-lg font-extrabold text-bright mb-2">100% Client-Side Privacy</h3>
@@ -388,9 +388,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="p-7 bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/80 rounded-2xl flex flex-col justify-between shadow-lg hover:border-purple-500/40 transition-colors">
+          <div className="p-6 sm:p-7 bg-surface/85 backdrop-blur-xl border border-border/80 rounded-2xl flex flex-col justify-between shadow-md hover:border-purple-500/40 transition-colors">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-purple-500/15 text-purple-400 flex items-center justify-center mb-5 border border-purple-500/30">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-500 dark:text-purple-400 flex items-center justify-center mb-5 border border-purple-500/20">
                 <Zap size={24} />
               </div>
               <h3 className="text-lg font-extrabold text-bright mb-2">Zero Latency & Offline Ready</h3>
@@ -400,9 +400,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="p-7 bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/80 rounded-2xl flex flex-col justify-between shadow-lg hover:border-pink-500/40 transition-colors">
+          <div className="p-6 sm:p-7 bg-surface/85 backdrop-blur-xl border border-border/80 rounded-2xl flex flex-col justify-between shadow-md hover:border-pink-500/40 transition-colors">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-pink-500/15 text-pink-400 flex items-center justify-center mb-5 border border-pink-500/30">
+              <div className="w-12 h-12 rounded-2xl bg-pink-500/10 text-pink-500 dark:text-pink-400 flex items-center justify-center mb-5 border border-pink-500/20">
                 <Lock size={24} />
               </div>
               <h3 className="text-lg font-extrabold text-bright mb-2">No Ads, Trackers, or Bloat</h3>

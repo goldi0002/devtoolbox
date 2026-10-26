@@ -178,7 +178,7 @@ export default function ToolsIndex() {
       {activeCategory === 'all' && !search && (favoriteTools.length > 0 || recentToolCards.length > 0) && (
         <section className="mb-10 grid grid-cols-1 gap-5 lg:grid-cols-2 animate-slide-up stagger-1" aria-label="Personal tool shortcuts">
           {[{ title: 'Favorites', items: favoriteTools, empty: 'Star tools to pin them here.' }, { title: 'Recently used', items: recentToolCards, empty: 'Open a tool to build your recent list.' }].map(group => (
-            <div key={group.title} className="p-5 rounded-2xl bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/80 shadow-lg">
+            <div key={group.title} className="p-5 rounded-2xl bg-surface/85 backdrop-blur-xl border border-border/80 shadow-md">
               <div className="mb-3.5 flex items-center justify-between">
                 <h2 className="eyebrow text-indigo-400 font-bold">{group.title}</h2>
                 <span className="text-[10px] font-mono text-muted px-2 py-0.5 rounded bg-muted/40">Local</span>
@@ -200,7 +200,7 @@ export default function ToolsIndex() {
       )}
 
       {/* ── Search + Filter ────────────────────────────────────────────────── */}
-      <div className="sticky top-20 z-30 mb-10 border border-border/80 rounded-2xl bg-surface/85 dark:bg-slate-900/85 px-5 py-4 backdrop-blur-2xl shadow-xl">
+      <div className="sticky top-20 z-30 mb-10 border border-border/80 rounded-2xl bg-surface/90 px-5 py-4 backdrop-blur-2xl shadow-lg">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
 
           {/* Search */}
@@ -212,7 +212,7 @@ export default function ToolsIndex() {
               onChange={e => handleSearchChange(e.target.value)}
               placeholder="Search tools..."
               aria-label="Search tools"
-              className="w-full pl-10 pr-10 py-2.5 bg-surface/90 dark:bg-slate-900/90 border border-border/80 rounded-xl text-sm text-bright placeholder:text-subtle focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-mono"
+              className="w-full pl-10 pr-10 py-2.5 bg-bg/80 border border-border/80 rounded-xl text-sm text-bright placeholder:text-subtle focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-mono"
             />
             {search && (
               <button
@@ -349,9 +349,9 @@ function ToolGridCard({ tool, index, isFavorite, onToggleFavorite }: { tool: Too
     <Link
       to={`/${tool.slug}`}
       className={`group relative flex flex-col gap-3.5 overflow-hidden rounded-2xl border border-border/80
-                  bg-surface/70 dark:bg-slate-900/65 backdrop-blur-xl p-5 transition-all duration-300
+                  bg-surface/85 backdrop-blur-xl p-5 transition-all duration-300
                   hover:-translate-y-1.5 hover:border-indigo-500/60 hover:shadow-xl hover:shadow-indigo-500/10
-                  animate-slide-up opacity-0 ${delay}`}
+                  animate-slide-up ${delay}`}
     >
       {/* Top gradient glow bar */}
       <span

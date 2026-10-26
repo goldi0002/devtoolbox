@@ -31,9 +31,9 @@ export default function ToolCard({ slug, title, description, tag, category, icon
     <Link
       to={`/${slug}`}
       className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80
-                  bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl p-5 transition-all duration-300
+                  bg-surface/85 backdrop-blur-xl p-5 transition-all duration-300
                   hover:-translate-y-1.5 hover:border-indigo-500/60 hover:shadow-xl hover:shadow-indigo-500/10
-                  animate-slide-up opacity-0 ${delay}`}
+                  animate-slide-up ${delay}`}
     >
       {/* Top gradient glow bar */}
       <span

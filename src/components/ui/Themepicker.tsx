@@ -29,8 +29,15 @@ function getInitialTheme(): Theme {
     }
 }
 
+const DARK_THEMES: Set<Theme> = new Set(['dark', 'toolbox4devs', 'nord', 'terminal', 'dracula', 'solarized', 'rose', 'monokai'])
+
 function applyTheme(theme: Theme) {
     document.documentElement.setAttribute('data-theme', theme)
+    if (DARK_THEMES.has(theme)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
     // Persistence is best-effort: the theme still applies when storage is blocked.
     writeStorage('localStorage', 'theme', theme)
 }
