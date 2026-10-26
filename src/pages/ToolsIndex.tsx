@@ -6,6 +6,7 @@ import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 import { useToolPreferences } from '../hooks/useToolPreferences'
 import ToolIcon from '../components/ui/ToolIcon'
+import { Search, Star, ArrowRight, Sparkles, LayoutGrid } from 'lucide-react'
 
 const categories = ['all', ...Array.from(new Set(tools.map(t => t.category)))] as const
 
@@ -70,7 +71,6 @@ export default function ToolsIndex() {
     const newParams = new URLSearchParams(searchParams)
     if (newQuery.trim()) {
       newParams.set('q', newQuery)
-      // clean up any legacy aliases
       newParams.delete('query')
       newParams.delete('search')
       newParams.delete('queue')
@@ -124,7 +124,7 @@ export default function ToolsIndex() {
   }, [activeCategory])
 
   return (
-    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <main className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
       <SEO
         title={pageTitle}
         description={categoryDescriptions[activeCategory] || `Explore free, client-side ${categoryLabels[activeCategory as ToolMeta['category']]} utilities. Run entirely in your browser memory with zero tracking.`}
@@ -134,20 +134,20 @@ export default function ToolsIndex() {
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}
-      <section className="relative mb-12 pt-4 pb-6 text-center sm:text-left animate-fade-in">
+      <section className="relative mb-12 pt-4 pb-8 text-center sm:text-left animate-fade-in">
         {/* Ambient glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-violet-500/8 rounded-full blur-[100px] pointer-events-none -z-10" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[550px] h-[280px] bg-gradient-to-tr from-indigo-500/10 via-violet-500/10 to-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
 
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-violet-500/20 bg-violet-500/8 text-violet-400 text-[11px] font-mono font-medium mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-              {tools.length} Browser Utilities • Zero Server Calls
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-mono font-medium mb-5 shadow-xs">
+              <Sparkles size={13} className="animate-pulse" />
+              <span>{tools.length} Browser Utilities • Zero Server Calls</span>
             </div>
 
             <h1 className="font-display text-[clamp(2.5rem,7vw,4.5rem)] leading-[0.9] tracking-tight">
               <span className="text-bright">ALL</span>{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400">
                 TOOLS
               </span>
             </h1>
@@ -160,33 +160,33 @@ export default function ToolsIndex() {
 
           <div className="flex items-end gap-8 pb-1">
             <div className="text-right">
-              <div className="font-display text-3xl text-bright leading-none tabular-nums">
+              <div className="font-display text-3xl text-bright leading-none tabular-nums font-bold">
                 {String(tools.length).padStart(2, '0')}
               </div>
-              <div className="text-[10px] font-mono text-subtle mt-1">total tools</div>
+              <div className="text-[10px] font-mono text-subtle mt-1 uppercase tracking-wider">total tools</div>
             </div>
             <div className="text-right">
-              <div className="font-display text-3xl text-bright leading-none tabular-nums">
+              <div className="font-display text-3xl text-bright leading-none tabular-nums font-bold">
                 {String(categories.length - 1).padStart(2, '0')}
               </div>
-              <div className="text-[10px] font-mono text-subtle mt-1">categories</div>
+              <div className="text-[10px] font-mono text-subtle mt-1 uppercase tracking-wider">categories</div>
             </div>
           </div>
         </div>
       </section>
 
       {activeCategory === 'all' && !search && (favoriteTools.length > 0 || recentToolCards.length > 0) && (
-        <section className="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-2 animate-slide-up stagger-1" aria-label="Personal tool shortcuts">
+        <section className="mb-10 grid grid-cols-1 gap-5 lg:grid-cols-2 animate-slide-up stagger-1" aria-label="Personal tool shortcuts">
           {[{ title: 'Favorites', items: favoriteTools, empty: 'Star tools to pin them here.' }, { title: 'Recently used', items: recentToolCards, empty: 'Open a tool to build your recent list.' }].map(group => (
-            <div key={group.title} className="surface-panel p-4">
-              <div className="mb-3 flex items-center justify-between">
-                <h2 className="eyebrow">{group.title}</h2>
-                <span className="text-[10px] font-mono text-muted">Local</span>
+            <div key={group.title} className="p-5 rounded-2xl bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl border border-border/80 shadow-lg">
+              <div className="mb-3.5 flex items-center justify-between">
+                <h2 className="eyebrow text-indigo-400 font-bold">{group.title}</h2>
+                <span className="text-[10px] font-mono text-muted px-2 py-0.5 rounded bg-muted/40">Local</span>
               </div>
               {group.items.length > 0 ? (
                 <div className="flex flex-wrap gap-2">
                   {group.items.slice(0, 6).map(tool => (
-                    <Link key={tool.slug} to={`/${tool.slug}`} className="chip bg-bg">
+                    <Link key={tool.slug} to={`/${tool.slug}`} className="px-3.5 py-1.5 rounded-xl border border-border/80 bg-surface/90 hover:bg-indigo-500/10 hover:border-indigo-500/50 text-xs font-mono text-bright transition-all shadow-xs">
                       {tool.name}
                     </Link>
                   ))}
@@ -200,28 +200,25 @@ export default function ToolsIndex() {
       )}
 
       {/* ── Search + Filter ────────────────────────────────────────────────── */}
-      <div className="sticky top-16 z-30 -mx-4 sm:-mx-6 mb-10 border-y border-border bg-bg/85 px-4 sm:px-6 py-4 backdrop-blur-xl animate-slide-up stagger-1">
+      <div className="sticky top-20 z-30 mb-10 border border-border/80 rounded-2xl bg-surface/85 dark:bg-slate-900/85 px-5 py-4 backdrop-blur-2xl shadow-xl">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
 
           {/* Search */}
           <div className="relative w-full sm:max-w-xs">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-subtle font-mono text-xs select-none">
-              ⌕
-            </span>
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-subtle" size={16} />
             <input
               type="text"
               value={search}
               onChange={e => handleSearchChange(e.target.value)}
               placeholder="Search tools..."
               aria-label="Search tools"
-              className="input-base pl-7 w-full"
+              className="w-full pl-10 pr-10 py-2.5 bg-surface/90 dark:bg-slate-900/90 border border-border/80 rounded-xl text-sm text-bright placeholder:text-subtle focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-mono"
             />
             {search && (
               <button
                 onClick={clearSearch}
                 aria-label="Clear search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle hover:text-dim
-                           font-mono text-xs transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-subtle hover:text-bright font-mono text-xs transition-colors p-1"
               >
                 ✕
               </button>
@@ -229,25 +226,31 @@ export default function ToolsIndex() {
           </div>
 
           {/* Category filters */}
-          <div className="flex gap-1.5 overflow-x-auto no-scrollbar max-w-full py-0.5">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryChange(cat)}
-                aria-pressed={activeCategory === cat && !search}
-                className={`chip whitespace-nowrap shrink-0 ${activeCategory === cat && !search ? 'chip-active' : ''}`}
-              >
-                {cat === 'all'
-                  ? `All (${tools.length})`
-                  : categoryLabels[cat as ToolMeta['category']]
-                }
-              </button>
-            ))}
+          <div className="flex gap-2 overflow-x-auto flex-nowrap no-scrollbar max-w-full py-2">
+            {categories.map(cat => {
+              const count = cat === 'all' ? tools.length : tools.filter(t => t.category === cat).length
+              const label = cat === 'all' ? 'All' : categoryLabels[cat as ToolMeta['category']]
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  aria-pressed={activeCategory === cat && !search}
+                  className={`px-3.5 py-2.5 rounded-xl text-xs font-mono font-medium transition-all duration-200 whitespace-nowrap shrink-0 inline-flex items-center gap-2 border ${
+                    activeCategory === cat && !search
+                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-transparent shadow-md shadow-indigo-500/20'
+                      : 'bg-surface/80 hover:bg-surface text-dim hover:text-bright border-border/80'
+                  }`}
+                >
+                  <span className="leading-none">{label}</span>
+                  <span className="text-[10px] opacity-80 px-1.5 py-0.5 rounded-full bg-black/20 inline-flex items-center justify-center leading-none">({count})</span>
+                </button>
+              )
+            })}
           </div>
 
           {/* Result count */}
           {!showingAll && (
-            <span className="text-xs font-mono text-subtle sm:ml-auto whitespace-nowrap">
+            <span className="text-xs font-mono text-indigo-400 font-semibold sm:ml-auto whitespace-nowrap px-3 py-1 rounded-full bg-indigo-500/10">
               {filtered.length} result{filtered.length !== 1 ? 's' : ''}
             </span>
           )}
@@ -256,12 +259,12 @@ export default function ToolsIndex() {
 
       {/* ── Tools grid ─────────────────────────────────────────────────────── */}
       {filtered.length === 0 ? (
-        <div className="rounded-lg border border-border bg-surface/40 py-24 text-center">
+        <div className="rounded-2xl border border-border/80 bg-surface/60 backdrop-blur-xl py-24 text-center shadow-xl">
           <p className="text-sm font-mono text-dim mb-2">No tools found</p>
           <p className="text-xs font-mono text-subtle mb-6">No results for "{search}"</p>
           <button
             onClick={() => { clearSearch(); handleCategoryChange('all') }}
-            className="text-xs font-mono text-subtle hover:text-dim transition-colors underline"
+            className="text-xs font-mono text-indigo-400 hover:underline font-semibold"
           >
             Clear search
           </button>
@@ -270,20 +273,20 @@ export default function ToolsIndex() {
         <>
           {activeCategory === 'all' && !search ? (
             // Grouped by category
-            <div className="space-y-12">
+            <div className="space-y-14">
               {(categories.filter(c => c !== 'all') as string[]).map(cat => {
                 const catTools = tools.filter(t => t.category === cat)
                 if (!catTools.length) return null
                 return (
                   <div key={cat}>
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="eyebrow">
+                    <div className="flex items-center gap-3 mb-5">
+                      <span className="eyebrow text-indigo-400 font-bold tracking-widest uppercase">
                         {categoryLabels[cat as ToolMeta['category']]}
                       </span>
-                      <div className="h-px flex-1 bg-border" />
-                      <span className="text-[10px] font-mono text-muted">{catTools.length}</span>
+                      <div className="h-px flex-1 bg-border/80" />
+                      <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-muted/60 text-subtle font-semibold">{catTools.length}</span>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                       {catTools.map((tool, i) => (
                         <ToolGridCard key={tool.slug} tool={tool} index={i} isFavorite={favoriteSet.has(tool.slug)} onToggleFavorite={toggleFavorite} />
                       ))}
@@ -294,7 +297,7 @@ export default function ToolsIndex() {
             </div>
           ) : (
             // Flat grid when filtered or searching
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {filtered.map((tool, i) => (
                 <ToolGridCard key={tool.slug} tool={tool} index={i} isFavorite={favoriteSet.has(tool.slug)} onToggleFavorite={toggleFavorite} />
               ))}
@@ -304,9 +307,9 @@ export default function ToolsIndex() {
       )}
 
       {/* ── Footer note ────────────────────────────────────────────────────── */}
-      <p className="mt-16 pt-8 border-t border-border text-xs font-mono text-subtle">
-        More tools coming soon ·
-        <span className="ml-1 text-muted">every utility runs client-side, no data leaves your browser.</span>
+      <p className="mt-20 pt-8 border-t border-border/80 text-xs font-mono text-subtle flex items-center justify-between flex-wrap gap-2">
+        <span>More tools coming soon</span>
+        <span className="text-indigo-400 font-semibold">100% client-side memory, zero data leaves your browser.</span>
       </p>
     </main>
   )
@@ -320,22 +323,22 @@ function ToolGridCard({ tool, index, isFavorite, onToggleFavorite }: { tool: Too
   if (tool.status === 'coming-soon') {
     return (
       <div
-        className={`card flex flex-col gap-3 opacity-50 cursor-not-allowed animate-slide-up ${delay}`}
+        className={`card flex flex-col gap-3 opacity-50 cursor-not-allowed animate-slide-up rounded-2xl p-5 bg-surface/40 border-border/60 ${delay}`}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 min-w-0">
-            <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={14} />
-            <span className="tag truncate">{tool.tag}</span>
+          <div className="flex items-center gap-2.5 min-w-0">
+            <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge={false} size={16} />
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-muted/60 text-subtle">{tool.tag}</span>
           </div>
           <span className="font-mono text-[10px] uppercase tracking-wider text-subtle shrink-0">soon</span>
         </div>
         <div className="flex-1">
-          <h3 className="text-bright font-sans font-semibold text-sm mb-1">{tool.name}</h3>
+          <h3 className="text-bright font-sans font-bold text-sm mb-1">{tool.name}</h3>
           <p className="text-dim text-xs leading-relaxed font-sans">{tool.description}</p>
         </div>
 
-        <div className="pt-2 border-t border-border">
-          <span className="text-[10px] font-mono text-subtle">
+        <div className="pt-3 border-t border-border/60">
+          <span className="text-[11px] font-mono text-subtle">
             /{tool.slug}
           </span>
         </div>
@@ -345,39 +348,46 @@ function ToolGridCard({ tool, index, isFavorite, onToggleFavorite }: { tool: Too
   return (
     <Link
       to={`/${tool.slug}`}
-      className={`group relative flex flex-col gap-3 overflow-hidden rounded-lg border border-border
-                  bg-surface/60 p-5 transition-all duration-200 hover:-translate-y-1 hover:border-accent
-                  hover:shadow-lift animate-slide-up opacity-0 ${delay}`}
+      className={`group relative flex flex-col gap-3.5 overflow-hidden rounded-2xl border border-border/80
+                  bg-surface/70 dark:bg-slate-900/65 backdrop-blur-xl p-5 transition-all duration-300
+                  hover:-translate-y-1.5 hover:border-indigo-500/60 hover:shadow-xl hover:shadow-indigo-500/10
+                  animate-slide-up opacity-0 ${delay}`}
     >
+      {/* Top gradient glow bar */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 min-w-0">
-          <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge badgeSize="sm" size={14} />
-          <span className="tag truncate">{tool.tag}</span>
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30 group-hover:scale-110 transition-transform">
+            <ToolIcon slug={tool.slug} category={tool.category} name={tool.icon} withBadge={false} size={15} />
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-muted/60 text-indigo-400 border border-border/60 truncate">
+            {tool.tag}
+          </span>
         </div>
         <button
           type="button"
           onClick={event => { event.preventDefault(); onToggleFavorite(tool.slug) }}
-          className={`rounded-full text-sm transition-colors hover:text-accent shrink-0 ${isFavorite ? 'text-accent' : 'text-muted'}`}
+          className={`p-1.5 rounded-lg transition-all ${isFavorite ? 'text-amber-400 bg-amber-400/10 border border-amber-400/20' : 'text-subtle/50 opacity-0 group-hover:opacity-100 hover:text-amber-400 hover:bg-muted'}`}
           aria-label={isFavorite ? `Remove ${tool.name} from favorites` : `Add ${tool.name} to favorites`}
           aria-pressed={isFavorite}
+          title={isFavorite ? 'Unpin tool' : 'Pin tool'}
         >
-          {isFavorite ? '★' : '☆'}
+          <Star className={`w-3.5 h-3.5 ${isFavorite ? 'fill-amber-400' : ''}`} />
         </button>
       </div>
       <div className="flex-1">
-        <h3 className="mb-1 font-sans text-sm font-semibold text-bright transition-colors group-hover:text-accent">{tool.name}</h3>
+        <h3 className="mb-1.5 font-sans text-sm font-bold text-bright transition-colors group-hover:text-indigo-400">{tool.name}</h3>
         <p className="text-dim text-xs leading-relaxed font-sans">{tool.description}</p>
       </div>
 
-      <div className="flex items-center justify-between border-t border-border pt-2">
-        <span className="text-[10px] font-mono text-subtle group-hover:text-dim transition-colors">
+      <div className="flex items-center justify-between border-t border-border/60 pt-3 mt-auto">
+        <span className="text-[11px] font-mono text-muted group-hover:text-subtle transition-colors">
           /{tool.slug}
         </span>
-        <span className="text-subtle transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-accent">→</span>
+        <span className="text-subtle transition-all duration-300 group-hover:translate-x-1 group-hover:text-indigo-400">→</span>
       </div>
     </Link>
   )

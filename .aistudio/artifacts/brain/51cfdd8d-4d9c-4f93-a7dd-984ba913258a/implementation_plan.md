@@ -1,21 +1,43 @@
-# Implementation Plan - Redesigning ToolBox4Devs Homepage
+# Implementation Plan - Modern Glassmorphic Design & Homepage Overhaul
 
-This implementation plan outlines the redesign of the ToolBox4Devs homepage based on user preferences: a modern minimalist hero with instant command palette and quick tool search, combined with an interactive quick utilities dock for instant UUID and hash generation above the fold.
+This plan outlines the UI/UX design enhancements for ToolBox4Devs, focusing on a modern sleek glassmorphic aesthetic with vibrant gradient accents, refined tool catalog cards, and an immersive homepage discovery experience.
+
+## User Preferences & Decisions
+- **Aesthetic**: Modern sleek design with glassmorphic cards and vibrant accents.
+- **Priority Areas**: Homepage discovery and tool catalog cards (`ToolCard`, `Home`, `Tools`).
+
+---
 
 ## Proposed Changes
 
-### 1. Homepage Component (`/src/pages/Home.tsx`)
-- **Modern Minimalist Hero**: Refine typography, spacing, gradient glowing backdrops, and trust badges ("No Ads", "100% Client-Side", "Zero Server Roundtrips").
-- **Instant Command Palette & Search**: Prominent live search input with keyboard shortcut hint (`⌘K`) and instant filtering across all 70+ developer tools.
-- **Interactive Quick Utilities Dock**: Expanded micro-action widget featuring instant UUID v4 generator (with clipboard copy feedback), quick Base64 encoder/decoder, and JSON formatter shortcuts.
-- **Recent Tools & Categories**: Enhanced recent tools history resume bar and clean category pill filters with live counts.
-- **Featured Tools & DevFlow Banner**: Polished grid layout for featured developer utilities and DevFlow Pipeline Studio spotlight.
+### 1. Styling & Theme Enhancements (`src/css/global.css`)
+- Add custom utility classes for glassmorphic cards (`bg-white/7 dark:bg-slate-900/60 backdrop-blur-xl border border-white/10 dark:border-slate-800/80`), gradient glows, and smooth hover transitions.
+- Enhance focus rings, scrollbars, and card shadow depth for a polished premium feel.
+
+### 2. Tool Card Component Redesign (`src/components/ToolCard.tsx`)
+- Implement glassmorphism with subtle gradient borders on hover.
+- Add vibrant color-coded category badges with subtle glow effects.
+- Display complexity indicators and quick favorite toggle with smooth scale animation.
+- Improve typography hierarchy for tool name and description.
+
+### 3. Homepage Discovery Overhaul (`src/pages/Home.tsx`)
+- **Hero Section**: Redesign with a striking gradient mesh backdrop, crisp typography, prominent search bar with keyboard shortcut pill (`Ctrl+K`), and quick action pills.
+- **Category Grid**: Redesign category cards with icon glow, tool counts, and smooth hover elevation.
+- **Featured / Popular Tools Section**: Showcase top developer tools with live badge indicators and streamlined grid layout.
+
+### 4. Tool Catalog Page Refinement (`src/pages/Tools.tsx`)
+- Enhance search and filter bar with glassmorphic styling, responsive layout, and count indicators.
+- Refine grid layout for tool catalog listing.
+
+---
 
 ## Verification Plan
 
 ### Automated Checks
-- Run `npm run lint` (`lint_applet`) to ensure zero TypeScript errors or lint warnings.
-- Run `npm run build` (`compile_applet`) to verify static site generation (`vite-react-ssg`) prerenders correctly without errors.
+- Run `npm run lint` (`lint_applet`) to ensure zero lint errors.
+- Run `npm run build` (`compile_applet`) via Vite-React-SSG to verify successful compilation and static site generation across all routes.
+- Run `npm test` via Vitest to verify all existing component and utility tests pass successfully.
 
 ### Manual Verification
-- Verify search responsiveness, quick utility clicks (UUID copy, instant shortcuts), and category filtering.
+- Review homepage hero, search input, category grid, and tool cards.
+- Verify dark/light mode switching and responsive layouts on mobile/desktop viewports.
