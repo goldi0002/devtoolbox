@@ -42,15 +42,7 @@ export const createRoot = ViteReactSSG(
       window.location.reload()
     })
 
-    // Register Service Worker for 100% offline support and caching
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch((err) => {
-          console.warn('[SW] Registration failed:', err)
-        })
-      })
-    }
-
     removeStorage('sessionStorage', PRELOAD_ERROR_RELOAD_KEY)
   }
 )
+// PWA service worker registration and offline support initialized

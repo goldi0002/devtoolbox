@@ -98,8 +98,8 @@ export function usePWA() {
             }
           })
         })
-        .catch((err) => {
-          console.warn('[PWA] Service worker registration error:', err)
+        .catch(() => {
+          // Service worker registration may be restricted in certain sandboxed or iframe environments (handled silently)
         })
 
       // Reload when new service worker takes control
