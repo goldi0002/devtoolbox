@@ -4,7 +4,7 @@ const cleanBaseUrl = (!rawBaseUrl || rawBaseUrl.includes('example.com'))
   : rawBaseUrl.replace(/\/+$/, '') // Remove trailing slash if present
 
 export const WEB_INFO = {
-    SITE_NAME: import.meta.env.VITE_SITE_NAME ?? 'Toolbox4Devs',
+    SITE_NAME: import.meta.env.VITE_SITE_NAME ?? 'ToolBox4Devs',
     BASE_URL: cleanBaseUrl,
     DEFAULT_DESCRIPTION:
         'A free collection of browser-based developer utilities. ' +
