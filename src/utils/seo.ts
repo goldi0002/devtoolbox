@@ -16,6 +16,14 @@ export interface SEOListItem {
   description?: string
 }
 
+export interface AggregateRatingInput {
+  ratingValue: number
+  ratingCount: number
+  reviewCount?: number
+  bestRating?: number
+  worstRating?: number
+}
+
 export interface SEOProps {
   title?: string
   description?: string
@@ -33,6 +41,7 @@ export interface SEOProps {
   modifiedTime?: string
   authorName?: string
   itemList?: SEOListItem[]
+  aggregateRating?: AggregateRatingInput
 }
 
 export interface BuiltSEOConfig {
@@ -160,6 +169,7 @@ export function buildSEOConfig({
   modifiedTime,
   authorName,
   itemList = [],
+  aggregateRating,
 }: SEOProps = {}): BuiltSEOConfig {
   const fullTitle = title
     ? title.toLowerCase().includes(WEB_INFO.SITE_NAME.toLowerCase()) || title.length > 40
@@ -221,6 +231,7 @@ export function buildSEOConfig({
 
     // 3. Primary Entity Schema (BlogPosting vs CollectionPage/AboutPage/WebPage vs WebApplication)
     const isCollectionPage =
+      (cleanSlug === '' && type !== 'software') ||
       cleanSlug === 'tools' ||
       cleanSlug.startsWith('tools/') ||
       cleanSlug === 'recipes' ||
@@ -300,6 +311,8 @@ export function buildSEOConfig({
         name: toolName || title || WEB_INFO.SITE_NAME,
         url,
         description: desc,
+        image: ogImage,
+        screenshot: ogImage,
         applicationCategory: 'DeveloperApplication',
         operatingSystem: 'All (Web Browser, Chrome, Firefox, Safari, Edge)',
         browserRequirements: 'Requires JavaScript enabled',
@@ -321,6 +334,25 @@ export function buildSEOConfig({
       }
       if (features.length > 0) {
         appSchema.featureList = features
+      }
+      if (
+        aggregateRating &&
+        Number.isFinite(aggregateRating.ratingValue) &&
+        aggregateRating.ratingCount > 0
+      ) {
+        const best = aggregateRating.bestRating ?? 5
+        const worst = aggregateRating.worstRating ?? 1
+        const ratingEntry: Record<string, unknown> = {
+          '@type': 'AggregateRating',
+          ratingValue: Math.min(best, Math.max(worst, aggregateRating.ratingValue)),
+          ratingCount: Math.floor(aggregateRating.ratingCount),
+          bestRating: best,
+          worstRating: worst,
+        }
+        if (aggregateRating.reviewCount && aggregateRating.reviewCount > 0) {
+          ratingEntry.reviewCount = Math.floor(aggregateRating.reviewCount)
+        }
+        appSchema.aggregateRating = ratingEntry
       }
       schemas.push(appSchema)
     }

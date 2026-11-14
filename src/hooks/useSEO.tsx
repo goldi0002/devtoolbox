@@ -3,13 +3,14 @@ import { Head } from 'vite-react-ssg'
 import { WEB_INFO } from '../utils/webinfo'
 import {
   buildSEOConfig,
+  type AggregateRatingInput,
   type FAQItem,
   type HowToStep,
   type SEOListItem,
   type SEOProps,
 } from '../utils/seo'
 
-export type { FAQItem, HowToStep, SEOListItem, SEOProps }
+export type { AggregateRatingInput, FAQItem, HowToStep, SEOListItem, SEOProps }
 
 function updateMetaTag(attrName: string, attrValue: string, content: string) {
   if (typeof document === 'undefined') return

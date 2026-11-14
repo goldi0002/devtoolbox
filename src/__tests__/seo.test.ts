@@ -131,4 +131,42 @@ describe('SEO & Schema.org Structured Data', () => {
     expect(content).toContain('Allow: /')
     expect(content).toContain('Sitemap: https://toolbox4devs.com/sitemap.xml')
   })
+
+  it('emits CollectionPage instead of WebApplication for the root directory homepage', () => {
+    const config = buildSEOConfig({
+      title: 'ToolBox4Devs — Free Online Developer Tools',
+      description: 'Directory of browser tools.',
+    })
+
+    expect(config.schemas.some((s) => s['@type'] === 'CollectionPage')).toBe(true)
+    expect(config.schemas.some((s) => s['@type'] === 'WebApplication')).toBe(false)
+  })
+
+  it('emits AggregateRating on WebApplication only when verified ratingCount > 0 is provided', () => {
+    const withoutRating = buildSEOConfig({
+      title: 'JSON Formatter',
+      slug: 'json-formatter',
+      toolName: 'JSON Formatter',
+      type: 'software',
+    })
+    const appWithout = withoutRating.schemas.find((s) => s['@type'] === 'WebApplication')
+    expect(appWithout?.aggregateRating).toBeUndefined()
+    expect(appWithout?.image).toBe('https://toolbox4devs.com/images/og-1200x630.png')
+
+    const withRating = buildSEOConfig({
+      title: 'JSON Formatter',
+      slug: 'json-formatter',
+      toolName: 'JSON Formatter',
+      type: 'software',
+      aggregateRating: { ratingValue: 4.8, ratingCount: 42 },
+    })
+    const appWith = withRating.schemas.find((s) => s['@type'] === 'WebApplication')
+    expect(appWith?.aggregateRating).toEqual({
+      '@type': 'AggregateRating',
+      ratingValue: 4.8,
+      ratingCount: 42,
+      bestRating: 5,
+      worstRating: 1,
+    })
+  })
 })
