@@ -52,6 +52,7 @@ export default function RecipePage() {
         slug={`recipes/${recipe.slug}`}
         keywords={recipe.targetKeywords}
         category="developer-recipe"
+        toolName={recipe.title}
         faqs={recipe.faqs}
         steps={steps}
         type="software"

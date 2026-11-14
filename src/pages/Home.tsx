@@ -98,6 +98,11 @@ export default function Home() {
           "secure developer tools"
         ]}
         faqs={homeFaqs}
+        itemList={tools.slice(0, 30).map((t) => ({
+          name: t.name,
+          url: `/${t.slug}`,
+          description: t.description,
+        }))}
       />
 
       {/* ── Modern Glassmorphic Hero Section ───────────────────────────────── */}

@@ -33,7 +33,7 @@ export default function ToolsIndex() {
   }, [urlQuery])
 
   const categorySeoTitles: Record<string, string> = {
-    'all': 'Developer Tools Directory — 57+ Free Online Utilities',
+    'all': `Developer Tools Directory — ${tools.length}+ Free Online Utilities`,
     'json-tools': 'JSON Tools — Free Online JSON Formatters, Validators & Converters',
     'encode-tools': 'Encoder & Decoder Tools — Base64, URL & HTML Entities',
     'text-tools': 'Text Tools & Utilities — Text Diff, Case Converter, Regex & Sorter',
@@ -42,11 +42,11 @@ export default function ToolsIndex() {
     'web-tools': 'Web Development Tools — HTTP Status, WCAG Contrast & Formatters',
     'data-tools': 'Data & Conversion Tools — CIDR, SemVer, SQL, CSV & Time',
     'crypto-tools': 'Cryptography & Security Tools — SHA-256, Bcrypt, HMAC & RSA',
-    'analyze-tools': 'Code & Text Analysis Tools — Word Counter & Local AI'
+    'analyze-tools': 'Code & Text Analysis Tools — .env Auditor, Word Counter & Local AI'
   }
 
   const categoryDescriptions: Record<string, string> = {
-    'all': 'Explore 57+ free, browser-based developer utilities. JSON formatters, JWT decoders, UUID generators, cryptography tools, and text helpers. 100% private, zero server calls.',
+    'all': `Explore ${tools.length}+ free, browser-based developer utilities. JSON formatters, JWT decoders, UUID generators, cryptography tools, and text helpers. 100% private, zero server calls.`,
     'json-tools': 'Free online JSON formatters, validators, schema generators, and minifiers. Beautify raw JSON and fix syntax errors with 100% in-browser privacy.',
     'encode-tools': 'Instant encoder and decoder utilities including Base64, URL encoding, HTML entities, and string escapers. Fast, private, and zero latency.',
     'text-tools': 'Developer text utilities for side-by-side diffing, regex testing, case conversion, line sorting, and markdown editing.',
@@ -131,6 +131,13 @@ export default function ToolsIndex() {
         slug={activeCategory === 'all' ? 'tools' : `tools/${activeCategory}`}
         keywords={categoryKeywords}
         category={activeCategory !== 'all' ? activeCategory : undefined}
+        categoryLabel={activeCategory !== 'all' ? categoryLabels[activeCategory as ToolMeta['category']] : undefined}
+        noindex={Boolean(search.trim())}
+        itemList={filtered.slice(0, 50).map((t) => ({
+          name: t.name,
+          url: `/${t.slug}`,
+          description: t.description,
+        }))}
       />
 
       {/* ── Header ─────────────────────────────────────────────────────────── */}

@@ -21,6 +21,11 @@ export default function RecipesIndex() {
           'server log cleaner',
           'sql identifier sanitizer'
         ]}
+        itemList={DEV_RECIPES.map((r) => ({
+          name: r.title,
+          url: `/recipes/${r.slug}`,
+          description: r.metaDescription,
+        }))}
       />
 
       {/* Hero */}

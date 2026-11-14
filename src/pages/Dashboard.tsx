@@ -66,6 +66,7 @@ export default function Dashboard() {
         description="Your central developer dashboard to manage favorite utilities, view recent activity, and access client-side developer tools."
         slug="dashboard"
         keywords={['dashboard', 'developer command center', 'tools manager']}
+        noindex
       />
 
       {/* ── Header ────────────────────────────────────────────────────────── */}

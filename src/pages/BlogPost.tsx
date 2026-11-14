@@ -574,6 +574,11 @@ export default function BlogPost() {
   if (!post) {
     return (
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-24 animate-fade-in text-center">
+        <SEO
+          title="Article Not Found (404) — ToolBox4Devs"
+          description="The requested engineering guide could not be found."
+          noindex
+        />
         <h1 className="font-display text-4xl text-bright mb-4">ARTICLE NOT FOUND.</h1>
         <p className="text-sm font-sans text-dim mb-8">
           The requested engineering guide could not be found.
@@ -599,6 +604,9 @@ export default function BlogPost() {
           slug={`blog/${post.slug}`}
           keywords={post.tags}
           type="article"
+          publishedTime={post.date}
+          modifiedTime={post.date}
+          authorName={post.author?.name ?? 'ToolBox4Devs'}
         />
 
         {/* ── Breadcrumb Navigation ─────────────────────────────────────────── */}

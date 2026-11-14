@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Home, Search } from 'lucide-react'
+import { SEO } from '../hooks/useSEO'
 
 export default function NotFound() {
   return (
     <main className="relative max-w-6xl mx-auto px-4 sm:px-6 py-24 text-center animate-fade-in">
+      <SEO
+        title="Page Not Found (404) — ToolBox4Devs"
+        description="The requested developer utility page could not be found."
+        noindex
+      />
       {/* Ambient glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-rose-500/8 rounded-full blur-[80px] pointer-events-none -z-10" />
 

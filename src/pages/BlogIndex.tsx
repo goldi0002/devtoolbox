@@ -19,6 +19,7 @@ import { useState, useCallback, useMemo } from 'react'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
 import { getSortedPosts, type BlogPost } from '../data/blog'
+import { tools } from '../tools/registry'
 
 function formatDate(iso: string): string {
   return new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
@@ -351,6 +352,11 @@ export default function BlogIndex() {
           'base64 vs hex encoding',
           'offline pwa developer tools'
         ]}
+        itemList={posts.map((p) => ({
+          name: p.title,
+          url: `/blog/${p.slug}`,
+          description: p.excerpt,
+        }))}
       />
 
       {/* ── Header & Banner ─────────────────────────────────────────────────── */}
@@ -389,7 +395,7 @@ export default function BlogIndex() {
           </div>
           <div className="flex items-center gap-2.5 text-xs font-mono text-dim">
             <Wrench className="w-4 h-4 text-purple-400 shrink-0" />
-            <span>70+ Free Developer Tools</span>
+            <span>{tools.length}+ Free Developer Tools</span>
           </div>
         </div>
       </section>
@@ -549,7 +555,7 @@ export default function BlogIndex() {
               BUILD WITH ZERO PRIVACY COMPROMISE.
             </h2>
             <p className="text-sm font-sans text-dim leading-relaxed">
-              Experience all 70+ developer utilities: JSON formatters, JWT decoders, stream-based CSV viewers, and cryptography engines — completely private, fast, and offline.
+              Experience all {tools.length}+ developer utilities: JSON formatters, JWT decoders, stream-based CSV viewers, and cryptography engines — completely private, fast, and offline.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3 shrink-0">
@@ -557,7 +563,7 @@ export default function BlogIndex() {
               to="/tools"
               className="btn-primary text-xs font-mono px-6 py-3 flex items-center gap-2"
             >
-              Explore 70+ Tools
+              Explore {tools.length}+ Tools
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

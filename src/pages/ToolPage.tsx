@@ -1,6 +1,6 @@
 import { Suspense, lazy, useEffect, useMemo } from 'react'
 import { Link, Navigate, useLocation } from 'react-router-dom'
-import { tools } from '../tools/registry'
+import { tools, categoryLabels } from '../tools/registry'
 import ErrorBoundary from '../components/ErrorBoundary'
 import ToolIcon from '../components/ui/ToolIcon'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -100,6 +100,7 @@ export default function ToolPage() {
           description={meta.seo?.description || meta.description}
           slug={meta.slug}
           category={meta.category}
+          categoryLabel={categoryLabels[meta.category]}
           keywords={[...meta.keywords, ...(meta.seo?.extraKeywords || [])]}
           faqs={faqs}
           features={meta.about?.features || []}
@@ -127,6 +128,7 @@ export default function ToolPage() {
         description={meta.seo?.description || meta.description}
         slug={meta.slug}
         category={meta.category}
+        categoryLabel={categoryLabels[meta.category]}
         keywords={[...meta.keywords, ...(meta.seo?.extraKeywords || [])]}
         faqs={faqs}
         features={meta.about?.features || []}

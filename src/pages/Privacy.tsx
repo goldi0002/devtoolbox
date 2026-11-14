@@ -94,7 +94,7 @@ export default function Privacy() {
     <main className="max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-24 animate-fade-in">
       <SEO
         title="Privacy Policy — 100% Client-Side Privacy Guarantee"
-        description="ToolBox4Devs collects zero user data. No tracking, no backend calls, no telemetry, no cookies. All 57+ developer utilities run 100% in your browser memory."
+        description={`ToolBox4Devs collects zero user data. No tracking, no backend calls, no telemetry, no cookies. All ${tools.length}+ developer utilities run 100% in your browser memory.`}
         slug="privacy"
       />
 
