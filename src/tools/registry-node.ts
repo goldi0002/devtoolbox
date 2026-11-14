@@ -77,6 +77,7 @@ const toolMeta = [
     { slug: 'pipeline-studio',               category: 'analyze-tools'  },
     { slug: 'csv-validator',                 category: 'data-tools'     },
     { slug: 'markdown-table-to-json',        category: 'text-tools'     },
+    { slug: 'env-auditor',                   category: 'analyze-tools'  },
   ] as const
   
   export function getAllAvailableTools() {

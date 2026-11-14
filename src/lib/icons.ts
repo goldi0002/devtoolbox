@@ -221,6 +221,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
 
   // Analysis Tools
   'local-ai-text-assistant': Bot,
+  'env-auditor': ShieldAlert,
 }
 
 // ── Category Default Fallback Icons ─────────────────────────────────────────

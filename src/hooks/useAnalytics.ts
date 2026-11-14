@@ -1,10 +1,7 @@
-import { usePostHog } from "posthog-js/react";
-
 export function useAnalytics() {
-  const posthog = usePostHog();
   return {
-    track: (event: string, props?: Record<string, unknown>) => {
-      posthog?.capture(event, props)
-    }
+    track: (_event: string, _props?: Record<string, unknown>) => {
+      // Zero-tracking policy: telemetry is disabled client-side.
+    },
   }
 }

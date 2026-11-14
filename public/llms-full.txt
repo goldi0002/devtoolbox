@@ -4,11 +4,11 @@ Website: https://toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 75
+Total Tools: 76
 
 ---
 
-## Tool Registry & Technical Specifications (All 75 Tools)
+## Tool Registry & Technical Specifications (All 76 Tools)
 
 ### 1. Three.js 3D Scene Studio & Code Playground
 - URL: https://toolbox4devs.com/three-js-playground
@@ -557,6 +557,13 @@ Total Tools: 75
 - Complexity: Simple
 - Description: Convert GitHub-flavored Markdown tables from READMEs, documentation, or LLM outputs into JSON objects keyed by the header row.
 - Features: Header and separator row parsing; optional leading and trailing pipes; messy spacing support; escaped pipe and punctuation handling; automatic conversion of numbers, booleans, and null while preserving other values as strings; sample Markdown table loader.
+
+### 75. .env File Auditor & Secret Detector
+- URL: https://toolbox4devs.com/env-auditor
+- Category: Analyze Tools (analyze-tools)
+- Complexity: Moderate
+- Description: Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.
+- Features: Side-by-side .env vs .env.example comparison; missing, undocumented, empty, and duplicate key detection; pattern and Shannon entropy detector for AWS, GitHub, OpenAI/Anthropic, Stripe, Slack, Google, JWT, and PEM secrets with masked previews; one-click sorted .env and sanitized .env.example template generator.
 
 ## Developer Workflow Recipes
 - Hub URL: https://toolbox4devs.com/recipes

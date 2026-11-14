@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 75 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 76 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
@@ -93,6 +93,7 @@
 - [X.509 Certificate Decoder & Inspector](https://toolbox4devs.com/certificate-decoder): Decode and inspect PEM SSL/TLS X.509 certificates, Subject/Issuer DNs, SANs, validity dates, public keys, and SHA-256 fingerprints privately.
 - [DevFlow Pipeline Studio](https://toolbox4devs.com/pipeline-studio): Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
 - [Delimited File Data Validator](https://toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
+- [.env File Auditor & Secret Detector](https://toolbox4devs.com/env-auditor): Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.
 
 ### Developer Workflow Recipes
 - [Developer Workflow Recipes Hub](https://toolbox4devs.com/recipes): Multi-step preconfigured pipelines chaining formatters, encoders, token decoders, and filters client-side.

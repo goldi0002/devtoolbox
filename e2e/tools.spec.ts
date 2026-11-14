@@ -4,13 +4,13 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
   test('home page loads with tool catalog and search', async ({ page }) => {
     await page.goto('/');
     await expect(page).toHaveTitle(/ToolBox4Devs/);
-    await expect(page.locator('h1')).toContainText('Modern Developers');
+    await expect(page.locator('h1')).toContainText('Modern Engineers');
 
     // Test Search Filter
-    const searchInput = page.getByPlaceholder(/Search tools/i);
+    const searchInput = page.getByPlaceholder(/Search/i).first();
     await expect(searchInput).toBeVisible();
     await searchInput.fill('JSON');
-    await expect(page.getByText('JSON Formatter')).toBeVisible();
+    await expect(page.getByText('JSON Formatter').first()).toBeVisible();
   });
 
   test('CIDR & Subnet Calculator calculates accurately', async ({ page }) => {
@@ -70,10 +70,17 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('ALL');
 
     // Filter by Data Tools
-    const dataFilter = page.getByRole('button', { name: /Data/i });
+    const dataFilter = page.getByRole('button', { name: /Data/i }).first();
     if (await dataFilter.isVisible()) {
       await dataFilter.click();
-      await expect(page.getByText('CIDR & Subnet Calculator')).toBeVisible();
+      await expect(page.getByText('CIDR & Subnet Calculator').first()).toBeVisible();
     }
+  });
+
+  test('.env File Auditor & Secret Detector flags secrets and missing keys', async ({ page }) => {
+    await page.goto('/env-auditor');
+    await expect(page.locator('h1')).toContainText('.env File Auditor');
+    await expect(page.getByText('AWS Access Key ID')).toBeVisible();
+    await expect(page.getByText('+ STRIPE_WEBHOOK_SECRET')).toBeVisible();
   });
 });

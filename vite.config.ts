@@ -96,6 +96,17 @@ export default defineConfig(({ mode }) => {
         }
 
         ensureDualIndexFiles(outDir)
+
+        // Stamp built service worker cache version so every deployment busts stale asset caches
+        const distSwPath = path.join(outDir, 'sw.js')
+        if (fs.existsSync(distSwPath)) {
+          const swContent = fs.readFileSync(distSwPath, 'utf8')
+          const buildVersion = `v1.0.0-${Date.now().toString(36)}`
+          fs.writeFileSync(
+            distSwPath,
+            swContent.replace(/const CACHE_VERSION = ['"][^'"]+['"]/, `const CACHE_VERSION = '${buildVersion}'`)
+          )
+        }
       },
     },
     build: {

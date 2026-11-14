@@ -1,6 +1,6 @@
 {
   "name": "ToolBox4Devs — Free Online Developer Tools & Client-Side Utilities",
-  "description": "Access 60+ fast, private client-side developer tools running 100% in your browser. JSON formatters, JWT decoders, Base64 encoders, UUID generators, and regex testers with zero tracking.",
+  "description": "Access 76+ fast, private client-side developer tools running 100% in your browser. JSON formatters, JWT decoders, Base64 encoders, UUID generators, and regex testers with zero tracking.",
   "requestFramePermissions": ["camera"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

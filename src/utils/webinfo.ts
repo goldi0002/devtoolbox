@@ -11,16 +11,19 @@ export const WEB_INFO = {
         'JSON formatter, UUID generator, JWT decoder, Base64 encoder and more.',
     LOGO: `${cleanBaseUrl}/images/icon-96.png`,
     PRIVACY_POLICY_LAST_UPDATED: '2026-08-21', //yyyy-mm-dd
-    CONTACT_QUESTIONS_EMAIL: import.meta.env.VITE_CONCAT_QUESTIONS_EMAIL,
+    CONTACT_QUESTIONS_EMAIL:
+      import.meta.env.VITE_CONTACT_QUESTIONS_EMAIL ||
+      import.meta.env.VITE_CONCAT_QUESTIONS_EMAIL ||
+      'suggest@toolbox4devs.com',
     WEB_OWNER_GITHUB_PROFILE: import.meta.env.VITE_WEB_OWNER_GIT_PROFILE_URL || 'https://github.com/goldi0002/devtoolbox',
-    WEB_OWNER_EMAIL: import.meta.env.VITE_WEB_OWNER_EMAIL_ADDRESS
+    WEB_OWNER_EMAIL: import.meta.env.VITE_WEB_OWNER_EMAIL_ADDRESS || 'contact@toolbox4devs.com'
 }
 export const WEB_DEVELOPER_INFO = {
     NAME: 'Gaurav Thakur',
     ROLE: 'Builder & maintainer of ToolBox4Devs',
     BIO: 'Full-stack developer who got tired of bloated, ad-ridden dev tools. Built ToolBox4Devs to have one clean, fast, private place for everyday utilities.',
     GITHUB: WEB_INFO.WEB_OWNER_GITHUB_PROFILE,
-    EMAIL: 'mailto:' + WEB_INFO.WEB_OWNER_EMAIL,
+    EMAIL: `mailto:${WEB_INFO.WEB_OWNER_EMAIL}`,
     TWITTER: ''
 }
 

@@ -3,7 +3,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 75,
+  "totalTools": 76,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     { "id": "json-tools", "name": "JSON" },
@@ -620,6 +620,14 @@
       "url": "https://toolbox4devs.com/csv-validator",
       "description": "Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.",
       "keywords": ["csv validator", "file validator", "csv data verification", "tsv validator", "txt file validator", "validate csv online", "csv schema validator", "csv column check", "csv required field checker"]
+    },
+    {
+      "slug": "env-auditor",
+      "name": ".env File Auditor & Secret Detector",
+      "category": "analyze-tools",
+      "url": "https://toolbox4devs.com/env-auditor",
+      "description": "Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.",
+      "keywords": ["env auditor", "dotenv validator", "env diff", "env secret scanner", "env example generator", "check missing env vars", "api key leak detector"]
     }
   ]
 }

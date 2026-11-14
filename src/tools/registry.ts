@@ -74,8 +74,10 @@ import { PIPELINE_STUDIO_META } from "./meta/pipeline-studio"
 import { CSV_VALIDATOR_META } from "./meta/csv-validator"
 import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
 import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
+import { ENV_AUDITOR_META } from "./meta/env-auditor"
 
 export const tools: ToolMeta[] = [
+  ENV_AUDITOR_META,
   THREE_JS_PLAYGROUND_META,
   PIPELINE_STUDIO_META,
   CSV_VALIDATOR_META,

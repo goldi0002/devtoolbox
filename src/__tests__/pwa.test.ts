@@ -19,9 +19,23 @@ describe('Progressive Web App (PWA) Implementation', () => {
     expect(Array.isArray(manifest.icons)).toBe(true)
     expect(manifest.icons.length).toBeGreaterThanOrEqual(6)
 
-    // Check maskable icon purpose
-    const hasMaskable = manifest.icons.some((i: { purpose?: string }) => i.purpose === 'maskable')
-    expect(hasMaskable).toBe(true)
+    // Check maskable icon purpose and ensure maskable icons use dedicated padded assets
+    const anyIcons = new Set(
+      manifest.icons
+        .filter((i: { purpose?: string }) => i.purpose === 'any')
+        .map((i: { src: string }) => i.src)
+    )
+    const maskableIcons = manifest.icons.filter((i: { purpose?: string }) => i.purpose === 'maskable')
+    expect(maskableIcons.length).toBeGreaterThan(0)
+    for (const icon of maskableIcons) {
+      expect(anyIcons.has(icon.src)).toBe(false)
+    }
+
+    // Verify all declared icon files exist on disk in public/
+    for (const icon of manifest.icons as Array<{ src: string }>) {
+      const iconPath = path.resolve(process.cwd(), 'public', icon.src.replace(/^\//, ''))
+      expect(fs.existsSync(iconPath)).toBe(true)
+    }
 
     // Check shortcuts
     expect(Array.isArray(manifest.shortcuts)).toBe(true)
@@ -41,6 +55,17 @@ describe('Progressive Web App (PWA) Implementation', () => {
     expect(swContent).toContain('clients.claim')
     expect(swContent).toContain('SKIP_WAITING')
     expect(swContent).toContain('CLEAR_CACHE')
+
+    // Ensure every non-root precached asset exists in public/ (or root index.html)
+    const precacheMatch = swContent.match(/const PRECACHE_ASSETS\s*=\s*\[([\s\S]*?)\]/)
+    expect(precacheMatch).not.toBeNull()
+    const assets = [...(precacheMatch?.[1] ?? '').matchAll(/['"]([^'"]+)['"]/g)].map((m) => m[1])
+    for (const asset of assets) {
+      if (asset === '/') continue
+      const publicCandidate = path.resolve(process.cwd(), 'public', asset.replace(/^\//, ''))
+      const rootCandidate = path.resolve(process.cwd(), asset.replace(/^\//, ''))
+      expect(fs.existsSync(publicCandidate) || fs.existsSync(rootCandidate)).toBe(true)
+    }
   })
 
   it('validates index.html PWA tags and meta configuration', () => {
