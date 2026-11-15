@@ -104,4 +104,31 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText('AWS Access Key ID', { exact: true })).toBeVisible();
     await expect(page.getByText('+ STRIPE_WEBHOOK_SECRET', { exact: true })).toBeVisible();
   });
+
+  test('tool page FAQ accordion toggles with mouse and keyboard', async ({ page }) => {
+    const faqSection = page.locator('section[aria-labelledby="faq-heading"]');
+    const firstQuestion = faqSection.getByRole('button').first();
+    await gotoHydrated(page, '/cidr-calculator', firstQuestion);
+
+    const panelId = await firstQuestion.getAttribute('aria-controls');
+    expect(panelId).toBeTruthy();
+    const panel = page.locator(`[id="${panelId}"]`);
+
+    await expect(firstQuestion).toHaveAttribute('aria-expanded', 'false');
+    await expect(panel).toBeHidden();
+
+    await firstQuestion.click();
+    await expect(firstQuestion).toHaveAttribute('aria-expanded', 'true');
+    await expect(panel).toBeVisible();
+    await expect(panel).toHaveAttribute('role', 'region');
+
+    await firstQuestion.focus();
+    await page.keyboard.press('Enter');
+    await expect(firstQuestion).toHaveAttribute('aria-expanded', 'false');
+    await expect(panel).toBeHidden();
+
+    await page.keyboard.press('Space');
+    await expect(firstQuestion).toHaveAttribute('aria-expanded', 'true');
+    await expect(panel).toBeVisible();
+  });
 });
