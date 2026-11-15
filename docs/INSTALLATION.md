@@ -130,13 +130,9 @@ npm test
 
 ## Mandatory Checklist for Adding a New Tool
 
-When creating or modifying any tool, the following 8 locations must be updated in sync:
+When creating or modifying any tool:
 
 1. **Tool Component:** Create in `src/components/tools/<category-folder>/<ToolName>.tsx`.
-2. **Client Registry:** Register in `src/tools/registry.ts` with metadata, Lucide icon, FAQs, and tips.
-3. **Node SSG Registry:** Register in `src/tools/registry-node.ts` for static generation without browser bundle dependencies.
-4. **Routes:** Register lazy route in `src/routes.tsx`.
-5. **Tool Catalog:** Add entry and increment `totalTools` count in `public/tools.json`.
-6. **Sitemap:** Add URL block in `public/sitemap.xml`.
-7. **LLM Specs:** Add documentation entry in `public/llms.txt` and `public/llms-full.txt`.
-8. **Count & Copy Sync:** Update counts in `public/opensearch.xml`, `public/manifest.json`, `index.html`, and `src/pages/Home.tsx`.
+2. **Tool Metadata:** Create `src/tools/meta/<slug>.ts` (name, description, keywords, `about`, SEO, lazy `toolComponent`, optional Lucide `icon`).
+3. **Client Registry:** Add the meta to the `tools` array in `src/tools/registry.ts`. The `/<slug>` route is created automatically.
+4. **Regenerate the catalog:** Run `npm run catalog` and commit the result. It regenerates `src/tools/registry-node.ts`, `public/tools.json`, `public/llms.txt`, `public/llms-full.txt`, and the tool counts in `index.html`, `public/manifest.json`, and `public/opensearch.xml`. Do not edit those by hand; `npm test` fails if they are stale. `sitemap.xml` is generated at build time.

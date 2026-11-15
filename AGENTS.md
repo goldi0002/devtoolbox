@@ -15,39 +15,27 @@ This file defines the standard operating procedures, architectural constraints, 
 
 ## 2. New Tool Addition Checklist (Mandatory)
 
-Whenever a new tool is created or modified, **ALL** of the following files must be updated in sync:
+Whenever a new tool is created or modified, follow these steps. The registry is the single source of truth; catalog files are generated from it:
 
 1. **Tool Component**:
    - Create the component under `src/components/tools/<category-folder>/<ToolName>.tsx` (or `src/components/tools/<ToolName>.tsx`).
    - Use standard UI building blocks: `SectionPanel`, `TextInputField`, `TextAreaField`, `OutputPanel`, `CopyButton`, `StatCard`, etc.
    - Ensure resilient props (use `value`, handle empty strings, defensive error boundaries).
 
-2. **Client Registry (`src/tools/registry.ts`)**:
-   - Import the Lucide icon.
-   - Add the tool definition to the `tools` array with `id`, `name`, `slug`, `category`, `description`, `icon`, `keywords`, `complexity`, `faqs`, `tips`, and `features`.
+2. **Tool Metadata (`src/tools/meta/<slug>.ts`)**:
+   - Export a `ToolMeta` with `slug`, `name`, `description`, `category`, `tag`, `keywords`, `complexity`, `status`, `about` (`summary`, `useCases`, `features`, `tip`), `seo`, and `toolComponent: lazy(() => import('…/<ToolName>'))`.
+   - Optional `icon`: a Lucide icon name from `ICON_MAP` in `src/lib/icons.ts` (otherwise `SLUG_ICON_MAP`, then the category icon, is used).
 
-3. **Node/SSG Registry (`src/tools/registry-node.ts`)**:
-   - Add the corresponding entry for static site generator prerendering.
+3. **Client Registry (`src/tools/registry.ts`)**:
+   - Import the meta and add it to the `tools` array. The tool route (`/<slug>`) is created automatically from this array in `src/routes.tsx`; no route edit is needed.
 
-4. **Routes (`src/routes.tsx`)**:
-   - Lazy-import the component and register `<Route path="/<slug>" element={<ToolPage meta={getToolBySlug('<slug>')!}><ToolComponent /></ToolPage>} />`.
+4. **Regenerate the catalog: `npm run catalog`**:
+   - Rewrites `src/tools/registry-node.ts`, `public/tools.json`, `public/llms.txt`, and `public/llms-full.txt` from the registry, and updates the tool count in `index.html`, `public/manifest.json`, and `public/opensearch.xml`. Commit the result.
+   - Never edit those generated files by hand. Their content comes from the meta file, so fix wording there and re-run.
+   - `npm run build` regenerates them too, and `catalogSync.test.ts` (part of `npm test`) fails if the committed files are stale. `npm run catalog:check` verifies without writing.
+   - `sitemap.xml` is produced at build time by `vite-plugin-sitemap` (see `vite.config.ts`); there is no static sitemap to edit. `src/pages/Home.tsx` derives its count from the registry.
 
-5. **Tool Catalog (`public/tools.json`)**:
-   - Add the tool object with its `id`, `name`, `slug`, `category`, `description`, `url`, `complexity`, `keywords`, `faqs`, and `tips`.
-   - Update `totalTools` count at the root of `public/tools.json`.
-
-6. **Sitemap (`public/sitemap.xml`)**:
-   - Add the `<url>` block with `https://toolbox4devs.com/<slug>` with appropriate priority and changefreq.
-
-7. **AI & LLM Specs (`public/llms.txt` and `public/llms-full.txt`)**:
-   - Add the tool specification, URL, category, complexity, and capabilities to both files.
-
-8. **Tool Count & Copy Sync**:
-   - If the total tool count changes, update references in:
-     - `public/opensearch.xml`
-     - `public/manifest.json`
-     - `index.html`
-     - `src/pages/Home.tsx`
+5. **Docs**: add the tool to the catalog list in `README.md`.
 
 ---
 

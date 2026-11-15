@@ -1,59 +1,54 @@
 import { describe, it, expect } from 'vitest'
 import fs from 'fs'
 import path from 'path'
-import { tools } from '../tools/registry'
+import { categoryLabels, getAllAvailableTools } from '../tools/registry'
+import { DEV_RECIPES } from '../data/recipes'
+import {
+  buildCatalogFiles,
+  COUNT_FILES,
+  GENERATED_FILES,
+  syncToolCount,
+} from '../tools/catalog-files'
 
-describe('Tool Catalog & Specification Synchronization', () => {
-  const root = path.resolve(__dirname, '../../')
-  const registeredSlugs = tools.map((t) => t.slug).sort()
+const root = path.resolve(__dirname, '../../')
+const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8')
+const tools = getAllAvailableTools()
+const outputs = buildCatalogFiles({ tools, categoryLabels, recipes: DEV_RECIPES })
+const STALE = 'is out of date with the tool registry — run `npm run catalog` and commit the result'
 
-  it('keeps src/tools/registry.ts and src/tools/registry-node.ts in 100% sync', () => {
-    const nodeRegistryPath = path.join(root, 'src/tools/registry-node.ts')
-    const content = fs.readFileSync(nodeRegistryPath, 'utf8')
-    const nodeSlugs = [...content.matchAll(/slug:\s*['"]([a-z0-9-]+)['"]/g)]
-      .map((m) => m[1])
-      .sort()
-
-    expect(nodeSlugs).toEqual(registeredSlugs)
+describe('Tool catalog files are generated from the registry', () => {
+  it.each(GENERATED_FILES)('%s is up to date', file => {
+    expect(read(file), `${file} ${STALE}`).toBe(outputs[file])
   })
 
-  it('keeps public/tools.json catalog in 100% sync with registered tools', () => {
-    const toolsJsonPath = path.join(root, 'public/tools.json')
-    const content = JSON.parse(fs.readFileSync(toolsJsonPath, 'utf8'))
-    const catalogSlugs = content.tools.map((t: { slug: string }) => t.slug).sort()
-
-    expect(content.totalTools).toBe(tools.length)
-    expect(catalogSlugs).toEqual(registeredSlugs)
+  it.each(COUNT_FILES)('%s shows the current tool count', file => {
+    const content = read(file)
+    expect(content, `${file} ${STALE}`).toBe(syncToolCount(file, content, tools.length))
   })
 
-  it('keeps public/sitemap.xml in 100% sync with registered tools', () => {
-    const sitemapPath = path.join(root, 'public/sitemap.xml')
-    const content = fs.readFileSync(sitemapPath, 'utf8')
-    const sitemapSlugs = [...content.matchAll(/https:\/\/toolbox4devs\.com\/([a-z0-9-]+)<\/loc>/g)]
-      .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog', 'recipes'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/'))
-      .sort()
+  it('lists every tool exactly once in each catalog', () => {
+    const slugs = tools.map(t => t.slug).sort()
+    const json = JSON.parse(outputs['public/tools.json'])
+    expect(json.totalTools).toBe(tools.length)
+    expect(json.tools.map((t: { slug: string }) => t.slug).sort()).toEqual(slugs)
 
-    expect(sitemapSlugs).toEqual(registeredSlugs)
+    const llmsSlugs = [...outputs['public/llms.txt'].matchAll(/\]\(https:\/\/toolbox4devs\.com\/([a-z0-9-]+)\)/g)]
+      .map(m => m[1])
+      .filter(s => s !== 'recipes')
+      .sort()
+    expect(llmsSlugs).toEqual(slugs)
+
+    const fullSlugs = [...outputs['public/llms-full.txt'].matchAll(/- URL: https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
+      .map(m => m[1])
+      .sort()
+    expect(fullSlugs).toEqual(slugs)
+
+    const nodeSlugs = [...outputs['src/tools/registry-node.ts'].matchAll(/slug: '([a-z0-9-]+)'/g)].map(m => m[1]).sort()
+    expect(nodeSlugs).toEqual(slugs)
   })
 
-  it('keeps public/llms.txt and public/llms-full.txt in 100% sync with registered tools', () => {
-    const llmsTxtPath = path.join(root, 'public/llms.txt')
-    const llmsTxtContent = fs.readFileSync(llmsTxtPath, 'utf8')
-    const llmsTxtSlugs = [...llmsTxtContent.matchAll(/https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
-      .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog', 'recipes', 'llms-full'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/') && !slug.startsWith('recipes/'))
-      .sort()
-
-    expect(llmsTxtSlugs).toEqual(registeredSlugs)
-
-    const llmsFullTxtPath = path.join(root, 'public/llms-full.txt')
-    const llmsFullTxtContent = fs.readFileSync(llmsFullTxtPath, 'utf8')
-    const llmsFullSlugs = [...llmsFullTxtContent.matchAll(/URL: https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
-      .map((m) => m[1])
-      .filter((slug) => slug !== '' && !['about', 'privacy', 'dashboard', 'tools', 'blog', 'recipes'].includes(slug) && !slug.startsWith('tools/') && !slug.startsWith('blog/'))
-      .sort()
-
-    expect(llmsFullSlugs).toEqual(registeredSlugs)
+  it('syncToolCount rewrites counts and rejects files missing the phrase', () => {
+    expect(syncToolCount('public/opensearch.xml', '<d>Search 12+ fast tools</d>', 80)).toBe('<d>Search 80+ fast tools</d>')
+    expect(() => syncToolCount('public/opensearch.xml', '<d>no count here</d>', 80)).toThrow(/tool-count phrase/)
   })
 })
