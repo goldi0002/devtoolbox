@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation } from 'react-router-dom'
 import { tools, categoryLabels } from '../tools/registry'
 import ErrorBoundary from '../components/ErrorBoundary'
 import ToolIcon from '../components/ui/ToolIcon'
+import FaqAccordion from '../components/ui/FaqAccordion'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO, FAQItem, HowToStep } from '../hooks/useSEO'
 import { useToolPreferences } from '../hooks/useToolPreferences'
@@ -402,24 +403,7 @@ export default function ToolPage() {
             </p>
           </div>
 
-          <div className="space-y-4 max-w-2xl">
-            {faqs.map((faq, index) => (
-              <details
-                key={index}
-                className="group rounded-lg border border-border bg-surface/40 p-4 transition-all duration-200 open:bg-surface/80"
-              >
-                <summary className="flex cursor-pointer items-center justify-between font-sans text-sm font-medium text-bright list-none">
-                  <span>{faq.question}</span>
-                  <span className="ml-2 font-mono text-xs text-subtle transition-transform duration-200 group-open:rotate-90">
-                    →
-                  </span>
-                </summary>
-                <p className="mt-3 text-xs font-sans text-dim leading-relaxed border-t border-border/60 pt-3">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
-          </div>
+          <FaqAccordion items={faqs} />
         </div>
       </section>
 
