@@ -190,4 +190,42 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText('256.1.1.1 is not', { exact: false }).first()).toBeVisible();
     await expect(page.getByText('10.0.0.255', { exact: true }).first()).toBeVisible();
   });
+
+  test('textarea accepts a dropped text file and rejects binary or oversized files', async ({ page }) => {
+    const textarea = page.locator('textarea').first();
+    await gotoHydrated(page, '/case-converter', textarea);
+
+    const drop = async (name: string, bytes: number[] | { size: number }) => {
+      const dataTransfer = await page.evaluateHandle(
+        ({ name, bytes }) => {
+          const data = Array.isArray(bytes) ? new Uint8Array(bytes) : new Uint8Array(bytes.size).fill(97);
+          const dt = new DataTransfer();
+          dt.items.add(new File([data], name));
+          return dt;
+        },
+        { name, bytes }
+      );
+      await textarea.dispatchEvent('dragover', { dataTransfer });
+      await expect(textarea).toHaveAttribute('data-dragging', 'true');
+      await textarea.dispatchEvent('drop', { dataTransfer });
+      await expect(textarea).not.toHaveAttribute('data-dragging', 'true');
+    };
+    const alert = page.getByRole('alert').filter({ hasText: 'notes' });
+
+    await drop('notes.txt', [...Buffer.from('hello from a file')]);
+    await expect(textarea).toHaveValue('hello from a file');
+    await expect(alert).toHaveCount(0);
+
+    await drop('notes.png', [0x89, 0x50, 0x4e, 0x47, 0x00, 0x01, 0xff]);
+    await expect(alert).toContainText('does not look like a text file');
+    await expect(textarea).toHaveValue('hello from a file');
+
+    await drop('notes.log', { size: 2 * 1024 * 1024 + 1 });
+    await expect(alert).toContainText('over the 2.0 MB limit');
+    await expect(textarea).toHaveValue('hello from a file');
+
+    await drop('notes.md', [...Buffer.from('# replaced')]);
+    await expect(textarea).toHaveValue('# replaced');
+    await expect(alert).toHaveCount(0);
+  });
 });
