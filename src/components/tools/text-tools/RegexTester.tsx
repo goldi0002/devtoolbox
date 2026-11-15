@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
 import { getErrorMessage } from '../../../utils/errors'
+import { REGEX_EXAMPLES, type RegexExample } from '../../../utils/regexExamples'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -25,14 +26,6 @@ const FLAGS: Flag[] = [
   { key: 'i', label: 'insensitive', desc: 'Case insensitive'        },
   { key: 'm', label: 'multiline',   desc: '^ and $ match each line' },
   { key: 's', label: 'dotAll',      desc: '. matches newlines'      },
-]
-
-const EXAMPLES = [
-  { label: 'Email',      pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}',  flags: 'g',  test: 'Contact us at hello@example.com or support@dev.io for help.' },
-  { label: 'URL',        pattern: 'https?:\\/\\/[\\w\\-._~:/?#[\\]@!$&\'()*+,;=%]+',   flags: 'g',  test: 'Visit https://example.com or http://dev.io/docs for more info.' },
-  { label: 'IP Address', pattern: '\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b',                  flags: 'g',  test: 'Server IPs: 192.168.1.1 and 10.0.0.255 are both valid.' },
-  { label: 'Hex Color',  pattern: '#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\\b',              flags: 'g',  test: 'Colors used: #fff, #1a2b3c, #FF5733 and #abc.' },
-  { label: 'Date',       pattern: '\\d{4}-\\d{2}-\\d{2}',                               flags: 'g',  test: 'Created on 2024-01-15, updated 2024-03-22, expires 2025-01-01.' },
 ]
 
 const SAMPLE_TEXT = `The quick brown fox jumps over the lazy dog.
@@ -147,7 +140,7 @@ export default function RegexTester() {
     )
   }
 
-  const loadExample = (ex: typeof EXAMPLES[0]) => {
+  const loadExample = (ex: RegexExample) => {
     setPattern(ex.pattern)
     setFlags(ex.flags)
     setTestStr(ex.test)
@@ -164,10 +157,12 @@ export default function RegexTester() {
       <div className="space-y-4">
 
         {/* Quick examples */}
-        <div className="flex flex-wrap gap-1.5">
-          {EXAMPLES.map(ex => (
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="text-xs font-mono text-subtle">Load Example:</span>
+          {REGEX_EXAMPLES.map(ex => (
             <button
               key={ex.label}
+              type="button"
               onClick={() => loadExample(ex)}
               className="text-xs font-mono px-2.5 py-1 rounded border border-border
                          text-subtle hover:border-subtle hover:text-dim transition-all duration-150"
