@@ -198,7 +198,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
           {/* Quick Recipe Switcher */}
           <select
             aria-label="Load pre-built recipe"
-            className="flex-1 sm:flex-initial text-xs px-3 py-2 rounded-lg border border-border bg-bg text-bright focus:outline-none focus:ring-1 focus:ring-accent"
+            className="flex-1 sm:flex-initial text-xs px-3 py-2 rounded-lg border border-border bg-bg text-bright"
             onChange={(e) => {
               const r = DEV_RECIPES.find(x => x.slug === e.target.value)
               if (r) handleLoadRecipe(r)
@@ -262,7 +262,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
               onChange={(e) => setInput(e.target.value)}
               placeholder="Paste raw JSON, Base64 string, JWT token, or log lines here..."
               rows={5}
-              className="w-full p-3 font-mono text-xs bg-bg text-bright focus:outline-none resize-y"
+              className="w-full p-3 font-mono text-xs bg-bg text-bright focus-visible:-outline-offset-2 resize-y"
             />
           </div>
 
@@ -557,7 +557,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                 aria-label="Select operation to append"
                 value={selectedOpToAdd}
                 onChange={(e) => setSelectedOpToAdd(e.target.value)}
-                className="flex-1 text-xs px-3 py-2 rounded-lg border border-border bg-bg text-bright focus:outline-none"
+                className="flex-1 text-xs px-3 py-2 rounded-lg border border-border bg-bg text-bright"
               >
                 {PIPELINE_OPERATIONS.map(op => (
                   <option key={op.id} value={op.id}>
@@ -614,7 +614,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                 value={execution.finalOutput}
                 placeholder="Final transformed output will appear here automatically..."
                 rows={16}
-                className="w-full p-3 font-mono text-xs bg-bg text-bright focus:outline-none resize-none whitespace-pre-wrap break-all"
+                className="w-full p-3 font-mono text-xs bg-bg text-bright focus-visible:-outline-offset-2 resize-none whitespace-pre-wrap break-all"
               />
             </div>
 
