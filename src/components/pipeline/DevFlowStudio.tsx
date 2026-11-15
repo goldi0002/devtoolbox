@@ -198,7 +198,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
           {/* Quick Recipe Switcher */}
           <select
             aria-label="Load pre-built recipe"
-            className="flex-1 sm:flex-initial text-xs px-3 py-2 rounded-lg border border-border bg-canvas text-bright focus:outline-hidden focus:ring-1 focus:ring-accent"
+            className="flex-1 sm:flex-initial text-xs px-3 py-2 rounded-lg border border-border bg-bg text-bright focus:outline-none focus:ring-1 focus:ring-accent"
             onChange={(e) => {
               const r = DEV_RECIPES.find(x => x.slug === e.target.value)
               if (r) handleLoadRecipe(r)
@@ -262,7 +262,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
               onChange={(e) => setInput(e.target.value)}
               placeholder="Paste raw JSON, Base64 string, JWT token, or log lines here..."
               rows={5}
-              className="w-full p-3 font-mono text-xs bg-canvas text-bright focus:outline-hidden resize-y"
+              className="w-full p-3 font-mono text-xs bg-bg text-bright focus:outline-none resize-y"
             />
           </div>
 
@@ -359,7 +359,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
 
                   {/* Step Options Area (if applicable) */}
                   {step.enabled && (
-                    <div className="px-3.5 py-2.5 bg-canvas/30 text-xs flex flex-wrap items-center gap-4">
+                    <div className="px-3.5 py-2.5 bg-bg/30 text-xs flex flex-wrap items-center gap-4">
                       {/* JSON Prettify Options */}
                       {step.operationId === 'json-prettify' && (
                         <>
@@ -368,7 +368,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                             <select
                               value={Number(step.options.indent) || 2}
                               onChange={(e) => handleUpdateOption(step.id, 'indent', Number(e.target.value))}
-                              className="text-xs px-2 py-1 rounded border border-border bg-canvas text-bright"
+                              className="text-xs px-2 py-1 rounded border border-border bg-bg text-bright"
                             >
                               <option value={2}>2 Spaces</option>
                               <option value={4}>4 Spaces</option>
@@ -395,7 +395,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                             value={String(step.options.path ?? '')}
                             onChange={(e) => handleUpdateOption(step.id, 'path', e.target.value)}
                             placeholder="e.g. data.token or results.0.id"
-                            className="flex-1 text-xs px-2.5 py-1 rounded border border-border bg-canvas text-bright font-mono"
+                            className="flex-1 text-xs px-2.5 py-1 rounded border border-border bg-bg text-bright font-mono"
                           />
                         </div>
                       )}
@@ -430,7 +430,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                               value={String(step.options.pattern ?? '')}
                               onChange={(e) => handleUpdateOption(step.id, 'pattern', e.target.value)}
                               placeholder="e.g. \\s+"
-                              className="w-full text-xs px-2 py-1 rounded border border-border bg-canvas font-mono"
+                              className="w-full text-xs px-2 py-1 rounded border border-border bg-bg font-mono"
                             />
                           </div>
                           <div className="flex items-center gap-1.5">
@@ -440,7 +440,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                               value={String(step.options.replacement ?? '')}
                               onChange={(e) => handleUpdateOption(step.id, 'replacement', e.target.value)}
                               placeholder="replacement"
-                              className="w-full text-xs px-2 py-1 rounded border border-border bg-canvas font-mono"
+                              className="w-full text-xs px-2 py-1 rounded border border-border bg-bg font-mono"
                             />
                           </div>
                         </div>
@@ -455,7 +455,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                             value={String(step.options.pattern ?? '')}
                             onChange={(e) => handleUpdateOption(step.id, 'pattern', e.target.value)}
                             placeholder="e.g. [a-zA-Z0-9._%+-]+@..."
-                            className="flex-1 text-xs px-2.5 py-1 rounded border border-border bg-canvas text-bright font-mono"
+                            className="flex-1 text-xs px-2.5 py-1 rounded border border-border bg-bg text-bright font-mono"
                           />
                         </div>
                       )}
@@ -467,7 +467,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                           <select
                             value={String(step.options.targetCase || 'snake')}
                             onChange={(e) => handleUpdateOption(step.id, 'targetCase', e.target.value)}
-                            className="text-xs px-2 py-1 rounded border border-border bg-canvas text-bright font-mono"
+                            className="text-xs px-2 py-1 rounded border border-border bg-bg text-bright font-mono"
                           >
                             <option value="snake">snake_case</option>
                             <option value="camel">camelCase</option>
@@ -537,7 +537,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
 
                   {/* Intermediate Step Output Preview */}
                   {isPreviewOpen && stepResult && !stepResult.error && (
-                    <div className="p-3 bg-canvas border-t border-border/60">
+                    <div className="p-3 bg-bg border-t border-border/60">
                       <div className="flex items-center justify-between mb-1.5 text-[11px] text-muted font-mono">
                         <span>Intermediate Step Output</span>
                         <span>{stepResult.output.length} characters</span>
@@ -557,7 +557,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                 aria-label="Select operation to append"
                 value={selectedOpToAdd}
                 onChange={(e) => setSelectedOpToAdd(e.target.value)}
-                className="flex-1 text-xs px-3 py-2 rounded-lg border border-border bg-canvas text-bright focus:outline-hidden"
+                className="flex-1 text-xs px-3 py-2 rounded-lg border border-border bg-bg text-bright focus:outline-none"
               >
                 {PIPELINE_OPERATIONS.map(op => (
                   <option key={op.id} value={op.id}>
@@ -614,7 +614,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                 value={execution.finalOutput}
                 placeholder="Final transformed output will appear here automatically..."
                 rows={16}
-                className="w-full p-3 font-mono text-xs bg-canvas text-bright focus:outline-hidden resize-none whitespace-pre-wrap break-all"
+                className="w-full p-3 font-mono text-xs bg-bg text-bright focus:outline-none resize-none whitespace-pre-wrap break-all"
               />
             </div>
 

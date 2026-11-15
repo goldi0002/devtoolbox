@@ -80,6 +80,21 @@ function stripDuplicateHeadTags(html: string): string {
   return html.replace(headMatch[0], `<head>${cleanedHead}</head>`)
 }
 
+// Search Console / Bing Webmaster ownership tags. They are public tokens, set
+// per deployment through env vars so a fork never ships someone else's.
+const siteVerification: Array<[envVar: string, metaName: string]> = [
+  ['VITE_GOOGLE_SITE_VERIFICATION', 'google-site-verification'],
+  ['VITE_BING_SITE_VERIFICATION', 'msvalidate.01'],
+]
+
+function siteVerificationTags(env: Record<string, string>) {
+  return siteVerification.flatMap(([envVar, metaName]) => {
+    const token = (env[envVar] ?? '').trim()
+    if (!/^[\w-]+$/.test(token)) return []
+    return [{ tag: 'meta', attrs: { name: metaName, content: token }, injectTo: 'head' as const }]
+  })
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const environment = env.VITE_ENVIRONMENT ?? mode
@@ -116,6 +131,10 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       react(),
+      {
+        name: 'site-verification-meta',
+        transformIndexHtml: () => siteVerificationTags(env),
+      },
       sitemap({
         hostname,
         dynamicRoutes: sitemapRoutes,
