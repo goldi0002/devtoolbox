@@ -64,7 +64,7 @@ export const REGEX_META: ToolMeta = {
     "steps": [
       {
         "name": "Enter a pattern",
-        "text": "Type your regular expression without the surrounding slashes, or start from a preset such as Email, URL or Date."
+        "text": "Type your regular expression without the surrounding slashes, or start from a preset such as Email, URL, IPv4 or ISO 8601 Date."
       },
       {
         "name": "Set the flags",

@@ -172,4 +172,22 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(textarea).toBeFocused();
     expect(await textarea.boundingBox()).toEqual(before);
   });
+
+  test('SQL Formatter loads the multi-join sample and keeps each join on one line', async ({ page }) => {
+    const sample = page.getByRole('button', { name: 'Multi-Join Report' });
+    await gotoHydrated(page, '/sql-formatter', sample);
+
+    await sample.click();
+    await expect(page.getByText('LEFT JOIN categories cat ON cat.id = p.category_id').first()).toBeVisible();
+    await expect(page.getByText('INNER JOIN order_items oi ON oi.order_id = o.id').first()).toBeVisible();
+  });
+
+  test('Regex Tester example presets load a pattern and show matches', async ({ page }) => {
+    const preset = page.getByRole('button', { name: 'IPv4', exact: true });
+    await gotoHydrated(page, '/regex', preset);
+
+    await preset.click();
+    await expect(page.getByText('256.1.1.1 is not', { exact: false }).first()).toBeVisible();
+    await expect(page.getByText('10.0.0.255', { exact: true }).first()).toBeVisible();
+  });
 });
