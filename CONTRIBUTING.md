@@ -221,64 +221,39 @@ export const allTools: ToolMeta[] = [
 ];
 ```
 
-### Step 4: Register the Tool in the Node Registry
+### Step 4: Routes (Automatic)
 
-Add your tool to `src/tools/registry-node.ts` (used for SSG and sitemap generation):
+Tool routes are generated from the registry in `src/routes.tsx`. Verify the route appears by running the dev server and navigating to `/<slug>`.
 
-```typescript
-// This mirrors the browser registry for Node-side builds
-import type { ToolMeta } from './tool-meta';
+### Step 5: Regenerate the Catalog Files
 
-const sha256Meta: ToolMeta = {
-  slug: 'sha256-hash',
-  title: 'SHA-256 Hash Generator',
-  category: 'Crypto',
-  description: 'Generate SHA-256 hashes from text input',
-  about: 'SHA-256 is a cryptographic hash function that produces a 256-bit hash value.',
-  keywords: ['hash', 'sha-256', 'security', 'crypto'],
-  component: undefined, // Not used on Node side
-  status: 'stable',
-};
+Run:
 
-export const allToolsNode: ToolMeta[] = [
-  // ... existing tools ...
-  sha256Meta,
-];
+```bash
+npm run catalog
 ```
 
-### Step 5: Add Routes (Auto-Generated)
+This regenerates, from the registry, the files that list every tool:
 
-Routes are automatically generated from the registry in `src/routes.tsx`. Verify the route appears by running the dev server and navigating to `/tools/sha256-hash`.
+- `src/tools/registry-node.ts` (Node-safe slug list used for pre-rendering and the sitemap)
+- `public/tools.json` (machine-readable catalog)
+- `public/llms.txt` and `public/llms-full.txt` (AI/LLM descriptions)
+- the tool count in `index.html`, `public/manifest.json`, and `public/opensearch.xml`
 
-### Step 6: Add a JSON Catalog Entry
+Commit the changes. Don't edit these files by hand; change the tool's meta file and re-run instead. `npm test` fails if they are out of date, and `npm run catalog:check` checks without writing. The sitemap is generated at build time, so there is nothing to add for it.
 
-Update `public/tools.json` (or generate it as part of build):
-
-```json
-{
-  "tools": [
-    {
-      "slug": "sha256-hash",
-      "title": "SHA-256 Hash Generator",
-      "category": "Crypto",
-      "description": "Generate SHA-256 hashes from text input"
-    }
-  ]
-}
-```
-
-### Step 7: Update Documentation
+### Step 6: Update Documentation
 
 1. **Update `README.md`** to include your tool in the tools table if it's a new category.
 2. **Update `docs/TASKS.md`** to mark your task as complete.
 3. **Update `docs/ROADMAP.md`** if you've completed a roadmap item.
 
-### Step 8: Verification Checklist
+### Step 7: Verification Checklist
 
 Before submitting your PR:
 
 - [ ] Component renders without errors
-- [ ] Tool is registered in both browser and Node registries
+- [ ] Tool is registered in `src/tools/registry.ts` and `npm run catalog` output is committed (`npm test` passes)
 - [ ] Routes are auto-generated and accessible
 - [ ] Metadata is complete and accurate
 - [ ] TypeScript compilation passes (`npm run typecheck`)

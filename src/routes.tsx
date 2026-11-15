@@ -1,20 +1,17 @@
+import type { ComponentType } from 'react'
 import type { RouteRecord } from 'vite-react-ssg'
 import { Layout } from './App'
 import { tools } from './tools/registry'
-import { blogSlugs } from './data/blog'
-import { DEV_RECIPES } from './data/recipes'
 
-import Home from './pages/Home'
-import Dashboard from './pages/Dashboard'
-import ToolsIndex from './pages/ToolsIndex'
-import About from './pages/About'
-import BlogIndex from './pages/BlogIndex'
-import BlogPost from './pages/BlogPost'
-import ToolPage from './pages/ToolPage'
-import RecipesIndex from './pages/RecipesIndex'
-import RecipePage from './pages/RecipePage'
-import NotFound from './pages/NotFound'
-import Privacy from './pages/Privacy'
+// Each page is loaded on demand so a visitor only downloads the code for the
+// route they open. vite-react-ssg resolves the matched route's `lazy` before
+// hydrating, and scans these inline import() calls to emit preload hints, so
+// keep each import() literal inside its `lazy` function (no shared helper).
+type PageModule = { default: ComponentType }
+const asRoute = (m: PageModule) => ({ Component: m.default })
+
+// Blog posts and recipes are served by their `:slug` routes; the list of
+// URLs to pre-render comes from `includedRoutes` in vite.config.ts.
 
 const toolSlugs = tools.map(t => t.slug)
 
@@ -24,31 +21,23 @@ export const routes: RouteRecord[] = [
     path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Home /> },
-      { path: 'dashboard', element: <Dashboard /> },
-      { path: 'tools', element: <ToolsIndex /> },
-      { path: 'tools/:category', element: <ToolsIndex /> },
-      { path: 'recipes', element: <RecipesIndex /> },
-      { path: 'recipes/:slug', element: <RecipePage /> },
-      ...DEV_RECIPES.map(r => ({
-        path: `recipes/${r.slug}`,
-        element: <RecipePage />,
-      })),
-      { path: 'about', element: <About /> },
-      { path: 'blog', element: <BlogIndex /> },
-      { path: 'blog/:slug', element: <BlogPost /> },
-      ...blogSlugs.map(slug => ({
-        path: `blog/${slug}`,
-        element: <BlogPost />,
-      })),
-      { path: 'privacy', element: <Privacy /> },
+      { index: true, lazy: () => import('./pages/Home').then(asRoute) },
+      { path: 'dashboard', lazy: () => import('./pages/Dashboard').then(asRoute) },
+      { path: 'tools', lazy: () => import('./pages/ToolsIndex').then(asRoute) },
+      { path: 'tools/:category', lazy: () => import('./pages/ToolsIndex').then(asRoute) },
+      { path: 'recipes', lazy: () => import('./pages/RecipesIndex').then(asRoute) },
+      { path: 'recipes/:slug', lazy: () => import('./pages/RecipePage').then(asRoute) },
+      { path: 'about', lazy: () => import('./pages/About').then(asRoute) },
+      { path: 'blog', lazy: () => import('./pages/BlogIndex').then(asRoute) },
+      { path: 'blog/:slug', lazy: () => import('./pages/BlogPost').then(asRoute) },
+      { path: 'privacy', lazy: () => import('./pages/Privacy').then(asRoute) },
       ...toolSlugs.map(slug => ({
         path: slug,
-        element: <ToolPage />,
+        lazy: () => import('./pages/ToolPage').then(asRoute),
       })),
-      { path: 'pipeline', element: <ToolPage /> },
-      { path: '404', element: <NotFound /> },
-      { path: '*', element: <NotFound /> },
+      { path: 'pipeline', lazy: () => import('./pages/ToolPage').then(asRoute) },
+      { path: '404', lazy: () => import('./pages/NotFound').then(asRoute) },
+      { path: '*', lazy: () => import('./pages/NotFound').then(asRoute) },
     ],
   },
 ]

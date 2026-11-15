@@ -2,6 +2,8 @@
 
 > ToolBox4Devs is a suite of 76 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
+<!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
+
 ## System Guarantees
 - **100% Client-Side Privacy**: No text, tokens, API keys, JSON payloads, or data ever leaves the user's browser.
 - **Offline Capable & Zero Latency**: Instant synchronous execution using Web APIs, Web Crypto, and JavaScript.
@@ -9,99 +11,107 @@
 
 ## Tools Directory
 
-### JSON & Data Tools
-- [Large CSV & TXT Table Viewer (Up to 1GB)](https://toolbox4devs.com/csv-txt-viewer): View, parse, and analyze massive CSV or TXT files up to 1GB in a fast paginated table format directly in your browser with zero memory freeze.
-- [Age & Lifetime Milestone Calculator](https://toolbox4devs.com/age-calculator): Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.
-- [JSON to SQL Schema & Query Converter](https://toolbox4devs.com/json-to-sql): Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support (Postgres, MySQL, SQLite, SQL Server, Oracle).
-- [SemVer Calculator & Range Tester](https://toolbox4devs.com/semver-calculator): Parse SemVer 2.0.0 version numbers, test compatibility ranges (^, ~, >=), calculate version bumps, and sort version tags.
-- [JSON to CSV & CSV to JSON Converter](https://toolbox4devs.com/json-to-csv): Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.
-- [CIDR & Subnet Calculator](https://toolbox4devs.com/cidr-calculator): Calculate IPv4 network addresses, broadcast targets, usable host IP ranges, netmasks, wildcard masks, and binary bit breakdowns.
-- [Number Base Converter](https://toolbox4devs.com/base-converter): Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two's complement binary representations.
-- [JSON Formatter](https://toolbox4devs.com/json-formatter): Format, validate, minify, and inspect JSON with custom indentation (2 or 4 spaces) and syntax error diagnostics.
-- [JSON to Model Generator](https://toolbox4devs.com/json-model): Convert JSON schemas into TypeScript interfaces, Python Dataclasses, Go Structs, Java POJOs, Rust structs, or C# classes.
-- [JSON to Zod Schema](https://toolbox4devs.com/json-to-zod): Generate TypeScript Zod validation schemas automatically from raw JSON payloads.
-- [YAML <-> JSON Converter](https://toolbox4devs.com/yaml-json-converter): Bidirectional conversion between YAML and JSON with real-time validation, custom indentation, and key sorting.
-- [SQL Formatter](https://toolbox4devs.com/sql-formatter): Beautify and indent complex SQL queries with syntax highlighting and keyword casing.
-- [GraphQL Formatter](https://toolbox4devs.com/graphql-formatter): Format and validate GraphQL queries, mutations, and schemas.
-- [Cron Expression Parser](https://toolbox4devs.com/cron-parser): Parse standard 5-part and 6-part cron expressions into plain English descriptions with upcoming execution schedules.
-- [Cron Expression Generator](https://toolbox4devs.com/cron-generator): Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
-- [Timestamp Converter](https://toolbox4devs.com/timestamp-converter): Convert between Unix epoch timestamps (seconds, milliseconds), ISO 8601, UTC, and local date-time strings.
-- [Unix Permissions Calculator](https://toolbox4devs.com/unix-permissions-calculator): Interactive chmod permissions calculator for octal (e.g. 755, 644) and symbolic notation (rwxr-xr-x).
-- [ASCII Table Lookup](https://toolbox4devs.com/ascii-table): Complete ASCII reference table with decimal, hex, octal, binary, and character descriptions.
+### JSON Tools
+- [JSON Formatter & Validator](https://toolbox4devs.com/json-formatter): Format, validate, query, filter, repair, and inspect JSON in real time with non-blocking Web Worker performance. 100% client-side.
+- [JSON → Model](https://toolbox4devs.com/json-model): Convert JSON to C# classes or TypeScript interfaces with proper types.
+- [JSON to Zod Schema Generator](https://toolbox4devs.com/json-to-zod): Convert JSON payloads into strongly-typed Zod schemas and TypeScript types.
+- [JSON Schema Generator & Validator](https://toolbox4devs.com/json-schema-generator): Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with live validation.
 
-### Encoding & Decoding Tools
-- [String Escape & Unescape](https://toolbox4devs.com/string-escaper): Escape and unescape strings across JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell with quote and newline options.
-- [Base64 Encoder & Decoder](https://toolbox4devs.com/base64): Encode text or binary data into Base64 or decode Base64 strings back to human-readable text.
-- [Hexadecimal Converter](https://toolbox4devs.com/hex-converter): Convert text to hexadecimal representation and hexadecimal back to plain text.
-- [URL Encoder & Decoder](https://toolbox4devs.com/url-encoder): Encode text for URI components (`encodeURIComponent`) or decode percent-encoded URLs.
-- [HTML Entity Encoder & Decoder](https://toolbox4devs.com/html-entity): Encode special characters (`<`, `>`, `&`, `"`, `'`) to HTML entities or decode them.
-- [Hash Comparator](https://toolbox4devs.com/hash-comparator): Compare two cryptographic hashes or checksums with constant-time visual matching.
+### Encode / Decode Tools
+- [String Escape & Unescape](https://toolbox4devs.com/string-escaper): Escape and unescape strings for JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell.
+- [Base64](https://toolbox4devs.com/base64): Encode plain text to Base64 or decode Base64 back to plain text.
+- [URL Encoder / Decoder](https://toolbox4devs.com/url-encoder): Encode or decode URLs and query string parameters instantly in your browser.
+- [HTML Entity Encoder](https://toolbox4devs.com/html-entity): Encode plain text into safe HTML entities and decode entity strings back into readable text in your browser.
+- [Hash Comparator](https://toolbox4devs.com/hash-comparator): Compare two hashes or checksums after trimming whitespace and normalizing letter case.
+- [Hex Converter](https://toolbox4devs.com/hex-converter): Convert text to hexadecimal and hexadecimal back to text.
 
-### Authentication & Cryptography Tools
-- [Bcrypt Hash Generator & Verifier](https://toolbox4devs.com/bcrypt-generator): Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.
-- [RSA Key Pair Generator](https://toolbox4devs.com/rsa-key-generator): Generate secure RSA public and private key pairs directly in browser memory using the Web Crypto API.
-- [JWT Decoder](https://toolbox4devs.com/jwt): Decode JSON Web Tokens to inspect Header, Payload claims, and Expiration timestamps with expiration warnings.
-- [JWT Encoder & Token Generator](https://toolbox4devs.com/jwt-encoder): Create and sign JSON Web Tokens with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
-- [HMAC Generator](https://toolbox4devs.com/hmac-generator): Compute Hash-based Message Authentication Codes using SHA-256, SHA-384, SHA-512, or SHA-1 with a secret key.
-- [SHA-256 Hash Generator](https://toolbox4devs.com/sha256): Compute SHA-256, SHA-384, SHA-512, and SHA-1 cryptographic digests using Web Crypto API.
-- [HTTP Basic Auth Header Generator](https://toolbox4devs.com/basic-auth-header): Generate standard `Authorization: Basic <base64>` HTTP headers from username and password.
+### Text Tools
+- [Markdown Table to JSON](https://toolbox4devs.com/markdown-table-to-json): Convert GitHub-flavored Markdown tables into JSON objects with typed values.
+- [Text Diff](https://toolbox4devs.com/text-diff): Compare two text blocks line-by-line and highlight every change.
+- [Regex Tester & Checker](https://toolbox4devs.com/regex): Test and check regular expressions online live against sample text with real-time match and group highlighting.
+- [Case Converter](https://toolbox4devs.com/case-converter): Convert text between uppercase, lowercase, camelCase, snake_case, kebab-case and more.
+- [Slug Generator](https://toolbox4devs.com/slug-generator): Convert titles and labels into clean kebab-case or snake_case slugs entirely in your browser.
+- [CSV to Markdown](https://toolbox4devs.com/csv-to-markdown): Convert CSV or TSV data into a well-formatted Markdown table instantly.
+- [Line Sorter & Deduplicator](https://toolbox4devs.com/line-sorter): Sort lines alphabetically, by length, or naturally — remove duplicates, trim whitespace, and drop empty lines.
+- [Text Repeater & Multiplier](https://toolbox4devs.com/text-repeater): Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.
 
-### Web & API Tools
+### Generators
+- [Dockerfile & Container Generator](https://toolbox4devs.com/dockerfile-generator): Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.
+- [Docker Run to Compose Converter](https://toolbox4devs.com/docker-run-to-compose): Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations instantly.
+- [QR Code Generator](https://toolbox4devs.com/qr-code-generator): 100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.
+- [.gitignore Generator](https://toolbox4devs.com/gitignore-generator): Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system—entirely in your browser.
+- [UUID Generator](https://toolbox4devs.com/uuid): Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100.
+- [Password Generator](https://toolbox4devs.com/password-generator): Generate strong, random passwords with customizable length and character sets.
+- [Lorem Ipsum Generator](https://toolbox4devs.com/lorem-ipsum-generator): Create placeholder paragraphs for wireframes, prototypes, content mocks, and layout testing.
+- [MAC Address Generator](https://toolbox4devs.com/mac-address-generator): Generate valid unicast, multicast, locally administered, or vendor-specific MAC addresses in colon, hyphen, or dot formats.
+- [SVG Placeholder](https://toolbox4devs.com/svg-placeholder-generator): Generate fast, customizable SVG placeholder images for your projects.
+- [AI Token Counter & Visualizer](https://toolbox4devs.com/ai-token-counter): Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.
+- [Faker Data Generator](https://toolbox4devs.com/faker-data-generator): Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.
+
+### Authentication Tools
+- [JWT Decoder](https://toolbox4devs.com/jwt): Decode and inspect JSON Web Tokens — header, payload, expiry and more.
+- [Basic Auth Header](https://toolbox4devs.com/basic-auth-header): Generate and decode HTTP Basic Authorization headers using username and password pairs.
+- [JWT Encoder & Token Generator](https://toolbox4devs.com/jwt-encoder): Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
+
+### Web Tools
 - [Three.js 3D Scene Studio & Code Playground](https://toolbox4devs.com/three-js-playground): Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.
 - [WCAG 2.1 Color Contrast Checker](https://toolbox4devs.com/wcag-contrast-checker): Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
-- [URL & Query Component Parser](https://toolbox4devs.com/url-parser): Parse URLs into protocol, host, port, path, query parameters table, and hash fragments.
-- [XML Formatter & Minifier](https://toolbox4devs.com/xml-formatter): Beautify and minify XML markup with configurable indentation and syntax error diagnostics.
-- [Keycode & Keyboard Event Inspector](https://toolbox4devs.com/keycode-inspector): Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.
+- [cURL to Code Converter](https://toolbox4devs.com/curl-converter): Convert cURL commands into clean JavaScript fetch, Node.js Axios, Python requests, Go, Rust, or PHP code snippets instantly.
+- [GraphQL Query Formatter](https://toolbox4devs.com/graphql-formatter): Format, prettify, validate, and minify GraphQL queries, mutations, and schemas online with custom indentation.
+- [SVG to JSX / React Converter](https://toolbox4devs.com/svg-to-jsx): Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.
 - [CSS Unit & Fluid clamp() Converter](https://toolbox4devs.com/css-unit-converter): Convert between PX, REM, EM, VW, VH, %, and PT with Tailwind CSS class matching and fluid clamp() generator.
-- [cURL to Code Converter](https://toolbox4devs.com/curl-converter): Convert terminal cURL commands into JavaScript Fetch, Node.js Axios, Python Requests, Go net/http, Rust reqwest, and PHP code.
-- [HTTP Status Code Lookup](https://toolbox4devs.com/http-status-lookup): Search and inspect all HTTP status codes (1xx, 2xx, 3xx, 4xx, 5xx) with RFC specifications and debugging advice.
-- [HTTP Header Parser](https://toolbox4devs.com/http-header-parser): Parse raw HTTP response/request headers into structured key-value maps with security header analysis.
-- [Query String Parser](https://toolbox4devs.com/query-string-parser): Parse URL query parameters into formatted tables and JSON objects.
-- [Color Converter](https://toolbox4devs.com/color-converter): Convert colors bidirectionally between HEX, RGB, HSL, and HSV with contrast checking.
-- [MIME Type Lookup](https://toolbox4devs.com/mime-type-lookup): Fast reference for MIME Content-Types, file extensions, and media categories.
-- [User Agent Parser](https://toolbox4devs.com/user-agent-parser): Parse User-Agent strings into browser engine, OS version, device category, and bot detection.
-- [HTML Formatter & Minifier](https://toolbox4devs.com/html-formatter): Clean and format HTML markup with configurable indentation and tag closing.
-- [Markdown Live Preview](https://toolbox4devs.com/markdown-preview): Real-time Markdown editor with live HTML rendering and syntax highlighting.
-- [SVG to JSX / React Converter](https://toolbox4devs.com/svg-to-jsx): Convert raw SVG code into production-ready React JSX / TSX icon components with TypeScript types, forwardRef, memo, and currentColor support.
+- [Keycode & Keyboard Event Inspector](https://toolbox4devs.com/keycode-inspector): Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.
+- [HTML Formatter](https://toolbox4devs.com/html-formatter): Format and minify HTML code for better readability or compactness.
+- [Markdown Preview](https://toolbox4devs.com/markdown-preview): Write Markdown on the left and see a live preview on the right.
+- [Query String Parser](https://toolbox4devs.com/query-string-parser): Parse URL query strings into readable key/value pairs and JSON entirely in your browser.
+- [Color Converter](https://toolbox4devs.com/color-converter): Convert HEX, RGB, and HSL values instantly with a live color preview. Free and fully client-side.
+- [HTTP Status Lookup](https://toolbox4devs.com/http-status-lookup): Search common HTTP response codes and their meanings while debugging APIs. Runs entirely in your browser.
+- [MIME Type Lookup](https://toolbox4devs.com/mime-type-lookup): Look up common file extensions, content types, and browser-facing MIME labels while working with uploads or headers.
+- [User Agent Parser](https://toolbox4devs.com/user-agent-parser): Parse raw browser user agent strings into browser, engine, operating system, and device hints.
+- [HTTP Header Parser](https://toolbox4devs.com/http-header-parser): Parse raw HTTP request or response headers into structured rows and JSON.
+- [URL Parser](https://toolbox4devs.com/url-parser): Parse URLs into their component parts (protocol, host, path, parameters).
+- [XML Formatter](https://toolbox4devs.com/xml-formatter): Format, beautify or minify XML strings natively in your browser.
 
-### Generation & Text Utilities
-- [Safe Vector QR Code Generator](https://toolbox4devs.com/qr-code-generator): 100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.
-- [QR Code Scanner](https://toolbox4devs.com/qr-code-scanner): Scan and decode QR codes from your webcam or uploaded image files completely offline with automatic payload parsing (Wi-Fi, Contact, Email, SMS, URLs).
-- [Docker Run to Compose Converter](https://toolbox4devs.com/docker-run-to-compose): Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations.
-- [CSV to Markdown Table Converter](https://toolbox4devs.com/csv-to-markdown): Convert CSV or TSV data into neatly formatted Markdown tables for documentation and GitHub READMEs.
-- [Markdown Table to JSON](https://toolbox4devs.com/markdown-table-to-json): Convert GitHub-flavored Markdown tables into JSON objects keyed by headers, with escaped-pipe handling and automatic number, boolean, and null detection.
-- [MAC Address Generator](https://toolbox4devs.com/mac-address-generator): Generate random valid unicast MAC addresses with customizable delimiters and casing.
-- [SVG Placeholder Generator](https://toolbox4devs.com/svg-placeholder-generator): Create custom SVG placeholder images with custom dimensions, labels, and color palettes.
-- [Dockerfile & Container Generator](https://toolbox4devs.com/dockerfile-generator): Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.
-- [UUID Generator](https://toolbox4devs.com/uuid): Generate RFC 4122 compliant UUID v4 and v1 identifiers in bulk.
-- [Secure Password Generator](https://toolbox4devs.com/password-generator): Generate high-entropy cryptographic passwords with custom character sets and length.
-- [Lorem Ipsum Generator](https://toolbox4devs.com/lorem-ipsum-generator): Generate dummy placeholder paragraphs, sentences, words, or lists.
-- [Text Diff Checker](https://toolbox4devs.com/text-diff): Compare two text blocks side-by-side or unified with character and line diff highlighting.
-- [Regex Tester & Evaluator](https://toolbox4devs.com/regex): Test regular expressions in real-time with flags (g, i, m, s, u), match highlighting, and capture groups.
-- [Case Converter](https://toolbox4devs.com/case-converter): Transform strings into camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE, Title Case, and sentence case.
-- [URL Slug Generator](https://toolbox4devs.com/slug-generator): Convert headlines and titles into SEO-friendly, clean URL slugs with separator options.
-- [Word & Character Counter](https://toolbox4devs.com/word-counter): Analyze text metrics including word count, character count, reading time, speaking time, and paragraph density.
-- [Local AI Assistant](https://toolbox4devs.com/local-ai-text-assistant): In-browser text analysis, summarization, and formatting assistant.
-- [Line Sorter & Deduplicator](https://toolbox4devs.com/line-sorter): Sort lines alphabetically, by length, or naturally and remove duplicates and empty lines.
-- [Number to Words Converter](https://toolbox4devs.com/number-to-words): Convert numbers into English words, including decimals, negatives, and magnitudes up to 999 trillion.
-- [.gitignore Generator](https://toolbox4devs.com/gitignore-generator): Generate a clean, deduplicated .gitignore file from language, framework, editor, and operating-system templates, with custom rules.
-- [Text Repeater & Multiplier](https://toolbox4devs.com/text-repeater): Replicate and repeat text, characters, or strings up to thousands of times with custom separators, line numbering, and case formatting.
-- [AI Token Counter & Visualizer](https://toolbox4devs.com/ai-token-counter): Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders with visual highlights.
-- [Password Strength Analyzer](https://toolbox4devs.com/password-strength-analyzer): Analyze password entropy, estimate crack times across online/offline/GPU attack scenarios, detect common patterns, and get actionable improvement tips.
-- [Faker Data Generator](https://toolbox4devs.com/faker-data-generator): Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences in JSON, CSV, or lines format for testing.
-- [JSON Schema Generator & Validator](https://toolbox4devs.com/json-schema-generator): Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with format detection and live in-browser testing.
-- [X.509 Certificate Decoder & Inspector](https://toolbox4devs.com/certificate-decoder): Decode and inspect PEM SSL/TLS X.509 certificates, Subject/Issuer DNs, SANs, validity dates, public keys, and SHA-256 fingerprints privately.
-- [DevFlow Pipeline Studio](https://toolbox4devs.com/pipeline-studio): Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
-- [Delimited File Data Validator](https://toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
+### Data Tools
+- [Delimited File Data Validator (CSV / TSV / TXT)](https://toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
+- [JSON to CSV & CSV to JSON Converter](https://toolbox4devs.com/json-to-csv): Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.
+- [JSON to SQL Schema & Query Converter](https://toolbox4devs.com/json-to-sql): Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.
+- [Age & Lifetime Milestone Calculator](https://toolbox4devs.com/age-calculator): Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.
+- [SemVer Calculator & Range Tester](https://toolbox4devs.com/semver-calculator): Parse, validate, compare, sort, and calculate version increments according to SemVer 2.0.0 rules and NPM range expressions.
+- [YAML <-> JSON Converter](https://toolbox4devs.com/yaml-json-converter): Convert bidirectionally between YAML and JSON with real-time validation, key sorting, and custom indentation options.
+- [SQL Formatter & Prettifier](https://toolbox4devs.com/sql-formatter): Format, indent, validate, and minify SQL queries online. Capitalize keywords, format clauses, and clean up raw database queries.
+- [CIDR & Subnet Calculator](https://toolbox4devs.com/cidr-calculator): Calculate IPv4 CIDR blocks, usable host IP ranges, subnet masks, wildcard masks, and binary network breakdowns.
+- [Large CSV & TXT Table Viewer (Up to 1GB)](https://toolbox4devs.com/csv-txt-viewer): View, parse, and analyze massive pipe-separated or delimited CSV and TXT files up to 1GB in a fast paginated table directly in your browser with zero memory freeze.
+- [Number Base Converter](https://toolbox4devs.com/base-converter): Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two's complement details.
+- [Timestamp Converter](https://toolbox4devs.com/timestamp-converter): Convert Unix timestamps, ISO dates, and local date strings instantly in your browser.
+- [Cron Expression Parser](https://toolbox4devs.com/cron-parser): Parse, explain, and calculate execution times for 5-part cron expressions.
+- [ASCII Table](https://toolbox4devs.com/ascii-table): Browse ASCII characters in decimal, hex, and binary with search and quick copy actions.
+- [Unix Permissions Calculator](https://toolbox4devs.com/unix-permissions-calculator): Convert read, write, and execute bits into chmod octal and symbolic permission strings.
+- [Number to Words Converter](https://toolbox4devs.com/number-to-words): Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.
+- [Cron Expression Generator](https://toolbox4devs.com/cron-generator): Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
+
+### Crypto Tools
+- [HMAC Generator & Calculator](https://toolbox4devs.com/hmac-generator): Calculate HMAC-SHA256, HMAC-SHA512, and HMAC-SHA1 signatures for webhook verification and API security.
+- [Bcrypt Hash Generator & Verifier](https://toolbox4devs.com/bcrypt-generator): Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.
+- [SHA-256 Hash Generator](https://toolbox4devs.com/sha256): Generate a SHA-256 hash from any input string instantly in your browser.
+- [RSA Key Generator](https://toolbox4devs.com/rsa-key-generator): Generate RSA public and private key pairs securely in your browser.
+- [X.509 Certificate Decoder & Inspector](https://toolbox4devs.com/certificate-decoder): Decode and inspect PEM SSL/TLS X.509 certificates, SANs, validity dates, and fingerprints privately.
+
+### Analyze Tools
 - [.env File Auditor & Secret Detector](https://toolbox4devs.com/env-auditor): Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.
+- [DevFlow Pipeline Studio](https://toolbox4devs.com/pipeline-studio): Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
+- [QR Code Scanner](https://toolbox4devs.com/qr-code-scanner): Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.
+- [Word Counter](https://toolbox4devs.com/word-counter): Count words, characters, sentences, paragraphs and reading time instantly.
+- [Local AI Text Assistant](https://toolbox4devs.com/local-ai-text-assistant): Summarize text, surface keywords, detect action items, and estimate sentiment fully in JavaScript with no API.
+- [Password Strength Analyzer](https://toolbox4devs.com/password-strength-analyzer): Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.
 
 ### Developer Workflow Recipes
 - [Developer Workflow Recipes Hub](https://toolbox4devs.com/recipes): Multi-step preconfigured pipelines chaining formatters, encoders, token decoders, and filters client-side.
-- [Webhook Payload Inspector](https://toolbox4devs.com/recipes/webhook-payload-inspector): Extract, decode base64 bodies, and prettify webhook payloads from Stripe, GitHub, or Shopify.
-- [JWT Auth Verifier](https://toolbox4devs.com/recipes/jwt-auth-verifier): Unpack, decode claims, and fingerprint JWT tokens in browser memory.
-- [Base64 to JSON Unpacker](https://toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 strings directly into clean, syntax-highlighted, formatted JSON.
-- [Server Log Cleaner](https://toolbox4devs.com/recipes/server-log-cleaner): Extract error lines and deduplicate stack trace signatures from server logs.
-- [SQL Identifier Sanitizer](https://toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch convert camelCase models into snake_case database column identifiers.
+- [Webhook Payload Inspector](https://toolbox4devs.com/recipes/webhook-payload-inspector): Extract, decode base64 bodies, and prettify webhook payloads from Stripe, GitHub, or Shopify entirely in browser memory.
+- [JWT Auth Token Inspector](https://toolbox4devs.com/recipes/jwt-auth-verifier): Extract claims from Bearer authentication tokens, validate expiration timestamps, and generate SHA-256 fingerprints in local browser memory.
+- [Base64 JSON Unpacker](https://toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 and url-safe base64 strings directly into clean, syntax-highlighted, formatted JSON in a single step.
+- [Log Cleaner & Deduplicator](https://toolbox4devs.com/recipes/server-log-cleaner): Extract error lines, deduplicate stack trace signatures, and clean messy server log files in browser memory.
+- [SQL Identifier Sanitizer](https://toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch transform frontend camelCase models and JSON keys into Postgres and MySQL compliant snake_case identifiers.
 
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:
@@ -109,4 +119,3 @@ AI agents can consume the structured machine-readable catalog at:
 
 Detailed technical documentation for LLMs:
 `https://toolbox4devs.com/llms-full.txt`
-
