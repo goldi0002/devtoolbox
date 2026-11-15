@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$comment": "Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand.",
   "name": "ToolBox4Devs Catalog",
-  "url": "https://toolbox4devs.com",
+  "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
   "totalTools": 76,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
@@ -49,7 +49,7 @@
       "slug": "env-auditor",
       "name": ".env File Auditor & Secret Detector",
       "category": "analyze-tools",
-      "url": "https://toolbox4devs.com/env-auditor",
+      "url": "https://www.toolbox4devs.com/env-auditor",
       "description": "Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.",
       "complexity": "moderate",
       "keywords": [
@@ -74,7 +74,7 @@
       "slug": "three-js-playground",
       "name": "Three.js 3D Scene Studio & Code Playground",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/three-js-playground",
+      "url": "https://www.toolbox4devs.com/three-js-playground",
       "description": "Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.",
       "complexity": "advanced",
       "keywords": [
@@ -99,7 +99,7 @@
       "slug": "pipeline-studio",
       "name": "DevFlow Pipeline Studio",
       "category": "analyze-tools",
-      "url": "https://toolbox4devs.com/pipeline-studio",
+      "url": "https://www.toolbox4devs.com/pipeline-studio",
       "description": "Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.",
       "complexity": "advanced",
       "keywords": [
@@ -129,7 +129,7 @@
       "slug": "csv-validator",
       "name": "Delimited File Data Validator (CSV / TSV / TXT)",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/csv-validator",
+      "url": "https://www.toolbox4devs.com/csv-validator",
       "description": "Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.",
       "complexity": "moderate",
       "keywords": [
@@ -159,7 +159,7 @@
       "slug": "markdown-table-to-json",
       "name": "Markdown Table to JSON",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/markdown-table-to-json",
+      "url": "https://www.toolbox4devs.com/markdown-table-to-json",
       "description": "Convert GitHub-flavored Markdown tables into JSON objects with typed values.",
       "complexity": "simple",
       "keywords": [
@@ -181,7 +181,7 @@
       "slug": "json-formatter",
       "name": "JSON Formatter & Validator",
       "category": "json-tools",
-      "url": "https://toolbox4devs.com/json-formatter",
+      "url": "https://www.toolbox4devs.com/json-formatter",
       "description": "Format, validate, query, filter, repair, and inspect JSON in real time with non-blocking Web Worker performance. 100% client-side.",
       "complexity": "moderate",
       "status": "beta",
@@ -220,7 +220,7 @@
       "slug": "json-model",
       "name": "JSON → Model",
       "category": "json-tools",
-      "url": "https://toolbox4devs.com/json-model",
+      "url": "https://www.toolbox4devs.com/json-model",
       "description": "Convert JSON to C# classes or TypeScript interfaces with proper types.",
       "complexity": "moderate",
       "status": "beta",
@@ -245,7 +245,7 @@
       "slug": "json-to-zod",
       "name": "JSON to Zod Schema Generator",
       "category": "json-tools",
-      "url": "https://toolbox4devs.com/json-to-zod",
+      "url": "https://www.toolbox4devs.com/json-to-zod",
       "description": "Convert JSON payloads into strongly-typed Zod schemas and TypeScript types.",
       "keywords": [
         "json",
@@ -268,7 +268,7 @@
       "slug": "json-to-csv",
       "name": "JSON to CSV & CSV to JSON Converter",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/json-to-csv",
+      "url": "https://www.toolbox4devs.com/json-to-csv",
       "description": "Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.",
       "keywords": [
         "json to csv",
@@ -290,7 +290,7 @@
       "slug": "json-to-sql",
       "name": "JSON to SQL Schema & Query Converter",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/json-to-sql",
+      "url": "https://www.toolbox4devs.com/json-to-sql",
       "description": "Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.",
       "keywords": [
         "json to sql",
@@ -313,7 +313,7 @@
       "slug": "age-calculator",
       "name": "Age & Lifetime Milestone Calculator",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/age-calculator",
+      "url": "https://www.toolbox4devs.com/age-calculator",
       "description": "Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.",
       "keywords": [
         "age calculator",
@@ -339,7 +339,7 @@
       "slug": "wcag-contrast-checker",
       "name": "WCAG 2.1 Color Contrast Checker",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/wcag-contrast-checker",
+      "url": "https://www.toolbox4devs.com/wcag-contrast-checker",
       "description": "Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.",
       "keywords": [
         "color contrast checker",
@@ -362,7 +362,7 @@
       "slug": "semver-calculator",
       "name": "SemVer Calculator & Range Tester",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/semver-calculator",
+      "url": "https://www.toolbox4devs.com/semver-calculator",
       "description": "Parse, validate, compare, sort, and calculate version increments according to SemVer 2.0.0 rules and NPM range expressions.",
       "keywords": [
         "semver calculator",
@@ -385,7 +385,7 @@
       "slug": "yaml-json-converter",
       "name": "YAML <-> JSON Converter",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/yaml-json-converter",
+      "url": "https://www.toolbox4devs.com/yaml-json-converter",
       "description": "Convert bidirectionally between YAML and JSON with real-time validation, key sorting, and custom indentation options.",
       "complexity": "moderate",
       "keywords": [
@@ -411,7 +411,7 @@
       "slug": "curl-converter",
       "name": "cURL to Code Converter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/curl-converter",
+      "url": "https://www.toolbox4devs.com/curl-converter",
       "description": "Convert cURL commands into clean JavaScript fetch, Node.js Axios, Python requests, Go, Rust, or PHP code snippets instantly.",
       "complexity": "moderate",
       "keywords": [
@@ -443,7 +443,7 @@
       "slug": "sql-formatter",
       "name": "SQL Formatter & Prettifier",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/sql-formatter",
+      "url": "https://www.toolbox4devs.com/sql-formatter",
       "description": "Format, indent, validate, and minify SQL queries online. Capitalize keywords, format clauses, and clean up raw database queries.",
       "complexity": "simple",
       "keywords": [
@@ -469,7 +469,7 @@
       "slug": "graphql-formatter",
       "name": "GraphQL Query Formatter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/graphql-formatter",
+      "url": "https://www.toolbox4devs.com/graphql-formatter",
       "description": "Format, prettify, validate, and minify GraphQL queries, mutations, and schemas online with custom indentation.",
       "complexity": "simple",
       "keywords": [
@@ -493,7 +493,7 @@
       "slug": "dockerfile-generator",
       "name": "Dockerfile & Container Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/dockerfile-generator",
+      "url": "https://www.toolbox4devs.com/dockerfile-generator",
       "description": "Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.",
       "keywords": [
         "dockerfile generator",
@@ -515,7 +515,7 @@
       "slug": "docker-run-to-compose",
       "name": "Docker Run to Compose Converter",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/docker-run-to-compose",
+      "url": "https://www.toolbox4devs.com/docker-run-to-compose",
       "description": "Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations instantly.",
       "keywords": [
         "docker run to compose",
@@ -537,7 +537,7 @@
       "slug": "svg-to-jsx",
       "name": "SVG to JSX / React Converter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/svg-to-jsx",
+      "url": "https://www.toolbox4devs.com/svg-to-jsx",
       "description": "Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.",
       "keywords": [
         "svg to jsx",
@@ -560,7 +560,7 @@
       "slug": "qr-code-generator",
       "name": "QR Code Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/qr-code-generator",
+      "url": "https://www.toolbox4devs.com/qr-code-generator",
       "description": "100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.",
       "keywords": [
         "safe qr code generator",
@@ -607,7 +607,7 @@
       "slug": "qr-code-scanner",
       "name": "QR Code Scanner",
       "category": "analyze-tools",
-      "url": "https://toolbox4devs.com/qr-code-scanner",
+      "url": "https://www.toolbox4devs.com/qr-code-scanner",
       "description": "Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.",
       "complexity": "moderate",
       "keywords": [
@@ -634,7 +634,7 @@
       "slug": "gitignore-generator",
       "name": ".gitignore Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/gitignore-generator",
+      "url": "https://www.toolbox4devs.com/gitignore-generator",
       "description": "Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system—entirely in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -658,7 +658,7 @@
       "slug": "hmac-generator",
       "name": "HMAC Generator & Calculator",
       "category": "crypto-tools",
-      "url": "https://toolbox4devs.com/hmac-generator",
+      "url": "https://www.toolbox4devs.com/hmac-generator",
       "description": "Calculate HMAC-SHA256, HMAC-SHA512, and HMAC-SHA1 signatures for webhook verification and API security.",
       "complexity": "simple",
       "keywords": [
@@ -684,7 +684,7 @@
       "slug": "bcrypt-generator",
       "name": "Bcrypt Hash Generator & Verifier",
       "category": "crypto-tools",
-      "url": "https://toolbox4devs.com/bcrypt-generator",
+      "url": "https://www.toolbox4devs.com/bcrypt-generator",
       "description": "Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.",
       "keywords": [
         "bcrypt generator",
@@ -706,7 +706,7 @@
       "slug": "cidr-calculator",
       "name": "CIDR & Subnet Calculator",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/cidr-calculator",
+      "url": "https://www.toolbox4devs.com/cidr-calculator",
       "description": "Calculate IPv4 CIDR blocks, usable host IP ranges, subnet masks, wildcard masks, and binary network breakdowns.",
       "keywords": [
         "cidr calculator",
@@ -728,7 +728,7 @@
       "slug": "string-escaper",
       "name": "String Escape & Unescape",
       "category": "encode-tools",
-      "url": "https://toolbox4devs.com/string-escaper",
+      "url": "https://www.toolbox4devs.com/string-escaper",
       "description": "Escape and unescape strings for JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell.",
       "keywords": [
         "string escaper",
@@ -750,7 +750,7 @@
       "slug": "csv-txt-viewer",
       "name": "Large CSV & TXT Table Viewer (Up to 1GB)",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/csv-txt-viewer",
+      "url": "https://www.toolbox4devs.com/csv-txt-viewer",
       "description": "View, parse, and analyze massive pipe-separated or delimited CSV and TXT files up to 1GB in a fast paginated table directly in your browser with zero memory freeze.",
       "complexity": "advanced",
       "keywords": [
@@ -776,7 +776,7 @@
       "slug": "base-converter",
       "name": "Number Base Converter",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/base-converter",
+      "url": "https://www.toolbox4devs.com/base-converter",
       "description": "Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two's complement details.",
       "keywords": [
         "base converter",
@@ -798,7 +798,7 @@
       "slug": "css-unit-converter",
       "name": "CSS Unit & Fluid clamp() Converter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/css-unit-converter",
+      "url": "https://www.toolbox4devs.com/css-unit-converter",
       "description": "Convert between PX, REM, EM, VW, VH, %, and PT with Tailwind CSS class matching and fluid clamp() generator.",
       "keywords": [
         "css unit converter",
@@ -820,7 +820,7 @@
       "slug": "keycode-inspector",
       "name": "Keycode & Keyboard Event Inspector",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/keycode-inspector",
+      "url": "https://www.toolbox4devs.com/keycode-inspector",
       "description": "Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.",
       "keywords": [
         "keycode",
@@ -842,7 +842,7 @@
       "slug": "base64",
       "name": "Base64",
       "category": "encode-tools",
-      "url": "https://toolbox4devs.com/base64",
+      "url": "https://www.toolbox4devs.com/base64",
       "description": "Encode plain text to Base64 or decode Base64 back to plain text.",
       "complexity": "simple",
       "keywords": [
@@ -872,7 +872,7 @@
       "slug": "url-encoder",
       "name": "URL Encoder / Decoder",
       "category": "encode-tools",
-      "url": "https://toolbox4devs.com/url-encoder",
+      "url": "https://www.toolbox4devs.com/url-encoder",
       "description": "Encode or decode URLs and query string parameters instantly in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -896,7 +896,7 @@
       "slug": "html-entity",
       "name": "HTML Entity Encoder",
       "category": "encode-tools",
-      "url": "https://toolbox4devs.com/html-entity",
+      "url": "https://www.toolbox4devs.com/html-entity",
       "description": "Encode plain text into safe HTML entities and decode entity strings back into readable text in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -918,7 +918,7 @@
       "slug": "text-diff",
       "name": "Text Diff",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/text-diff",
+      "url": "https://www.toolbox4devs.com/text-diff",
       "description": "Compare two text blocks line-by-line and highlight every change.",
       "complexity": "moderate",
       "keywords": [
@@ -941,7 +941,7 @@
       "slug": "uuid",
       "name": "UUID Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/uuid",
+      "url": "https://www.toolbox4devs.com/uuid",
       "description": "Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100.",
       "complexity": "simple",
       "keywords": [
@@ -964,7 +964,7 @@
       "slug": "jwt",
       "name": "JWT Decoder",
       "category": "auth-tools",
-      "url": "https://toolbox4devs.com/jwt",
+      "url": "https://www.toolbox4devs.com/jwt",
       "description": "Decode and inspect JSON Web Tokens — header, payload, expiry and more.",
       "complexity": "simple",
       "keywords": [
@@ -989,7 +989,7 @@
       "slug": "html-formatter",
       "name": "HTML Formatter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/html-formatter",
+      "url": "https://www.toolbox4devs.com/html-formatter",
       "description": "Format and minify HTML code for better readability or compactness.",
       "complexity": "moderate",
       "keywords": [
@@ -1013,7 +1013,7 @@
       "slug": "password-generator",
       "name": "Password Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/password-generator",
+      "url": "https://www.toolbox4devs.com/password-generator",
       "description": "Generate strong, random passwords with customizable length and character sets.",
       "complexity": "moderate",
       "keywords": [
@@ -1037,7 +1037,7 @@
       "slug": "lorem-ipsum-generator",
       "name": "Lorem Ipsum Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/lorem-ipsum-generator",
+      "url": "https://www.toolbox4devs.com/lorem-ipsum-generator",
       "description": "Create placeholder paragraphs for wireframes, prototypes, content mocks, and layout testing.",
       "complexity": "simple",
       "keywords": [
@@ -1058,7 +1058,7 @@
       "slug": "regex",
       "name": "Regex Tester & Checker",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/regex",
+      "url": "https://www.toolbox4devs.com/regex",
       "description": "Test and check regular expressions online live against sample text with real-time match and group highlighting.",
       "complexity": "moderate",
       "keywords": [
@@ -1087,7 +1087,7 @@
       "slug": "case-converter",
       "name": "Case Converter",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/case-converter",
+      "url": "https://www.toolbox4devs.com/case-converter",
       "description": "Convert text between uppercase, lowercase, camelCase, snake_case, kebab-case and more.",
       "complexity": "simple",
       "keywords": [
@@ -1110,7 +1110,7 @@
       "slug": "slug-generator",
       "name": "Slug Generator",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/slug-generator",
+      "url": "https://www.toolbox4devs.com/slug-generator",
       "description": "Convert titles and labels into clean kebab-case or snake_case slugs entirely in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -1132,7 +1132,7 @@
       "slug": "markdown-preview",
       "name": "Markdown Preview",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/markdown-preview",
+      "url": "https://www.toolbox4devs.com/markdown-preview",
       "description": "Write Markdown on the left and see a live preview on the right.",
       "complexity": "simple",
       "keywords": [
@@ -1154,7 +1154,7 @@
       "slug": "sha256",
       "name": "SHA-256 Hash Generator",
       "category": "crypto-tools",
-      "url": "https://toolbox4devs.com/sha256",
+      "url": "https://www.toolbox4devs.com/sha256",
       "description": "Generate a SHA-256 hash from any input string instantly in your browser.",
       "complexity": "moderate",
       "keywords": [
@@ -1176,7 +1176,7 @@
       "slug": "word-counter",
       "name": "Word Counter",
       "category": "analyze-tools",
-      "url": "https://toolbox4devs.com/word-counter",
+      "url": "https://www.toolbox4devs.com/word-counter",
       "description": "Count words, characters, sentences, paragraphs and reading time instantly.",
       "complexity": "simple",
       "keywords": [
@@ -1200,7 +1200,7 @@
       "slug": "timestamp-converter",
       "name": "Timestamp Converter",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/timestamp-converter",
+      "url": "https://www.toolbox4devs.com/timestamp-converter",
       "description": "Convert Unix timestamps, ISO dates, and local date strings instantly in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -1223,7 +1223,7 @@
       "slug": "cron-parser",
       "name": "Cron Expression Parser",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/cron-parser",
+      "url": "https://www.toolbox4devs.com/cron-parser",
       "description": "Parse, explain, and calculate execution times for 5-part cron expressions.",
       "keywords": [
         "cron",
@@ -1246,7 +1246,7 @@
       "slug": "query-string-parser",
       "name": "Query String Parser",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/query-string-parser",
+      "url": "https://www.toolbox4devs.com/query-string-parser",
       "description": "Parse URL query strings into readable key/value pairs and JSON entirely in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -1270,7 +1270,7 @@
       "slug": "color-converter",
       "name": "Color Converter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/color-converter",
+      "url": "https://www.toolbox4devs.com/color-converter",
       "description": "Convert HEX, RGB, and HSL values instantly with a live color preview. Free and fully client-side.",
       "complexity": "simple",
       "keywords": [
@@ -1293,7 +1293,7 @@
       "slug": "http-status-lookup",
       "name": "HTTP Status Lookup",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/http-status-lookup",
+      "url": "https://www.toolbox4devs.com/http-status-lookup",
       "description": "Search common HTTP response codes and their meanings while debugging APIs. Runs entirely in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -1316,7 +1316,7 @@
       "slug": "mime-type-lookup",
       "name": "MIME Type Lookup",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/mime-type-lookup",
+      "url": "https://www.toolbox4devs.com/mime-type-lookup",
       "description": "Look up common file extensions, content types, and browser-facing MIME labels while working with uploads or headers.",
       "complexity": "simple",
       "keywords": [
@@ -1338,7 +1338,7 @@
       "slug": "user-agent-parser",
       "name": "User Agent Parser",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/user-agent-parser",
+      "url": "https://www.toolbox4devs.com/user-agent-parser",
       "description": "Parse raw browser user agent strings into browser, engine, operating system, and device hints.",
       "complexity": "simple",
       "keywords": [
@@ -1359,7 +1359,7 @@
       "slug": "ascii-table",
       "name": "ASCII Table",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/ascii-table",
+      "url": "https://www.toolbox4devs.com/ascii-table",
       "description": "Browse ASCII characters in decimal, hex, and binary with search and quick copy actions.",
       "complexity": "simple",
       "keywords": [
@@ -1380,7 +1380,7 @@
       "slug": "hash-comparator",
       "name": "Hash Comparator",
       "category": "encode-tools",
-      "url": "https://toolbox4devs.com/hash-comparator",
+      "url": "https://www.toolbox4devs.com/hash-comparator",
       "description": "Compare two hashes or checksums after trimming whitespace and normalizing letter case.",
       "complexity": "simple",
       "keywords": [
@@ -1401,7 +1401,7 @@
       "slug": "http-header-parser",
       "name": "HTTP Header Parser",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/http-header-parser",
+      "url": "https://www.toolbox4devs.com/http-header-parser",
       "description": "Parse raw HTTP request or response headers into structured rows and JSON.",
       "complexity": "simple",
       "keywords": [
@@ -1422,7 +1422,7 @@
       "slug": "basic-auth-header",
       "name": "Basic Auth Header",
       "category": "auth-tools",
-      "url": "https://toolbox4devs.com/basic-auth-header",
+      "url": "https://www.toolbox4devs.com/basic-auth-header",
       "description": "Generate and decode HTTP Basic Authorization headers using username and password pairs.",
       "complexity": "simple",
       "keywords": [
@@ -1443,7 +1443,7 @@
       "slug": "unix-permissions-calculator",
       "name": "Unix Permissions Calculator",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/unix-permissions-calculator",
+      "url": "https://www.toolbox4devs.com/unix-permissions-calculator",
       "description": "Convert read, write, and execute bits into chmod octal and symbolic permission strings.",
       "complexity": "simple",
       "keywords": [
@@ -1464,7 +1464,7 @@
       "slug": "local-ai-text-assistant",
       "name": "Local AI Text Assistant",
       "category": "analyze-tools",
-      "url": "https://toolbox4devs.com/local-ai-text-assistant",
+      "url": "https://www.toolbox4devs.com/local-ai-text-assistant",
       "description": "Summarize text, surface keywords, detect action items, and estimate sentiment fully in JavaScript with no API.",
       "complexity": "moderate",
       "keywords": [
@@ -1485,7 +1485,7 @@
       "slug": "csv-to-markdown",
       "name": "CSV to Markdown",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/csv-to-markdown",
+      "url": "https://www.toolbox4devs.com/csv-to-markdown",
       "description": "Convert CSV or TSV data into a well-formatted Markdown table instantly.",
       "keywords": [
         "csv to markdown",
@@ -1504,7 +1504,7 @@
       "slug": "hex-converter",
       "name": "Hex Converter",
       "category": "encode-tools",
-      "url": "https://toolbox4devs.com/hex-converter",
+      "url": "https://www.toolbox4devs.com/hex-converter",
       "description": "Convert text to hexadecimal and hexadecimal back to text.",
       "keywords": [
         "hex converter",
@@ -1523,7 +1523,7 @@
       "slug": "mac-address-generator",
       "name": "MAC Address Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/mac-address-generator",
+      "url": "https://www.toolbox4devs.com/mac-address-generator",
       "description": "Generate valid unicast, multicast, locally administered, or vendor-specific MAC addresses in colon, hyphen, or dot formats.",
       "keywords": [
         "mac address generator",
@@ -1548,7 +1548,7 @@
       "slug": "rsa-key-generator",
       "name": "RSA Key Generator",
       "category": "crypto-tools",
-      "url": "https://toolbox4devs.com/rsa-key-generator",
+      "url": "https://www.toolbox4devs.com/rsa-key-generator",
       "description": "Generate RSA public and private key pairs securely in your browser.",
       "keywords": [
         "rsa key generator",
@@ -1567,7 +1567,7 @@
       "slug": "svg-placeholder-generator",
       "name": "SVG Placeholder",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/svg-placeholder-generator",
+      "url": "https://www.toolbox4devs.com/svg-placeholder-generator",
       "description": "Generate fast, customizable SVG placeholder images for your projects.",
       "keywords": [
         "svg placeholder",
@@ -1587,7 +1587,7 @@
       "slug": "url-parser",
       "name": "URL Parser",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/url-parser",
+      "url": "https://www.toolbox4devs.com/url-parser",
       "description": "Parse URLs into their component parts (protocol, host, path, parameters).",
       "keywords": [
         "url parser",
@@ -1606,7 +1606,7 @@
       "slug": "xml-formatter",
       "name": "XML Formatter",
       "category": "web-tools",
-      "url": "https://toolbox4devs.com/xml-formatter",
+      "url": "https://www.toolbox4devs.com/xml-formatter",
       "description": "Format, beautify or minify XML strings natively in your browser.",
       "keywords": [
         "xml formatter",
@@ -1625,7 +1625,7 @@
       "slug": "line-sorter",
       "name": "Line Sorter & Deduplicator",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/line-sorter",
+      "url": "https://www.toolbox4devs.com/line-sorter",
       "description": "Sort lines alphabetically, by length, or naturally — remove duplicates, trim whitespace, and drop empty lines.",
       "complexity": "simple",
       "keywords": [
@@ -1650,7 +1650,7 @@
       "slug": "number-to-words",
       "name": "Number to Words Converter",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/number-to-words",
+      "url": "https://www.toolbox4devs.com/number-to-words",
       "description": "Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.",
       "complexity": "simple",
       "keywords": [
@@ -1675,7 +1675,7 @@
       "slug": "text-repeater",
       "name": "Text Repeater & Multiplier",
       "category": "text-tools",
-      "url": "https://toolbox4devs.com/text-repeater",
+      "url": "https://www.toolbox4devs.com/text-repeater",
       "description": "Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.",
       "complexity": "simple",
       "keywords": [
@@ -1700,7 +1700,7 @@
       "slug": "ai-token-counter",
       "name": "AI Token Counter & Visualizer",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/ai-token-counter",
+      "url": "https://www.toolbox4devs.com/ai-token-counter",
       "description": "Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.",
       "complexity": "moderate",
       "keywords": [
@@ -1726,7 +1726,7 @@
       "slug": "jwt-encoder",
       "name": "JWT Encoder & Token Generator",
       "category": "auth-tools",
-      "url": "https://toolbox4devs.com/jwt-encoder",
+      "url": "https://www.toolbox4devs.com/jwt-encoder",
       "description": "Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -1753,7 +1753,7 @@
       "slug": "cron-generator",
       "name": "Cron Expression Generator",
       "category": "data-tools",
-      "url": "https://toolbox4devs.com/cron-generator",
+      "url": "https://www.toolbox4devs.com/cron-generator",
       "description": "Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.",
       "complexity": "simple",
       "keywords": [
@@ -1779,7 +1779,7 @@
       "slug": "password-strength-analyzer",
       "name": "Password Strength Analyzer",
       "category": "analyze-tools",
-      "url": "https://toolbox4devs.com/password-strength-analyzer",
+      "url": "https://www.toolbox4devs.com/password-strength-analyzer",
       "description": "Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.",
       "complexity": "moderate",
       "keywords": [
@@ -1805,7 +1805,7 @@
       "slug": "faker-data-generator",
       "name": "Faker Data Generator",
       "category": "generate-tools",
-      "url": "https://toolbox4devs.com/faker-data-generator",
+      "url": "https://www.toolbox4devs.com/faker-data-generator",
       "description": "Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.",
       "complexity": "simple",
       "keywords": [
@@ -1831,7 +1831,7 @@
       "slug": "json-schema-generator",
       "name": "JSON Schema Generator & Validator",
       "category": "json-tools",
-      "url": "https://toolbox4devs.com/json-schema-generator",
+      "url": "https://www.toolbox4devs.com/json-schema-generator",
       "description": "Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with live validation.",
       "complexity": "moderate",
       "keywords": [
@@ -1858,7 +1858,7 @@
       "slug": "certificate-decoder",
       "name": "X.509 Certificate Decoder & Inspector",
       "category": "crypto-tools",
-      "url": "https://toolbox4devs.com/certificate-decoder",
+      "url": "https://www.toolbox4devs.com/certificate-decoder",
       "description": "Decode and inspect PEM SSL/TLS X.509 certificates, SANs, validity dates, and fingerprints privately.",
       "complexity": "moderate",
       "keywords": [

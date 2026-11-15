@@ -14,12 +14,28 @@
       <img src="https://img.shields.io/badge/Docs-MkDocs%20Material-0ea5e9?style=for-the-badge&logo=material-for-mkdocs" alt="Documentation Site" />
     </a>
     <a href="https://github.com/goldi0002/devtoolbox/actions/workflows/ci.yml">
-      <img src="https://img.shields.io/badge/CI-Passing-10b981?style=for-the-badge&logo=githubactions" alt="CI Status" />
+      <img src="https://img.shields.io/github/actions/workflow/status/goldi0002/devtoolbox/ci.yml?branch=main&style=for-the-badge&logo=githubactions&label=CI" alt="CI Status" />
     </a>
     <a href="LICENSE">
       <img src="https://img.shields.io/badge/License-MIT-amber?style=for-the-badge" alt="License: MIT" />
     </a>
   </p>
+
+  <a href="https://www.toolbox4devs.com">
+    <img src="docs/images/screenshot-home.jpg" alt="ToolBox4Devs home page with tool search and quick actions" width="820" />
+  </a>
+</div>
+
+---
+
+## 🔗 Pipeline Studio: chain tools without leaving the tab
+
+Paste a payload once and run it through a sequence of steps, for example format JSON → extract a key → decode the JWT inside it. Everything executes in browser memory, and a pipeline can be shared as a link.
+
+<div align="center">
+  <a href="https://www.toolbox4devs.com/pipeline-studio">
+    <img src="docs/images/screenshot-pipeline-studio.jpg" alt="Pipeline Studio chaining JSON format, key extraction and JWT decode steps" width="820" />
+  </a>
 </div>
 
 ---
@@ -79,7 +95,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **JWT Decoder & Inspector (`/jwt`)**: Decode JWT headers, payload claims, expiration status, and time-to-live warnings.
 - **JWT Encoder & Signer (`/jwt-encoder`)**: Generate and sign tokens using HMAC-SHA256 client-side.
 - **Basic Auth Header Generator (`/basic-auth-header`)**: Create `Authorization: Basic <base64>` tokens from username/password pairs.
-- **SHA & Hash Generator (`/sha256`)**: Compute SHA-1, SHA-256, SHA-384, and SHA-512 hashes using native Web Crypto.
+- **SHA-256 Hash Generator (`/sha256`)**: Hash text or files with SHA-256 using native Web Crypto, and verify against a known checksum.
 - **HMAC Generator (`/hmac-generator`)**: Compute keyed hash message authentication codes with custom secrets.
 - **RSA Keypair Generator (`/rsa-key-generator`)**: Generate PKCS#8 and SPKI RSA keypairs directly in browser memory.
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.

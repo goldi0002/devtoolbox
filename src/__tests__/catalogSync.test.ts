@@ -32,13 +32,13 @@ describe('Tool catalog files are generated from the registry', () => {
     expect(json.totalTools).toBe(tools.length)
     expect(json.tools.map((t: { slug: string }) => t.slug).sort()).toEqual(slugs)
 
-    const llmsSlugs = [...outputs['public/llms.txt'].matchAll(/\]\(https:\/\/toolbox4devs\.com\/([a-z0-9-]+)\)/g)]
+    const llmsSlugs = [...outputs['public/llms.txt'].matchAll(/\]\(https:\/\/www\.toolbox4devs\.com\/([a-z0-9-]+)\)/g)]
       .map(m => m[1])
       .filter(s => s !== 'recipes')
       .sort()
     expect(llmsSlugs).toEqual(slugs)
 
-    const fullSlugs = [...outputs['public/llms-full.txt'].matchAll(/- URL: https:\/\/toolbox4devs\.com\/([a-z0-9-]+)/g)]
+    const fullSlugs = [...outputs['public/llms-full.txt'].matchAll(/- URL: https:\/\/www\.toolbox4devs\.com\/([a-z0-9-]+)/g)]
       .map(m => m[1])
       .sort()
     expect(fullSlugs).toEqual(slugs)

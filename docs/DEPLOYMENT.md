@@ -36,28 +36,7 @@ npm run preview
 
 ### A. Vercel (Production Custom Domain: www.toolbox4devs.com)
 
-The repository includes a ready-to-use `vercel.json` with SPA rewrite rules:
-
-```json
-{
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
-      ]
-    }
-  ]
-}
-```
+The repository includes a ready-to-use `vercel.json`. Every route is pre-rendered to its own HTML file, so there is no SPA rewrite: Vercel serves the matching file, and unknown URLs get `404.html` with a real 404 status.
 
 1. Connect the GitHub repository `goldi0002/devtoolbox` in Vercel.
 2. Set Build Command to `npm run build` and Output Directory to `dist`.

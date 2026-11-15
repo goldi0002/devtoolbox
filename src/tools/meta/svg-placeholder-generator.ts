@@ -22,4 +22,8 @@ export const SVG_PLACEHOLDER_GENERATOR_META: ToolMeta = {
     },
     isNew: true,
     status: 'stable',
+    seo: {
+        title: 'SVG Placeholder Image Generator — Custom Size, Color & Text',
+        description: 'Generate lightweight SVG placeholder images with custom dimensions, colors and label text. Copy the SVG markup straight into your mockups.',
+    },
 }

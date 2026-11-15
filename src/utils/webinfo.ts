@@ -1,6 +1,6 @@
 const rawBaseUrl = import.meta.env.VITE_BASE_URL
 const cleanBaseUrl = (!rawBaseUrl || rawBaseUrl.includes('example.com')) 
-  ? 'https://toolbox4devs.com' 
+  ? 'https://www.toolbox4devs.com' 
   : rawBaseUrl.replace(/\/+$/, '') // Remove trailing slash if present
 
 export const WEB_INFO = {

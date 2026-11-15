@@ -15,7 +15,7 @@
 import type { ToolMeta } from './tool-meta'
 import type { DevRecipe } from '../data/recipes'
 
-export const SITE_URL = 'https://toolbox4devs.com'
+export const SITE_URL = 'https://www.toolbox4devs.com'
 
 /** Files rewritten in full. */
 export const GENERATED_FILES = [

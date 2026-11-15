@@ -22,4 +22,8 @@ export const RSA_KEY_GENERATOR_META: ToolMeta = {
     },
     isNew: true,
     status: 'stable',
+    seo: {
+        title: 'RSA Key Generator — Create 2048 & 4096-bit PEM Key Pairs Online',
+        description: 'Generate RSA public and private key pairs in PEM format using the Web Crypto API. Keys are created in your browser and never sent anywhere.',
+    },
 }

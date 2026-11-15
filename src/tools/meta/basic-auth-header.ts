@@ -28,4 +28,8 @@ export const BASIC_AUTH_HEADER_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'Basic Auth Header Generator & Decoder — HTTP Authorization',
+    description: 'Generate an HTTP Basic Authorization header from a username and password, or decode an existing one. Runs in your browser; credentials never leave it.',
+  },
 }

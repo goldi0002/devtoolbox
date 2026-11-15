@@ -1,4 +1,4 @@
-# Robots.txt for ToolBox4Devs (https://toolbox4devs.com)
+# Robots.txt for ToolBox4Devs (https://www.toolbox4devs.com)
 # Designed for maximum discoverability across all search engines and AI agents
 
 User-agent: *
@@ -66,5 +66,5 @@ Allow: /
 # Programmatic JSON catalog: /tools.json
 
 # Sitemaps & Host
-Sitemap: https://toolbox4devs.com/sitemap.xml
-Host: https://toolbox4devs.com
+Sitemap: https://www.toolbox4devs.com/sitemap.xml
+Host: https://www.toolbox4devs.com

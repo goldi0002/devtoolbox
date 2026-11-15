@@ -7,7 +7,8 @@ import {
   getInitialSansFont,
   getInitialMonoFont,
   applySansFont,
-  applyMonoFont
+  applyMonoFont,
+  loadFontStylesheet
 } from '../../utils/fonts'
 import { Type, Sparkles, Check } from 'lucide-react'
 
@@ -24,6 +25,13 @@ export default function FontPicker() {
     setMonoFont(getInitialMonoFont())
     setMounted(true)
   }, [])
+
+  // The list previews every option in its own typeface, so fetch the optional
+  // fonts once the picker is first opened.
+  useEffect(() => {
+    if (!open) return
+    for (const font of [...SANS_FONTS, ...MONO_FONTS]) loadFontStylesheet(font)
+  }, [open])
 
   // Close on outside click
   useEffect(() => {

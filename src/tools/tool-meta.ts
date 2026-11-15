@@ -45,11 +45,42 @@ export interface ToolAbout {
 }
 
 
+export interface ToolGuideStep {
+    name: string
+    text: string
+}
+
+export interface ToolGuideFaq {
+    question: string
+    answer: string
+}
+
+export interface ToolGuideExample {
+    /** Short label for what the example shows, e.g. "Decode a query string" */
+    title: string
+    input: string
+    output: string
+    inputLabel?: string
+    outputLabel?: string
+}
+
+/**
+ * Tool-specific page content. When present it replaces the generic how-to
+ * steps and most of the generic FAQs on the tool page, so each page carries
+ * text that is true only of that tool.
+ */
+export interface ToolGuide {
+    steps?: ToolGuideStep[]
+    faqs?: ToolGuideFaq[]
+    example?: ToolGuideExample
+}
+
 export interface ToolMeta {
     slug: string
     name: string
     description: string
     about: ToolAbout
+    guide?: ToolGuide
     category: ToolCategory
     tag: string
     keywords: string[],

@@ -57,5 +57,50 @@ export const BASE_64_META: ToolMeta = {
       'base64 encoding tool',
       'base64 decoding tool',
     ],
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Pick encode or decode",
+        "text": "Choose whether you are turning text into Base64 or turning a Base64 string back into text."
+      },
+      {
+        "name": "Enter text or upload a file",
+        "text": "Type or paste your input, or upload a file to get its Base64 representation. The result updates as you type."
+      },
+      {
+        "name": "Set URL-safe or data URI output",
+        "text": "Turn on URL-safe mode to use - and _ with no padding, or data URI mode to prefix the result for use in HTML and CSS."
+      },
+      {
+        "name": "Copy or swap the result",
+        "text": "Copy the output, or use the swap button to send it back to the input and convert in the other direction."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is Base64 a form of encryption?",
+        "answer": "No. Base64 is a reversible encoding with no key, so anyone can decode it. Use it to move data safely through text-only channels, never to protect secrets."
+      },
+      {
+        "question": "What is URL-safe Base64?",
+        "answer": "Standard Base64 uses + and /, which have special meaning in URLs. The URL-safe variant replaces them with - and _ and usually drops the trailing = padding. JWTs use this variant."
+      },
+      {
+        "question": "Why does Base64 output end with = or ==?",
+        "answer": "Base64 encodes three bytes into four characters. When the input length is not a multiple of three, = characters pad the final group to four characters."
+      },
+      {
+        "question": "How much larger is Base64 than the original data?",
+        "answer": "About 33% larger, because every three bytes become four characters. That is why inlining large images as Base64 data URIs is usually a bad trade."
+      }
+    ],
+    "example": {
+      "title": "Encode a short string to standard Base64.",
+      "input": "Hello, World!",
+      "output": "SGVsbG8sIFdvcmxkIQ==",
+      "inputLabel": "Plain text",
+      "outputLabel": "Base64"
+    }
+  },
 }

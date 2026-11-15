@@ -1,6 +1,6 @@
 # ToolBox4Devs — Full Technical Specification for AI Agents & Crawlers
 
-Website: https://toolbox4devs.com
+Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
@@ -13,7 +13,7 @@ Total Tools: 76
 ## Tool Registry & Technical Specifications (All 76 Tools)
 
 ### 1. .env File Auditor & Secret Detector
-- URL: https://toolbox4devs.com/env-auditor
+- URL: https://www.toolbox4devs.com/env-auditor
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
 - Description: Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.
@@ -23,7 +23,7 @@ Total Tools: 76
 - Tip: Paste your .env into the left panel and leave .env.example empty to automatically generate a clean, sorted .env.example template with all values stripped.
 
 ### 2. Three.js 3D Scene Studio & Code Playground
-- URL: https://toolbox4devs.com/three-js-playground
+- URL: https://www.toolbox4devs.com/three-js-playground
 - Category: Web (web-tools)
 - Complexity: Advanced
 - Description: Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.
@@ -33,7 +33,7 @@ Total Tools: 76
 - Tip: Use the template selector to quickly load different styles of 3D scenes and customize their parameters in the code editor.
 
 ### 3. DevFlow Pipeline Studio
-- URL: https://toolbox4devs.com/pipeline-studio
+- URL: https://www.toolbox4devs.com/pipeline-studio
 - Category: Analyze (analyze-tools)
 - Complexity: Advanced
 - Description: Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
@@ -43,7 +43,7 @@ Total Tools: 76
 - Tip: Need to share a complex transformation chain with a teammate? Click "Share Recipe" to generate a self-contained compressed URL that restores your exact input and steps.
 
 ### 4. Delimited File Data Validator (CSV / TSV / TXT)
-- URL: https://toolbox4devs.com/csv-validator
+- URL: https://www.toolbox4devs.com/csv-validator
 - Category: Data (data-tools)
 - Complexity: Moderate
 - Description: Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
@@ -53,7 +53,7 @@ Total Tools: 76
 - Tip: Click "Auto-Infer Rules" after loading your data to automatically generate base rules, then fine-tune required and regex constraints.
 
 ### 5. Markdown Table to JSON
-- URL: https://toolbox4devs.com/markdown-table-to-json
+- URL: https://www.toolbox4devs.com/markdown-table-to-json
 - Category: Text (text-tools)
 - Complexity: Simple
 - Description: Convert GitHub-flavored Markdown tables into JSON objects with typed values.
@@ -63,7 +63,7 @@ Total Tools: 76
 - Tip: Numeric-looking values with leading zeroes, such as 0012, remain strings to preserve identifiers.
 
 ### 6. JSON Formatter & Validator
-- URL: https://toolbox4devs.com/json-formatter
+- URL: https://www.toolbox4devs.com/json-formatter
 - Category: JSON (json-tools)
 - Complexity: Moderate
 - Status: Beta
@@ -74,7 +74,7 @@ Total Tools: 76
 - Tip: Need to extract specific data from a nested API response? Use the Query bar with dot notation like "data.products[*].name" or a JavaScript expression like "x => x.price > 100" to filter instantly.
 
 ### 7. JSON → Model
-- URL: https://toolbox4devs.com/json-model
+- URL: https://www.toolbox4devs.com/json-model
 - Category: JSON (json-tools)
 - Complexity: Moderate
 - Status: Beta
@@ -85,7 +85,7 @@ Total Tools: 76
 - Tip: Paste a real API response rather than a hand-crafted example — the generator picks up optional fields and mixed types more accurately from real data.
 
 ### 8. JSON to Zod Schema Generator
-- URL: https://toolbox4devs.com/json-to-zod
+- URL: https://www.toolbox4devs.com/json-to-zod
 - Category: JSON (json-tools)
 - Description: Convert JSON payloads into strongly-typed Zod schemas and TypeScript types.
 - Summary: The JSON to Zod Schema Generator converts any raw JSON object or array into a valid Zod schema definition with inferred TypeScript types.
@@ -94,7 +94,7 @@ Total Tools: 76
 - Tip: Customize the exported schema variable name using the input field above the editor.
 
 ### 9. JSON to CSV & CSV to JSON Converter
-- URL: https://toolbox4devs.com/json-to-csv
+- URL: https://www.toolbox4devs.com/json-to-csv
 - Category: Data (data-tools)
 - Description: Convert JSON arrays to CSV spreadsheets or CSV files to JSON with nested object flattening and live tabular preview.
 - Summary: The JSON to CSV & CSV to JSON Converter performs instant bidirectional conversion between JSON data structures and delimiter-separated values (CSV, TSV, DSV) with tabular previews and flattening of nested objects.
@@ -103,7 +103,7 @@ Total Tools: 76
 - Tip: Click "Table Preview" to inspect the structured columns and rows before downloading your CSV.
 
 ### 10. JSON to SQL Schema & Query Converter
-- URL: https://toolbox4devs.com/json-to-sql
+- URL: https://www.toolbox4devs.com/json-to-sql
 - Category: Data (data-tools)
 - Description: Convert JSON objects and arrays into SQL CREATE TABLE and INSERT INTO statements with automatic data type detection and multi-dialect support.
 - Summary: The JSON to SQL Converter transforms raw JSON datasets into structured SQL table definitions (CREATE TABLE) and parameterized or batched INSERT statements across major database dialects.
@@ -112,7 +112,7 @@ Total Tools: 76
 - Tip: Toggle Batch Inserts to combine hundreds of records into high-performance multi-row VALUES clauses.
 
 ### 11. Age & Lifetime Milestone Calculator
-- URL: https://toolbox4devs.com/age-calculator
+- URL: https://www.toolbox4devs.com/age-calculator
 - Category: Data (data-tools)
 - Description: Calculate your exact age down to the second, total days, hours, minutes, heartbeats, breaths, next birthday countdown, and planetary ages.
 - Summary: The Age & Lifetime Milestone Calculator accurately computes elapsed time between a birth date and any target date down to the millisecond. It provides granular breakdowns into years, months, weeks, days, hours, minutes, and seconds, alongside biological milestones and planetary ages.
@@ -121,7 +121,7 @@ Total Tools: 76
 - Tip: Click any sample preset to explore age calculations for different generations and historical milestones.
 
 ### 12. WCAG 2.1 Color Contrast Checker
-- URL: https://toolbox4devs.com/wcag-contrast-checker
+- URL: https://www.toolbox4devs.com/wcag-contrast-checker
 - Category: Web (web-tools)
 - Description: Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
 - Summary: The WCAG 2.1 Color Contrast Checker evaluates foreground and background color pairings using the official W3C relative luminance formula to ensure digital accessibility for all users.
@@ -130,7 +130,7 @@ Total Tools: 76
 - Tip: Click any palette preset to quickly test high-contrast dark, light, or theme combinations.
 
 ### 13. SemVer Calculator & Range Tester
-- URL: https://toolbox4devs.com/semver-calculator
+- URL: https://www.toolbox4devs.com/semver-calculator
 - Category: Data (data-tools)
 - Description: Parse, validate, compare, sort, and calculate version increments according to SemVer 2.0.0 rules and NPM range expressions.
 - Summary: The SemVer Calculator parses semantic versions into Major, Minor, Patch, Pre-release, and Build metadata. It tests package range expressions and calculates next version releases.
@@ -139,7 +139,7 @@ Total Tools: 76
 - Tip: Click any sample preset to test caret (^), tilde (~), or pre-release version ranges instantly.
 
 ### 14. YAML <-> JSON Converter
-- URL: https://toolbox4devs.com/yaml-json-converter
+- URL: https://www.toolbox4devs.com/yaml-json-converter
 - Category: Data (data-tools)
 - Complexity: Moderate
 - Description: Convert bidirectionally between YAML and JSON with real-time validation, key sorting, and custom indentation options.
@@ -149,7 +149,7 @@ Total Tools: 76
 - Tip: Toggle "Alphabetize Keys" to make git diffs clean when comparing configuration versions!
 
 ### 15. cURL to Code Converter
-- URL: https://toolbox4devs.com/curl-converter
+- URL: https://www.toolbox4devs.com/curl-converter
 - Category: Web (web-tools)
 - Complexity: Moderate
 - Description: Convert cURL commands into clean JavaScript fetch, Node.js Axios, Python requests, Go, Rust, or PHP code snippets instantly.
@@ -159,7 +159,7 @@ Total Tools: 76
 - Tip: In Chrome or Edge Network tab, right-click any request and select "Copy as cURL", then paste it here to get instant code!
 
 ### 16. SQL Formatter & Prettifier
-- URL: https://toolbox4devs.com/sql-formatter
+- URL: https://www.toolbox4devs.com/sql-formatter
 - Category: Data (data-tools)
 - Complexity: Simple
 - Description: Format, indent, validate, and minify SQL queries online. Capitalize keywords, format clauses, and clean up raw database queries.
@@ -169,7 +169,7 @@ Total Tools: 76
 - Tip: Paste raw SQL generated by your backend ORM query logger to inspect joins and conditions clearly!
 
 ### 17. GraphQL Query Formatter
-- URL: https://toolbox4devs.com/graphql-formatter
+- URL: https://www.toolbox4devs.com/graphql-formatter
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Format, prettify, validate, and minify GraphQL queries, mutations, and schemas online with custom indentation.
@@ -179,7 +179,7 @@ Total Tools: 76
 - Tip: Copy minified queries directly into cURL or Postman POST request bodies under the "query" string field!
 
 ### 18. Dockerfile & Container Generator
-- URL: https://toolbox4devs.com/dockerfile-generator
+- URL: https://www.toolbox4devs.com/dockerfile-generator
 - Category: Generators (generate-tools)
 - Description: Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.
 - Summary: The Dockerfile & Container Generator builds production-hardened Docker container configurations across popular web development frameworks with multi-stage builds, non-root users, and automated security auditing.
@@ -188,7 +188,7 @@ Total Tools: 76
 - Tip: Review the Container Best Practices audit at the bottom to verify security and optimization compliance.
 
 ### 19. Docker Run to Compose Converter
-- URL: https://toolbox4devs.com/docker-run-to-compose
+- URL: https://www.toolbox4devs.com/docker-run-to-compose
 - Category: Generators (generate-tools)
 - Description: Convert single or multi-line docker run commands into clean, production-ready docker-compose.yml YAML configurations instantly.
 - Summary: The Docker Run to Compose Converter parses complex Docker CLI commands and automatically synthesizes structured, valid docker-compose.yml files in memory.
@@ -197,7 +197,7 @@ Total Tools: 76
 - Tip: Paste multiple docker run commands separated by newlines to generate a multi-service docker-compose.yml file.
 
 ### 20. SVG to JSX / React Converter
-- URL: https://toolbox4devs.com/svg-to-jsx
+- URL: https://www.toolbox4devs.com/svg-to-jsx
 - Category: Web (web-tools)
 - Description: Transform raw SVG markup into clean, optimized React JSX / TSX icon components with TypeScript types, custom props, and currentColor support.
 - Summary: The SVG to JSX Converter takes standard SVG markup and produces modern, production-ready React / TSX components with proper camelCase attribute formatting, TypeScript interfaces, and customizable wrapper options.
@@ -206,7 +206,7 @@ Total Tools: 76
 - Tip: Enable the "Replace colors with currentColor" option to make your SVG icon dynamically inherit CSS text colors.
 
 ### 21. QR Code Generator
-- URL: https://toolbox4devs.com/qr-code-generator
+- URL: https://www.toolbox4devs.com/qr-code-generator
 - Category: Generators (generate-tools)
 - Description: 100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.
 - Summary: The Safe QR Code Generator creates 100% private, standards-compliant 2D Quick Response barcodes directly in your browser memory. Unlike shady QR services that redirect via tracked middleman links, ToolBox4Devs creates permanent, static QR codes that never expire. Export infinite vector SVG & EPS for print, high-resolution PNG with transparent background, and custom module shapes.
@@ -215,7 +215,7 @@ Total Tools: 76
 - Tip: Choose SVG or EPS export when sending files to a print shop or professional designer. Vector formats can be scaled to billboard size with zero loss in sharpness.
 
 ### 22. QR Code Scanner
-- URL: https://toolbox4devs.com/qr-code-scanner
+- URL: https://www.toolbox4devs.com/qr-code-scanner
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
 - Description: Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.
@@ -225,7 +225,7 @@ Total Tools: 76
 - Tip: Ensure proper lighting and keep the QR code centered and flat for the fastest webcam decoding response.
 
 ### 23. .gitignore Generator
-- URL: https://toolbox4devs.com/gitignore-generator
+- URL: https://www.toolbox4devs.com/gitignore-generator
 - Category: Generators (generate-tools)
 - Complexity: Simple
 - Description: Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system—entirely in your browser.
@@ -235,7 +235,7 @@ Total Tools: 76
 - Tip: A .gitignore does not untrack files already committed. Run git rm --cached <file> once if a tracked file should become ignored.
 
 ### 24. HMAC Generator & Calculator
-- URL: https://toolbox4devs.com/hmac-generator
+- URL: https://www.toolbox4devs.com/hmac-generator
 - Category: Crypto (crypto-tools)
 - Complexity: Simple
 - Description: Calculate HMAC-SHA256, HMAC-SHA512, and HMAC-SHA1 signatures for webhook verification and API security.
@@ -245,7 +245,7 @@ Total Tools: 76
 - Tip: For GitHub webhooks, choose HMAC-SHA256 with Hex (lowercase) output format to match the X-Hub-Signature-256 header!
 
 ### 25. Bcrypt Hash Generator & Verifier
-- URL: https://toolbox4devs.com/bcrypt-generator
+- URL: https://www.toolbox4devs.com/bcrypt-generator
 - Category: Crypto (crypto-tools)
 - Description: Generate secure bcrypt password hashes with adjustable cost factors, analyze hash structures, and verify plaintext passwords against existing hashes.
 - Summary: The Bcrypt Hash Generator & Verifier provides 100% private, client-side password hashing based on the Blowfish cipher with configurable work factors (rounds 4–14) and real-time password comparison.
@@ -254,7 +254,7 @@ Total Tools: 76
 - Tip: Paste any existing bcrypt hash into the validator to test candidate passwords and extract salt metadata.
 
 ### 26. CIDR & Subnet Calculator
-- URL: https://toolbox4devs.com/cidr-calculator
+- URL: https://www.toolbox4devs.com/cidr-calculator
 - Category: Data (data-tools)
 - Description: Calculate IPv4 CIDR blocks, usable host IP ranges, subnet masks, wildcard masks, and binary network breakdowns.
 - Summary: The CIDR & Subnet Calculator parses any IPv4 address and CIDR prefix length (e.g. 192.168.1.0/24 or 10.0.0.0/16) to compute complete network boundaries, broadcast addresses, usable host ranges, and binary bit masks.
@@ -263,7 +263,7 @@ Total Tools: 76
 - Tip: Click any of the quick presets to test standard subnet sizes such as /24, /16, or /12.
 
 ### 27. String Escape & Unescape
-- URL: https://toolbox4devs.com/string-escaper
+- URL: https://www.toolbox4devs.com/string-escaper
 - Category: Encode / Decode (encode-tools)
 - Description: Escape and unescape strings for JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell.
 - Summary: The String Escape & Unescape Tool formats strings for code literals, database queries, API payloads, or shell commands with bidirectional conversion.
@@ -272,7 +272,7 @@ Total Tools: 76
 - Tip: Toggle between Escape and Unescape mode to instantly clean strings copied from stack traces or log files.
 
 ### 28. Large CSV & TXT Table Viewer (Up to 1GB)
-- URL: https://toolbox4devs.com/csv-txt-viewer
+- URL: https://www.toolbox4devs.com/csv-txt-viewer
 - Category: Data (data-tools)
 - Complexity: Advanced
 - Description: View, parse, and analyze massive pipe-separated or delimited CSV and TXT files up to 1GB in a fast paginated table directly in your browser with zero memory freeze.
@@ -282,7 +282,7 @@ Total Tools: 76
 - Tip: If your file uses pipes or unusual delimiters, select the delimiter from the dropdown before or after loading.
 
 ### 29. Number Base Converter
-- URL: https://toolbox4devs.com/base-converter
+- URL: https://www.toolbox4devs.com/base-converter
 - Category: Data (data-tools)
 - Description: Convert numbers across Decimal, Binary, Hexadecimal, Octal, and custom bases (Base 2-36) with two's complement details.
 - Summary: The Number Base Converter provides simultaneous multi-radix conversions for integers of arbitrary size with low-level binary representations and two's complement formats.
@@ -291,7 +291,7 @@ Total Tools: 76
 - Tip: Click presets like 255 (0xFF) or 0xDEADBEEF to quickly test common computer science numeric constants.
 
 ### 30. CSS Unit & Fluid clamp() Converter
-- URL: https://toolbox4devs.com/css-unit-converter
+- URL: https://www.toolbox4devs.com/css-unit-converter
 - Category: Web (web-tools)
 - Description: Convert between PX, REM, EM, VW, VH, %, and PT with Tailwind CSS class matching and fluid clamp() generator.
 - Summary: The CSS Unit & Fluid clamp() Converter converts length units across CSS ecosystems and generates responsive fluid typography formulas without media queries.
@@ -300,7 +300,7 @@ Total Tools: 76
 - Tip: Copy the generated clamp() formula directly into your CSS or Tailwind arbitrary value: `text-[clamp(...)]`.
 
 ### 31. Keycode & Keyboard Event Inspector
-- URL: https://toolbox4devs.com/keycode-inspector
+- URL: https://www.toolbox4devs.com/keycode-inspector
 - Category: Web (web-tools)
 - Description: Inspect JavaScript KeyboardEvent attributes (key, code, which, keyCode, modifiers) with live keypress capture and event handler code generator.
 - Summary: The Keycode & Keyboard Event Inspector detects real-time keypresses and outputs all standard W3C KeyboardEvent attributes alongside ready-to-use JavaScript, React, and Vue event listeners.
@@ -309,7 +309,7 @@ Total Tools: 76
 - Tip: Press any key combination (like Ctrl + Enter or Shift + Tab) to generate code snippets with modifier guards.
 
 ### 32. Base64
-- URL: https://toolbox4devs.com/base64
+- URL: https://www.toolbox4devs.com/base64
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
 - Description: Encode plain text to Base64 or decode Base64 back to plain text.
@@ -319,7 +319,7 @@ Total Tools: 76
 - Tip: Base64 is encoding, not encryption — it's not secure on its own. Never use it to hide sensitive data like passwords.
 
 ### 33. URL Encoder / Decoder
-- URL: https://toolbox4devs.com/url-encoder
+- URL: https://www.toolbox4devs.com/url-encoder
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
 - Description: Encode or decode URLs and query string parameters instantly in your browser.
@@ -329,7 +329,7 @@ Total Tools: 76
 - Tip: Use encodeURIComponent for individual query values (it encodes & = ? too). Use encodeURI only for full URLs where you want to preserve the URL structure characters.
 
 ### 34. HTML Entity Encoder
-- URL: https://toolbox4devs.com/html-entity
+- URL: https://www.toolbox4devs.com/html-entity
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
 - Description: Encode plain text into safe HTML entities and decode entity strings back into readable text in your browser.
@@ -339,7 +339,7 @@ Total Tools: 76
 - Tip: Named entities like &amp; are easier to read, while numeric entities can help when you need exact code points.
 
 ### 35. Text Diff
-- URL: https://toolbox4devs.com/text-diff
+- URL: https://www.toolbox4devs.com/text-diff
 - Category: Text (text-tools)
 - Complexity: Moderate
 - Description: Compare two text blocks line-by-line and highlight every change.
@@ -349,7 +349,7 @@ Total Tools: 76
 - Tip: For comparing JSON, format both sides with the JSON Formatter first — that way whitespace differences don't create false positives in the diff.
 
 ### 36. UUID Generator
-- URL: https://toolbox4devs.com/uuid
+- URL: https://www.toolbox4devs.com/uuid
 - Category: Generators (generate-tools)
 - Complexity: Simple
 - Description: Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100.
@@ -359,7 +359,7 @@ Total Tools: 76
 - Tip: UUID v4 is randomly generated with no embedded timestamp or machine identity — making it safe to use in public-facing systems without leaking any server information.
 
 ### 37. JWT Decoder
-- URL: https://toolbox4devs.com/jwt
+- URL: https://www.toolbox4devs.com/jwt
 - Category: Authentication (auth-tools)
 - Complexity: Simple
 - Description: Decode and inspect JSON Web Tokens — header, payload, expiry and more.
@@ -369,7 +369,7 @@ Total Tools: 76
 - Tip: Your token never leaves your browser — all decoding happens locally using JavaScript. It's safe to paste real tokens here during debugging.
 
 ### 38. HTML Formatter
-- URL: https://toolbox4devs.com/html-formatter
+- URL: https://www.toolbox4devs.com/html-formatter
 - Category: Web (web-tools)
 - Complexity: Moderate
 - Description: Format and minify HTML code for better readability or compactness.
@@ -379,7 +379,7 @@ Total Tools: 76
 - Tip: Prettier also formats embedded CSS inside <style> tags and JavaScript inside <script> tags — so the entire HTML file gets cleaned up in one pass.
 
 ### 39. Password Generator
-- URL: https://toolbox4devs.com/password-generator
+- URL: https://www.toolbox4devs.com/password-generator
 - Category: Generators (generate-tools)
 - Complexity: Moderate
 - Description: Generate strong, random passwords with customizable length and character sets.
@@ -389,7 +389,7 @@ Total Tools: 76
 - Tip: A 16+ character password with all character types enabled has over 80 bits of entropy — effectively impossible to brute force with any current hardware.
 
 ### 40. Lorem Ipsum Generator
-- URL: https://toolbox4devs.com/lorem-ipsum-generator
+- URL: https://www.toolbox4devs.com/lorem-ipsum-generator
 - Category: Generators (generate-tools)
 - Complexity: Simple
 - Description: Create placeholder paragraphs for wireframes, prototypes, content mocks, and layout testing.
@@ -399,7 +399,7 @@ Total Tools: 76
 - Tip: Use shorter sentence lengths when testing cards and dense dashboards, and longer paragraphs when reviewing article layouts.
 
 ### 41. Regex Tester & Checker
-- URL: https://toolbox4devs.com/regex
+- URL: https://www.toolbox4devs.com/regex
 - Category: Text (text-tools)
 - Complexity: Moderate
 - Description: Test and check regular expressions online live against sample text with real-time match and group highlighting.
@@ -409,7 +409,7 @@ Total Tools: 76
 - Tip: Start with a simple regex and gradually build it up — the live feedback helps you understand how each part of the pattern works.
 
 ### 42. Case Converter
-- URL: https://toolbox4devs.com/case-converter
+- URL: https://www.toolbox4devs.com/case-converter
 - Category: Text (text-tools)
 - Complexity: Simple
 - Description: Convert text between uppercase, lowercase, camelCase, snake_case, kebab-case and more.
@@ -419,7 +419,7 @@ Total Tools: 76
 - Tip: Paste an existing variable like userProfileURL or api_response_name — the converter will split common casing and separator patterns automatically.
 
 ### 43. Slug Generator
-- URL: https://toolbox4devs.com/slug-generator
+- URL: https://www.toolbox4devs.com/slug-generator
 - Category: Text (text-tools)
 - Complexity: Simple
 - Description: Convert titles and labels into clean kebab-case or snake_case slugs entirely in your browser.
@@ -429,7 +429,7 @@ Total Tools: 76
 - Tip: For public-facing URLs, kebab-case is usually easier to read and more common than underscores.
 
 ### 44. Markdown Preview
-- URL: https://toolbox4devs.com/markdown-preview
+- URL: https://www.toolbox4devs.com/markdown-preview
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Write Markdown on the left and see a live preview on the right.
@@ -439,7 +439,7 @@ Total Tools: 76
 - Tip: Use the preview to check how your Markdown will render on platforms like GitHub — especially for complex elements like tables or nested lists.
 
 ### 45. SHA-256 Hash Generator
-- URL: https://toolbox4devs.com/sha256
+- URL: https://www.toolbox4devs.com/sha256
 - Category: Crypto (crypto-tools)
 - Complexity: Moderate
 - Description: Generate a SHA-256 hash from any input string instantly in your browser.
@@ -449,7 +449,7 @@ Total Tools: 76
 - Tip: SHA-256 is a one-way hashing algorithm — you can't reverse it back to the original input. It's designed for security and integrity, not encryption.
 
 ### 46. Word Counter
-- URL: https://toolbox4devs.com/word-counter
+- URL: https://www.toolbox4devs.com/word-counter
 - Category: Analyze (analyze-tools)
 - Complexity: Simple
 - Description: Count words, characters, sentences, paragraphs and reading time instantly.
@@ -459,7 +459,7 @@ Total Tools: 76
 - Tip: For the most accurate count, remove unnecessary leading/trailing spaces. The top words panel can help spot overused words in your writing.
 
 ### 47. Timestamp Converter
-- URL: https://toolbox4devs.com/timestamp-converter
+- URL: https://www.toolbox4devs.com/timestamp-converter
 - Category: Data (data-tools)
 - Complexity: Simple
 - Description: Convert Unix timestamps, ISO dates, and local date strings instantly in your browser.
@@ -469,7 +469,7 @@ Total Tools: 76
 - Tip: Most JWT exp values are Unix seconds, while many JavaScript APIs use milliseconds. This tool shows both so you can spot unit mistakes quickly.
 
 ### 48. Cron Expression Parser
-- URL: https://toolbox4devs.com/cron-parser
+- URL: https://www.toolbox4devs.com/cron-parser
 - Category: Data (data-tools)
 - Description: Parse, explain, and calculate execution times for 5-part cron expressions.
 - Summary: The Cron Expression Parser converts crontab syntax into human-readable plain language and predicts the next upcoming execution timestamps.
@@ -478,7 +478,7 @@ Total Tools: 76
 - Tip: Click any of the preset buttons above to quickly test standard cron formats.
 
 ### 49. Query String Parser
-- URL: https://toolbox4devs.com/query-string-parser
+- URL: https://www.toolbox4devs.com/query-string-parser
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Parse URL query strings into readable key/value pairs and JSON entirely in your browser.
@@ -488,7 +488,7 @@ Total Tools: 76
 - Tip: If you paste a full URL, only the search portion is parsed. Hash fragments are ignored so you can focus on the query parameters.
 
 ### 50. Color Converter
-- URL: https://toolbox4devs.com/color-converter
+- URL: https://www.toolbox4devs.com/color-converter
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Convert HEX, RGB, and HSL values instantly with a live color preview. Free and fully client-side.
@@ -498,7 +498,7 @@ Total Tools: 76
 - Tip: HSL is often the easiest format for tweaking hue or lightness during UI exploration, then you can convert back to HEX for production tokens.
 
 ### 51. HTTP Status Lookup
-- URL: https://toolbox4devs.com/http-status-lookup
+- URL: https://www.toolbox4devs.com/http-status-lookup
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Search common HTTP response codes and their meanings while debugging APIs. Runs entirely in your browser.
@@ -508,7 +508,7 @@ Total Tools: 76
 - Tip: If you keep seeing 304 responses in DevTools, that often means browser caching is working exactly as intended rather than your request failing.
 
 ### 52. MIME Type Lookup
-- URL: https://toolbox4devs.com/mime-type-lookup
+- URL: https://www.toolbox4devs.com/mime-type-lookup
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Look up common file extensions, content types, and browser-facing MIME labels while working with uploads or headers.
@@ -518,7 +518,7 @@ Total Tools: 76
 - Tip: If a browser downloads a file instead of displaying it, the Content-Type header is one of the first things worth checking.
 
 ### 53. User Agent Parser
-- URL: https://toolbox4devs.com/user-agent-parser
+- URL: https://www.toolbox4devs.com/user-agent-parser
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Parse raw browser user agent strings into browser, engine, operating system, and device hints.
@@ -528,7 +528,7 @@ Total Tools: 76
 - Tip: User-Agent parsing is heuristic by nature, so treat the result as a practical hint rather than a security-grade identifier.
 
 ### 54. ASCII Table
-- URL: https://toolbox4devs.com/ascii-table
+- URL: https://www.toolbox4devs.com/ascii-table
 - Category: Data (data-tools)
 - Complexity: Simple
 - Description: Browse ASCII characters in decimal, hex, and binary with search and quick copy actions.
@@ -538,7 +538,7 @@ Total Tools: 76
 - Tip: Search for “space”, “tab”, or a numeric code like 10 to jump directly to common control characters.
 
 ### 55. Hash Comparator
-- URL: https://toolbox4devs.com/hash-comparator
+- URL: https://www.toolbox4devs.com/hash-comparator
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
 - Description: Compare two hashes or checksums after trimming whitespace and normalizing letter case.
@@ -548,7 +548,7 @@ Total Tools: 76
 - Tip: If your hashes differ only in uppercase vs lowercase hex digits, this tool will still mark them as equal.
 
 ### 56. HTTP Header Parser
-- URL: https://toolbox4devs.com/http-header-parser
+- URL: https://www.toolbox4devs.com/http-header-parser
 - Category: Web (web-tools)
 - Complexity: Simple
 - Description: Parse raw HTTP request or response headers into structured rows and JSON.
@@ -558,7 +558,7 @@ Total Tools: 76
 - Tip: If you paste a full request block, the first non-header line is shown separately as the request line.
 
 ### 57. Basic Auth Header
-- URL: https://toolbox4devs.com/basic-auth-header
+- URL: https://www.toolbox4devs.com/basic-auth-header
 - Category: Authentication (auth-tools)
 - Complexity: Simple
 - Description: Generate and decode HTTP Basic Authorization headers using username and password pairs.
@@ -568,7 +568,7 @@ Total Tools: 76
 - Tip: Basic auth is transport-safe only when paired with HTTPS because the credentials are merely encoded, not encrypted.
 
 ### 58. Unix Permissions Calculator
-- URL: https://toolbox4devs.com/unix-permissions-calculator
+- URL: https://www.toolbox4devs.com/unix-permissions-calculator
 - Category: Data (data-tools)
 - Complexity: Simple
 - Description: Convert read, write, and execute bits into chmod octal and symbolic permission strings.
@@ -578,7 +578,7 @@ Total Tools: 76
 - Tip: A common executable file mode is 755, which maps to rwxr-xr-x.
 
 ### 59. Local AI Text Assistant
-- URL: https://toolbox4devs.com/local-ai-text-assistant
+- URL: https://www.toolbox4devs.com/local-ai-text-assistant
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
 - Description: Summarize text, surface keywords, detect action items, and estimate sentiment fully in JavaScript with no API.
@@ -588,7 +588,7 @@ Total Tools: 76
 - Tip: This tool is intentionally heuristic, so treat it as a fast local assistant rather than a replacement for a full LLM.
 
 ### 60. CSV to Markdown
-- URL: https://toolbox4devs.com/csv-to-markdown
+- URL: https://www.toolbox4devs.com/csv-to-markdown
 - Category: Text (text-tools)
 - Description: Convert CSV or TSV data into a well-formatted Markdown table instantly.
 - Summary: Convert your comma-separated or tab-separated data into Markdown tables.
@@ -596,7 +596,7 @@ Total Tools: 76
 - Features: Support for headers; Handles CSV and TSV formats
 
 ### 61. Hex Converter
-- URL: https://toolbox4devs.com/hex-converter
+- URL: https://www.toolbox4devs.com/hex-converter
 - Category: Encode / Decode (encode-tools)
 - Description: Convert text to hexadecimal and hexadecimal back to text.
 - Summary: Convert regular text strings to hexadecimal representation and vice-versa.
@@ -604,7 +604,7 @@ Total Tools: 76
 - Features: Text to Hex; Hex to Text; Client-side processing
 
 ### 62. MAC Address Generator
-- URL: https://toolbox4devs.com/mac-address-generator
+- URL: https://www.toolbox4devs.com/mac-address-generator
 - Category: Generators (generate-tools)
 - Description: Generate valid unicast, multicast, locally administered, or vendor-specific MAC addresses in colon, hyphen, or dot formats.
 - Summary: The MAC Address Generator produces standards-compliant IEEE 802 Media Access Control (MAC) addresses with configurable separators (colon, hyphen, Cisco dot notation), case sensitivity, OUI vendor prefixes, and bulk batch generation.
@@ -613,7 +613,7 @@ Total Tools: 76
 - Tip: Use Cisco dot notation (xxxx.xxxx.xxxx) when provisioning Cisco IOS and network switch configurations.
 
 ### 63. RSA Key Generator
-- URL: https://toolbox4devs.com/rsa-key-generator
+- URL: https://www.toolbox4devs.com/rsa-key-generator
 - Category: Crypto (crypto-tools)
 - Description: Generate RSA public and private key pairs securely in your browser.
 - Summary: Generate secure RSA key pairs using the Web Crypto API without any server communication.
@@ -621,7 +621,7 @@ Total Tools: 76
 - Features: Selectable key size (1024, 2048, 4096 bits); Outputs SPKI and PKCS#8 PEM formats; 100% client-side Web Crypto API
 
 ### 64. SVG Placeholder
-- URL: https://toolbox4devs.com/svg-placeholder-generator
+- URL: https://www.toolbox4devs.com/svg-placeholder-generator
 - Category: Generators (generate-tools)
 - Description: Generate fast, customizable SVG placeholder images for your projects.
 - Summary: Quickly create SVG placeholder images with customizable dimensions, colors, and text.
@@ -629,7 +629,7 @@ Total Tools: 76
 - Features: Custom width and height; Customizable colors; Live preview; Copyable SVG code
 
 ### 65. URL Parser
-- URL: https://toolbox4devs.com/url-parser
+- URL: https://www.toolbox4devs.com/url-parser
 - Category: Web (web-tools)
 - Description: Parse URLs into their component parts (protocol, host, path, parameters).
 - Summary: Break down any URL into its constituent components for easy inspection.
@@ -637,7 +637,7 @@ Total Tools: 76
 - Features: Extracts protocol, host, port, path; Parses query parameters into a table; Handles complex fragments and origins
 
 ### 66. XML Formatter
-- URL: https://toolbox4devs.com/xml-formatter
+- URL: https://www.toolbox4devs.com/xml-formatter
 - Category: Web (web-tools)
 - Description: Format, beautify or minify XML strings natively in your browser.
 - Summary: Format your messy XML files into highly readable, indented structures or minify them into a single line.
@@ -645,7 +645,7 @@ Total Tools: 76
 - Features: Adjustable indentation sizes; Minification mode; Syntax error catching
 
 ### 67. Line Sorter & Deduplicator
-- URL: https://toolbox4devs.com/line-sorter
+- URL: https://www.toolbox4devs.com/line-sorter
 - Category: Text (text-tools)
 - Complexity: Simple
 - Description: Sort lines alphabetically, by length, or naturally — remove duplicates, trim whitespace, and drop empty lines.
@@ -655,7 +655,7 @@ Total Tools: 76
 - Tip: Use Natural sort when your lines contain numbers (e.g. file1, file2, file10) so they order like a human expects.
 
 ### 68. Number to Words Converter
-- URL: https://toolbox4devs.com/number-to-words
+- URL: https://www.toolbox4devs.com/number-to-words
 - Category: Data (data-tools)
 - Complexity: Simple
 - Description: Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.
@@ -665,7 +665,7 @@ Total Tools: 76
 - Tip: Decimal portions are spelled digit-by-digit (1.25 → "one point two five"), which is the standard for financial and technical contexts.
 
 ### 69. Text Repeater & Multiplier
-- URL: https://toolbox4devs.com/text-repeater
+- URL: https://www.toolbox4devs.com/text-repeater
 - Category: Text (text-tools)
 - Complexity: Simple
 - Description: Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.
@@ -675,7 +675,7 @@ Total Tools: 76
 - Tip: Toggle the "Prefix / Numbering" option to prefix each repetition, making it easy to create numbered list structures or track iterations.
 
 ### 70. AI Token Counter & Visualizer
-- URL: https://toolbox4devs.com/ai-token-counter
+- URL: https://www.toolbox4devs.com/ai-token-counter
 - Category: Generators (generate-tools)
 - Complexity: Moderate
 - Description: Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.
@@ -685,7 +685,7 @@ Total Tools: 76
 - Tip: Click on any template button to instantly load test prompts and compare tokenization counts across different encoders!
 
 ### 71. JWT Encoder & Token Generator
-- URL: https://toolbox4devs.com/jwt-encoder
+- URL: https://www.toolbox4devs.com/jwt-encoder
 - Category: Authentication (auth-tools)
 - Complexity: Simple
 - Description: Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
@@ -695,7 +695,7 @@ Total Tools: 76
 - Tip: Pair this with the JWT Decoder tool to create and verify tokens in a full round-trip test without leaving your browser.
 
 ### 72. Cron Expression Generator
-- URL: https://toolbox4devs.com/cron-generator
+- URL: https://www.toolbox4devs.com/cron-generator
 - Category: Data (data-tools)
 - Complexity: Simple
 - Description: Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
@@ -705,7 +705,7 @@ Total Tools: 76
 - Tip: Pair this with the Cron Parser tool to both generate and validate cron expressions in a complete workflow.
 
 ### 73. Password Strength Analyzer
-- URL: https://toolbox4devs.com/password-strength-analyzer
+- URL: https://www.toolbox4devs.com/password-strength-analyzer
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
 - Description: Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.
@@ -715,7 +715,7 @@ Total Tools: 76
 - Tip: A strong password uses 12+ characters with a mix of uppercase, lowercase, numbers, and special characters — and avoids common dictionary words or patterns like "Password1!"
 
 ### 74. Faker Data Generator
-- URL: https://toolbox4devs.com/faker-data-generator
+- URL: https://www.toolbox4devs.com/faker-data-generator
 - Category: Generators (generate-tools)
 - Complexity: Simple
 - Description: Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.
@@ -725,7 +725,7 @@ Total Tools: 76
 - Tip: For the most realistic data, use the "All Fields" mode with JSON output — you get a complete object per record that maps directly to database schemas and API payloads.
 
 ### 75. JSON Schema Generator & Validator
-- URL: https://toolbox4devs.com/json-schema-generator
+- URL: https://www.toolbox4devs.com/json-schema-generator
 - Category: JSON (json-tools)
 - Complexity: Moderate
 - Description: Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with live validation.
@@ -735,7 +735,7 @@ Total Tools: 76
 - Tip: Switch to the "Test & Validate Payload" tab to test modified payloads against your generated schema in real time.
 
 ### 76. X.509 Certificate Decoder & Inspector
-- URL: https://toolbox4devs.com/certificate-decoder
+- URL: https://www.toolbox4devs.com/certificate-decoder
 - Category: Crypto (crypto-tools)
 - Complexity: Moderate
 - Description: Decode and inspect PEM SSL/TLS X.509 certificates, SANs, validity dates, and fingerprints privately.
@@ -745,11 +745,11 @@ Total Tools: 76
 - Tip: Paste certificates directly from your server configuration or click "Let's Encrypt TLS Cert" to test instantly.
 
 ## Developer Workflow Recipes
-- Hub URL: https://toolbox4devs.com/recipes
+- Hub URL: https://www.toolbox4devs.com/recipes
 - Description: Pre-assembled sequential multi-tool pipelines executing client-side with zero latency.
 - Recipes:
-  1. Webhook Payload Inspector (https://toolbox4devs.com/recipes/webhook-payload-inspector): Extract, decode base64 bodies, and prettify webhook payloads from Stripe, GitHub, or Shopify entirely in browser memory.
-  2. JWT Auth Token Inspector (https://toolbox4devs.com/recipes/jwt-auth-verifier): Extract claims from Bearer authentication tokens, validate expiration timestamps, and generate SHA-256 fingerprints in local browser memory.
-  3. Base64 JSON Unpacker (https://toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 and url-safe base64 strings directly into clean, syntax-highlighted, formatted JSON in a single step.
-  4. Log Cleaner & Deduplicator (https://toolbox4devs.com/recipes/server-log-cleaner): Extract error lines, deduplicate stack trace signatures, and clean messy server log files in browser memory.
-  5. SQL Identifier Sanitizer (https://toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch transform frontend camelCase models and JSON keys into Postgres and MySQL compliant snake_case identifiers.
+  1. Webhook Payload Inspector (https://www.toolbox4devs.com/recipes/webhook-payload-inspector): Extract, decode base64 bodies, and prettify webhook payloads from Stripe, GitHub, or Shopify entirely in browser memory.
+  2. JWT Auth Token Inspector (https://www.toolbox4devs.com/recipes/jwt-auth-verifier): Extract claims from Bearer authentication tokens, validate expiration timestamps, and generate SHA-256 fingerprints in local browser memory.
+  3. Base64 JSON Unpacker (https://www.toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 and url-safe base64 strings directly into clean, syntax-highlighted, formatted JSON in a single step.
+  4. Log Cleaner & Deduplicator (https://www.toolbox4devs.com/recipes/server-log-cleaner): Extract error lines, deduplicate stack trace signatures, and clean messy server log files in browser memory.
+  5. SQL Identifier Sanitizer (https://www.toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch transform frontend camelCase models and JSON keys into Postgres and MySQL compliant snake_case identifiers.

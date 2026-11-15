@@ -28,4 +28,8 @@ export const HASH_COMPARATOR_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'Hash Comparator — Compare MD5, SHA-256 & File Checksums',
+    description: 'Check whether two hashes or checksums match, ignoring whitespace and letter case. Verify downloads and file integrity privately in your browser.',
+  },
 }

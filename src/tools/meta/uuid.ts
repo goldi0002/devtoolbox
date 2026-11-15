@@ -59,5 +59,50 @@ export const UUID_META: ToolMeta = {
             'uuid generator batch',
             'uuid generator version 4',
         ],
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Generate a single UUID",
+                "text": "Click Generate to create one random version 4 UUID."
+            },
+            {
+                "name": "Or generate a batch",
+                "text": "Enter a count of up to 100 in the batch generator to create many UUIDs at once."
+            },
+            {
+                "name": "Copy what you need",
+                "text": "Copy a single UUID or the whole batch to your clipboard."
+            },
+            {
+                "name": "Use it in your code or database",
+                "text": "Paste the IDs into seed data, fixtures, config files or a UUID column."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "What is a version 4 UUID?",
+                "answer": "A 128-bit identifier in which 122 bits are random. It is written as 36 characters in the pattern 8-4-4-4-12, and the third group always starts with 4."
+            },
+            {
+                "question": "Can two UUIDs ever be the same?",
+                "answer": "In theory yes, in practice no. With 122 random bits you would need to generate billions of UUIDs per second for decades before a collision became likely."
+            },
+            {
+                "question": "Are these UUIDs cryptographically random?",
+                "answer": "Yes. They are generated from crypto.getRandomValues, the browser's secure random source, not Math.random."
+            },
+            {
+                "question": "Should I use UUID v4 as a database primary key?",
+                "answer": "It works well for uniqueness across services, but random values fragment B-tree indexes on large tables. If insert order matters, consider a time-ordered ID such as UUID v7 or ULID."
+            }
+        ],
+        "example": {
+            "title": "A version 4 UUID. Yours will differ, because every value is random.",
+            "input": "Click Generate",
+            "output": "3f2b8c1e-9d4a-4f6b-8a2e-5c7d9e1f0a3b",
+            "inputLabel": "Action",
+            "outputLabel": "Result"
+        }
+    },
 }

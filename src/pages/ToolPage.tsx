@@ -29,6 +29,7 @@ export default function ToolPage() {
 
   const steps = useMemo<HowToStep[]>(() => {
     if (!meta) return []
+    if (meta.guide?.steps?.length) return meta.guide.steps
     return [
       {
         name: 'Input your data',
@@ -51,6 +52,17 @@ export default function ToolPage() {
 
   const faqs = useMemo<FAQItem[]>(() => {
     if (!meta) return []
+    // Tools with their own FAQs keep a single shared privacy answer; the rest
+    // of the generic set would only repeat text found on every other page.
+    if (meta.guide?.faqs?.length) {
+      return [
+        ...meta.guide.faqs,
+        {
+          question: `Is ${meta.name} private and free to use?`,
+          answer: `Yes. ${meta.name} runs entirely in your browser, so nothing you enter is sent to a server. It is free, needs no account, and works offline once the site has been installed or cached.`,
+        },
+      ]
+    }
     const items: FAQItem[] = [
       {
         question: `What is ${meta.name}?`,
@@ -191,7 +203,7 @@ export default function ToolPage() {
               HOW TO USE<br />{meta.name.toUpperCase()}
             </h2>
             <p className="text-xs text-subtle font-mono">
-              Simple 4-step workflow
+              {steps.length}-step workflow
             </p>
           </div>
 
@@ -210,6 +222,35 @@ export default function ToolPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Worked example ──────────────────────────────────────────────── */}
+      {meta.guide?.example && (
+        <section aria-labelledby="example-heading" className="mt-14 pt-10 border-t border-border">
+          <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-10">
+            <div>
+              <p className="eyebrow mb-1">Example</p>
+              <h2 id="example-heading" className="font-display text-2xl text-bright leading-none mb-3">
+                {meta.name.toUpperCase()}<br />EXAMPLE
+              </h2>
+              <p className="text-xs text-subtle font-sans leading-relaxed">{meta.guide.example.title}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-w-0">
+              {[
+                { label: meta.guide.example.inputLabel || 'Input', value: meta.guide.example.input },
+                { label: meta.guide.example.outputLabel || 'Output', value: meta.guide.example.output },
+              ].map(block => (
+                <div key={block.label} className="min-w-0">
+                  <p className="text-[10px] font-mono text-subtle tracking-[0.2em] uppercase mb-2">{block.label}</p>
+                  <pre className="p-4 rounded-lg bg-surface/50 border border-border text-xs font-mono text-dim leading-relaxed overflow-x-auto whitespace-pre-wrap break-words">
+                    {block.value}
+                  </pre>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── About this tool & Specifications ────────────────────────────── */}
       {meta.about && (

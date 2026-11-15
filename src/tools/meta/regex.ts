@@ -59,5 +59,50 @@ export const REGEX_META: ToolMeta = {
       'debug regex patterns',
       'learn regex online',
     ],
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Enter a pattern",
+        "text": "Type your regular expression without the surrounding slashes, or start from a preset such as Email, URL or Date."
+      },
+      {
+        "name": "Set the flags",
+        "text": "Toggle g (global), i (case-insensitive), m (multiline) and s (dotAll) to change how the pattern matches."
+      },
+      {
+        "name": "Add a test string",
+        "text": "Paste the text you want to match against. Matches are highlighted as you type."
+      },
+      {
+        "name": "Inspect matches and groups",
+        "text": "Review each match with its index, length and captured groups, then copy the pattern into your code."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which regex flavor does this tester use?",
+        "answer": "It uses your browser's JavaScript (ECMAScript) engine. Patterns behave exactly as they will in Node.js and browser code. Syntax specific to PCRE, Python or .NET, such as possessive quantifiers, may not work."
+      },
+      {
+        "question": "Why does my regex only find the first match?",
+        "answer": "The global flag is off. Enable g to find every match in the text instead of stopping at the first one."
+      },
+      {
+        "question": "What do the m and s flags do?",
+        "answer": "With m, ^ and $ match at the start and end of every line rather than the whole string. With s, the dot also matches newline characters."
+      },
+      {
+        "question": "How do I match a literal dot or slash?",
+        "answer": "Escape it with a backslash: \\. matches a dot and \\/ matches a slash. Unescaped, a dot matches any character."
+      }
+    ],
+    "example": {
+      "title": "Find ISO dates in a sentence with the global flag on.",
+      "input": "Pattern: \\d{4}-\\d{2}-\\d{2}\nFlags: g\n\nCreated on 2024-01-15, updated 2024-03-22.",
+      "output": "Match 1: 2024-01-15 (index 11)\nMatch 2: 2024-03-22 (index 31)",
+      "inputLabel": "Pattern and test string",
+      "outputLabel": "Matches"
+    }
+  },
 }

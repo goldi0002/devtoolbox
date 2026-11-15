@@ -46,5 +46,50 @@ export const URL_ENCODER_META: ToolMeta = {
             'encode url online',
             'decode url online',
         ],
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Choose encode or decode",
+                "text": "Pick whether you are percent-encoding text or turning an encoded string back into readable text."
+            },
+            {
+                "name": "Pick the encoding mode",
+                "text": "Use encodeURIComponent for a single query value, or encodeURI for a complete URL whose structure should be kept."
+            },
+            {
+                "name": "Paste your input",
+                "text": "Type or paste the URL or value. The result updates as you type."
+            },
+            {
+                "name": "Copy or swap",
+                "text": "Copy the output, or swap it into the input to convert it back."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "What is the difference between encodeURI and encodeURIComponent?",
+                "answer": "encodeURI leaves characters that structure a URL, such as : / ? & and =, untouched. encodeURIComponent encodes those too, which makes it the right choice for a single query parameter value."
+            },
+            {
+                "question": "Why is a space sometimes %20 and sometimes +?",
+                "answer": "%20 is the standard percent-encoding for a space. The + form comes from HTML form encoding (application/x-www-form-urlencoded) and is only valid in query strings."
+            },
+            {
+                "question": "Which characters need to be URL-encoded?",
+                "answer": "Anything outside letters, digits and - _ . ~ should be encoded when it appears inside a value. That includes spaces, &, =, ?, #, / and all non-ASCII characters."
+            },
+            {
+                "question": "What is double encoding?",
+                "answer": "Encoding a string that is already encoded, which turns %20 into %2520. If a decoded URL still contains percent sequences, it was probably encoded twice; decode it again."
+            }
+        ],
+        "example": {
+            "title": "Encode a query string value with encodeURIComponent.",
+            "input": "name=John Doe&city=São Paulo",
+            "output": "name%3DJohn%20Doe%26city%3DS%C3%A3o%20Paulo",
+            "inputLabel": "Plain text",
+            "outputLabel": "Percent-encoded"
+        }
+    },
 }

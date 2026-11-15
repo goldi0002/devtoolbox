@@ -106,7 +106,7 @@
       "name": "Base64 Encoder/Decoder",
       "short_name": "Base64",
       "description": "Encode and decode Base64 strings and files",
-      "url": "/base-64?source=shortcut",
+      "url": "/base64?source=shortcut",
       "icons": [{ "src": "/images/icon-96.png", "sizes": "96x96" }]
     },
     {

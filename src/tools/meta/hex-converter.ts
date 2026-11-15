@@ -22,4 +22,8 @@ export const HEX_CONVERTER_META: ToolMeta = {
     },
     isNew: true,
     status: 'stable',
+    seo: {
+        title: 'Hex to Text Converter — Encode & Decode Hexadecimal Online',
+        description: 'Convert text to hexadecimal and hex back to readable text instantly. Free hex encoder and decoder that runs entirely in your browser.',
+    },
 }

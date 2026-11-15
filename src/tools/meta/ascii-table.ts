@@ -28,4 +28,8 @@ export const ASCII_TABLE_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'ASCII Table — Decimal, Hex, Binary & Character Code Chart',
+    description: 'Searchable ASCII table with decimal, hex and binary codes for every character, including control codes. Search and copy any value.',
+  },
 }
