@@ -46,5 +46,50 @@ export const TEXT_DIFF_META: ToolMeta = {
             'compare code snippets',
             'compare api responses',
         ],
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Paste the original text",
+                "text": "Put the first version in the Original (A) box."
+            },
+            {
+                "name": "Paste the changed text",
+                "text": "Put the second version in the Modified (B) box."
+            },
+            {
+                "name": "Click Compare",
+                "text": "The tool compares both versions line by line."
+            },
+            {
+                "name": "Review the changes",
+                "text": "Added lines are highlighted in green and removed lines in red, with unchanged lines kept for context."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "How does the comparison work?",
+                "answer": "It is a line-based diff, the same approach git uses. Each line in A is matched against B, and lines that exist on only one side are marked as removed or added."
+            },
+            {
+                "question": "Why are lines marked as changed when they look identical?",
+                "answer": "Usually because of invisible differences: trailing spaces, tabs versus spaces, or Windows (CRLF) versus Unix (LF) line endings."
+            },
+            {
+                "question": "How should I compare two JSON documents?",
+                "answer": "Format both with the same indentation and sort their keys first. Otherwise key order and whitespace create differences that are not real changes."
+            },
+            {
+                "question": "Can I compare code or config files?",
+                "answer": "Yes. Any plain text works, including source code, .env files, YAML, SQL and logs."
+            }
+        ],
+        "example": {
+            "title": "Compare two versions of a config file.",
+            "input": "A:\nPORT=3000\nDEBUG=true\n\nB:\nPORT=8080\nDEBUG=true\nLOG_LEVEL=info",
+            "output": "- PORT=3000\n+ PORT=8080\n  DEBUG=true\n+ LOG_LEVEL=info",
+            "inputLabel": "Original and modified",
+            "outputLabel": "Diff"
+        }
+    },
 }

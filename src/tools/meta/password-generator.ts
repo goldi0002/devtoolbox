@@ -53,5 +53,50 @@ export const PASSWORD_GENERATOR_META: ToolMeta = {
             'password generator options',
             'password generator strength meter',
         ],
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Set the length",
+                "text": "Choose a length between 4 and 64 characters. Longer is stronger."
+            },
+            {
+                "name": "Choose character types",
+                "text": "Turn uppercase, lowercase, numbers and symbols on or off to match the site's password rules."
+            },
+            {
+                "name": "Exclude look-alike characters",
+                "text": "Optionally remove ambiguous characters such as 0, O, l and 1 so the password is easier to read aloud or type."
+            },
+            {
+                "name": "Generate and copy",
+                "text": "Check the strength rating, copy the password, or create a batch of up to 50 at once."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "How long should a password be?",
+                "answer": "At least 16 characters for important accounts. Length adds more strength than complexity: each extra random character multiplies the number of possible passwords."
+            },
+            {
+                "question": "Are the generated passwords truly random?",
+                "answer": "They are created with crypto.getRandomValues, the browser's cryptographically secure random source, rather than the predictable Math.random."
+            },
+            {
+                "question": "Are my passwords stored or sent anywhere?",
+                "answer": "No. Passwords are generated in your browser and are never transmitted. Nothing is saved, so a password is gone once you leave or regenerate."
+            },
+            {
+                "question": "Should I exclude ambiguous characters?",
+                "answer": "Only if you will read or type the password by hand. Excluding them slightly reduces the character pool, so add a character or two of length to compensate."
+            }
+        ],
+        "example": {
+            "title": "A 20-character password using all four character types. Yours will differ.",
+            "input": "Length: 20\nUppercase, lowercase, numbers, symbols",
+            "output": "vR7#qLm2@Zx9!eTk4$Wp",
+            "inputLabel": "Settings",
+            "outputLabel": "Result"
+        }
+    },
 }

@@ -72,5 +72,50 @@ export const JSON_FORMATTER_META: ToolMeta = {
             'large json formatter',
         ],
         title: 'JSON Formatter & Validator — ToolBox4Devs',
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Paste or load your JSON",
+                "text": "Paste raw, minified or broken JSON into the editor. Large payloads are parsed in a background worker, so the page stays responsive."
+            },
+            {
+                "name": "Fix any syntax errors",
+                "text": "If the JSON is invalid, the error is pinned to its line and column. Use Auto-Repair to fix single quotes, unquoted keys and trailing commas."
+            },
+            {
+                "name": "Choose indentation or minify",
+                "text": "Pick 2, 3 or 4 spaces or tabs to beautify, or minify to a single line. Optionally sort keys or change their case."
+            },
+            {
+                "name": "Explore, query and export",
+                "text": "Switch to the Tree or Table view, filter with JSONPath or dot notation, then copy the result or export it as TypeScript, YAML or a file."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "How do I fix \"Unexpected token\" errors in JSON?",
+                "answer": "The formatter shows the exact line and column where parsing failed. The most common causes are trailing commas, single quotes instead of double quotes, unquoted keys and comments. Auto-Repair corrects these in one click."
+            },
+            {
+                "question": "What is the difference between formatting and minifying JSON?",
+                "answer": "Formatting adds line breaks and indentation so people can read the structure. Minifying removes all optional whitespace to make the payload as small as possible. The data is identical in both cases."
+            },
+            {
+                "question": "Can it handle large JSON files?",
+                "answer": "Yes. Parsing and formatting run in a Web Worker, so multi-megabyte files do not freeze the page. The practical limit is the memory available to your browser tab."
+            },
+            {
+                "question": "How do I pull one field out of a nested JSON response?",
+                "answer": "Type a path such as data.products[*].name in the query bar. JSONPath, dot notation and JavaScript expressions like x => x.price > 100 are all supported."
+            }
+        ],
+        "example": {
+            "title": "Beautify a minified API response with 2-space indentation.",
+            "input": "{\"id\":1,\"name\":\"Ada\",\"roles\":[\"admin\",\"dev\"],\"active\":true}",
+            "output": "{\n  \"id\": 1,\n  \"name\": \"Ada\",\n  \"roles\": [\n    \"admin\",\n    \"dev\"\n  ],\n  \"active\": true\n}",
+            "inputLabel": "Minified JSON",
+            "outputLabel": "Formatted JSON"
+        }
+    },
 }

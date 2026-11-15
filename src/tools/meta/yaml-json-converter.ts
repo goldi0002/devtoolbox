@@ -50,5 +50,50 @@ export const YAML_JSON_CONVERTER_META: ToolMeta = {
       'convert yaml online',
     ],
     title: 'YAML <-> JSON Converter — ToolBox4Devs',
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Choose the direction",
+        "text": "Select YAML to JSON or JSON to YAML."
+      },
+      {
+        "name": "Paste your document",
+        "text": "Paste the source into the input. Syntax errors are reported with their location."
+      },
+      {
+        "name": "Set formatting options",
+        "text": "Choose 2 or 4 spaces of indentation and, optionally, alphabetize the keys."
+      },
+      {
+        "name": "Copy the output",
+        "text": "Copy the converted document into your config file or script."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is the difference between YAML and JSON?",
+        "answer": "Both describe the same kinds of data. JSON uses braces, brackets and quotes; YAML uses indentation, which is easier to read and allows comments. Every JSON document is also valid YAML."
+      },
+      {
+        "question": "Are YAML comments kept when converting to JSON?",
+        "answer": "No. JSON has no comment syntax, so comments are dropped during conversion."
+      },
+      {
+        "question": "Why did yes, no or on turn into true or false?",
+        "answer": "Older YAML 1.1 parsers treat those words as booleans. Quote the value, for example \"no\", if you need it to stay a string."
+      },
+      {
+        "question": "Why am I getting a YAML indentation error?",
+        "answer": "YAML only allows spaces for indentation, never tabs, and items at the same level must line up exactly."
+      }
+    ],
+    "example": {
+      "title": "Convert a small YAML config to JSON.",
+      "input": "name: api\nreplicas: 3\nports:\n  - 80\n  - 443",
+      "output": "{\n  \"name\": \"api\",\n  \"replicas\": 3,\n  \"ports\": [\n    80,\n    443\n  ]\n}",
+      "inputLabel": "YAML",
+      "outputLabel": "JSON"
+    }
+  },
 }

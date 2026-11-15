@@ -24,6 +24,7 @@ Whenever a new tool is created or modified, follow these steps. The registry is 
 
 2. **Tool Metadata (`src/tools/meta/<slug>.ts`)**:
    - Export a `ToolMeta` with `slug`, `name`, `description`, `category`, `tag`, `keywords`, `complexity`, `status`, `about` (`summary`, `useCases`, `features`, `tip`), `seo`, and `toolComponent: lazy(() => import('…/<ToolName>'))`.
+   - Optional `guide`: tool-specific `steps`, `faqs`, and one worked `example` shown on the tool page. Without it the page falls back to generic text shared by every tool, so add one, and only state things the tool really does.
    - Optional `icon`: a Lucide icon name from `ICON_MAP` in `src/lib/icons.ts` (otherwise `SLUG_ICON_MAP`, then the category icon, is used).
 
 3. **Client Registry (`src/tools/registry.ts`)**:

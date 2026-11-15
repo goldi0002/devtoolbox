@@ -50,5 +50,50 @@ export const SHA_256_META: ToolMeta = {
             'sha256 hash client-side',
             'sha256 hash secure',
         ],
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Enter text or drop a file",
+                "text": "Type or paste text, or drag and drop a file to hash its contents."
+            },
+            {
+                "name": "Read the hash",
+                "text": "The SHA-256 digest appears as a 64-character hexadecimal string."
+            },
+            {
+                "name": "Verify against a known hash",
+                "text": "Paste an expected checksum into the verify field to see whether it matches."
+            },
+            {
+                "name": "Copy the result",
+                "text": "Copy the hash for use in a checksum file, a script or documentation."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "Can a SHA-256 hash be reversed?",
+                "answer": "No. SHA-256 is a one-way function. The only way to find an input is to guess candidates and hash each one, which is why short or common inputs can still be found with lookup tables."
+            },
+            {
+                "question": "Is SHA-256 suitable for storing passwords?",
+                "answer": "Not on its own. It is designed to be fast, which helps attackers guess billions of passwords per second. Use a slow, salted algorithm such as bcrypt, scrypt or Argon2 for passwords."
+            },
+            {
+                "question": "How do I verify a downloaded file?",
+                "answer": "Drop the file into the tool and paste the checksum published by the vendor into the verify field. If they match, the file is intact."
+            },
+            {
+                "question": "Why does a tiny change produce a completely different hash?",
+                "answer": "This is the avalanche effect. Changing one bit of input flips about half of the output bits, so similar inputs never produce similar hashes."
+            }
+        ],
+        "example": {
+            "title": "Hash a short string.",
+            "input": "hello",
+            "output": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+            "inputLabel": "Text",
+            "outputLabel": "SHA-256"
+        }
+    },
 }

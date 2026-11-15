@@ -87,5 +87,50 @@ export const QR_CODE_GENERATOR_META: ToolMeta = {
       'All vector and raster rendering is performed strictly in client-side memory'
     ],
     tip: 'Choose SVG or EPS export when sending files to a print shop or professional designer. Vector formats can be scaled to billboard size with zero loss in sharpness.'
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Choose what to encode",
+        "text": "Pick a payload type: URL, plain text, Wi-Fi login, vCard contact, email, phone, SMS, crypto address or location."
+      },
+      {
+        "name": "Enter the details",
+        "text": "Fill in the fields. The QR code preview updates as you type."
+      },
+      {
+        "name": "Style the code",
+        "text": "Set colors, a transparent background, module and corner shapes, an optional center logo and the error correction level."
+      },
+      {
+        "name": "Export",
+        "text": "Download SVG or EPS for print, or PNG or JPEG up to 4096px for screens."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Do these QR codes expire?",
+        "answer": "No. They are static codes that contain your data directly, with no redirect service in between. They work for as long as the destination itself exists."
+      },
+      {
+        "question": "Which format should I use for printing?",
+        "answer": "SVG or EPS. Vector formats stay sharp at any size, from a business card to a billboard. Use PNG for websites and documents."
+      },
+      {
+        "question": "What does the error correction level change?",
+        "answer": "It sets how much of the code can be damaged or covered and still scan: L about 7%, M 15%, Q 25% and H 30%. Higher levels make the code denser. Use H when placing a logo in the center."
+      },
+      {
+        "question": "Why will my QR code not scan?",
+        "answer": "The usual causes are low contrast between the code and its background, inverted colors, a missing quiet margin around the code, or too much data for the printed size."
+      }
+    ],
+    "example": {
+      "title": "The payload a Wi-Fi QR code contains. Phones offer to join the network when they scan it.",
+      "input": "Network: Office-Guest\nSecurity: WPA\nPassword: welcome2024",
+      "output": "WIFI:T:WPA;S:Office-Guest;P:welcome2024;H:false;;",
+      "inputLabel": "Wi-Fi details",
+      "outputLabel": "Encoded payload"
+    }
+  },
 }

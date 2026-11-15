@@ -44,5 +44,50 @@ export const JWT_DECODER_META: ToolMeta = {
             'jwt token viewer',
             'jwt inspector',
         ],
-    }
+    },
+    guide: {
+        "steps": [
+            {
+                "name": "Paste your token",
+                "text": "Paste the full JWT, including both dots. It is decoded immediately in your browser."
+            },
+            {
+                "name": "Read the header and payload",
+                "text": "The header shows the signing algorithm and token type. The payload lists every claim as formatted JSON."
+            },
+            {
+                "name": "Check the expiry",
+                "text": "The exp claim is checked against the current time, so you can see how long the token has left or how long ago it expired."
+            },
+            {
+                "name": "Verify an HMAC signature",
+                "text": "For HS256, HS384 or HS512 tokens, enter the shared secret to confirm that the signature matches."
+            }
+        ],
+        "faqs": [
+            {
+                "question": "Is it safe to paste a real JWT here?",
+                "answer": "The token is decoded with JavaScript in your browser and is never uploaded. You can confirm this in the Network tab of your DevTools. A production token is still a credential, so treat it carefully wherever you paste it."
+            },
+            {
+                "question": "Can a JWT be decoded without the secret?",
+                "answer": "Yes. The header and payload are only Base64URL-encoded, not encrypted, so anyone holding the token can read them. The secret is needed only to verify or create the signature."
+            },
+            {
+                "question": "What do exp, iat and nbf mean?",
+                "answer": "They are Unix timestamps in seconds: exp is when the token expires, iat is when it was issued, and nbf is the earliest time it may be used."
+            },
+            {
+                "question": "Which signatures can this tool verify?",
+                "answer": "It verifies HMAC signatures (HS256, HS384 and HS512) using a secret you provide. Tokens signed with RS256 or ES256 are decoded, but their signatures are not verified."
+            }
+        ],
+        "example": {
+            "title": "Decode the header and payload of an HS256 token.",
+            "input": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+            "output": "Header\n{\n  \"alg\": \"HS256\",\n  \"typ\": \"JWT\"\n}\n\nPayload\n{\n  \"sub\": \"1234567890\",\n  \"name\": \"John Doe\",\n  \"iat\": 1516239022\n}",
+            "inputLabel": "Encoded token",
+            "outputLabel": "Decoded"
+        }
+    },
 }
