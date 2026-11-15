@@ -19,7 +19,7 @@ describe('SEO & Schema.org Structured Data', () => {
     })
 
     expect(config.ogType).toBe('website')
-    expect(config.url).toBe('https://toolbox4devs.com/env-auditor')
+    expect(config.url).toBe('https://www.toolbox4devs.com/env-auditor')
     expect(config.noindex).toBe(false)
 
     const webApp = config.schemas.find((s) => s['@type'] === 'WebApplication')
@@ -36,7 +36,7 @@ describe('SEO & Schema.org Structured Data', () => {
       'Analyze Tools',
       '.env File Auditor & Secret Detector',
     ])
-    expect(items[2].item).toBe('https://toolbox4devs.com/tools/analyze-tools')
+    expect(items[2].item).toBe('https://www.toolbox4devs.com/tools/analyze-tools')
 
     expect(config.schemas.some((s) => s['@type'] === 'FAQPage')).toBe(true)
     expect(config.schemas.some((s) => s['@type'] === 'HowTo')).toBe(true)
@@ -68,17 +68,17 @@ describe('SEO & Schema.org Structured Data', () => {
 
   it('builds accurate BreadcrumbList paths for about, privacy, recipes, and tool categories', () => {
     expect(
-      buildBreadcrumbItems({ cleanSlug: 'about', url: 'https://toolbox4devs.com/about' }).map((i) => i.name)
+      buildBreadcrumbItems({ cleanSlug: 'about', url: 'https://www.toolbox4devs.com/about' }).map((i) => i.name)
     ).toEqual(['Home', 'About'])
 
     expect(
-      buildBreadcrumbItems({ cleanSlug: 'privacy', url: 'https://toolbox4devs.com/privacy' }).map((i) => i.name)
+      buildBreadcrumbItems({ cleanSlug: 'privacy', url: 'https://www.toolbox4devs.com/privacy' }).map((i) => i.name)
     ).toEqual(['Home', 'Privacy Policy'])
 
     expect(
       buildBreadcrumbItems({
         cleanSlug: 'recipes/jwt-auth-verifier',
-        url: 'https://toolbox4devs.com/recipes/jwt-auth-verifier',
+        url: 'https://www.toolbox4devs.com/recipes/jwt-auth-verifier',
         toolName: 'JWT Auth Verifier',
       }).map((i) => i.name)
     ).toEqual(['Home', 'Recipes', 'JWT Auth Verifier'])
@@ -86,7 +86,7 @@ describe('SEO & Schema.org Structured Data', () => {
     expect(
       buildBreadcrumbItems({
         cleanSlug: 'tools/json-tools',
-        url: 'https://toolbox4devs.com/tools/json-tools',
+        url: 'https://www.toolbox4devs.com/tools/json-tools',
         categoryLabel: 'JSON',
       }).map((i) => i.name)
     ).toEqual(['Home', 'Tools', 'JSON Tools'])
@@ -120,7 +120,7 @@ describe('SEO & Schema.org Structured Data', () => {
     expect(itemList).toBeDefined()
     expect(itemList?.numberOfItems).toBe(2)
     const elements = itemList?.itemListElement as Array<{ position: number; url: string }>
-    expect(elements[0].url).toBe('https://toolbox4devs.com/json-formatter')
+    expect(elements[0].url).toBe('https://www.toolbox4devs.com/json-formatter')
     expect(elements[1].position).toBe(2)
   })
 
@@ -129,7 +129,7 @@ describe('SEO & Schema.org Structured Data', () => {
     const content = fs.readFileSync(robotsPath, 'utf8')
     expect(content).toContain('User-agent: Googlebot')
     expect(content).toContain('Allow: /')
-    expect(content).toContain('Sitemap: https://toolbox4devs.com/sitemap.xml')
+    expect(content).toContain('Sitemap: https://www.toolbox4devs.com/sitemap.xml')
   })
 
   it('emits CollectionPage instead of WebApplication for the root directory homepage', () => {
@@ -151,7 +151,7 @@ describe('SEO & Schema.org Structured Data', () => {
     })
     const appWithout = withoutRating.schemas.find((s) => s['@type'] === 'WebApplication')
     expect(appWithout?.aggregateRating).toBeUndefined()
-    expect(appWithout?.image).toBe('https://toolbox4devs.com/images/og-1200x630.png')
+    expect(appWithout?.image).toBe('https://www.toolbox4devs.com/images/og-1200x630.png')
 
     const withRating = buildSEOConfig({
       title: 'JSON Formatter',

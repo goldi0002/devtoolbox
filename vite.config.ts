@@ -83,9 +83,9 @@ function stripDuplicateHeadTags(html: string): string {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const environment = env.VITE_ENVIRONMENT ?? mode
-  let hostname = env.VITE_BASE_URL || 'https://toolbox4devs.com'
+  let hostname = env.VITE_BASE_URL || 'https://www.toolbox4devs.com'
   if (!hostname.startsWith('http://') && !hostname.startsWith('https://')) {
-    hostname = 'https://toolbox4devs.com'
+    hostname = 'https://www.toolbox4devs.com'
   }
 
   return {

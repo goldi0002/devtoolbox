@@ -66,7 +66,7 @@ function ReadingProgress() {
 /* ── Share bar ──────────────────────────────────────────────────────────────── */
 function ShareBar({ title, slug }: { title: string; slug: string }) {
   const [copied, setCopied] = useState(false)
-  const url = typeof window !== 'undefined' ? `${window.location.origin}/blog/${slug}` : `https://toolbox4devs.com/blog/${slug}`
+  const url = typeof window !== 'undefined' ? `${window.location.origin}/blog/${slug}` : `https://www.toolbox4devs.com/blog/${slug}`
 
   const copyLink = useCallback(async () => {
     await navigator.clipboard.writeText(url)
