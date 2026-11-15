@@ -37,4 +37,8 @@ export const HTTP_STATUS_LOOKUP_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'HTTP Status Codes Lookup — 200, 301, 404, 500 Explained',
+    description: 'Search every HTTP status code and see what it means, from 1xx to 5xx. A quick reference for debugging APIs and web servers.',
+  },
 }

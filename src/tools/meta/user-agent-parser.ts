@@ -28,4 +28,8 @@ export const USER_AGENT_PARSER_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'User Agent Parser — Detect Browser, OS & Device from a UA String',
+    description: 'Parse any user agent string into browser, rendering engine, operating system and device type. Free and fully client-side.',
+  },
 }

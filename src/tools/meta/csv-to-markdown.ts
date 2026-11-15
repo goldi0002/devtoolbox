@@ -23,4 +23,8 @@ export const CSV_TO_MARKDOWN_META: ToolMeta = {
     },
     isNew: true,
     status: 'stable',
+    seo: {
+        title: 'CSV to Markdown Table Converter — Online & Free',
+        description: 'Convert CSV or TSV data into a clean, aligned Markdown table for READMEs, GitHub issues and docs. Runs entirely in your browser.',
+    },
 }

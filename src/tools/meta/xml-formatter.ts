@@ -22,4 +22,8 @@ export const XML_FORMATTER_META: ToolMeta = {
     },
     isNew: true,
     status: 'stable',
+    seo: {
+        title: 'XML Formatter & Minifier — Beautify and Validate XML Online',
+        description: 'Format messy XML into readable, indented markup or minify it to one line, with syntax error detection. Runs entirely in your browser.',
+    },
 }

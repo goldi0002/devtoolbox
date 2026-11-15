@@ -25,5 +25,9 @@ export const JSON_TO_ZOD_META: ToolMeta = {
       '100% private and client-side processing.'
     ],
     tip: 'Customize the exported schema variable name using the input field above the editor.'
-  }
+  },
+  seo: {
+    title: 'JSON to Zod Schema Generator — Convert JSON to Zod & TypeScript',
+    description: 'Paste JSON and get a strongly-typed Zod schema with inferred TypeScript types. Handles nested objects and arrays, entirely in your browser.',
+  },
 }

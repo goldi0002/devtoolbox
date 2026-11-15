@@ -28,4 +28,8 @@ export const HTTP_HEADER_PARSER_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'HTTP Header Parser — Convert Raw Headers to JSON',
+    description: 'Parse raw HTTP request or response headers into a structured table and JSON. Useful for debugging APIs, proxies and CORS, fully client-side.',
+  },
 }

@@ -37,4 +37,8 @@ export const COLOR_CONVERTER_META: ToolMeta = {
   featured: true,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'Color Converter — HEX to RGB, HSL & Back with Live Preview',
+    description: 'Convert colors between HEX, RGB and HSL instantly with a live preview. Free, fast and fully client-side.',
+  },
 }

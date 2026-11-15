@@ -9,6 +9,8 @@ export interface FontOption<T extends string = string> {
   label: string
   sample: string
   family: string
+  /** Google Fonts `family=` value. Set only for fonts index.html does not already load. */
+  googleFamily?: string
 }
 
 export const SANS_FONTS: FontOption<SansFontId>[] = [
@@ -22,25 +24,29 @@ export const SANS_FONTS: FontOption<SansFontId>[] = [
     id: 'inter',
     label: 'Inter',
     sample: 'Ultra legible UI standard',
-    family: '"Inter", system-ui, -apple-system, sans-serif'
+    family: '"Inter", system-ui, -apple-system, sans-serif',
+    googleFamily: 'Inter:wght@400;500;600'
   },
   {
     id: 'geist',
     label: 'Geist',
     sample: 'Precision technical typeface',
-    family: '"Geist", system-ui, -apple-system, sans-serif'
+    family: '"Geist", system-ui, -apple-system, sans-serif',
+    googleFamily: 'Geist:wght@400;500;600'
   },
   {
     id: 'plus-jakarta',
     label: 'Plus Jakarta',
     sample: 'Refined contemporary sans',
-    family: '"Plus Jakarta Sans", system-ui, sans-serif'
+    family: '"Plus Jakarta Sans", system-ui, sans-serif',
+    googleFamily: 'Plus+Jakarta+Sans:wght@400;500;600'
   },
   {
     id: 'space-grotesk',
     label: 'Space Grotesk',
     sample: 'Expressive tech monospace feel',
-    family: '"Space Grotesk", system-ui, sans-serif'
+    family: '"Space Grotesk", system-ui, sans-serif',
+    googleFamily: 'Space+Grotesk:wght@400;500;600'
   },
   {
     id: 'system',
@@ -61,13 +67,15 @@ export const MONO_FONTS: FontOption<MonoFontId>[] = [
     id: 'fira-code',
     label: 'Fira Code',
     sample: 'fn() => value != null',
-    family: '"Fira Code", "JetBrains Mono", monospace'
+    family: '"Fira Code", "JetBrains Mono", monospace',
+    googleFamily: 'Fira+Code:wght@400;500'
   },
   {
     id: 'geist-mono',
     label: 'Geist Mono',
     sample: 'import { hash } from "crypto"',
-    family: '"Geist Mono", monospace'
+    family: '"Geist Mono", monospace',
+    googleFamily: 'Geist+Mono:wght@400;500'
   },
   {
     id: 'monospace',
@@ -76,6 +84,22 @@ export const MONO_FONTS: FontOption<MonoFontId>[] = [
     family: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace'
   }
 ]
+
+/**
+ * index.html only loads the default fonts (DM Sans, JetBrains Mono, Bebas Neue).
+ * The optional ones are fetched the first time they are needed, so visitors who
+ * never change the font do not pay for six extra families.
+ */
+export function loadFontStylesheet(font: FontOption) {
+  if (!font.googleFamily || typeof document === 'undefined') return
+  const id = `font-css-${font.id}`
+  if (document.getElementById(id)) return
+  const link = document.createElement('link')
+  link.id = id
+  link.rel = 'stylesheet'
+  link.href = `https://fonts.googleapis.com/css2?family=${font.googleFamily}&display=swap`
+  document.head.appendChild(link)
+}
 
 export function getInitialSansFont(): SansFontId {
   if (typeof window === 'undefined') return 'dm-sans'
@@ -93,6 +117,7 @@ export function getInitialMonoFont(): MonoFontId {
 
 export function applySansFont(fontId: SansFontId) {
   const font = SANS_FONTS.find(f => f.id === fontId) || SANS_FONTS[0]
+  loadFontStylesheet(font)
   if (typeof document !== 'undefined') {
     document.documentElement.style.setProperty('--font-sans', font.family)
     document.documentElement.setAttribute('data-font-sans', fontId)
@@ -102,6 +127,7 @@ export function applySansFont(fontId: SansFontId) {
 
 export function applyMonoFont(fontId: MonoFontId) {
   const font = MONO_FONTS.find(f => f.id === fontId) || MONO_FONTS[0]
+  loadFontStylesheet(font)
   if (typeof document !== 'undefined') {
     document.documentElement.style.setProperty('--font-mono', font.family)
     document.documentElement.setAttribute('data-font-mono', fontId)

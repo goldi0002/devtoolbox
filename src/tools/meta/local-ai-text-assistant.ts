@@ -28,4 +28,8 @@ export const LOCAL_AI_TEXT_ASSISTANT_META: ToolMeta = {
   featured: true,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'Local Text Summarizer & Keyword Extractor — No API, Runs Offline',
+    description: 'Summarize text, extract keywords, find action items and estimate sentiment locally in JavaScript. No API key, no upload, works offline.',
+  },
 }

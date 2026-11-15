@@ -28,4 +28,8 @@ export const UNIX_PERMISSIONS_CALCULATOR_META: ToolMeta = {
   featured: false,
   isNew: true,
   status: 'stable',
+  seo: {
+    title: 'Chmod Calculator — Unix File Permissions in Octal & Symbolic',
+    description: 'Tick read, write and execute boxes to get chmod octal (755) and symbolic (rwxr-xr-x) permissions, or convert between them. Runs in your browser.',
+  },
 }

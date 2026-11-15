@@ -25,5 +25,9 @@ export const CRON_PARSER_META: ToolMeta = {
       'Includes quick-select presets for common scheduling patterns.'
     ],
     tip: 'Click any of the preset buttons above to quickly test standard cron formats.'
-  }
+  },
+  seo: {
+    title: 'Cron Expression Parser — Explain Crontab Schedules & Next Run Times',
+    description: 'Paste a cron expression to get a plain-English explanation and the next run times. Supports standard 5-field crontab syntax, in your browser.',
+  },
 }

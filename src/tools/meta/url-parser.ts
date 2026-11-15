@@ -22,4 +22,8 @@ export const URL_PARSER_META: ToolMeta = {
     },
     isNew: true,
     status: 'stable',
+    seo: {
+        title: 'URL Parser — Split a URL into Protocol, Host, Path & Query',
+        description: 'Break any URL into protocol, host, port, path, query parameters and fragment. Inspect and debug links instantly in your browser.',
+    },
 }
