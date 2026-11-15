@@ -193,21 +193,32 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 400,
       rollupOptions: {
         output: {
+          // Match exact package directories. React must get its own chunk:
+          // otherwise Rollup hoists it (and jsx-runtime) into whichever manual
+          // chunk first depends on it, and every page then downloads that
+          // chunk (e.g. all of CodeMirror) just to get React.
           manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('@codemirror') || id.includes('@uiw/react-codemirror')) {
-                return 'vendor-codemirror'
-              }
-              if (id.includes('prettier')) {
-                return 'vendor-prettier'
-              }
-              if (id.includes('yaml')) {
-                return 'vendor-yaml'
-              }
-              if (id.includes('diff')) {
-                return 'vendor-diff'
-              }
+            const pkg = id.match(/node_modules\/((?:@[^/]+\/)?[^/]+)\//)?.[1]
+            if (!pkg) return
+            if (['react', 'react-dom', 'scheduler', 'react-router', 'react-router-dom', '@remix-run/router'].includes(pkg)) {
+              return 'vendor-react'
             }
+            // CodeMirror core only. Language packs (@codemirror/lang-*, their
+            // @lezer parsers) are left to Rollup so each loads on demand; see
+            // src/lib/editorLanguage.ts.
+            if (
+              /^@codemirror\/(view|state|language|commands|autocomplete|search|lint)$/.test(pkg) ||
+              /^@lezer\/(common|lr|highlight)$/.test(pkg) ||
+              pkg.startsWith('@uiw/') ||
+              ['style-mod', 'w3c-keyname', 'crelt'].includes(pkg)
+            ) {
+              return 'vendor-codemirror'
+            }
+            // Icons are shared by most pages; one chunk beats dozens of tiny per-icon files.
+            if (pkg === 'lucide-react') return 'vendor-icons'
+            if (pkg === 'prettier') return 'vendor-prettier'
+            if (pkg === 'yaml') return 'vendor-yaml'
+            if (pkg === 'diff') return 'vendor-diff'
           },
         },
       },

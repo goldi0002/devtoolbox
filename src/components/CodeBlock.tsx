@@ -2,7 +2,7 @@ import CopyButton from './CopyButton'
 import ShareButton from './ui/ShareTool'
 import ClientOnly from './ClientOnly'
 import ReactCodeMirror from '@uiw/react-codemirror'
-import { getEditorLanguageExtension } from '../lib/editorLanguage'
+import { useEditorLanguage } from '../hooks/useEditorLanguage'
 import { ToolDataShare } from '../types/share'
 import { useState, useCallback, useMemo } from 'react'
 import type { Statistics } from '@uiw/react-codemirror'
@@ -51,11 +51,12 @@ export default function CodeBlock({
   const [internalStatus, setInternalStatus] = useState<StatusType>('ready')
   const [cursorPos, setCursorPos] = useState({ line: 1, col: 1 })
 
+  const languageExtensions = useEditorLanguage(language)
   const extensions = useMemo(() => [
-    ...getEditorLanguageExtension(language),
+    ...languageExtensions,
     codeFolding(),
     foldGutter(),
-  ], [language])
+  ], [languageExtensions])
   // Use external status if provided, otherwise use internal
   const activeStatus = externalStatus ?? internalStatus
   const { label: statusLabel, color: statusColor } = STATUS_CONFIG[activeStatus]

@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useMemo } from 'react'
 import ClientOnly from './ClientOnly'
 import ReactCodeMirror, { EditorView } from '@uiw/react-codemirror'
-import { getEditorLanguageExtension } from '../lib/editorLanguage'
+import { useEditorLanguage } from '../hooks/useEditorLanguage'
 import { Upload, Copy, Check, Trash2, FileCode, Play } from 'lucide-react'
 
 interface CodeInputProps {
@@ -41,6 +41,7 @@ export default function CodeInput({
   rows: _rows,
 }: CodeInputProps) {
   const [cursor, setCursor] = useState({ line: 1, col: 1 })
+  const languageExtensions = useEditorLanguage(language)
   const [isFocused, setIsFocused] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -234,7 +235,7 @@ export default function CodeInput({
             value={value}
             onChange={handleChange}
             extensions={[
-              ...getEditorLanguageExtension(language),
+              ...languageExtensions,
               EditorView.updateListener.of(update => {
                 if (update.selectionSet) {
                   const sel = update.state.selection.main
