@@ -131,4 +131,45 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(firstQuestion).toHaveAttribute('aria-expanded', 'true');
     await expect(panel).toBeVisible();
   });
+
+  test('text fields show a Clear button that empties the field and restores focus', async ({ page }) => {
+    const input = page.getByPlaceholder('https://...');
+    await gotoHydrated(page, '/url-parser', input);
+    const clearInput = page.getByRole('button', { name: 'Clear URL to Parse' });
+
+    await input.fill('');
+    await expect(clearInput).toHaveCount(0);
+
+    await input.fill('https://example.com/a?b=1');
+    await expect(clearInput).toBeVisible();
+
+    // The button follows the field in the tab order and works from the keyboard.
+    await input.focus();
+    await page.keyboard.press('Tab');
+    await expect(clearInput).toBeFocused();
+    await page.keyboard.press('Enter');
+
+    await expect(input).toHaveValue('');
+    await expect(input).toBeFocused();
+    await expect(clearInput).toHaveCount(0);
+  });
+
+  test('textarea Clear button empties the field without moving it', async ({ page }) => {
+    const textarea = page.locator('textarea').first();
+    await gotoHydrated(page, '/case-converter', textarea);
+    const clearButton = page.getByRole('button', { name: /^Clear / }).first();
+
+    await textarea.fill('');
+    await expect(clearButton).toHaveCount(0);
+    const before = await textarea.boundingBox();
+
+    await textarea.fill('hello world');
+    await expect(clearButton).toBeVisible();
+    expect(await textarea.boundingBox()).toEqual(before);
+
+    await clearButton.click();
+    await expect(textarea).toHaveValue('');
+    await expect(textarea).toBeFocused();
+    expect(await textarea.boundingBox()).toEqual(before);
+  });
 });

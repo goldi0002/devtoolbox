@@ -1,3 +1,6 @@
+import { useRef } from 'react'
+import ClearFieldButton from './ClearFieldButton'
+
 interface TextAreaFieldProps {
   label: string
   value: string
@@ -8,6 +11,8 @@ interface TextAreaFieldProps {
   /** HTML rows attribute for visible textarea height */
   rows?: number
   footer?: React.ReactNode
+  /** Show a "Clear" button while the field has text. Defaults to true. */
+  showClearButton?: boolean
 }
 
 export default function TextAreaField({
@@ -18,11 +23,21 @@ export default function TextAreaField({
   className = 'textarea-base h-36',
   rows,
   footer,
+  showClearButton = true,
 }: TextAreaFieldProps) {
+  const fieldRef = useRef<HTMLTextAreaElement>(null)
+  const canClear = showClearButton && Boolean(value)
+
+  const clear = () => {
+    onChange('')
+    fieldRef.current?.focus()
+  }
+
   return (
-    <div>
-      <label className="block text-xs text-dim font-mono mb-1.5">{label}</label>
+    <div className="relative">
+      <label className={`block text-xs text-dim font-mono mb-1.5${canClear ? ' pr-12' : ''}`}>{label}</label>
       <textarea
+        ref={fieldRef}
         value={value}
         onChange={e => onChange(e.target.value)}
         className={className}
@@ -30,6 +45,7 @@ export default function TextAreaField({
         rows={rows}
         spellCheck={false}
       />
+      {canClear && <ClearFieldButton fieldLabel={label} onClear={clear} />}
       {footer}
     </div>
   )
