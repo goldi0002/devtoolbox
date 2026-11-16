@@ -51,5 +51,46 @@ export const SQL_FORMATTER_META: ToolMeta = {
       'minify sql online',
     ],
     title: 'SQL Formatter & Prettifier — ToolBox4Devs',
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste a query",
+        "text": "Paste raw SQL into the input, or load one of the samples. The formatted output updates as you type."
+      },
+      {
+        "name": "Choose the style",
+        "text": "Toggle UPPERCASE Keywords and pick a 2- or 4-space indent."
+      },
+      {
+        "name": "Copy the result",
+        "text": "Copy the prettified query, or the minified single-line version shown below it, which also strips comments."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which clauses start a new line?",
+        "answer": "SELECT, FROM, WHERE, each JOIN (including LEFT, RIGHT, FULL, INNER, OUTER and CROSS joins), GROUP BY, ORDER BY, HAVING, LIMIT, OFFSET, UNION, VALUES and SET. Columns in a SELECT list go on their own lines."
+      },
+      {
+        "question": "Does it validate my SQL?",
+        "answer": "No. It rearranges whitespace and keyword case only; it does not parse the query or check it against any database dialect."
+      },
+      {
+        "question": "What does minify remove?",
+        "answer": "Line comments (--), block comments (/* */) and extra whitespace, leaving the query on one line."
+      },
+      {
+        "question": "Are keywords inside strings changed?",
+        "answer": "They can be. The formatter does not track string literals, so a keyword inside quotes may be uppercased or start a new line."
+      }
+    ],
+    "example": {
+      "title": "Format a query with a join.",
+      "input": "select id, name from users u left join orders o on o.user_id = u.id where u.active = true order by name",
+      "output": "SELECT\n  id,\n  name\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id\nWHERE u.active = true\nORDER BY name",
+      "inputLabel": "Raw SQL",
+      "outputLabel": "Formatted SQL"
+    }
+  },
 }
