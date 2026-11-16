@@ -29,6 +29,7 @@ export const COLOR_CONVERTER_META: ToolMeta = {
       'Outputs normalized HEX, RGB, and HSL values',
       'Live color preview for quick visual verification',
       'One-click copy for every format',
+      'Complementary, analogous and triadic harmony swatches; click one to convert it',
     ],
     tip: 'HSL is often the easiest format for tweaking hue or lightness during UI exploration, then you can convert back to HEX for production tokens.',
   },
@@ -58,6 +59,10 @@ export const COLOR_CONVERTER_META: ToolMeta = {
       {
         "name": "Copy the format you need",
         "text": "Each format has its own copy button for pasting into CSS or design tokens."
+      },
+      {
+        "name": "Explore harmonies",
+        "text": "Under Color harmonies, complementary, analogous and triadic swatches are generated from your color. Click a swatch to make it the active color."
       }
     ],
     "faqs": [
@@ -72,6 +77,10 @@ export const COLOR_CONVERTER_META: ToolMeta = {
       {
         "question": "Are 3-digit HEX codes the same as 6-digit ones?",
         "answer": "A 3-digit code is shorthand in which each digit is doubled. #abc is identical to #aabbcc."
+      },
+      {
+        "question": "How are the harmony colors calculated?",
+        "answer": "The color's hue is rotated in HSL while saturation and lightness stay the same: +180° for complementary, −30° and +30° for analogous, and +120° and +240° for triadic."
       },
       {
         "question": "Why does converting to HSL and back sometimes change the HEX value?",

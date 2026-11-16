@@ -1,151 +1,12 @@
 import { useMemo, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
-
-type Rgb = { r: number; g: number; b: number }
-type Hsl = { h: number; s: number; l: number }
-
-type ColorState = {
-  hex: string
-  rgb: Rgb
-  hsl: Hsl
-  error?: string
-}
-
-const SAMPLE_HEX = '#7c3aed'
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max)
-}
-
-function componentToHex(value: number) {
-  return clamp(Math.round(value), 0, 255).toString(16).padStart(2, '0').toUpperCase()
-}
-
-function rgbToHex(rgb: Rgb) {
-  return `#${componentToHex(rgb.r)}${componentToHex(rgb.g)}${componentToHex(rgb.b)}`
-}
-
-function hexToRgb(hex: string): Rgb | null {
-  const normalized = hex.trim().replace(/^#/, '')
-  if (!/^[0-9a-fA-F]{3}$|^[0-9a-fA-F]{6}$/.test(normalized)) return null
-  const full = normalized.length === 3
-    ? normalized.split('').map(char => char + char).join('')
-    : normalized
-
-  return {
-    r: parseInt(full.slice(0, 2), 16),
-    g: parseInt(full.slice(2, 4), 16),
-    b: parseInt(full.slice(4, 6), 16),
-  }
-}
-
-function rgbToHsl({ r, g, b }: Rgb): Hsl {
-  const rr = r / 255
-  const gg = g / 255
-  const bb = b / 255
-  const max = Math.max(rr, gg, bb)
-  const min = Math.min(rr, gg, bb)
-  const delta = max - min
-  const l = (max + min) / 2
-
-  let h = 0
-  let s = 0
-
-  if (delta !== 0) {
-    s = delta / (1 - Math.abs(2 * l - 1))
-
-    switch (max) {
-      case rr:
-        h = 60 * (((gg - bb) / delta) % 6)
-        break
-      case gg:
-        h = 60 * ((bb - rr) / delta + 2)
-        break
-      default:
-        h = 60 * ((rr - gg) / delta + 4)
-    }
-  }
-
-  return {
-    h: Math.round(h < 0 ? h + 360 : h),
-    s: Math.round(s * 100),
-    l: Math.round(l * 100),
-  }
-}
-
-function hslToRgb({ h, s, l }: Hsl): Rgb {
-  const hh = ((h % 360) + 360) % 360
-  const ss = clamp(s, 0, 100) / 100
-  const ll = clamp(l, 0, 100) / 100
-  const c = (1 - Math.abs(2 * ll - 1)) * ss
-  const x = c * (1 - Math.abs(((hh / 60) % 2) - 1))
-  const m = ll - c / 2
-
-  let rr = 0
-  let gg = 0
-  let bb = 0
-
-  if (hh < 60) [rr, gg, bb] = [c, x, 0]
-  else if (hh < 120) [rr, gg, bb] = [x, c, 0]
-  else if (hh < 180) [rr, gg, bb] = [0, c, x]
-  else if (hh < 240) [rr, gg, bb] = [0, x, c]
-  else if (hh < 300) [rr, gg, bb] = [x, 0, c]
-  else [rr, gg, bb] = [c, 0, x]
-
-  return {
-    r: Math.round((rr + m) * 255),
-    g: Math.round((gg + m) * 255),
-    b: Math.round((bb + m) * 255),
-  }
-}
-
-function parseRgb(input: string): Rgb | null {
-  const values = input.match(/\d+/g)
-  if (!values || values.length < 3) return null
-  const [r, g, b] = values.slice(0, 3).map(Number)
-  if ([r, g, b].some(value => Number.isNaN(value) || value < 0 || value > 255)) return null
-  return { r, g, b }
-}
-
-function parseHsl(input: string): Hsl | null {
-  const values = input.match(/-?\d+(?:\.\d+)?/g)
-  if (!values || values.length < 3) return null
-  const [h, s, l] = values.slice(0, 3).map(Number)
-  if ([h, s, l].some(value => Number.isNaN(value))) return null
-  if (s < 0 || s > 100 || l < 0 || l > 100) return null
-  return { h, s, l }
-}
-
-function parseColor(input: string): ColorState {
-  const trimmed = input.trim()
-  const rgb = hexToRgb(trimmed) ?? parseRgb(trimmed) ?? (parseHsl(trimmed) ? hslToRgb(parseHsl(trimmed)!) : null)
-
-  if (!trimmed) {
-    const sampleRgb = hexToRgb(SAMPLE_HEX)!
-    return { hex: SAMPLE_HEX, rgb: sampleRgb, hsl: rgbToHsl(sampleRgb) }
-  }
-
-  if (!rgb) {
-    const sampleRgb = hexToRgb(SAMPLE_HEX)!
-    return {
-      hex: SAMPLE_HEX,
-      rgb: sampleRgb,
-      hsl: rgbToHsl(sampleRgb),
-      error: 'Enter a valid HEX, RGB, or HSL color value.',
-    }
-  }
-
-  return {
-    hex: rgbToHex(rgb),
-    rgb,
-    hsl: rgbToHsl(rgb),
-  }
-}
+import { SAMPLE_HEX, getHarmonies, parseColor } from '../../../utils/color'
 
 export default function ColorConverter() {
   const [input, setInput] = useState(SAMPLE_HEX)
   const color = useMemo(() => parseColor(input), [input])
+  const harmonies = useMemo(() => getHarmonies(color.rgb), [color.rgb])
 
   return (
     <ToolLayout
@@ -199,6 +60,35 @@ export default function ColorConverter() {
             ))}
           </div>
         </div>
+
+        <section aria-labelledby="color-harmonies-heading" className="border border-border rounded bg-surface p-4 space-y-4">
+          <div>
+            <h2 id="color-harmonies-heading" className="text-sm font-semibold text-bright">Color harmonies</h2>
+            <p className="text-xs font-mono text-subtle">Hue shifts of {color.hex} in HSL. Click a swatch to use it as the color.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {harmonies.map(harmony => (
+              <div key={harmony.kind}>
+                <div className="text-[10px] font-mono uppercase tracking-[0.16em] text-subtle mb-2">{harmony.title}</div>
+                <div className="flex flex-wrap gap-2">
+                  {harmony.swatches.map(swatch => (
+                    <button
+                      key={swatch.label}
+                      type="button"
+                      onClick={() => setInput(swatch.hex)}
+                      aria-label={`Use ${harmony.title.toLowerCase()} color ${swatch.hex} (${swatch.label})`}
+                      title={`${swatch.hex} (${swatch.label})`}
+                      className="flex items-center gap-2 rounded border border-border bg-bg px-2 py-1.5 hover:border-accent transition-colors"
+                    >
+                      <span className="h-6 w-6 rounded border border-border/60" style={{ backgroundColor: swatch.hex }} aria-hidden="true" />
+                      <span className="text-xs font-mono text-bright">{swatch.hex}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </ToolLayout>
   )
