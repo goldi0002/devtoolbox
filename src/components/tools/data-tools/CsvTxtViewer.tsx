@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import Papa from 'papaparse'
+import { tableToHtml, tableToMarkdown } from '../../../utils/tableExport'
 import {
   Upload,
   ChevronLeft,
@@ -751,6 +752,44 @@ export default function CsvTxtViewer() {
     setShowExportMenu(false)
   }
 
+  // Export current page as a Markdown or HTML table (visible columns, filtered and sorted rows)
+  const [tableExportStatus, setTableExportStatus] = useState('')
+
+  const buildTableExport = (format: 'markdown' | 'html') => {
+    const visibleHeaders = visibleColIndices.map(i => headers[i])
+    const exportRows = processedRows.map(row => visibleColIndices.map(i => row[i] ?? ''))
+    return format === 'markdown' ? tableToMarkdown(visibleHeaders, exportRows) : tableToHtml(visibleHeaders, exportRows)
+  }
+
+  const handleCopyTable = async (format: 'markdown' | 'html') => {
+    const text = buildTableExport(format)
+    if (!text) return
+    const label = format === 'markdown' ? 'Markdown' : 'HTML'
+    try {
+      await navigator.clipboard.writeText(text)
+      setTableExportStatus(`${label} table copied (${processedRows.length} rows)`)
+    } catch {
+      setTableExportStatus(`Could not copy the ${label} table; use download instead`)
+    }
+    setShowExportMenu(false)
+    setTimeout(() => setTableExportStatus(''), 2500)
+  }
+
+  const handleDownloadTable = (format: 'markdown' | 'html') => {
+    const text = buildTableExport(format)
+    if (!text) return
+    const blob = new Blob([text], { type: format === 'markdown' ? 'text/markdown;charset=utf-8;' : 'text/html;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.setAttribute('href', url)
+    link.setAttribute('download', `${file?.name?.replace(/\.[^/.]+$/, "") || 'data'}_page_${currentPage}.${format === 'markdown' ? 'md' : 'html'}`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+    setShowExportMenu(false)
+  }
+
   // Clean up stream on unmount
   useEffect(() => {
     return () => {
@@ -1231,7 +1270,7 @@ export default function CsvTxtViewer() {
                   </button>
 
                   {showExportMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-xl shadow-2xl p-1.5 z-30 space-y-1">
+                    <div className="absolute right-0 mt-2 w-56 bg-surface border border-border rounded-xl shadow-2xl p-1.5 z-30 space-y-1">
                       <button
                         onClick={handleExportCsv}
                         className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2"
@@ -1246,7 +1285,49 @@ export default function CsvTxtViewer() {
                         <FileCode className="w-4 h-4 text-amber-400" />
                         <span>Export as JSON</span>
                       </button>
+                      <div className="border-t border-border/70 my-1" />
+                      <button
+                        type="button"
+                        onClick={() => handleCopyTable('markdown')}
+                        disabled={!processedRows.length}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2 disabled:opacity-50"
+                      >
+                        <Copy className="w-4 h-4 text-sky-400" />
+                        <span>Copy Markdown table</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDownloadTable('markdown')}
+                        disabled={!processedRows.length}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2 disabled:opacity-50"
+                      >
+                        <Download className="w-4 h-4 text-sky-400" />
+                        <span>Download Markdown (.md)</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyTable('html')}
+                        disabled={!processedRows.length}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2 disabled:opacity-50"
+                      >
+                        <Copy className="w-4 h-4 text-rose-400" />
+                        <span>Copy HTML table</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDownloadTable('html')}
+                        disabled={!processedRows.length}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-background text-xs font-mono text-bright flex items-center gap-2 disabled:opacity-50"
+                      >
+                        <Download className="w-4 h-4 text-rose-400" />
+                        <span>Download HTML (.html)</span>
+                      </button>
                     </div>
+                  )}
+                  {tableExportStatus && (
+                    <span role="status" className="absolute right-0 top-full mt-1 whitespace-nowrap text-[10px] font-mono text-accent">
+                      {tableExportStatus}
+                    </span>
                   )}
                 </div>
               </div>

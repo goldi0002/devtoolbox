@@ -29,6 +29,7 @@ export const CSV_TXT_VIEWER_META: ToolMeta = {
       'Chunked streaming parser capable of handling 1GB+ files smoothly',
       'Configurable delimiter support: Auto-detect, Pipe (|), Comma (,), Tab (\\t), and Semicolon (;)',
       'Fast paginated table navigation with real-time row and column stats',
+      'Export the current page as CSV or JSON, or copy or download it as a Markdown or HTML table (visible columns, filtered and sorted rows)',
       '100% client-side execution in local browser memory with zero server uploads'
     ],
     notes: [
