@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 76,
+  "totalTools": 77,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -1518,6 +1518,33 @@
         "Hex to Text",
         "Client-side processing"
       ]
+    },
+    {
+      "slug": "base32",
+      "name": "Base32 Encoder / Decoder",
+      "category": "encode-tools",
+      "url": "https://www.toolbox4devs.com/base32",
+      "description": "Encode text to RFC 4648 Base32 or decode Base32 back to text, with optional padding.",
+      "complexity": "simple",
+      "keywords": [
+        "base32 encoder",
+        "base32 decoder",
+        "base32 encode",
+        "base32 decode",
+        "rfc 4648 base32",
+        "base32 converter",
+        "base32 online",
+        "totp secret base32"
+      ],
+      "features": [
+        "Encode UTF-8 text to standard RFC 4648 Base32",
+        "Decode Base32 back to UTF-8 text",
+        "Optional \"=\" padding when encoding",
+        "Decoding accepts lower case, spaces and missing padding",
+        "Clear errors for invalid characters, misplaced padding and impossible lengths",
+        "Swap the output back into the input to convert the other way"
+      ],
+      "tip": "Like Base64, Base32 is an encoding, not encryption. Anyone can decode it."
     },
     {
       "slug": "mac-address-generator",
