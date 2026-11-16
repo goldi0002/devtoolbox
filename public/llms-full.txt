@@ -278,7 +278,7 @@ Total Tools: 78
 - Description: View, parse, and analyze massive pipe-separated or delimited CSV and TXT files up to 1GB in a fast paginated table directly in your browser with zero memory freeze.
 - Summary: The Large CSV & TXT Table Viewer streams and parses heavy delimited text files (up to 1GB+) entirely in browser memory without crashing or uploading data to external servers.
 - Use Cases: Inspecting database export dumps, log files, and data tables separated by pipes (|), commas, or tabs; Viewing and paginating through huge CSV / TXT files up to 1GB without installing desktop software; Verifying data columns, headers, and row counts on massive data pipelines
-- Features: Chunked streaming parser capable of handling 1GB+ files smoothly; Configurable delimiter support: Auto-detect, Pipe (|), Comma (,), Tab (\t), and Semicolon (;); Fast paginated table navigation with real-time row and column stats; 100% client-side execution in local browser memory with zero server uploads
+- Features: Chunked streaming parser capable of handling 1GB+ files smoothly; Configurable delimiter support: Auto-detect, Pipe (|), Comma (,), Tab (\t), and Semicolon (;); Fast paginated table navigation with real-time row and column stats; Export the current page as CSV or JSON, or copy or download it as a Markdown or HTML table (visible columns, filtered and sorted rows); 100% client-side execution in local browser memory with zero server uploads
 - Tip: If your file uses pipes or unusual delimiters, select the delimiter from the dropdown before or after loading.
 
 ### 29. Number Base Converter

@@ -281,4 +281,30 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText('rgb(0, 255, 255)').first()).toBeVisible();
     await expect(harmonies.getByRole('button', { name: /complementary color #FF0000/ })).toBeVisible();
   });
+
+  test('CSV viewer copies the visible table as Markdown and HTML', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    const sample = page.getByRole('button', { name: '500-Row E-Commerce CSV' });
+    await gotoHydrated(page, '/csv-txt-viewer', sample);
+    await sample.click();
+
+    const exportButton = page.getByRole('button', { name: 'Export', exact: true });
+    await expect(exportButton).toBeVisible({ timeout: 15000 });
+
+    await exportButton.click();
+    await page.getByRole('button', { name: 'Copy Markdown table' }).click();
+    await expect(page.getByRole('status').filter({ hasText: 'Markdown table copied' })).toBeVisible();
+    const markdown = await page.evaluate(() => navigator.clipboard.readText());
+    const mdLines = markdown.split('\n');
+    expect(mdLines[0]).toMatch(/^\| order_id \| customer_name \|/);
+    expect(mdLines[1]).toMatch(/^\| --- \| --- \|/);
+    expect(mdLines.length).toBeGreaterThan(2);
+
+    await exportButton.click();
+    await page.getByRole('button', { name: 'Copy HTML table' }).click();
+    await expect(page.getByRole('status').filter({ hasText: 'HTML table copied' })).toBeVisible();
+    const html = await page.evaluate(() => navigator.clipboard.readText());
+    expect(html.startsWith('<table>')).toBe(true);
+    expect(html).toContain('<th>order_id</th>');
+  });
 });
