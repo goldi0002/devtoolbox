@@ -6,8 +6,7 @@ import TextAreaField from '../../ui/TextAreaField'
 import TextStats from '../../ui/TextStats'
 import ToggleGroup from '../../ui/ToggleGroup'
 import { countWords } from '../../../utils/text'
-
-type SortMode = 'asc' | 'desc' | 'length' | 'natural'
+import { processLines, type SortMode } from '../../../utils/lineSorter'
 
 const SORT_OPTIONS: { value: SortMode; label: string }[] = [
   { value: 'asc', label: 'A → Z' },
@@ -27,35 +26,6 @@ elderberry
 
 date`
 
-function naturalCompare(a: string, b: string): number {
-  return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
-}
-
-function sortLines(input: string, mode: SortMode, caseInsensitive: boolean): string[] {
-  const lines = input.split('\n')
-
-  const collator = caseInsensitive
-    ? (a: string, b: string) => a.toLowerCase().localeCompare(b.toLowerCase())
-    : (a: string, b: string) => a.localeCompare(b)
-
-  switch (mode) {
-    case 'asc':
-      lines.sort(collator)
-      break
-    case 'desc':
-      lines.sort((a, b) => collator(b, a))
-      break
-    case 'length':
-      lines.sort((a, b) => a.length - b.length || collator(a, b))
-      break
-    case 'natural':
-      lines.sort((a, b) => naturalCompare(a, b))
-      break
-  }
-
-  return lines
-}
-
 export default function LineSorter() {
   const [input, setInput] = useState(SAMPLE)
   const [mode, setMode] = useState<SortMode>('asc')
@@ -64,23 +34,10 @@ export default function LineSorter() {
   const [removeEmpty, setRemoveEmpty] = useState(true)
   const [caseInsensitive, setCaseInsensitive] = useState(true)
 
-  const result = useMemo(() => {
-    let lines = sortLines(input, mode, caseInsensitive)
-
-    if (trimLines) lines = lines.map(l => l.trim())
-    if (removeEmpty) lines = lines.filter(l => l !== '')
-    if (removeDuplicates) {
-      const seen = new Set<string>()
-      lines = lines.filter(l => {
-        const key = caseInsensitive ? l.toLowerCase() : l
-        if (seen.has(key)) return false
-        seen.add(key)
-        return true
-      })
-    }
-
-    return lines.join('\n')
-  }, [input, mode, removeDuplicates, trimLines, removeEmpty, caseInsensitive])
+  const result = useMemo(
+    () => processLines(input, { mode, removeDuplicates, trimLines, removeEmpty, caseInsensitive }),
+    [input, mode, removeDuplicates, trimLines, removeEmpty, caseInsensitive]
+  )
 
   const inputLines = input.split('\n')
   const outputLines = result ? result.split('\n') : []
