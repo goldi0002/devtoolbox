@@ -228,4 +228,21 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(textarea).toHaveValue('# replaced');
     await expect(alert).toHaveCount(0);
   });
+
+  test('Base32 tool encodes, swaps to decode and reports invalid input', async ({ page }) => {
+    const input = page.getByPlaceholder('Type or paste text to encode...');
+    await gotoHydrated(page, '/base32', input);
+    await expect(page.locator('h1')).toContainText('Base32');
+
+    await input.fill('foobar');
+    await expect(page.getByText('MZXW6YTBOI======').first()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Swap' }).click();
+    const base32Input = page.getByPlaceholder(/Paste Base32/);
+    await expect(base32Input).toHaveValue('MZXW6YTBOI======');
+    await expect(page.getByText('foobar', { exact: true }).first()).toBeVisible();
+
+    await base32Input.fill('MZXW1');
+    await expect(page.getByRole('alert')).toContainText('Invalid Base32 character "1"');
+  });
 });

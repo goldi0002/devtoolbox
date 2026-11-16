@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 76
+Total Tools: 77
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 76 Tools)
+## Tool Registry & Technical Specifications (All 77 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -603,7 +603,17 @@ Total Tools: 76
 - Use Cases: Encoding payloads; Decoding hex strings from logs
 - Features: Text to Hex; Hex to Text; Client-side processing
 
-### 62. MAC Address Generator
+### 62. Base32 Encoder / Decoder
+- URL: https://www.toolbox4devs.com/base32
+- Category: Encode / Decode (encode-tools)
+- Complexity: Simple
+- Description: Encode text to RFC 4648 Base32 or decode Base32 back to text, with optional padding.
+- Summary: Base32 encodes bytes using the 32 characters A–Z and 2–7, defined in RFC 4648. It is case-insensitive and avoids characters that are easy to confuse, which is why it is used for TOTP secrets in authenticator apps and in some identifiers. This tool encodes UTF-8 text to Base32 and decodes Base32 back to text in your browser.
+- Use Cases: Reading the text behind a Base32 string from a config file or API; Encoding a test value for code that expects RFC 4648 Base32; Checking whether a string is valid Base32 before using it; Comparing padded and unpadded Base32 output
+- Features: Encode UTF-8 text to standard RFC 4648 Base32; Decode Base32 back to UTF-8 text; Optional "=" padding when encoding; Decoding accepts lower case, spaces and missing padding; Clear errors for invalid characters, misplaced padding and impossible lengths; Swap the output back into the input to convert the other way
+- Tip: Like Base64, Base32 is an encoding, not encryption. Anyone can decode it.
+
+### 63. MAC Address Generator
 - URL: https://www.toolbox4devs.com/mac-address-generator
 - Category: Generators (generate-tools)
 - Description: Generate valid unicast, multicast, locally administered, or vendor-specific MAC addresses in colon, hyphen, or dot formats.
@@ -612,7 +622,7 @@ Total Tools: 76
 - Features: Configurable delimiter styles: standard colon (00:1A:2B), hyphen (00-1A-2B), and Cisco dot (001a.2b3c.4d5e); Custom uppercase or lowercase hexadecimal casing; Bulk generation with one-click copy and list download; 100% in-browser generation with zero network requests
 - Tip: Use Cisco dot notation (xxxx.xxxx.xxxx) when provisioning Cisco IOS and network switch configurations.
 
-### 63. RSA Key Generator
+### 64. RSA Key Generator
 - URL: https://www.toolbox4devs.com/rsa-key-generator
 - Category: Crypto (crypto-tools)
 - Description: Generate RSA public and private key pairs securely in your browser.
@@ -620,7 +630,7 @@ Total Tools: 76
 - Use Cases: Generating keys for SSH; Testing asymmetric encryption algorithms; Creating JWT signing keys
 - Features: Selectable key size (1024, 2048, 4096 bits); Outputs SPKI and PKCS#8 PEM formats; 100% client-side Web Crypto API
 
-### 64. SVG Placeholder
+### 65. SVG Placeholder
 - URL: https://www.toolbox4devs.com/svg-placeholder-generator
 - Category: Generators (generate-tools)
 - Description: Generate fast, customizable SVG placeholder images for your projects.
@@ -628,7 +638,7 @@ Total Tools: 76
 - Use Cases: Mocking up UI layouts; Placeholder avatars and thumbnails
 - Features: Custom width and height; Customizable colors; Live preview; Copyable SVG code
 
-### 65. URL Parser
+### 66. URL Parser
 - URL: https://www.toolbox4devs.com/url-parser
 - Category: Web (web-tools)
 - Description: Parse URLs into their component parts (protocol, host, path, parameters).
@@ -636,7 +646,7 @@ Total Tools: 76
 - Use Cases: Debugging complex URLs; Extracting query parameters; Validating URL structure
 - Features: Extracts protocol, host, port, path; Parses query parameters into a table; Handles complex fragments and origins
 
-### 66. XML Formatter
+### 67. XML Formatter
 - URL: https://www.toolbox4devs.com/xml-formatter
 - Category: Web (web-tools)
 - Description: Format, beautify or minify XML strings natively in your browser.
@@ -644,7 +654,7 @@ Total Tools: 76
 - Use Cases: Formatting API responses; Cleaning up SOAP envelopes; Minifying XML before transmission
 - Features: Adjustable indentation sizes; Minification mode; Syntax error catching
 
-### 67. Line Sorter & Deduplicator
+### 68. Line Sorter & Deduplicator
 - URL: https://www.toolbox4devs.com/line-sorter
 - Category: Text (text-tools)
 - Complexity: Simple
@@ -654,7 +664,7 @@ Total Tools: 76
 - Features: Four sort modes: A→Z, Z→A, by length, and natural numeric ordering.; Optional duplicate removal, whitespace trimming, and empty-line stripping.; Case-insensitive or case-sensitive sorting and deduplication.; Live input/output line counts and removed-line counter.
 - Tip: Use Natural sort when your lines contain numbers (e.g. file1, file2, file10) so they order like a human expects.
 
-### 68. Number to Words Converter
+### 69. Number to Words Converter
 - URL: https://www.toolbox4devs.com/number-to-words
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -664,7 +674,7 @@ Total Tools: 76
 - Features: Handles integers, decimals, and negative numbers.; Supports magnitudes from units up to trillions.; Decimal digits spelled individually (e.g. 1.25 → one point two five).; Live word count and validation feedback.
 - Tip: Decimal portions are spelled digit-by-digit (1.25 → "one point two five"), which is the standard for financial and technical contexts.
 
-### 69. Text Repeater & Multiplier
+### 70. Text Repeater & Multiplier
 - URL: https://www.toolbox4devs.com/text-repeater
 - Category: Text (text-tools)
 - Complexity: Simple
@@ -674,7 +684,7 @@ Total Tools: 76
 - Features: Repeat any text up to 50,000 times instantly; Multiple separator options (newline, space, tab, comma, custom string, or none); Add line numbers or item indexes to repeated segments; One-click clipboard copy and text stats (characters, lines, size in KB/MB); Option to trim trailing whitespace or separators
 - Tip: Toggle the "Prefix / Numbering" option to prefix each repetition, making it easy to create numbered list structures or track iterations.
 
-### 70. AI Token Counter & Visualizer
+### 71. AI Token Counter & Visualizer
 - URL: https://www.toolbox4devs.com/ai-token-counter
 - Category: Generators (generate-tools)
 - Complexity: Moderate
@@ -684,7 +694,7 @@ Total Tools: 76
 - Features: Visual Segment Highlighting using alternating custom pastel backgrounds; Multi-Model support including OpenAI o200k_base, cl100k_base, Gemini, and Llama encoders; Live expense calculations based on current million-token input and output values; Detailed tabular list breaking down each individual subword segment and its exact length; Ready-to-use template prompts covering code reviews, APIs, personas, and few-shot examples
 - Tip: Click on any template button to instantly load test prompts and compare tokenization counts across different encoders!
 
-### 71. JWT Encoder & Token Generator
+### 72. JWT Encoder & Token Generator
 - URL: https://www.toolbox4devs.com/jwt-encoder
 - Category: Authentication (auth-tools)
 - Complexity: Simple
@@ -694,7 +704,7 @@ Total Tools: 76
 - Features: Supports HS256, HS384, and HS512 HMAC signing algorithms; Customizable header and payload JSON fields; Colored token display showing header, payload, and signature parts; Copy-to-clipboard for the complete token or individual parts; Uses Web Crypto API for secure, browser-native cryptographic signing
 - Tip: Pair this with the JWT Decoder tool to create and verify tokens in a full round-trip test without leaving your browser.
 
-### 72. Cron Expression Generator
+### 73. Cron Expression Generator
 - URL: https://www.toolbox4devs.com/cron-generator
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -704,7 +714,7 @@ Total Tools: 76
 - Features: Interactive field-by-field controls for each cron parameter; 14+ quick-select presets for common scheduling patterns; Weekday and weekend shortcuts for day-of-week selection; Custom expression input with automatic description parsing; Colored field breakdown showing each part of the expression
 - Tip: Pair this with the Cron Parser tool to both generate and validate cron expressions in a complete workflow.
 
-### 73. Password Strength Analyzer
+### 74. Password Strength Analyzer
 - URL: https://www.toolbox4devs.com/password-strength-analyzer
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
@@ -714,7 +724,7 @@ Total Tools: 76
 - Features: Information entropy calculation in bits using character pool analysis; Crack time estimates for online (~100/s), offline (~100K/s), and GPU (~10B/s) attacks; Common password pattern detection (dictionary words, sequences, repetitions); Character set breakdown (lowercase, uppercase, digits, special characters); Visual strength meter with score out of 100; Actionable improvement suggestions based on detected weaknesses; Copyable analysis report for documentation and compliance
 - Tip: A strong password uses 12+ characters with a mix of uppercase, lowercase, numbers, and special characters — and avoids common dictionary words or patterns like "Password1!"
 
-### 74. Faker Data Generator
+### 75. Faker Data Generator
 - URL: https://www.toolbox4devs.com/faker-data-generator
 - Category: Generators (generate-tools)
 - Complexity: Simple
@@ -724,7 +734,7 @@ Total Tools: 76
 - Features: 12 data type categories: names, emails, phones, addresses, companies, dates, IPs, colors, usernames, sentences, UUIDs, or all combined; Three output formats: JSON (nested objects), CSV (ready for spreadsheets), and Lines (one value per line); Generate up to 100 records at once with a single click; Regenerate button for fresh random data on demand; Global data pools with diverse international names and locations; Zero dependencies — uses only browser-native JavaScript; One-click copy and file download for generated data
 - Tip: For the most realistic data, use the "All Fields" mode with JSON output — you get a complete object per record that maps directly to database schemas and API payloads.
 
-### 75. JSON Schema Generator & Validator
+### 76. JSON Schema Generator & Validator
 - URL: https://www.toolbox4devs.com/json-schema-generator
 - Category: JSON (json-tools)
 - Complexity: Moderate
@@ -734,7 +744,7 @@ Total Tools: 76
 - Features: Supports Draft-07, Draft 2020-12, and OpenAPI 3.0 schema formats; Automatic string format detection for date-time, dates, UUIDs, emails, URIs, and IPv4; Customizable required property policies: all properties, top-level only, or all optional; Strict additionalProperties control to enforce closed schemas; Integrated live payload tester with field-by-field error diagnostics; 100% private and runs completely in your local browser memory
 - Tip: Switch to the "Test & Validate Payload" tab to test modified payloads against your generated schema in real time.
 
-### 76. X.509 Certificate Decoder & Inspector
+### 77. X.509 Certificate Decoder & Inspector
 - URL: https://www.toolbox4devs.com/certificate-decoder
 - Category: Crypto (crypto-tools)
 - Complexity: Moderate

@@ -46,6 +46,7 @@ import { KEYCODE_INSPECTOR_META } from "./meta/keycode-inspector"
 import { DOCKERFILE_GENERATOR_META } from "./meta/dockerfile-generator"
 import { CSV_TO_MARKDOWN_META } from "./meta/csv-to-markdown"
 import { HEX_CONVERTER_META } from "./meta/hex-converter"
+import { BASE32_META } from "./meta/base32"
 import { MAC_ADDRESS_GENERATOR_META } from "./meta/mac-address-generator"
 import { RSA_KEY_GENERATOR_META } from "./meta/rsa-key-generator"
 import { SVG_PLACEHOLDER_GENERATOR_META } from "./meta/svg-placeholder-generator"
@@ -138,6 +139,7 @@ export const tools: ToolMeta[] = [
   LOCAL_AI_TEXT_ASSISTANT_META,
   CSV_TO_MARKDOWN_META,
   HEX_CONVERTER_META,
+  BASE32_META,
   MAC_ADDRESS_GENERATOR_META,
   RSA_KEY_GENERATOR_META,
   SVG_PLACEHOLDER_GENERATOR_META,

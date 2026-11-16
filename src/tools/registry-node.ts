@@ -63,6 +63,7 @@ const toolMeta = [
   { slug: 'local-ai-text-assistant',     category: 'analyze-tools' },
   { slug: 'csv-to-markdown',             category: 'text-tools' },
   { slug: 'hex-converter',               category: 'encode-tools' },
+  { slug: 'base32',                      category: 'encode-tools' },
   { slug: 'mac-address-generator',       category: 'generate-tools' },
   { slug: 'rsa-key-generator',           category: 'crypto-tools' },
   { slug: 'svg-placeholder-generator',   category: 'generate-tools' },
