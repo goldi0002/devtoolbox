@@ -245,4 +245,26 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await base32Input.fill('MZXW1');
     await expect(page.getByRole('alert')).toContainText('Invalid Base32 character "1"');
   });
+
+  test('NanoID Generator makes IDs that match the chosen length and alphabet', async ({ page }) => {
+    const length = page.getByLabel(/^Length/);
+    await gotoHydrated(page, '/nanoid-generator', length);
+    await expect(page.locator('h1')).toContainText('NanoID');
+
+    await page.getByLabel('Alphabet', { exact: true }).selectOption('numbers');
+    await length.fill('12');
+    await page.getByLabel(/^How many/).fill('3');
+    await page.getByRole('button', { name: 'Generate 3 IDs' }).click();
+
+    const items = page.getByRole('list', { name: 'Generated IDs' }).getByRole('listitem');
+    await expect(items).toHaveCount(3);
+    for (const text of await items.getByTestId('nanoid-value').allInnerTexts()) {
+      expect(text.trim()).toMatch(/^\d{12}$/);
+    }
+
+    await page.getByLabel('Alphabet', { exact: true }).selectOption('custom');
+    await page.getByLabel('Custom alphabet', { exact: true }).fill('aab');
+    await expect(page.getByRole('alert')).toContainText('repeated characters');
+    await expect(page.getByRole('button', { name: /^Generate/ })).toBeDisabled();
+  });
 });

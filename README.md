@@ -4,7 +4,7 @@
   <br />
   <img src="public/images/favicon.svg" alt="ToolBox4Devs Logo" width="80" height="80" />
   <h3>The Premier Fast, Private, 100% Client-Side Developer Utility Suite</h3>
-  <p>77 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
+  <p>78 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
 
   <p>
     <a href="https://www.toolbox4devs.com">
@@ -54,7 +54,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 1. **🔒 100% Client-Side Processing**: Every single transformation, calculation, formatting pass, and cryptographic operation executes exclusively in browser memory. No data is ever transmitted to a backend.
 2. **🛡️ Absolute Privacy Guarantee**: Safe for sensitive tokens, passwords, production database dumps, and private certificates.
-3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 77 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
+3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 78 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
 4. **📴 Offline & Progressive Web App (PWA)**: Includes a full Service Worker cache so you can install and use the entire utility suite while disconnected on planes, trains, or offline field environments.
 5. **🔗 Compressed Stateless Sharing**: Uses `lz-string` URL hash compression (`#data=...`) to generate shareable links containing complete tool states without any server database storage.
 6. **🎨 10 Tailored Developer Themes**: Switch effortlessly between Dark, Nord, Dracula, Monokai, Terminal, Sepia, Rose, Solarized, and custom high-contrast palettes.
@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (77 Tools)
+## 🛠️ Complete Tool Catalog (78 Tools)
 
 ### 1. 🗄️ Data & DevOps (19 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -139,8 +139,9 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **Base32 Encoder / Decoder (`/base32`)**: RFC 4648 Base32 for UTF-8 text with optional padding and input validation.
 - **Hash Comparator (`/hash-comparator`)**: Timing-safe visual comparison between two cryptographic checksums.
 
-### 7. 🎲 Generators (9 Tools)
+### 7. 🎲 Generators (10 Tools)
 - **UUID / GUID Generator (`/uuid`)**: Generate bulk v4 UUIDs in lowercase, uppercase, with or without hyphens.
+- **NanoID Generator (`/nanoid-generator`)**: Short, URL-safe random IDs with custom length, preset or custom alphabets, and bulk output.
 - **Password Generator (`/password-generator`)**: Cryptographically secure random passwords, passphrases, and PINs.
 - **AI Token Counter (`/ai-token-counter`)**: Heuristic token estimation for GPT-4, Claude 3, and Gemini models.
 - **QR Code Generator (`/qr-code-generator`)**: Customizable SVG/PNG QR codes with colors, margin, and error correction, plus a bulk mode that exports batches as a ZIP file.
