@@ -6,6 +6,7 @@ import { URL_ENCODER_META } from "./meta/url-encoder"
 import { HTML_ENTITY_META } from "./meta/html-entity"
 import { TEXT_DIFF_META } from "./meta/text-diff"
 import { UUID_META } from "./meta/uuid"
+import { NANOID_GENERATOR_META } from "./meta/nanoid-generator"
 import { JWT_DECODER_META } from "./meta/jwt-decoder"
 import { HTML_FORMATTER_META } from "./meta/html-formatter"
 import { PASSWORD_GENERATOR_META } from "./meta/password-generator"
@@ -114,6 +115,7 @@ export const tools: ToolMeta[] = [
   HTML_ENTITY_META,
   TEXT_DIFF_META,
   UUID_META,
+  NANOID_GENERATOR_META,
   JWT_DECODER_META,
   HTML_FORMATTER_META,
   PASSWORD_GENERATOR_META,

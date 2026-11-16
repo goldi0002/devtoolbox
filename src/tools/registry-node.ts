@@ -38,6 +38,7 @@ const toolMeta = [
   { slug: 'html-entity',                 category: 'encode-tools' },
   { slug: 'text-diff',                   category: 'text-tools' },
   { slug: 'uuid',                        category: 'generate-tools' },
+  { slug: 'nanoid-generator',            category: 'generate-tools' },
   { slug: 'jwt',                         category: 'auth-tools' },
   { slug: 'html-formatter',              category: 'web-tools' },
   { slug: 'password-generator',          category: 'generate-tools' },

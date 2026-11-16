@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 77 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 78 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -42,6 +42,7 @@
 - [QR Code Generator](https://www.toolbox4devs.com/qr-code-generator): 100% Safe & Secure QR Code Generator. Create infinite vector QR codes (SVG, EPS) and high-res PNGs with transparent background, custom shapes, and zero tracking.
 - [.gitignore Generator](https://www.toolbox4devs.com/gitignore-generator): Generate a clean, deduplicated .gitignore file for your language, framework, editor, and operating system—entirely in your browser.
 - [UUID Generator](https://www.toolbox4devs.com/uuid): Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100.
+- [NanoID Generator](https://www.toolbox4devs.com/nanoid-generator): Generate compact, URL-friendly random IDs with a custom length (4–64) and alphabet, up to 100 at a time.
 - [Password Generator](https://www.toolbox4devs.com/password-generator): Generate strong, random passwords with customizable length and character sets.
 - [Lorem Ipsum Generator](https://www.toolbox4devs.com/lorem-ipsum-generator): Create placeholder paragraphs for wireframes, prototypes, content mocks, and layout testing.
 - [MAC Address Generator](https://www.toolbox4devs.com/mac-address-generator): Generate valid unicast, multicast, locally administered, or vendor-specific MAC addresses in colon, hyphen, or dot formats.

@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 77,
+  "totalTools": 78,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -959,6 +959,32 @@
         "Uppercase and lowercase format options"
       ],
       "tip": "UUID v4 is randomly generated with no embedded timestamp or machine identity — making it safe to use in public-facing systems without leaking any server information."
+    },
+    {
+      "slug": "nanoid-generator",
+      "name": "NanoID Generator",
+      "category": "generate-tools",
+      "url": "https://www.toolbox4devs.com/nanoid-generator",
+      "description": "Generate compact, URL-friendly random IDs with a custom length (4–64) and alphabet, up to 100 at a time.",
+      "complexity": "simple",
+      "keywords": [
+        "nanoid generator",
+        "nano id",
+        "short id generator",
+        "random id generator",
+        "url safe id",
+        "custom alphabet id",
+        "unique id generator"
+      ],
+      "features": [
+        "Uses crypto.getRandomValues with no modulo bias, so every character is equally likely",
+        "Length from 4 to 64 characters, default 21",
+        "Preset alphabets: NanoID default, alphanumeric, lowercase, no look-alikes, hex, numbers",
+        "Custom alphabet of 2 to 256 unique characters",
+        "Shows the bits of randomness per ID for the chosen settings",
+        "Generate up to 100 IDs and copy one or all"
+      ],
+      "tip": "Shorter IDs and smaller alphabets mean more chance of a collision. Keep the randomness well above 64 bits for IDs that must be unique across a large system."
     },
     {
       "slug": "jwt",
