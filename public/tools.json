@@ -1311,7 +1311,8 @@
         "Accepts HEX, RGB, and HSL input formats",
         "Outputs normalized HEX, RGB, and HSL values",
         "Live color preview for quick visual verification",
-        "One-click copy for every format"
+        "One-click copy for every format",
+        "Complementary, analogous and triadic harmony swatches; click one to convert it"
       ],
       "tip": "HSL is often the easiest format for tweaking hue or lightness during UI exploration, then you can convert back to HEX for production tokens."
     },

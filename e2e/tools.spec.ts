@@ -267,4 +267,18 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByRole('alert')).toContainText('repeated characters');
     await expect(page.getByRole('button', { name: /^Generate/ })).toBeDisabled();
   });
+
+  test('Color Converter shows harmony swatches and a swatch click sets the active color', async ({ page }) => {
+    const input = page.getByPlaceholder('#7c3aed');
+    await gotoHydrated(page, '/color-converter', input);
+
+    await input.fill('#ff0000');
+    const harmonies = page.locator('section[aria-labelledby="color-harmonies-heading"]');
+    await expect(harmonies.getByRole('button')).toHaveCount(5);
+
+    await harmonies.getByRole('button', { name: /complementary color #00FFFF/ }).click();
+    await expect(input).toHaveValue('#00FFFF');
+    await expect(page.getByText('rgb(0, 255, 255)').first()).toBeVisible();
+    await expect(harmonies.getByRole('button', { name: /complementary color #FF0000/ })).toBeVisible();
+  });
 });
