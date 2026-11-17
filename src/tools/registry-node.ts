@@ -2,6 +2,7 @@
 // ⚠️ No React imports — safe for vite.config.ts (Node context).
 
 const toolMeta = [
+  { slug: 'robots-sitemap-generator',    category: 'web-tools' },
   { slug: 'env-auditor',                 category: 'analyze-tools' },
   { slug: 'three-js-playground',         category: 'web-tools' },
   { slug: 'pipeline-studio',             category: 'analyze-tools' },
