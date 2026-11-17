@@ -505,4 +505,47 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText(/^⚠ Data URI: Only base64 Data URIs can be decoded/)).toBeVisible();
     await expect(page.getByTestId('data-uri-preview')).toHaveCount(0);
   });
+
+  test('CSS Gradient Generator switches types, edits stops and keeps two valid stops', async ({ page }) => {
+    const typeSelect = page.getByLabel('Gradient type', { exact: true });
+    await gotoHydrated(page, '/css-gradient-generator', typeSelect);
+
+    const output = page.getByTestId('gradient-css-output');
+    await expect(output).toHaveText('background: linear-gradient(90deg, #6366f1 0%, #ec4899 100%);');
+    await expect(page.getByRole('img', { name: 'Gradient preview', exact: true })).toHaveCSS('background-image', /linear-gradient/);
+
+    await page.getByLabel('Angle (degrees)', { exact: true }).fill('400');
+    await expect(output).toContainText('linear-gradient(360deg,');
+    const slider = page.getByLabel('Angle slider', { exact: true });
+    await slider.focus();
+    await page.keyboard.press('ArrowLeft');
+    await expect(output).toContainText('linear-gradient(359deg,');
+
+    await typeSelect.selectOption('radial');
+    await page.getByLabel('Shape', { exact: true }).selectOption('ellipse');
+    await page.getByLabel('Center X (%)', { exact: true }).fill('30');
+    await expect(output).toContainText('radial-gradient(ellipse at 30% 50%,');
+
+    await typeSelect.selectOption('conic');
+    await expect(page.getByLabel('Angle (degrees)', { exact: true })).toBeVisible();
+    await expect(output).toContainText('conic-gradient(from 359deg at 30% 50%,');
+
+    await page.getByRole('button', { name: 'Add color stop', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Remove stop 3', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Remove stop 3', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Remove stop 1', exact: true })).toBeDisabled();
+
+    await page.getByLabel('Stop 1 hex color', { exact: true }).fill('#zz0000');
+    await expect(page.getByLabel('Stop 1 hex color', { exact: true })).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.getByText('Stop 1 is not a valid hex color. Use #rgb or #rrggbb.', { exact: true })).toBeVisible();
+    await expect(output).toHaveText('Add at least two valid color stops to see the CSS.');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true })).toBeDisabled();
+
+    await page.getByLabel('Stop 1 hex color', { exact: true }).fill('#F00');
+    await expect(output).toContainText('conic-gradient(from 359deg at 30% 50%, #ff0000 0%, #ec4899 100%);');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true })).toBeEnabled();
+
+    await page.getByRole('button', { name: 'Sunset', exact: true }).click();
+    await expect(output).toHaveText('background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);');
+  });
 });

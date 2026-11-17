@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 85
+Total Tools: 86
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 85 Tools)
+## Tool Registry & Technical Specifications (All 86 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -833,6 +833,16 @@ Total Tools: 85
 - Use Cases: Inlining a small icon or logo into CSS, HTML or an email template.; Building a Data URI for a fixture, mock or test payload.; Checking the MIME type and size a file will have once encoded.; Recovering an image from a Data URI copied out of a page or JSON response.
 - Features: Accepts images and any other small file; the MIME type comes from the file.; Outputs raw Base64, a full Data URI, a CSS background-image rule and an HTML img tag, each with a copy button.; Shows the MIME type, original size and encoded Base64 size.; Warns when a file is over 256 KB, because Base64 grows the text by about a third.; Reverse mode previews base64 image Data URIs and downloads the decoded file.
 - Tip: Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI.
+
+### 86. CSS Gradient Generator
+- URL: https://www.toolbox4devs.com/css-gradient-generator
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Build linear, radial and conic CSS gradients with editable color stops, a live preview and a copy-ready background declaration.
+- Summary: The CSS Gradient Generator builds linear, radial and conic gradients for the CSS background property. Choose a gradient type, adjust the angle or center, and edit the color stops. A live preview shows the result, and the output is a single background declaration you can copy. Everything runs in your browser.
+- Use Cases: Creating a hero banner background that fades from one brand color to another.; Making a radial spotlight behind a heading by moving the center point.; Drawing a conic color wheel for a chart or decorative element.; Checking where each color stop lands before copying the CSS into a stylesheet.
+- Features: Linear, radial (circle or ellipse) and conic gradients.; Angle control for linear and conic gradients, as a number input and a slider.; Center position for radial and conic gradients.; Add, remove and edit color stops, each with a color picker, a hex text field and a percentage position.; Enforces at least two stops and up to eight.; Sorts stops by position in the output, so the order you type them does not matter.; Five presets to start from, and a live preview.; Copy the background declaration with one click.
+- Tip: Place the first stop at 0% and the last at 100% so the gradient fills the whole element. Add a middle stop when you want a color to hold its place partway along the gradient.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
