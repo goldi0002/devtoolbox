@@ -20,10 +20,10 @@ import {
   MapPin,
   User,
   FileText,
-  VideoOff,
-  Image as ImageIcon
+  VideoOff
 } from 'lucide-react'
 import SectionPanel from '../../ui/SectionPanel'
+import FileDropzone from '../../ui/FileDropzone'
 import CopyButton from '../../CopyButton'
 
 // ── Types & Interfaces ───────────────────────────────────────────────────────
@@ -288,7 +288,6 @@ export default function QrCodeScanner() {
   const streamRef = useRef<MediaStream | null>(null)
   const animationFrameId = useRef<number | null>(null)
   const lastScanTime = useRef<number>(0)
-  const fileInputRef = useRef<HTMLInputElement | null>(null)
   const requestedDeviceIdRef = useRef<string>('')
 
   // ── Camera Enumerate Devices ───────────────────────────────────────────────
@@ -566,39 +565,11 @@ export default function QrCodeScanner() {
     reader.readAsDataURL(file)
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      setSelectedFile(file)
-      decodeFile(file)
-    }
-  }
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-  }
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault()
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0]
-      if (file.type.startsWith('image/')) {
-        setSelectedFile(file)
-        decodeFile(file)
-      } else {
-        setFileError('Please drop a valid image file.')
-      }
-    }
-  }
-
   const clearFile = () => {
     setSelectedFile(null)
     setFilePreview(null)
     setFileError(null)
     setDecodedResult(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
   }
 
   // Resume camera scanning helper
@@ -919,26 +890,20 @@ export default function QrCodeScanner() {
         <div className="lg:col-span-7 flex flex-col gap-4">
           {mode === 'file' ? (
             <SectionPanel label="Input Image File">
-              <div
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                onClick={() => fileInputRef.current?.click()}
-                className={`border-2 border-dashed rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-200 min-h-[300px]
-                  ${
-                    selectedFile
-                      ? 'border-accent/40 bg-accent/5 hover:bg-accent/10'
-                      : 'border-border hover:border-muted hover:bg-surface/30'
-                  }`}
+              <FileDropzone
+                label="QR code image"
+                accept="image/*"
+                selectedName={selectedFile?.name ?? null}
+                description="Drag and drop your QR Code image here, or browse local files."
+                hint="Supports PNG, JPEG, SVG, WEBP, GIF"
+                onFiles={files => {
+                  setSelectedFile(files[0])
+                  decodeFile(files[0])
+                }}
+                onError={() => setFileError('Please drop a valid image file.')}
               >
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  accept="image/*"
-                  className="hidden"
-                />
-
-                {filePreview ? (
+                {filePreview && (
+                  <div className="mt-3">
                   <div className="space-y-4 max-w-full" onClick={e => e.stopPropagation()}>
                     <div className="relative mx-auto max-h-[180px] rounded-md overflow-hidden border border-border bg-black/25 flex items-center justify-center p-2">
                       <img
@@ -964,25 +929,9 @@ export default function QrCodeScanner() {
                       </p>
                     </div>
                   </div>
-                ) : (
-                  <div className="flex flex-col items-center gap-3">
-                    <div className="p-3 bg-surface border border-border rounded-lg">
-                      <ImageIcon className="text-muted w-6 h-6" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-semibold text-bright font-sans">
-                        Drag and drop your QR Code image here
-                      </p>
-                      <p className="text-xs text-subtle font-sans mt-1">
-                        or <span className="text-accent underline font-medium">browse local files</span>
-                      </p>
-                    </div>
-                    <p className="text-[10px] text-muted font-mono mt-4">
-                      Supports PNG, JPEG, SVG, WEBP, GIF
-                    </p>
                   </div>
                 )}
-              </div>
+              </FileDropzone>
 
               {fileError && (
                 <div className="mt-3 flex items-start gap-2 bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-lg text-xs">

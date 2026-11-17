@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import Papa from 'papaparse'
 import { tableToHtml, tableToMarkdown } from '../../../utils/tableExport'
+import FileDropzone from '../../ui/FileDropzone'
 import {
-  Upload,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
@@ -138,7 +138,6 @@ interface ColumnSort {
 
 export default function CsvTxtViewer() {
   const [file, setFile] = useState<File | null>(null)
-  const [isDragging, setIsDragging] = useState(false)
   const [delimiter, setDelimiter] = useState<string>('auto')
   const [actualDelimiter, setActualDelimiter] = useState<string>(',')
   const [hasHeader, setHasHeader] = useState<boolean>(true)
@@ -452,25 +451,6 @@ export default function CsvTxtViewer() {
     if (!selectedFile) return
     setFile(selectedFile)
     processAndIndexFile(selectedFile, delimiter, hasHeader, rowsPerPage)
-  }
-
-  // Handle drag and drop
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(true)
-  }
-
-  const handleDragLeave = () => {
-    setIsDragging(false)
-  }
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragging(false)
-    const droppedFile = e.dataTransfer.files?.[0]
-    if (droppedFile) {
-      handleFileChange(droppedFile)
-    }
   }
 
   // Quick Demo Dataset Loader for Instant Testing
@@ -819,37 +799,14 @@ export default function CsvTxtViewer() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Dropzone */}
           <div className="lg:col-span-2">
-            <div
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={handleDrop}
-              className={`relative border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center text-center transition-all ${
-                isDragging
-                  ? 'border-accent bg-accent/5'
-                  : 'border-border hover:border-border-hover bg-surface/50'
-              }`}
+            <FileDropzone
+              label="Data file"
+              accept=".csv,.txt,.tsv,.psv,.dat,.log"
+              selectedName={file?.name ?? null}
+              description="Supports massive CSV, TXT, TSV, PSV up to 1GB+ with 100+ columns & zero memory freeze"
+              onFiles={files => handleFileChange(files[0])}
+              onError={setError}
             >
-              <input
-                type="file"
-                accept=".csv,.txt,.tsv,.psv,.dat,.log"
-                onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                title=""
-              />
-              <div className="p-3 rounded-full bg-surface border border-border mb-3 text-accent">
-                <Upload className="w-6 h-6" />
-              </div>
-              <p className="text-sm font-medium text-bright mb-1">
-                {file ? (
-                  <span className="text-accent font-semibold">{file.name}</span>
-                ) : (
-                  'Click to upload or drag & drop large file'
-                )}
-              </p>
-              <p className="text-xs text-subtle">
-                Supports massive CSV, TXT, TSV, PSV up to <span className="text-bright font-mono font-medium">1GB+</span> with 100+ columns & zero memory freeze
-              </p>
-
               {/* Instant Demo Dataset Loaders */}
               <div className="mt-4 pt-3 border-t border-border/70 flex flex-wrap items-center justify-center gap-2 text-[11px] font-mono z-10">
                 <span className="text-subtle flex items-center gap-1">
@@ -902,7 +859,7 @@ export default function CsvTxtViewer() {
                   )}
                 </div>
               )}
-            </div>
+            </FileDropzone>
           </div>
 
           {/* Configuration Options */}

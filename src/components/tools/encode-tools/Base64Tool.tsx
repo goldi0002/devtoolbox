@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import OutputPanel from '../../ui/OutputPanel'
+import FileDropzone from '../../ui/FileDropzone'
 import TextAreaField from '../../ui/TextAreaField'
 import ToggleGroup from '../../ui/ToggleGroup'
 import { decodeBase64, encodeBase64 } from '../../../utils/encoding'
-import { ArrowLeftRight, Upload, FileCheck, RefreshCw } from 'lucide-react'
+import { ArrowLeftRight, FileCheck, RefreshCw } from 'lucide-react'
 
 type Mode = 'encode' | 'decode'
 
@@ -20,7 +21,6 @@ export default function Base64Tool() {
   const [mode, setMode] = useState<Mode>('encode')
   const [urlSafe, setUrlSafe] = useState(false)
   const [dataUriMode, setDataUriMode] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const processConversion = (text: string, currentMode: Mode, isUrlSafe: boolean, isDataUri: boolean): string => {
     if (!text) return ''
@@ -80,9 +80,7 @@ export default function Base64Tool() {
     handleInput(input, mode, urlSafe, checked)
   }
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const handleFile = (file: File) => {
     const reader = new FileReader()
     reader.onload = (event) => {
       const result = event.target?.result as string
@@ -101,7 +99,6 @@ export default function Base64Tool() {
     } else {
       reader.readAsText(file)
     }
-    e.target.value = ''
   }
 
   const swap = () => {
@@ -154,22 +151,12 @@ export default function Base64Tool() {
           </div>
 
           <div className="flex items-center gap-2">
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-              className="hidden"
+            <FileDropzone
+              variant="compact"
+              label="Upload File"
+              onFiles={files => handleFile(files[0])}
+              className="btn-ghost text-xs"
             />
-
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="btn-ghost text-xs flex items-center gap-1"
-              title="Upload file to convert to Base64"
-            >
-              <Upload size={13} />
-              Upload File
-            </button>
 
             {output && (
               <button
