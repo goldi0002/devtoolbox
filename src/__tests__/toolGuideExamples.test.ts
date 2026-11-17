@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest'
 import { SQL_FORMATTER_META } from '../tools/meta/sql-formatter'
 import { URL_PARSER_META } from '../tools/meta/url-parser'
 import { HEX_CONVERTER_META } from '../tools/meta/hex-converter'
+import { CSS_UNIT_CONVERTER_META } from '../tools/meta/css-unit-converter'
 import { formatSql } from '../utils/sqlFormatter'
+import { generateClampCss } from '../utils/cssUnits'
 
 // The worked examples on tool pages must match what the tools really output.
 describe('tool guide examples', () => {
@@ -32,5 +34,13 @@ describe('tool guide examples', () => {
         `Query: ${query}`,
       ].join('\n'),
     )
+  })
+
+  it('CSS Unit Converter example matches the clamp generator at the default 16px base', () => {
+    const example = CSS_UNIT_CONVERTER_META.guide!.example!
+    const m = /min (\d+)px at (\d+)px\s+max (\d+)px at (\d+)px/i.exec(example.input)
+    expect(m).not.toBeNull()
+    const [minPx, minVw, maxPx, maxVw] = m!.slice(1).map(Number)
+    expect(generateClampCss(minPx, maxPx, minVw, maxVw, 16)).toBe(example.output)
   })
 })
