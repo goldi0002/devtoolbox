@@ -410,4 +410,22 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await page.getByRole('button', { name: 'Extract pages', exact: true }).last().click();
     await expect(page.getByText(/outside this PDF, which has 8 pages/)).toBeVisible();
   });
+  test('Meta Tag Generator builds escaped tags, warns on length and updates previews', async ({ page }) => {
+    const title = page.getByLabel('Page title', { exact: true });
+    await gotoHydrated(page, '/meta-tag-generator', title);
+
+    await title.fill('Tom "Ada" & Co <beta> notes');
+    const output = page.getByTestId('meta-tags-output');
+    await expect(output).toContainText('<meta property="og:title" content="Tom &quot;Ada&quot; &amp; Co &lt;beta&gt; notes">');
+    await expect(page.getByTestId('preview-search')).toContainText('Tom "Ada" & Co <beta> notes');
+
+    await title.fill('x'.repeat(61));
+    await expect(page.getByText(/Title is 61 characters/)).toBeVisible();
+    await title.fill('Ada Lovelace: Notes on the Analytical Engine');
+    await expect(page.getByText(/Title is \d+ characters/)).toHaveCount(0);
+
+    await page.getByRole('group', { name: 'Twitter Card type' }).getByRole('button', { name: 'Summary', exact: true }).click();
+    await expect(output).toContainText('<meta name="twitter:card" content="summary">');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard' }).first()).toBeVisible();
+  });
 });

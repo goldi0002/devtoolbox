@@ -2,6 +2,7 @@ import { ToolMeta } from "./tool-meta"
 import { JSON_FORMATTER_META } from "./meta/json-formatter"
 import { JSON_DIFF_META } from "./meta/json-diff"
 import { PDF_MERGE_SPLIT_META } from "./meta/pdf-merge-split"
+import { META_TAG_GENERATOR_META } from "./meta/meta-tag-generator"
 import { IMAGE_COMPRESSOR_META } from "./meta/image-compressor"
 import { JSON_MODEL_META } from "./meta/json-model"
 import { BASE_64_META } from "./meta/base-64"
@@ -162,7 +163,8 @@ export const tools: ToolMeta[] = [
   CERTIFICATE_DECODER_META,
   JSON_DIFF_META,
   IMAGE_COMPRESSOR_META,
-  PDF_MERGE_SPLIT_META
+  PDF_MERGE_SPLIT_META,
+  META_TAG_GENERATOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

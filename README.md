@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (81 Tools)
+## 🛠️ Complete Tool Catalog (82 Tools)
 
 ### 1. 🗄️ Data & DevOps (19 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -102,7 +102,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (19 Tools)
+### 4. 🌐 Web & Frontend Utilities (20 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **CSS Unit & Fluid clamp() Converter (`/css-unit-converter`)**: Compute `rem`, `px`, `em`, Tailwind spacing, and fluid viewport `clamp()` formulas.
@@ -122,6 +122,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **Three.js 3D Scene Studio (`/three-js-playground`)**: Write and test Three.js scene code live, with 12+ procedural templates, PBR lighting, camera controls, and WebGL preview.
 - **Image Compressor & Converter (`/image-compressor`)**: Compress and convert images to JPEG, WebP, PNG or AVIF with a quality slider and optional resize, entirely in the browser.
 - **PDF Merge & Split (`/pdf-merge-split`)**: Merge PDFs, or extract and reorder pages from one, entirely in the browser.
+- **Open Graph & Meta Tag Generator (`/meta-tag-generator`)**: Build title, description, Open Graph and Twitter Card tags with escaping, length warnings, and search, X and LinkedIn/Slack previews.
 
 ### 5. 🔤 Text & String Manipulation (9 Tools)
 - **String Escape & Unescape (`/string-escaper`)**: Escape strings for JSON, JavaScript, SQL, HTML, Python, Shell, and Unicode.

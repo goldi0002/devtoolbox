@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 81
+Total Tools: 82
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 81 Tools)
+## Tool Registry & Technical Specifications (All 82 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -793,6 +793,16 @@ Total Tools: 81
 - Use Cases: Combining a cover letter, CV and certificates into one PDF.; Pulling a few pages out of a long report to share.; Putting scanned pages in a different order.; Merging invoices or receipts for one expense claim.
 - Features: Merge two or more PDFs, with up and down buttons to set the order.; Extract pages with a range such as 1-3, 5, 8- (8 to the last page).; Pages come out in the order you type them, and a page can be repeated.; Shows the page count of each file; download the result as a new PDF.
 - Tip: To reverse or reorder pages, type them in the order you want, for example 3, 2, 1 for a three-page file.
+
+### 82. Open Graph & Meta Tag Generator
+- URL: https://www.toolbox4devs.com/meta-tag-generator
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Generate title, description, Open Graph and Twitter Card meta tags, with search, X and LinkedIn/Slack previews.
+- Summary: The Open Graph & Meta Tag Generator builds the <head> tags that control how a page looks in search results and when shared on social networks. Fill in the title, description, URL and image, and it outputs escaped <title>, description, canonical, Open Graph and Twitter Card tags. Mock previews show the search result, X-style and LinkedIn/Slack-style cards, and warnings flag titles and descriptions that are too long. Everything runs in your browser.
+- Use Cases: Adding Open Graph tags to a landing page before launch.; Checking how a blog post title and summary will be cut off in search results.; Producing a Twitter Card with a large image for a product announcement.; Making sure quotes and ampersands in a title do not break the HTML.
+- Features: Outputs <title>, meta description, canonical link, theme-color, Open Graph and Twitter Card tags.; Escapes &, <, >, quotes and apostrophes in every value.; Omits any tag whose field is empty.; Warns when the title or description is outside the recommended length.; Previews for a search result, an X-style card and a LinkedIn/Slack-style card.; Copy the generated tags with one click.
+- Tip: Keep titles under 60 characters and descriptions under 160 so search engines show them in full. Use an absolute https:// URL for the image, since social crawlers cannot resolve relative paths.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
