@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 87,
+  "totalTools": 88,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2180,6 +2180,31 @@
         "Copy a one-line summary of the conversion."
       ],
       "tip": "Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row."
+    },
+    {
+      "slug": "box-shadow-generator",
+      "name": "Box Shadow Generator",
+      "category": "generate-tools",
+      "url": "https://www.toolbox4devs.com/box-shadow-generator",
+      "description": "Build CSS box-shadow values with multiple layers, offsets, blur, spread, colour opacity and inset, with a live preview.",
+      "complexity": "moderate",
+      "keywords": [
+        "box shadow generator",
+        "css box shadow",
+        "box-shadow css",
+        "css shadow generator",
+        "inset shadow css",
+        "multiple box shadows",
+        "css drop shadow"
+      ],
+      "features": [
+        "Add, remove and reorder shadow layers; the first layer is drawn on top.",
+        "Every value has a slider and a number box, and all controls work from the keyboard.",
+        "Colour picker plus hex field, with the opacity converted to rgba() in the output.",
+        "Inset toggle per layer and four starter presets: Subtle, Elevated, Inset and Layered.",
+        "Adjustable preview canvas and box colours, and a one-click copy of the CSS."
+      ],
+      "tip": "Stack two or three layers with a small blur and a larger, fainter blur below it. This reads as a natural shadow; a single large blur tends to look flat."
     }
   ]
 }

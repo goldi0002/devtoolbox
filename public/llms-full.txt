@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 87
+Total Tools: 88
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 87 Tools)
+## Tool Registry & Technical Specifications (All 88 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -853,6 +853,16 @@ Total Tools: 87
 - Use Cases: Finding a meeting time that works for a distributed team.; Checking what time a deadline or release falls in another country.; Confirming how a daylight saving change moves a schedule.; Writing a one-line time summary for a calendar invite or chat message.
 - Features: Converts one wall-clock time into any number of zones, with each zone's UTC offset.; Flags times that do not exist (clocks jump forward) or happen twice (clocks fall back).; Marks zones that are currently on daylight saving time.; Searches zones by city or IANA name, such as "kolkata" or "America/Chicago".; Meeting planner grid with shaded working hours, adjustable start and end.; Copy a one-line summary of the conversion.
 - Tip: Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row.
+
+### 88. Box Shadow Generator
+- URL: https://www.toolbox4devs.com/box-shadow-generator
+- Category: Generators (generate-tools)
+- Complexity: Moderate
+- Description: Build CSS box-shadow values with multiple layers, offsets, blur, spread, colour opacity and inset, with a live preview.
+- Summary: Box Shadow Generator builds a CSS box-shadow declaration visually. Stack as many shadow layers as you need, set each layer's x and y offset, blur, spread, colour and opacity, toggle inset, and watch the result on a live preview. The output is plain CSS you can paste into a stylesheet. Everything runs in your browser; nothing is uploaded.
+- Use Cases: Adding a card or modal elevation without guessing values.; Building a layered shadow that looks smooth rather than a single hard edge.; Creating inset shadows for pressed buttons, wells and input fields.; Matching a shadow from a design file by trying values live.
+- Features: Add, remove and reorder shadow layers; the first layer is drawn on top.; Every value has a slider and a number box, and all controls work from the keyboard.; Colour picker plus hex field, with the opacity converted to rgba() in the output.; Inset toggle per layer and four starter presets: Subtle, Elevated, Inset and Layered.; Adjustable preview canvas and box colours, and a one-click copy of the CSS.
+- Tip: Stack two or three layers with a small blur and a larger, fainter blur below it. This reads as a natural shadow; a single large blur tends to look flat.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

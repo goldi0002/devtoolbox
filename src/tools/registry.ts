@@ -86,6 +86,7 @@ import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
 import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
 import { ENV_AUDITOR_META } from "./meta/env-auditor"
 import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
+import { BOX_SHADOW_GENERATOR_META } from "./meta/box-shadow-generator"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -174,7 +175,8 @@ export const tools: ToolMeta[] = [
   CSS_JS_MINIFIER_META,
   SVG_OPTIMIZER_META,
   IMAGE_TO_BASE64_META,
-  TIME_ZONE_CONVERTER_META
+  TIME_ZONE_CONVERTER_META,
+  BOX_SHADOW_GENERATOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
