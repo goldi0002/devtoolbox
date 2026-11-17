@@ -428,6 +428,32 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(output).toContainText('<meta name="twitter:card" content="summary">');
     await expect(page.getByRole('button', { name: 'Copy to clipboard' }).first()).toBeVisible();
   });
+  test('CSS / JS Minifier minifies JavaScript and CSS and reports syntax errors', async ({ page }) => {
+    const jsInput = page.getByLabel('JavaScript input', { exact: true });
+    await gotoHydrated(page, '/css-js-minifier', jsInput);
+
+    await jsInput.fill('// greet\nfunction greet(name) {\n  console.log(name);\n  return "hi " + name;\n}\n');
+    await page.getByRole('checkbox', { name: 'Drop console calls' }).check();
+    await page.getByRole('button', { name: 'Minify', exact: true }).click();
+
+    const output = page.getByTestId('minify-output');
+    await expect(output).toBeVisible();
+    await expect(output).not.toContainText('console');
+    await expect(output).not.toContainText('// greet');
+    await expect(page.getByText('Saved', { exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Download minified.js' })).toHaveAttribute('download', 'minified.js');
+
+    await jsInput.fill('const a = 1;\nconst b = ;');
+    await page.getByRole('button', { name: 'Minify', exact: true }).click();
+    await expect(page.getByText(/Syntax error at line 2/)).toBeVisible();
+
+    await page.getByRole('button', { name: 'CSS', exact: true }).click();
+    await page.getByLabel('CSS input', { exact: true }).fill('/* note */\n.box {\n  color: #ffffff;\n}');
+    await page.getByRole('button', { name: 'Minify', exact: true }).click();
+    await expect(output).toContainText('.box{');
+    await expect(output).not.toContainText('note');
+    await expect(page.getByRole('link', { name: 'Download minified.css' })).toHaveAttribute('download', 'minified.css');
+  });
 
   test('SVG Optimizer removes comments, previews both SVGs and downloads the result', async ({ page }) => {
     const input = page.getByLabel('Original SVG', { exact: true });
