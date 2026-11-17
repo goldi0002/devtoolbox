@@ -4,7 +4,7 @@
   <br />
   <img src="public/images/favicon.svg" alt="ToolBox4Devs Logo" width="80" height="80" />
   <h3>The Premier Fast, Private, 100% Client-Side Developer Utility Suite</h3>
-  <p>89 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
+  <p>90 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
 
   <p>
     <a href="https://www.toolbox4devs.com">
@@ -54,7 +54,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 1. **🔒 100% Client-Side Processing**: Every single transformation, calculation, formatting pass, and cryptographic operation executes exclusively in browser memory. No data is ever transmitted to a backend.
 2. **🛡️ Absolute Privacy Guarantee**: Safe for sensitive tokens, passwords, production database dumps, and private certificates.
-3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 89 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
+3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 90 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
 4. **📴 Offline & Progressive Web App (PWA)**: Includes a full Service Worker cache so you can install and use the entire utility suite while disconnected on planes, trains, or offline field environments.
 5. **🔗 Compressed Stateless Sharing**: Uses `lz-string` URL hash compression (`#data=...`) to generate shareable links containing complete tool states without any server database storage.
 6. **🎨 10 Tailored Developer Themes**: Switch effortlessly between Dark, Nord, Dracula, Monokai, Terminal, Sepia, Rose, Solarized, and custom high-contrast palettes.
@@ -62,9 +62,9 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (89 Tools)
+## 🛠️ Complete Tool Catalog (90 Tools)
 
-### 1. 🗄️ Data & DevOps (20 Tools)
+### 1. 🗄️ Data & DevOps (21 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
 - **CSV / TXT Large File Viewer (`/csv-txt-viewer`)**: Blazing-fast virtualized tabular spreadsheet viewer with search and column sorting.
 - **Pipeline Studio (`/pipeline-studio`)**: Visual multi-step developer flow canvas to chain transformations (e.g. cURL → JSON → Schema).
@@ -77,6 +77,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **JSON to SQL Converter (`/json-to-sql`)**: Generate `CREATE TABLE` DDL and `INSERT INTO` statements from raw JSON objects.
 - **JSON to CSV / CSV to JSON (`/json-to-csv`)**: Two-way structured table and JSON conversion with nested object flattening.
 - **YAML to JSON / JSON to YAML (`/yaml-json-converter`)**: Bi-directional parser with validation and format preservation.
+- **TOML / JSON / YAML Converter (`/toml-json-yaml-converter`)**: Convert between TOML, JSON and YAML in any direction, with line-and-column syntax errors and a download with the right file extension.
 - **SemVer Calculator (`/semver-calculator`)**: Compare semantic versions, test NPM caret/tilde ranges, and bump increments.
 - **Unix Permissions Calculator (`/unix-permissions-calculator`)**: Interactive chmod calculator with octal, symbolic (`rwxr-xr-x`), and CLI flag breakdown.
 - **Number Base Converter (`/base-converter`)**: Simultaneous real-time conversion between Binary, Octal, Decimal, and Hexadecimal.

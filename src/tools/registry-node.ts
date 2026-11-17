@@ -91,6 +91,7 @@ const toolMeta = [
   { slug: 'time-zone-converter',         category: 'data-tools' },
   { slug: 'favicon-generator',           category: 'web-tools' },
   { slug: 'css-gradient-generator',      category: 'web-tools' },
+  { slug: 'toml-json-yaml-converter',    category: 'data-tools' },
 ] as const
 
 export function getAllAvailableTools() {

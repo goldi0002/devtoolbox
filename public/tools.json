@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 89,
+  "totalTools": 90,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2236,6 +2236,33 @@
         "Copy the background declaration with one click."
       ],
       "tip": "Place the first stop at 0% and the last at 100% so the gradient fills the whole element. Add a middle stop when you want a color to hold its place partway along the gradient."
+    },
+    {
+      "slug": "toml-json-yaml-converter",
+      "name": "TOML / JSON / YAML Converter",
+      "category": "data-tools",
+      "url": "https://www.toolbox4devs.com/toml-json-yaml-converter",
+      "description": "Convert between TOML, JSON and YAML in any direction. Parse errors show the line and column, and the result downloads with the right file extension. Runs in your browser.",
+      "complexity": "moderate",
+      "keywords": [
+        "toml to json",
+        "json to toml",
+        "toml to yaml",
+        "yaml to toml",
+        "toml converter",
+        "convert toml online",
+        "toml json yaml converter",
+        "cargo toml to json",
+        "pyproject toml to json"
+      ],
+      "features": [
+        "Any direction between TOML, JSON and YAML",
+        "Syntax errors with line and column numbers",
+        "Clear messages for values TOML cannot represent, such as null and top-level arrays",
+        "Copy the result or download it as .toml, .json or .yaml",
+        "100% in-browser processing — the TOML parser loads on first use and no document leaves your device"
+      ],
+      "tip": "Dates in TOML become ISO 8601 strings in JSON and YAML. Converting back makes them quoted strings, so re-check any date fields after a round trip."
     }
   ]
 }

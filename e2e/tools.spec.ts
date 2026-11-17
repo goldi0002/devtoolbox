@@ -656,4 +656,29 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await page.getByRole('button', { name: 'Sunset', exact: true }).click();
     await expect(output).toHaveText('background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);');
   });
+
+  test('TOML / JSON / YAML Converter converts between formats, reports error locations and names the download file', async ({ page }) => {
+    const input = page.getByLabel('TOML input', { exact: true });
+    await gotoHydrated(page, '/toml-json-yaml-converter', input);
+
+    await input.fill('[server]\nhost = "localhost"\nport = 8080\n');
+    const output = page.getByTestId('convert-output');
+    await expect(output).toContainText('"port": 8080');
+
+    await page.getByRole('group', { name: 'To', exact: true }).getByRole('button', { name: 'YAML', exact: true }).click();
+    await expect(output).toContainText('port: 8080');
+    await expect(page.getByRole('link', { name: 'Download converted.yaml', exact: true })).toHaveAttribute('download', 'converted.yaml');
+
+    await input.fill('a = 1\nb = "unclosed\n');
+    await expect(page.getByText(/Syntax error at line 2, column \d+:/)).toBeVisible();
+
+    await page.getByRole('group', { name: 'From', exact: true }).getByRole('button', { name: 'JSON', exact: true }).click();
+    await page.getByLabel('JSON input', { exact: true }).fill('{\n  "a": 1,\n}');
+    await expect(page.getByText(/Syntax error at line 3, column 1: Expected double-quoted property name/)).toBeVisible();
+
+    await page.getByLabel('JSON input', { exact: true }).fill('{"db": {"password": null}}');
+    await page.getByRole('group', { name: 'To', exact: true }).getByRole('button', { name: 'TOML', exact: true }).click();
+    await expect(page.getByText(/TOML has no null value at "db\.password"\. Replace it with a value or remove the key\./)).toBeVisible();
+    await expect(page.getByTestId('convert-output')).toHaveCount(0);
+  });
 });
