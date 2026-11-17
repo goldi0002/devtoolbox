@@ -84,6 +84,7 @@ const toolMeta = [
   { slug: 'image-compressor',            category: 'web-tools' },
   { slug: 'pdf-merge-split',             category: 'web-tools' },
   { slug: 'meta-tag-generator',          category: 'web-tools' },
+  { slug: 'css-js-minifier',             category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {
