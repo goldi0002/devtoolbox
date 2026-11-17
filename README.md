@@ -4,7 +4,7 @@
   <br />
   <img src="public/images/favicon.svg" alt="ToolBox4Devs Logo" width="80" height="80" />
   <h3>The Premier Fast, Private, 100% Client-Side Developer Utility Suite</h3>
-  <p>83 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
+  <p>87 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
 
   <p>
     <a href="https://www.toolbox4devs.com">
@@ -54,7 +54,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 1. **🔒 100% Client-Side Processing**: Every single transformation, calculation, formatting pass, and cryptographic operation executes exclusively in browser memory. No data is ever transmitted to a backend.
 2. **🛡️ Absolute Privacy Guarantee**: Safe for sensitive tokens, passwords, production database dumps, and private certificates.
-3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 84 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
+3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 87 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
 4. **📴 Offline & Progressive Web App (PWA)**: Includes a full Service Worker cache so you can install and use the entire utility suite while disconnected on planes, trains, or offline field environments.
 5. **🔗 Compressed Stateless Sharing**: Uses `lz-string` URL hash compression (`#data=...`) to generate shareable links containing complete tool states without any server database storage.
 6. **🎨 10 Tailored Developer Themes**: Switch effortlessly between Dark, Nord, Dracula, Monokai, Terminal, Sepia, Rose, Solarized, and custom high-contrast palettes.
@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (84 Tools)
+## 🛠️ Complete Tool Catalog (87 Tools)
 
 ### 1. 🗄️ Data & DevOps (20 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -103,11 +103,12 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (20 Tools)
+### 4. 🌐 Web & Frontend Utilities (23 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **CSS Unit & Fluid clamp() Converter (`/css-unit-converter`)**: Compute `rem`, `px`, `em`, Tailwind spacing, and fluid viewport `clamp()` formulas.
 - **SVG to JSX Component (`/svg-to-jsx`)**: Clean SVG code and output optimized React/Next.js SVG components.
+- **SVG Optimizer (`/svg-optimizer`)**: Shrink SVG files by removing comments and metadata, minifying paths, and rounding numbers, with before/after previews. Runs in your browser.
 - **HTML Formatter & Minifier (`/html-formatter`)**: Pretty-print or compress HTML markup with syntax highlighting.
 - **XML Formatter & Minifier (`/xml-formatter`)**: Format complex XML documents with indentation and XML tree validation.
 - **GraphQL Query Formatter (`/graphql-formatter`)**: Format, validate, and minify GraphQL operations.
@@ -125,6 +126,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **PDF Merge & Split (`/pdf-merge-split`)**: Merge PDFs, or extract and reorder pages from one, entirely in the browser.
 - **Open Graph & Meta Tag Generator (`/meta-tag-generator`)**: Build title, description, Open Graph and Twitter Card tags with escaping, length warnings, and search, X and LinkedIn/Slack previews.
 - **CSS / JS Minifier (`/css-js-minifier`)**: Minify JavaScript (Terser) or CSS (csso) and see the size saved, entirely in the browser.
+- **robots.txt & sitemap.xml Generator (`/robots-sitemap-generator`)**: Build robots.txt rules with allow, disallow, crawl-delay and AI-crawler presets, or sitemap.xml from a URL list with escaping and validation warnings.
 
 ### 5. 🔤 Text & String Manipulation (9 Tools)
 - **String Escape & Unescape (`/string-escaper`)**: Escape strings for JSON, JavaScript, SQL, HTML, Python, Shell, and Unicode.
@@ -137,8 +139,9 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **Line Sorter & Deduplicator (`/line-sorter`)**: Sort alphabetically, numerically, reverse, trim whitespace, and eliminate duplicate lines.
 - **Text Repeater & Multiplier (`/text-repeater`)**: Multiply text strings with customizable delimiters and line index numbering.
 
-### 6. 🧮 Encoders & Decoders (6 Tools)
+### 6. 🧮 Encoders & Decoders (7 Tools)
 - **Base64 String & File Encoder/Decoder (`/base64`)**: Convert text or binary files to Base64 and URL-safe Base64.
+- **Image to Base64 / Data URI (`/image-to-base64`)**: Encode an image or small file to Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI to a preview and download.
 - **URL Encoder & Decoder (`/url-encoder`)**: Standard and Component RFC-3986 URL percent-encoding.
 - **HTML Entity Encoder/Decoder (`/html-entity`)**: Convert special characters to named and numeric entities.
 - **Hex to Text & Text to Hex (`/hex-converter`)**: Hexadecimal byte stream parser with spacing options.

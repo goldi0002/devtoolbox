@@ -4,6 +4,8 @@ import { JSON_DIFF_META } from "./meta/json-diff"
 import { PDF_MERGE_SPLIT_META } from "./meta/pdf-merge-split"
 import { META_TAG_GENERATOR_META } from "./meta/meta-tag-generator"
 import { CSS_JS_MINIFIER_META } from "./meta/css-js-minifier"
+import { SVG_OPTIMIZER_META } from "./meta/svg-optimizer"
+import { IMAGE_TO_BASE64_META } from "./meta/image-to-base64"
 import { TIME_ZONE_CONVERTER_META } from "./meta/time-zone-converter"
 import { IMAGE_COMPRESSOR_META } from "./meta/image-compressor"
 import { JSON_MODEL_META } from "./meta/json-model"
@@ -83,8 +85,10 @@ import { CSV_VALIDATOR_META } from "./meta/csv-validator"
 import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
 import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
 import { ENV_AUDITOR_META } from "./meta/env-auditor"
+import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
 
 export const tools: ToolMeta[] = [
+  ROBOTS_SITEMAP_GENERATOR_META,
   ENV_AUDITOR_META,
   THREE_JS_PLAYGROUND_META,
   PIPELINE_STUDIO_META,
@@ -168,6 +172,8 @@ export const tools: ToolMeta[] = [
   PDF_MERGE_SPLIT_META,
   META_TAG_GENERATOR_META,
   CSS_JS_MINIFIER_META,
+  SVG_OPTIMIZER_META,
+  IMAGE_TO_BASE64_META,
   TIME_ZONE_CONVERTER_META
 ]
 

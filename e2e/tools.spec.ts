@@ -455,6 +455,85 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByRole('link', { name: 'Download minified.css' })).toHaveAttribute('download', 'minified.css');
   });
 
+  test('SVG Optimizer removes comments, previews both SVGs and downloads the result', async ({ page }) => {
+    const input = page.getByLabel('Original SVG', { exact: true });
+    await gotoHydrated(page, '/svg-optimizer', input);
+
+    await input.fill('<svg xmlns="http://www.w3.org/2000/svg"><!-- secret note --><path d="M1.000000 2.000000L3 4"/></svg>');
+    const output = page.getByTestId('svg-output');
+    await expect(output).toContainText('<path');
+    await expect(output).not.toContainText('secret note');
+
+    await expect(page.getByRole('img', { name: 'Original SVG preview', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByRole('img', { name: 'Optimized SVG preview', exact: true })).toHaveAttribute('src', /^blob:/);
+
+    await page.getByRole('checkbox', { name: 'Remove comments', exact: true }).uncheck();
+    await expect(output).toContainText('secret note');
+
+    await input.fill('<html></html>');
+    await expect(page.getByText(/does not look like an SVG/)).toBeVisible();
+
+    await input.fill('<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>');
+    const downloadButton = page.getByRole('button', { name: 'Download image.min.svg', exact: true });
+    await expect(downloadButton).toBeVisible();
+    const [download] = await Promise.all([page.waitForEvent('download'), downloadButton.click()]);
+    expect(download.suggestedFilename()).toBe('image.min.svg');
+  });
+  test('Image to Base64 encodes a file and decodes a Data URI back', async ({ page }) => {
+    const picker = page.getByLabel('File to encode', { exact: true });
+    await gotoHydrated(page, '/image-to-base64', picker);
+
+    await picker.setInputFiles({ name: 'hi.txt', mimeType: 'text/plain', buffer: Buffer.from('Hi') });
+    await expect(page.getByLabel('Data URI output', { exact: true })).toHaveValue('data:text/plain;base64,SGk=');
+    await expect(page.getByLabel('Raw Base64 output', { exact: true })).toHaveValue('SGk=');
+    await expect(page.getByLabel('CSS background-image output', { exact: true })).toHaveValue('background-image: url("data:text/plain;base64,SGk=");');
+    await expect(page.getByLabel('HTML img tag output', { exact: true })).toHaveValue('<img src="data:text/plain;base64,SGk=" alt="hi.txt">');
+    await expect(page.getByText('text/plain', { exact: true })).toBeVisible();
+    await expect(page.getByText(/Large file/)).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Decode Data URI', exact: true }).click();
+    const uri = page.getByLabel('Data URI', { exact: true });
+    await uri.fill('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=');
+    await expect(page.getByTestId('data-uri-preview')).toBeVisible();
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Download decoded.png', exact: true }).click(),
+    ]);
+    expect(download.suggestedFilename()).toBe('decoded.png');
+
+    await uri.fill('data:image/svg+xml,%3Csvg%3E%3C%2Fsvg%3E');
+    await expect(page.getByText(/^⚠ Data URI: Only base64 Data URIs can be decoded/)).toBeVisible();
+    await expect(page.getByTestId('data-uri-preview')).toHaveCount(0);
+  });
+  test('robots.txt & sitemap.xml Generator applies presets, warns on bad URLs and downloads both files', async ({ page }) => {
+    const sitemapTab = page.getByRole('group', { name: 'Generator' }).getByRole('button', { name: 'sitemap.xml', exact: true });
+    await gotoHydrated(page, '/robots-sitemap-generator', page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block AI crawlers', exact: true }));
+
+    await page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block AI crawlers', exact: true }).click();
+    const robotsOutput = page.getByTestId('robots-output');
+    await expect(robotsOutput).toContainText('User-agent: GPTBot');
+    await expect(robotsOutput).toContainText('User-agent: ClaudeBot');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard' }).first()).toBeVisible();
+
+    await page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block all', exact: true }).click();
+    await expect(robotsOutput).toContainText('User-agent: *');
+    await expect(robotsOutput).toContainText('Disallow: /');
+    await expect(robotsOutput).not.toContainText('GPTBot');
+    const robotsDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download robots.txt', exact: true }).click();
+    expect((await robotsDownload).suggestedFilename()).toBe('robots.txt');
+
+    await sitemapTab.click();
+    const sitemapText = page.getByLabel('Page URLs', { exact: true });
+    await sitemapText.fill('https://example.com/a?x=1&y=2\n/relative\nhttps://example.com/a?x=1&y=2');
+    const sitemapOutput = page.getByTestId('sitemap-output');
+    await expect(sitemapOutput).toContainText('<loc>https://example.com/a?x=1&amp;y=2</loc>');
+    await expect(page.getByText(/Line 2: "\/relative" must be an absolute URL/)).toBeVisible();
+    await expect(page.getByText(/Line 3: "https:\/\/example\.com\/a\?x=1&y=2" is a duplicate of line 1/)).toBeVisible();
+    const sitemapDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download sitemap.xml', exact: true }).click();
+    expect((await sitemapDownload).suggestedFilename()).toBe('sitemap.xml');
+  });
   test('Time Zone Converter converts across DST, plans working hours and copies a summary', async ({ page }) => {
     const date = page.getByLabel('Date', { exact: true });
     await gotoHydrated(page, '/time-zone-converter', date);
