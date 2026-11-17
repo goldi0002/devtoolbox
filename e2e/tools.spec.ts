@@ -355,4 +355,59 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(results).toContainText('blue-compressed.png');
     await expect(page.getByRole('link', { name: 'Download blue-compressed.png' })).toHaveAttribute('download', 'blue-compressed.png');
   });
+  test('PDF Merge & Split merges files and extracts pages', async ({ page }) => {
+    const picker = page.getByLabel('PDF files', { exact: true });
+    await gotoHydrated(page, '/pdf-merge-split', picker);
+
+    const makePdf = (pages: number) =>
+      page.evaluate(async (count) => {
+        const text = (s: string) => new TextEncoder().encode(s);
+        const objects: string[] = [];
+        const kids = Array.from({ length: count }, (_, i) => `${3 + i} 0 R`).join(' ');
+        objects.push('<< /Type /Catalog /Pages 2 0 R >>');
+        objects.push(`<< /Type /Pages /Kids [${kids}] /Count ${count} >>`);
+        for (let i = 0; i < count; i++) objects.push('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>');
+        let body = '%PDF-1.4\n';
+        const offsets: number[] = [];
+        objects.forEach((obj, i) => {
+          offsets.push(body.length);
+          body += `${i + 1} 0 obj\n${obj}\nendobj\n`;
+        });
+        const xref = body.length;
+        body += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+        offsets.forEach((o) => { body += `${String(o).padStart(10, '0')} 00000 n \n`; });
+        body += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
+        return Array.from(text(body));
+      }, pages);
+
+    const toFile = async (name: string, pages: number) => ({
+      name,
+      mimeType: 'application/pdf',
+      buffer: Buffer.from(await makePdf(pages)),
+    });
+
+    await picker.setInputFiles([await toFile('a.pdf', 2), await toFile('b.pdf', 3)]);
+    const list = page.getByTestId('pdf-files');
+    await expect(list.getByRole('listitem')).toHaveCount(2);
+    await expect(list).toContainText('2 pages');
+    await expect(list).toContainText('3 pages');
+
+    await page.getByRole('button', { name: 'Move b.pdf up' }).click();
+    await expect(list.getByRole('listitem').first()).toContainText('b.pdf');
+
+    await page.getByRole('button', { name: 'Merge PDFs' }).click();
+    const output = page.getByTestId('pdf-output');
+    await expect(output).toContainText('merged.pdf: 5 pages');
+    await expect(page.getByRole('link', { name: 'Download merged.pdf' })).toHaveAttribute('download', 'merged.pdf');
+
+    await page.getByRole('button', { name: 'Extract pages', exact: true }).click();
+    await page.getByLabel('PDF file', { exact: true }).setInputFiles(await toFile('report.pdf', 8));
+    await page.getByLabel(/Pages to keep/).fill('1-3, 5');
+    await page.getByRole('button', { name: 'Extract pages', exact: true }).last().click();
+    await expect(output).toContainText('report-pages.pdf: 4 pages');
+
+    await page.getByLabel(/Pages to keep/).fill('9');
+    await page.getByRole('button', { name: 'Extract pages', exact: true }).last().click();
+    await expect(page.getByText(/outside this PDF, which has 8 pages/)).toBeVisible();
+  });
 });
