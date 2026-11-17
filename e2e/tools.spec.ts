@@ -505,6 +505,114 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText(/^⚠ Data URI: Only base64 Data URIs can be decoded/)).toBeVisible();
     await expect(page.getByTestId('data-uri-preview')).toHaveCount(0);
   });
+  test('robots.txt & sitemap.xml Generator applies presets, warns on bad URLs and downloads both files', async ({ page }) => {
+    const sitemapTab = page.getByRole('group', { name: 'Generator' }).getByRole('button', { name: 'sitemap.xml', exact: true });
+    await gotoHydrated(page, '/robots-sitemap-generator', page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block AI crawlers', exact: true }));
+
+    await page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block AI crawlers', exact: true }).click();
+    const robotsOutput = page.getByTestId('robots-output');
+    await expect(robotsOutput).toContainText('User-agent: GPTBot');
+    await expect(robotsOutput).toContainText('User-agent: ClaudeBot');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard' }).first()).toBeVisible();
+
+    await page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block all', exact: true }).click();
+    await expect(robotsOutput).toContainText('User-agent: *');
+    await expect(robotsOutput).toContainText('Disallow: /');
+    await expect(robotsOutput).not.toContainText('GPTBot');
+    const robotsDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download robots.txt', exact: true }).click();
+    expect((await robotsDownload).suggestedFilename()).toBe('robots.txt');
+
+    await sitemapTab.click();
+    const sitemapText = page.getByLabel('Page URLs', { exact: true });
+    await sitemapText.fill('https://example.com/a?x=1&y=2\n/relative\nhttps://example.com/a?x=1&y=2');
+    const sitemapOutput = page.getByTestId('sitemap-output');
+    await expect(sitemapOutput).toContainText('<loc>https://example.com/a?x=1&amp;y=2</loc>');
+    await expect(page.getByText(/Line 2: "\/relative" must be an absolute URL/)).toBeVisible();
+    await expect(page.getByText(/Line 3: "https:\/\/example\.com\/a\?x=1&y=2" is a duplicate of line 1/)).toBeVisible();
+    const sitemapDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download sitemap.xml', exact: true }).click();
+    expect((await sitemapDownload).suggestedFilename()).toBe('sitemap.xml');
+  });
+  test('Time Zone Converter converts across DST, plans working hours and copies a summary', async ({ page }) => {
+    const date = page.getByLabel('Date', { exact: true });
+    await gotoHydrated(page, '/time-zone-converter', date);
+
+    await date.fill('2026-03-29');
+    await page.getByLabel('Time', { exact: true }).fill('09:00');
+
+    // 2026-03-29: New York is on EDT, London has just moved to BST, Kolkata is UTC+05:30.
+    await expect(page.getByTestId('convert-Europe/London')).toContainText('2026-03-29 14:00');
+    await expect(page.getByTestId('convert-Asia/Kolkata')).toContainText('2026-03-29 18:30');
+    await expect(page.getByTestId('convert-Asia/Kolkata')).toContainText('UTC+05:30');
+    await expect(page.getByTestId('summary-line')).toHaveText(
+      '2026-03-29 09:00 America/New_York (UTC-04:00) = Europe/London 14:00 (UTC+01:00); Asia/Kolkata 18:30 (UTC+05:30); Asia/Tokyo 22:00 (UTC+09:00)'
+    );
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true }).filter({ hasText: 'Copy summary' })).toBeVisible();
+
+    // Eight local working hours (09:00-16:59) per zone across the 24-hour planner.
+    await expect(page.getByTestId('planner-Europe/London').locator('td[data-working="true"]')).toHaveCount(8);
+    await expect(page.getByTestId('planner-Asia/Kolkata').locator('td[data-working="true"]')).toHaveCount(8);
+
+    await page.getByPlaceholder('City or IANA name, e.g. kolkata or America/Chicago').fill('sydney');
+    await page.getByRole('button', { name: 'Add Australia/Sydney', exact: true }).click();
+    await expect(page.getByTestId('convert-Australia/Sydney')).toContainText('2026-03-30 00:00');
+    await expect(page.getByTestId('convert-Australia/Sydney')).toContainText('+1 day');
+
+    await page.getByRole('button', { name: 'Remove Asia/Tokyo', exact: true }).click();
+    await expect(page.getByTestId('convert-Asia/Tokyo')).toHaveCount(0);
+
+    // Spring forward: 02:30 does not exist in New York on 2026-03-08.
+    await date.fill('2026-03-08');
+    await page.getByLabel('Time', { exact: true }).fill('02:30');
+    await expect(page.getByText(/does not exist in America\/New_York/)).toBeVisible();
+
+    // Fall back: 01:30 happens twice in New York on 2026-11-01.
+    await date.fill('2026-11-01');
+    await page.getByLabel('Time', { exact: true }).fill('01:30');
+    await expect(page.getByText(/happens twice in America\/New_York/)).toBeVisible();
+  });
+
+  test('Favicon Generator builds the icon set from an uploaded image and offers downloads', async ({ page }) => {
+    const picker = page.getByLabel('Source image', { exact: true });
+    await gotoHydrated(page, '/favicon-generator', picker);
+
+    const base64 = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#2563eb';
+      ctx.fillRect(0, 0, 64, 64);
+      return canvas.toDataURL('image/png').split(',')[1];
+    });
+    await picker.setInputFiles({ name: 'logo.png', mimeType: 'image/png', buffer: Buffer.from(base64, 'base64') });
+
+    await expect(page.getByRole('img', { name: 'Preview of apple-touch-icon.png', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByRole('img', { name: 'Preview of favicon-16x16.png', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByTestId('favicon-results').getByRole('listitem')).toHaveCount(7);
+
+    const linkTags = page.getByLabel('HTML link tags', { exact: true });
+    await expect(linkTags).toHaveValue(/<link rel="apple-touch-icon" sizes="180x180" href="\/apple-touch-icon\.png">/);
+    await page.getByLabel('Base path (where the files are hosted)', { exact: true }).fill('/assets/icons');
+    await expect(linkTags).toHaveValue(/href="\/assets\/icons\/favicon\.ico"/);
+
+    await expect(page.getByLabel('Web app manifest', { exact: true })).toHaveValue(/"theme_color": "#ffffff"/);
+    await page.getByLabel('Site name (manifest)', { exact: true }).fill('Demo Site');
+    await expect(page.getByLabel('Web app manifest', { exact: true })).toHaveValue(/"name": "Demo Site"/);
+
+    const [icoDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('link', { name: 'Download favicon.ico', exact: true }).click(),
+    ]);
+    expect(icoDownload.suggestedFilename()).toBe('favicon.ico');
+
+    const [zipDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Download all as ZIP', exact: true }).click(),
+    ]);
+    expect(zipDownload.suggestedFilename()).toBe('favicon-package.zip');
+  });
 
   test('CSS Gradient Generator switches types, edits stops and keeps two valid stops', async ({ page }) => {
     const typeSelect = page.getByLabel('Gradient type', { exact: true });
