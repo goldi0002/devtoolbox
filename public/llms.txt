@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 90 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 91 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -51,6 +51,7 @@
 - [SVG Placeholder](https://www.toolbox4devs.com/svg-placeholder-generator): Generate fast, customizable SVG placeholder images for your projects.
 - [AI Token Counter & Visualizer](https://www.toolbox4devs.com/ai-token-counter): Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.
 - [Faker Data Generator](https://www.toolbox4devs.com/faker-data-generator): Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.
+- [Box Shadow Generator](https://www.toolbox4devs.com/box-shadow-generator): Build CSS box-shadow values with multiple layers, offsets, blur, spread, colour opacity and inset, with a live preview.
 
 ### Authentication Tools
 - [JWT Decoder](https://www.toolbox4devs.com/jwt): Decode and inspect JSON Web Tokens — header, payload, expiry and more.

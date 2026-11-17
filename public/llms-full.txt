@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 90
+Total Tools: 91
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 90 Tools)
+## Tool Registry & Technical Specifications (All 91 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -883,6 +883,16 @@ Total Tools: 90
 - Use Cases: Reading a Cargo.toml or pyproject.toml as JSON to feed into a script; Turning a Kubernetes or Docker Compose YAML file into TOML for a tool that expects it; Converting a JSON config into TOML for a Rust, Python or Hugo project; Checking that a TOML file parses before committing it
 - Features: Any direction between TOML, JSON and YAML; Syntax errors with line and column numbers; Clear messages for values TOML cannot represent, such as null and top-level arrays; Copy the result or download it as .toml, .json or .yaml; 100% in-browser processing — the TOML parser loads on first use and no document leaves your device
 - Tip: Dates in TOML become ISO 8601 strings in JSON and YAML. Converting back makes them quoted strings, so re-check any date fields after a round trip.
+
+### 91. Box Shadow Generator
+- URL: https://www.toolbox4devs.com/box-shadow-generator
+- Category: Generators (generate-tools)
+- Complexity: Moderate
+- Description: Build CSS box-shadow values with multiple layers, offsets, blur, spread, colour opacity and inset, with a live preview.
+- Summary: Box Shadow Generator builds a CSS box-shadow declaration visually. Stack as many shadow layers as you need, set each layer's x and y offset, blur, spread, colour and opacity, toggle inset, and watch the result on a live preview. The output is plain CSS you can paste into a stylesheet. Everything runs in your browser; nothing is uploaded.
+- Use Cases: Adding a card or modal elevation without guessing values.; Building a layered shadow that looks smooth rather than a single hard edge.; Creating inset shadows for pressed buttons, wells and input fields.; Matching a shadow from a design file by trying values live.
+- Features: Add, remove and reorder shadow layers; the first layer is drawn on top.; Every value has a slider and a number box, and all controls work from the keyboard.; Colour picker plus hex field, with the opacity converted to rgba() in the output.; Inset toggle per layer and four starter presets: Subtle, Elevated, Inset and Layered.; Adjustable preview canvas and box colours, and a one-click copy of the CSS.
+- Tip: Stack two or three layers with a small blur and a larger, fainter blur below it. This reads as a natural shadow; a single large blur tends to look flat.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

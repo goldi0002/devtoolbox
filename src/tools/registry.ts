@@ -89,6 +89,7 @@ import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
 import { ENV_AUDITOR_META } from "./meta/env-auditor"
 import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
 import { TOML_JSON_YAML_CONVERTER_META } from "./meta/toml-json-yaml-converter"
+import { BOX_SHADOW_GENERATOR_META } from "./meta/box-shadow-generator"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -181,6 +182,7 @@ export const tools: ToolMeta[] = [
   FAVICON_GENERATOR_META,
   CSS_GRADIENT_GENERATOR_META,
   TOML_JSON_YAML_CONVERTER_META,
+  BOX_SHADOW_GENERATOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

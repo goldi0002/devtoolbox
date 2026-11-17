@@ -681,4 +681,59 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText(/TOML has no null value at "db\.password"\. Replace it with a value or remove the key\./)).toBeVisible();
     await expect(page.getByTestId('convert-output')).toHaveCount(0);
   });
+  test('Box Shadow Generator builds layered CSS, applies presets and edits layers from the keyboard', async ({ page }) => {
+    const addLayer = page.getByRole('button', { name: 'Add layer', exact: true });
+    await gotoHydrated(page, '/box-shadow-generator', addLayer);
+
+    // Elevated preset loads on first render: two layers, first on top.
+    await expect(page.getByRole('group', { name: /^Layer \d$/ })).toHaveCount(2);
+    // The live CSS output comes before the guide's static example, so take the first match.
+    const output = page.locator('pre').filter({ hasText: 'box-shadow' }).first();
+    await expect(output).toContainText('box-shadow:');
+    await expect(output).toContainText('rgba(0, 0, 0, 0.1)');
+    const preview = page.getByTestId('shadow-preview');
+    await expect.poll(() => preview.evaluate((el) => getComputedStyle(el).boxShadow)).toContain('-1px');
+
+    // Subtle preset replaces the stack with one layer.
+    await page.getByRole('group', { name: 'Presets' }).getByRole('button', { name: 'Subtle', exact: true }).click();
+    await expect(page.getByRole('group', { name: /^Layer \d$/ })).toHaveCount(1);
+    await expect(output).toContainText('0 1px 3px 0 rgba(0, 0, 0, 0.12)');
+
+    // Add a layer, then change its Y offset and blur with the number box and the keyboard.
+    await addLayer.click();
+    const layer2 = page.getByRole('group', { name: 'Layer 2', exact: true });
+    await expect(layer2).toBeVisible();
+    await layer2.getByLabel('Y offset value', { exact: true }).fill('12');
+    await expect(output).toContainText('0 12px 8px 0 rgba(0, 0, 0, 0.2)');
+
+    const blurSlider = layer2.getByRole('slider', { name: 'Blur', exact: true });
+    await blurSlider.focus();
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('ArrowRight');
+    await expect(layer2.getByLabel('Blur value', { exact: true })).toHaveValue('10');
+    await expect(output).toContainText('0 12px 10px 0 rgba(0, 0, 0, 0.2)');
+
+    // Inset toggle, then move layer 2 above layer 1 so the inset layer is first.
+    await layer2.getByRole('checkbox', { name: 'Inset', exact: true }).check();
+    await expect(output).toContainText('inset 0 12px 10px 0 rgba(0, 0, 0, 0.2)');
+    await layer2.getByRole('button', { name: 'Move Layer 2 up', exact: true }).click();
+    await expect(page.getByRole('group', { name: 'Layer 1', exact: true }).getByRole('checkbox', { name: 'Inset', exact: true })).toBeChecked();
+    const exactCss = 'box-shadow:\n  inset 0 12px 10px 0 rgba(0, 0, 0, 0.2),\n  0 1px 3px 0 rgba(0, 0, 0, 0.12);';
+    await expect.poll(() => output.textContent()).toContain(exactCss);
+
+    // An invalid colour is reported and stops the CSS from being generated.
+    const layer1 = page.getByRole('group', { name: 'Layer 1', exact: true });
+    await layer1.getByLabel('Colour hex', { exact: true }).fill('nope');
+    await expect(page.getByRole('alert').filter({ hasText: 'Layer 1: color must be a hex value' })).toBeVisible();
+    await expect(page.getByText('Fix the highlighted layer(s) to generate CSS.')).toBeVisible();
+    await layer1.getByLabel('Colour hex', { exact: true }).fill('#1e3a8a');
+    await expect.poll(() => output.textContent()).toContain('inset 0 12px 10px 0 rgba(30, 58, 138, 0.2)');
+    await expect(output).toContainText('rgba(0, 0, 0, 0.12)');
+    await expect(page.getByRole('alert').filter({ hasText: 'color must be' })).toHaveCount(0);
+
+    // Remove the top layer; the copy button is available for the remaining CSS.
+    await layer1.getByRole('button', { name: 'Remove Layer 1', exact: true }).click();
+    await expect(page.getByRole('group', { name: /^Layer \d$/ })).toHaveCount(1);
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true }).first()).toBeVisible();
+  });
 });

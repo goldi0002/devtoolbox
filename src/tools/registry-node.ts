@@ -92,6 +92,7 @@ const toolMeta = [
   { slug: 'favicon-generator',           category: 'web-tools' },
   { slug: 'css-gradient-generator',      category: 'web-tools' },
   { slug: 'toml-json-yaml-converter',    category: 'data-tools' },
+  { slug: 'box-shadow-generator',        category: 'generate-tools' },
 ] as const
 
 export function getAllAvailableTools() {
