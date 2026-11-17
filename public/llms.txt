@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 82 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 83 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -77,6 +77,7 @@
 - [Image Compressor & Converter](https://www.toolbox4devs.com/image-compressor): Compress and convert images to JPEG, WebP, PNG or AVIF with a quality slider and optional resize. Files never leave your device.
 - [PDF Merge & Split](https://www.toolbox4devs.com/pdf-merge-split): Merge several PDFs into one, or extract and reorder pages from a PDF. Files stay on your device; nothing is uploaded.
 - [Open Graph & Meta Tag Generator](https://www.toolbox4devs.com/meta-tag-generator): Generate title, description, Open Graph and Twitter Card meta tags, with search, X and LinkedIn/Slack previews.
+- [SVG Optimizer](https://www.toolbox4devs.com/svg-optimizer): Shrink SVG files by removing comments and metadata, rewriting paths and rounding numbers. Compare the original and optimized previews, then copy or download. Runs in your browser.
 
 ### Data Tools
 - [Delimited File Data Validator (CSV / TSV / TXT)](https://www.toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
