@@ -82,7 +82,7 @@ export default function StringEscaper() {
                     onChange={(e) => setEscapeUnicode(e.target.checked)}
                     className="rounded border-border bg-muted/40 text-indigo-600 focus:ring-0"
                   />
-                  <span>Escape Non-ASCII (\\uXXXX)</span>
+                  <span>Escape Non-ASCII (\uXXXX)</span>
                 </label>
               )}
             </div>
