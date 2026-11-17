@@ -307,4 +307,26 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     expect(html.startsWith('<table>')).toBe(true);
     expect(html).toContain('<th>order_id</th>');
   });
+  test('JSON Diff lists changes by path and can ignore array order', async ({ page }) => {
+    const left = page.getByLabel('Original (left)', { exact: true });
+    await gotoHydrated(page, '/json-diff', left);
+
+    await left.fill('{"name":"Ada","age":36,"tags":["a","b"]}');
+    await page.getByLabel('Changed (right)', { exact: true }).fill('{"age":37,"name":"Ada","tags":["b","a"],"id":1}');
+
+    const changes = page.getByTestId('json-diff-changes');
+    await expect(changes.getByRole('listitem')).toHaveCount(4);
+    await expect(changes).toContainText('$.age');
+    await expect(changes).toContainText('36 → 37');
+    await expect(changes).toContainText('$.id');
+
+    await page.getByRole('checkbox', { name: 'Ignore array order' }).check();
+    await expect(changes.getByRole('listitem')).toHaveCount(2);
+
+    await page.getByLabel('Changed (right)', { exact: true }).fill('{"tags":["b","a"],"age":36,"name":"Ada"}');
+    await expect(page.getByRole('status').filter({ hasText: 'No differences' })).toBeVisible();
+
+    await left.fill('{bad');
+    await expect(page.getByText(/^⚠ Original:/)).toBeVisible();
+  });
 });

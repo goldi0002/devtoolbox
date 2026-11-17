@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import ClearFieldButton from './ClearFieldButton'
 import ErrorBanner from './ErrorBanner'
 import { readTextFile } from '../../utils/textFile'
@@ -35,6 +35,7 @@ export default function TextAreaField({
   const [isDragging, setIsDragging] = useState(false)
   const [dropError, setDropError] = useState('')
   const fieldRef = useRef<HTMLTextAreaElement>(null)
+  const fieldId = useId()
   const canClear = showClearButton && Boolean(value)
 
   const clear = () => {
@@ -72,8 +73,9 @@ export default function TextAreaField({
 
   return (
     <div className="relative">
-      <label className={`block text-xs text-dim font-mono mb-1.5${canClear ? ' pr-12' : ''}`}>{label}</label>
+      <label htmlFor={fieldId} className={`block text-xs text-dim font-mono mb-1.5${canClear ? ' pr-12' : ''}`}>{label}</label>
       <textarea
+        id={fieldId}
         ref={fieldRef}
         value={value}
         onChange={e => {

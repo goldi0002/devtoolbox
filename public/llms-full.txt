@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 78
+Total Tools: 79
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 78 Tools)
+## Tool Registry & Technical Specifications (All 79 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -763,6 +763,16 @@ Total Tools: 78
 - Use Cases: Inspecting SSL/TLS certificate validity windows and remaining days before expiration; Checking Subject Alternative Names (SANs) to verify domain and subdomain coverage; Verifying certificate issuers, Distinguished Names, and intermediate CA chains; Generating SHA-256 and SHA-1 certificate fingerprints for pinning and validation
 - Features: Decodes standard PEM format X.509 certificates (SSL/TLS, CSR, and CA); Validity countdown with days remaining and expired/not-yet-valid status flags; Detailed Subject and Issuer Distinguished Name extraction (CN, O, OU, C, ST, L); Subject Alternative Name (SAN) DNS and IP address extraction; Public key type (RSA bit length, ECDSA curves) and signature algorithm identification; Live SHA-256 and SHA-1 cryptographic fingerprint calculation via WebCrypto; 100% private and runs locally — certificates and keys never leave your machine
 - Tip: Paste certificates directly from your server configuration or click "Let's Encrypt TLS Cert" to test instantly.
+
+### 79. JSON Diff
+- URL: https://www.toolbox4devs.com/json-diff
+- Category: JSON (json-tools)
+- Complexity: Simple
+- Description: Compare two JSON documents by structure and list every added, removed and changed value by its JSON path.
+- Summary: JSON Diff compares two JSON documents by their structure instead of their text. It walks both values and lists each key or array item that was added, removed or changed, with its JSON path, so reformatting or reordered keys never show up as noise. Everything runs in your browser; nothing is uploaded.
+- Use Cases: Spotting what changed between two API responses.; Reviewing edits to a JSON config or package manifest.; Checking a migration or transform kept every field.; Comparing test fixtures against real output.
+- Features: Key order and whitespace are ignored; only real value changes count.; Each change is listed with its JSON path, e.g. $.user.tags[1].; Detects type changes, such as a number that became a string.; Optional "Ignore array order" mode for lists where order does not matter.; Copy the change list as plain text.
+- Tip: Turn on "Ignore array order" when comparing lists of IDs or tags; otherwise one item inserted at the start shows every later item as changed.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

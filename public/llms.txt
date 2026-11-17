@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 78 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 79 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -16,6 +16,7 @@
 - [JSON → Model](https://www.toolbox4devs.com/json-model): Convert JSON to C# classes or TypeScript interfaces with proper types.
 - [JSON to Zod Schema Generator](https://www.toolbox4devs.com/json-to-zod): Convert JSON payloads into strongly-typed Zod schemas and TypeScript types.
 - [JSON Schema Generator & Validator](https://www.toolbox4devs.com/json-schema-generator): Convert JSON payloads into Draft-07, Draft 2020-12, or OpenAPI JSON Schemas with live validation.
+- [JSON Diff](https://www.toolbox4devs.com/json-diff): Compare two JSON documents by structure and list every added, removed and changed value by its JSON path.
 
 ### Encode / Decode Tools
 - [String Escape & Unescape](https://www.toolbox4devs.com/string-escaper): Escape and unescape strings for JSON, JavaScript, Python, Java, C#, SQL, CSV, HTML, and Shell.
