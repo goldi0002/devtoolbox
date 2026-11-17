@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 88,
+  "totalTools": 89,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2207,6 +2207,35 @@
         "Copy buttons for the link tags and the manifest, with a base path field for where the files will be hosted."
       ],
       "tip": "Start from a square source of at least 512 × 512 pixels. Images that are not square are centred with transparent space around them."
+    },
+    {
+      "slug": "css-gradient-generator",
+      "name": "CSS Gradient Generator",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/css-gradient-generator",
+      "description": "Build linear, radial and conic CSS gradients with editable color stops, a live preview and a copy-ready background declaration.",
+      "complexity": "moderate",
+      "keywords": [
+        "css gradient generator",
+        "linear gradient generator",
+        "radial gradient generator",
+        "conic gradient generator",
+        "css background gradient",
+        "gradient color stops",
+        "css gradient builder",
+        "gradient css"
+      ],
+      "features": [
+        "Linear, radial (circle or ellipse) and conic gradients.",
+        "Angle control for linear and conic gradients, as a number input and a slider.",
+        "Center position for radial and conic gradients.",
+        "Add, remove and edit color stops, each with a color picker, a hex text field and a percentage position.",
+        "Enforces at least two stops and up to eight.",
+        "Sorts stops by position in the output, so the order you type them does not matter.",
+        "Five presets to start from, and a live preview.",
+        "Copy the background declaration with one click."
+      ],
+      "tip": "Place the first stop at 0% and the last at 100% so the gradient fills the whole element. Add a middle stop when you want a color to hold its place partway along the gradient."
     }
   ]
 }

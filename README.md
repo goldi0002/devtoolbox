@@ -4,7 +4,7 @@
   <br />
   <img src="public/images/favicon.svg" alt="ToolBox4Devs Logo" width="80" height="80" />
   <h3>The Premier Fast, Private, 100% Client-Side Developer Utility Suite</h3>
-  <p>88 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
+  <p>89 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
 
   <p>
     <a href="https://www.toolbox4devs.com">
@@ -54,7 +54,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 1. **🔒 100% Client-Side Processing**: Every single transformation, calculation, formatting pass, and cryptographic operation executes exclusively in browser memory. No data is ever transmitted to a backend.
 2. **🛡️ Absolute Privacy Guarantee**: Safe for sensitive tokens, passwords, production database dumps, and private certificates.
-3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 88 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
+3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 89 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
 4. **📴 Offline & Progressive Web App (PWA)**: Includes a full Service Worker cache so you can install and use the entire utility suite while disconnected on planes, trains, or offline field environments.
 5. **🔗 Compressed Stateless Sharing**: Uses `lz-string` URL hash compression (`#data=...`) to generate shareable links containing complete tool states without any server database storage.
 6. **🎨 10 Tailored Developer Themes**: Switch effortlessly between Dark, Nord, Dracula, Monokai, Terminal, Sepia, Rose, Solarized, and custom high-contrast palettes.
@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (88 Tools)
+## 🛠️ Complete Tool Catalog (89 Tools)
 
 ### 1. 🗄️ Data & DevOps (20 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -103,7 +103,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (24 Tools)
+### 4. 🌐 Web & Frontend Utilities (25 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **CSS Unit & Fluid clamp() Converter (`/css-unit-converter`)**: Compute `rem`, `px`, `em`, Tailwind spacing, and fluid viewport `clamp()` formulas.
@@ -128,6 +128,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **CSS / JS Minifier (`/css-js-minifier`)**: Minify JavaScript (Terser) or CSS (csso) and see the size saved, entirely in the browser.
 - **Favicon Generator (`/favicon-generator`)**: Turn one PNG, JPG or SVG into favicon PNGs, a multi-size `favicon.ico`, HTML link tags and a `site.webmanifest`, with a ZIP download. Runs in your browser.
 - **robots.txt & sitemap.xml Generator (`/robots-sitemap-generator`)**: Build robots.txt rules with allow, disallow, crawl-delay and AI-crawler presets, or sitemap.xml from a URL list with escaping and validation warnings.
+- **CSS Gradient Generator (`/css-gradient-generator`)**: Build linear, radial and conic gradients with editable color stops, a live preview and a copy-ready `background` declaration.
 
 ### 5. 🔤 Text & String Manipulation (9 Tools)
 - **String Escape & Unescape (`/string-escaper`)**: Escape strings for JSON, JavaScript, SQL, HTML, Python, Shell, and Unicode.

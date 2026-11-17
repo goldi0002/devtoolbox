@@ -90,6 +90,7 @@ const toolMeta = [
   { slug: 'image-to-base64',             category: 'encode-tools' },
   { slug: 'time-zone-converter',         category: 'data-tools' },
   { slug: 'favicon-generator',           category: 'web-tools' },
+  { slug: 'css-gradient-generator',      category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {

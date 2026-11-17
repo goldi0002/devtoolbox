@@ -39,6 +39,7 @@ import { BASIC_AUTH_HEADER_META } from "./meta/basic-auth-header"
 import { UNIX_PERMISSIONS_CALCULATOR_META } from "./meta/unix-permissions-calculator"
 import { LOCAL_AI_TEXT_ASSISTANT_META } from "./meta/local-ai-text-assistant"
 import { JSON_TO_ZOD_META } from "./meta/json-to-zod"
+import { CSS_GRADIENT_GENERATOR_META } from "./meta/css-gradient-generator"
 import { CRON_PARSER_META } from "./meta/cron-parser"
 import { CURL_CONVERTER_META } from "./meta/curl-converter"
 import { SQL_FORMATTER_META } from "./meta/sql-formatter"
@@ -177,6 +178,7 @@ export const tools: ToolMeta[] = [
   IMAGE_TO_BASE64_META,
   TIME_ZONE_CONVERTER_META,
   FAVICON_GENERATOR_META,
+  CSS_GRADIENT_GENERATOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
