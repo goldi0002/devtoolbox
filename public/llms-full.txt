@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 80
+Total Tools: 81
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 80 Tools)
+## Tool Registry & Technical Specifications (All 81 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -783,6 +783,16 @@ Total Tools: 80
 - Use Cases: Shrinking photos before attaching them to an email or ticket.; Converting PNG or JPEG images to WebP for faster web pages.; Resizing large screenshots to a maximum width.; Compressing several images in one go without sending them to an online service.
 - Features: Output as JPEG, WebP, PNG or AVIF (AVIF only where your browser can encode it).; Quality slider for the lossy formats, plus optional maximum width and height that keep the aspect ratio.; Several files at once, each with its before and after size and the percentage saved.; Per-file download; everything is processed locally.
 - Tip: WebP at quality 75-85 is usually a good balance for photos. PNG is lossless, so shrink PNG files by lowering the maximum width instead of the quality.
+
+### 81. PDF Merge & Split
+- URL: https://www.toolbox4devs.com/pdf-merge-split
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Merge several PDFs into one, or extract and reorder pages from a PDF. Files stay on your device; nothing is uploaded.
+- Summary: PDF Merge & Split joins several PDF files into one document, or builds a new PDF from the pages you pick out of an existing one. The work is done by a PDF library running in your browser, so your documents are never uploaded to a server.
+- Use Cases: Combining a cover letter, CV and certificates into one PDF.; Pulling a few pages out of a long report to share.; Putting scanned pages in a different order.; Merging invoices or receipts for one expense claim.
+- Features: Merge two or more PDFs, with up and down buttons to set the order.; Extract pages with a range such as 1-3, 5, 8- (8 to the last page).; Pages come out in the order you type them, and a page can be repeated.; Shows the page count of each file; download the result as a new PDF.
+- Tip: To reverse or reorder pages, type them in the order you want, for example 3, 2, 1 for a three-page file.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 80 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 81 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -75,6 +75,7 @@
 - [URL Parser](https://www.toolbox4devs.com/url-parser): Parse URLs into their component parts (protocol, host, path, parameters).
 - [XML Formatter](https://www.toolbox4devs.com/xml-formatter): Format, beautify or minify XML strings natively in your browser.
 - [Image Compressor & Converter](https://www.toolbox4devs.com/image-compressor): Compress and convert images to JPEG, WebP, PNG or AVIF with a quality slider and optional resize. Files never leave your device.
+- [PDF Merge & Split](https://www.toolbox4devs.com/pdf-merge-split): Merge several PDFs into one, or extract and reorder pages from a PDF. Files stay on your device; nothing is uploaded.
 
 ### Data Tools
 - [Delimited File Data Validator (CSV / TSV / TXT)](https://www.toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
