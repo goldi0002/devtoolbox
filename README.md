@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (82 Tools)
+## 🛠️ Complete Tool Catalog (83 Tools)
 
 ### 1. 🗄️ Data & DevOps (19 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -135,8 +135,9 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **Line Sorter & Deduplicator (`/line-sorter`)**: Sort alphabetically, numerically, reverse, trim whitespace, and eliminate duplicate lines.
 - **Text Repeater & Multiplier (`/text-repeater`)**: Multiply text strings with customizable delimiters and line index numbering.
 
-### 6. 🧮 Encoders & Decoders (6 Tools)
+### 6. 🧮 Encoders & Decoders (7 Tools)
 - **Base64 String & File Encoder/Decoder (`/base64`)**: Convert text or binary files to Base64 and URL-safe Base64.
+- **Image to Base64 / Data URI (`/image-to-base64`)**: Encode an image or small file to Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI to a preview and download.
 - **URL Encoder & Decoder (`/url-encoder`)**: Standard and Component RFC-3986 URL percent-encoding.
 - **HTML Entity Encoder/Decoder (`/html-entity`)**: Convert special characters to named and numeric entities.
 - **Hex to Text & Text to Hex (`/hex-converter`)**: Hexadecimal byte stream parser with spacing options.

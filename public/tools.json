@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 82,
+  "totalTools": 83,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2039,6 +2039,37 @@
         "Copy the generated tags with one click."
       ],
       "tip": "Keep titles under 60 characters and descriptions under 160 so search engines show them in full. Use an absolute https:// URL for the image, since social crawlers cannot resolve relative paths."
+    },
+    {
+      "slug": "image-to-base64",
+      "name": "Image to Base64 / Data URI",
+      "category": "encode-tools",
+      "url": "https://www.toolbox4devs.com/image-to-base64",
+      "description": "Turn an image or small file into Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI back to a preview and file.",
+      "complexity": "simple",
+      "keywords": [
+        "image to base64",
+        "image base64",
+        "base64 image",
+        "data uri",
+        "data url",
+        "image data uri",
+        "png to base64",
+        "jpg to base64",
+        "base64 image converter",
+        "css background image base64",
+        "html img base64",
+        "decode data uri",
+        "data uri to image"
+      ],
+      "features": [
+        "Accepts images and any other small file; the MIME type comes from the file.",
+        "Outputs raw Base64, a full Data URI, a CSS background-image rule and an HTML img tag, each with a copy button.",
+        "Shows the MIME type, original size and encoded Base64 size.",
+        "Warns when a file is over 256 KB, because Base64 grows the text by about a third.",
+        "Reverse mode previews base64 image Data URIs and downloads the decoded file."
+      ],
+      "tip": "Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI."
     }
   ]
 }

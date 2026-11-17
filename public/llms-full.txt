@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 82
+Total Tools: 83
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 82 Tools)
+## Tool Registry & Technical Specifications (All 83 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -803,6 +803,16 @@ Total Tools: 82
 - Use Cases: Adding Open Graph tags to a landing page before launch.; Checking how a blog post title and summary will be cut off in search results.; Producing a Twitter Card with a large image for a product announcement.; Making sure quotes and ampersands in a title do not break the HTML.
 - Features: Outputs <title>, meta description, canonical link, theme-color, Open Graph and Twitter Card tags.; Escapes &, <, >, quotes and apostrophes in every value.; Omits any tag whose field is empty.; Warns when the title or description is outside the recommended length.; Previews for a search result, an X-style card and a LinkedIn/Slack-style card.; Copy the generated tags with one click.
 - Tip: Keep titles under 60 characters and descriptions under 160 so search engines show them in full. Use an absolute https:// URL for the image, since social crawlers cannot resolve relative paths.
+
+### 83. Image to Base64 / Data URI
+- URL: https://www.toolbox4devs.com/image-to-base64
+- Category: Encode / Decode (encode-tools)
+- Complexity: Simple
+- Description: Turn an image or small file into Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI back to a preview and file.
+- Summary: Image to Base64 reads a file in your browser and encodes it as a Base64 string and as a full Data URI. It also writes ready-to-paste CSS background-image and HTML img snippets. Paste a Data URI in reverse mode to preview an image and download the decoded file. Nothing is uploaded.
+- Use Cases: Inlining a small icon or logo into CSS, HTML or an email template.; Building a Data URI for a fixture, mock or test payload.; Checking the MIME type and size a file will have once encoded.; Recovering an image from a Data URI copied out of a page or JSON response.
+- Features: Accepts images and any other small file; the MIME type comes from the file.; Outputs raw Base64, a full Data URI, a CSS background-image rule and an HTML img tag, each with a copy button.; Shows the MIME type, original size and encoded Base64 size.; Warns when a file is over 256 KB, because Base64 grows the text by about a third.; Reverse mode previews base64 image Data URIs and downloads the decoded file.
+- Tip: Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
