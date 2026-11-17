@@ -573,6 +573,21 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText(/happens twice in America\/New_York/)).toBeVisible();
   });
 
+  test('Image to Base64 accepts a file dropped on the shared dropzone', async ({ page }) => {
+    const zone = page.getByRole('button', { name: /Choose a file or drop it here/ });
+    await gotoHydrated(page, '/image-to-base64', zone);
+
+    await zone.evaluate((el) => {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(new File(['Hi'], 'dropped.txt', { type: 'text/plain' }));
+      for (const type of ['dragenter', 'dragover', 'drop']) {
+        el.dispatchEvent(new DragEvent(type, { bubbles: true, cancelable: true, dataTransfer }));
+      }
+    });
+    await expect(page.getByLabel('Data URI output', { exact: true })).toHaveValue('data:text/plain;base64,SGk=');
+    await expect(page.getByText('dropped.txt', { exact: true })).toBeVisible();
+  });
+
   test('Favicon Generator builds the icon set from an uploaded image and offers downloads', async ({ page }) => {
     const picker = page.getByLabel('Source image', { exact: true });
     await gotoHydrated(page, '/favicon-generator', picker);
