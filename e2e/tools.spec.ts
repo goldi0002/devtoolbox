@@ -454,4 +454,43 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(output).not.toContainText('note');
     await expect(page.getByRole('link', { name: 'Download minified.css' })).toHaveAttribute('download', 'minified.css');
   });
+
+  test('Time Zone Converter converts across DST, plans working hours and copies a summary', async ({ page }) => {
+    const date = page.getByLabel('Date', { exact: true });
+    await gotoHydrated(page, '/time-zone-converter', date);
+
+    await date.fill('2026-03-29');
+    await page.getByLabel('Time', { exact: true }).fill('09:00');
+
+    // 2026-03-29: New York is on EDT, London has just moved to BST, Kolkata is UTC+05:30.
+    await expect(page.getByTestId('convert-Europe/London')).toContainText('2026-03-29 14:00');
+    await expect(page.getByTestId('convert-Asia/Kolkata')).toContainText('2026-03-29 18:30');
+    await expect(page.getByTestId('convert-Asia/Kolkata')).toContainText('UTC+05:30');
+    await expect(page.getByTestId('summary-line')).toHaveText(
+      '2026-03-29 09:00 America/New_York (UTC-04:00) = Europe/London 14:00 (UTC+01:00); Asia/Kolkata 18:30 (UTC+05:30); Asia/Tokyo 22:00 (UTC+09:00)'
+    );
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true }).filter({ hasText: 'Copy summary' })).toBeVisible();
+
+    // Eight local working hours (09:00-16:59) per zone across the 24-hour planner.
+    await expect(page.getByTestId('planner-Europe/London').locator('td[data-working="true"]')).toHaveCount(8);
+    await expect(page.getByTestId('planner-Asia/Kolkata').locator('td[data-working="true"]')).toHaveCount(8);
+
+    await page.getByPlaceholder('City or IANA name, e.g. kolkata or America/Chicago').fill('sydney');
+    await page.getByRole('button', { name: 'Add Australia/Sydney', exact: true }).click();
+    await expect(page.getByTestId('convert-Australia/Sydney')).toContainText('2026-03-30 00:00');
+    await expect(page.getByTestId('convert-Australia/Sydney')).toContainText('+1 day');
+
+    await page.getByRole('button', { name: 'Remove Asia/Tokyo', exact: true }).click();
+    await expect(page.getByTestId('convert-Asia/Tokyo')).toHaveCount(0);
+
+    // Spring forward: 02:30 does not exist in New York on 2026-03-08.
+    await date.fill('2026-03-08');
+    await page.getByLabel('Time', { exact: true }).fill('02:30');
+    await expect(page.getByText(/does not exist in America\/New_York/)).toBeVisible();
+
+    // Fall back: 01:30 happens twice in New York on 2026-11-01.
+    await date.fill('2026-11-01');
+    await page.getByLabel('Time', { exact: true }).fill('01:30');
+    await expect(page.getByText(/happens twice in America\/New_York/)).toBeVisible();
+  });
 });

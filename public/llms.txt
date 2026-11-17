@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 83 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 84 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -96,6 +96,7 @@
 - [Unix Permissions Calculator](https://www.toolbox4devs.com/unix-permissions-calculator): Convert read, write, and execute bits into chmod octal and symbolic permission strings.
 - [Number to Words Converter](https://www.toolbox4devs.com/number-to-words): Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.
 - [Cron Expression Generator](https://www.toolbox4devs.com/cron-generator): Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
+- [Time Zone Converter & Meeting Planner](https://www.toolbox4devs.com/time-zone-converter): Pick a date and time in one time zone and see it in other zones, with a 24-hour planner that highlights working hours. Daylight saving aware, all in your browser.
 
 ### Crypto Tools
 - [HMAC Generator & Calculator](https://www.toolbox4devs.com/hmac-generator): Calculate HMAC-SHA256, HMAC-SHA512, and HMAC-SHA1 signatures for webhook verification and API security.

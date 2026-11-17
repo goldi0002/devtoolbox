@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 83,
+  "totalTools": 84,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2066,6 +2066,35 @@
         "Copy the result or download it as minified.js or minified.css."
       ],
       "tip": "Minify is a size check, not a build step. Keep your source readable and minify only the output you ship, and always run the minified code once before you deploy it."
+    },
+    {
+      "slug": "time-zone-converter",
+      "name": "Time Zone Converter & Meeting Planner",
+      "category": "data-tools",
+      "url": "https://www.toolbox4devs.com/time-zone-converter",
+      "description": "Pick a date and time in one time zone and see it in other zones, with a 24-hour planner that highlights working hours. Daylight saving aware, all in your browser.",
+      "complexity": "moderate",
+      "keywords": [
+        "time zone converter",
+        "timezone converter",
+        "world clock",
+        "meeting planner",
+        "time zone meeting planner",
+        "convert time zones",
+        "daylight saving time",
+        "dst converter",
+        "utc converter",
+        "iana time zone"
+      ],
+      "features": [
+        "Converts one wall-clock time into any number of zones, with each zone's UTC offset.",
+        "Flags times that do not exist (clocks jump forward) or happen twice (clocks fall back).",
+        "Marks zones that are currently on daylight saving time.",
+        "Searches zones by city or IANA name, such as \"kolkata\" or \"America/Chicago\".",
+        "Meeting planner grid with shaded working hours, adjustable start and end.",
+        "Copy a one-line summary of the conversion."
+      ],
+      "tip": "Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row."
     }
   ]
 }
