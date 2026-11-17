@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 87
+Total Tools: 88
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 87 Tools)
+## Tool Registry & Technical Specifications (All 88 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -853,6 +853,16 @@ Total Tools: 87
 - Use Cases: Finding a meeting time that works for a distributed team.; Checking what time a deadline or release falls in another country.; Confirming how a daylight saving change moves a schedule.; Writing a one-line time summary for a calendar invite or chat message.
 - Features: Converts one wall-clock time into any number of zones, with each zone's UTC offset.; Flags times that do not exist (clocks jump forward) or happen twice (clocks fall back).; Marks zones that are currently on daylight saving time.; Searches zones by city or IANA name, such as "kolkata" or "America/Chicago".; Meeting planner grid with shaded working hours, adjustable start and end.; Copy a one-line summary of the conversion.
 - Tip: Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row.
+
+### 88. Favicon Generator
+- URL: https://www.toolbox4devs.com/favicon-generator
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Turn one PNG, JPG or SVG into favicon PNGs, a multi-size favicon.ico, HTML link tags and a site.webmanifest. Files never leave your device.
+- Summary: The Favicon Generator takes one image and produces the icon set a website needs: PNG icons at 16, 32, 48, 180, 192 and 512 pixels, a favicon.ico that holds the 16, 32 and 48 pixel sizes, the HTML link tags and a site.webmanifest file. Resizing happens in your browser with a canvas, so the image is never uploaded.
+- Use Cases: Creating the favicon set for a new website from a logo.; Adding an apple-touch-icon for iOS home screen shortcuts.; Generating the Android icons referenced by a web app manifest.; Getting every icon file and the matching HTML in one ZIP download.
+- Features: Accepts PNG, JPEG and SVG. SVGs are drawn at each size, so they stay sharp.; Previews of every PNG size, with a download for each file.; A favicon.ico with 16, 32 and 48 pixel images stored inside it.; One-click ZIP with all icon files and the manifest.; Copy buttons for the link tags and the manifest, with a base path field for where the files will be hosted.
+- Tip: Start from a square source of at least 512 × 512 pixels. Images that are not square are centred with transparent space around them.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

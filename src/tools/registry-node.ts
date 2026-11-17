@@ -89,6 +89,7 @@ const toolMeta = [
   { slug: 'svg-optimizer',               category: 'web-tools' },
   { slug: 'image-to-base64',             category: 'encode-tools' },
   { slug: 'time-zone-converter',         category: 'data-tools' },
+  { slug: 'favicon-generator',           category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {
