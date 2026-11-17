@@ -573,6 +573,21 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText(/happens twice in America\/New_York/)).toBeVisible();
   });
 
+  test('Image to Base64 accepts a file dropped on the shared dropzone', async ({ page }) => {
+    const zone = page.getByRole('button', { name: /Choose a file or drop it here/ });
+    await gotoHydrated(page, '/image-to-base64', zone);
+
+    await zone.evaluate((el) => {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(new File(['Hi'], 'dropped.txt', { type: 'text/plain' }));
+      for (const type of ['dragenter', 'dragover', 'drop']) {
+        el.dispatchEvent(new DragEvent(type, { bubbles: true, cancelable: true, dataTransfer }));
+      }
+    });
+    await expect(page.getByLabel('Data URI output', { exact: true })).toHaveValue('data:text/plain;base64,SGk=');
+    await expect(page.getByText('dropped.txt', { exact: true })).toBeVisible();
+  });
+
   test('Favicon Generator builds the icon set from an uploaded image and offers downloads', async ({ page }) => {
     const picker = page.getByLabel('Source image', { exact: true });
     await gotoHydrated(page, '/favicon-generator', picker);
@@ -799,6 +814,24 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText('Reduced motion is on, so the box shows only its end position.')).toBeVisible();
   });
 
+  test('icon-only buttons on the pages fixed for #72 all have an accessible name', async ({ page }) => {
+    const unnamed = () =>
+      page.evaluate(() =>
+        Array.from(document.querySelectorAll<HTMLButtonElement>('button'))
+          .filter((b) => b.offsetParent !== null)
+          .filter((b) => !(b.getAttribute('aria-label')?.trim() || b.getAttribute('aria-labelledby') || b.textContent?.trim()))
+          .map((b) => b.outerHTML.slice(0, 120))
+      );
+
+    for (const path of ['/json-formatter', '/csv-txt-viewer', '/pipeline-studio']) {
+      await gotoHydrated(page, path, page.getByRole('button').first());
+      expect(await unnamed(), path).toEqual([]);
+    }
+
+    // Pipeline step controls carry their position, so repeated controls are distinguishable.
+    await gotoHydrated(page, '/pipeline-studio', page.getByRole('button').first());
+    await expect(page.getByRole('button', { name: 'Move step 1 up', exact: true })).toBeVisible();
+  });
   test('Word / Character Frequency counts, sorts and filters', async ({ page }) => {
     const input = page.getByLabel('Text to analyze', { exact: true });
     await gotoHydrated(page, '/word-frequency', input);

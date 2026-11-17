@@ -73,6 +73,7 @@ export default function OutputPanel({
           <button
             type="button"
             onClick={() => setWordWrap(!wordWrap)}
+            aria-label={wordWrap ? "Disable word wrap" : "Enable word wrap"}
             title={wordWrap ? "Disable Word Wrap" : "Enable Word Wrap"}
             className={`p-1 rounded text-xs transition-colors ${
               wordWrap ? 'bg-accent/20 text-accent' : 'text-dim hover:text-bright hover:bg-muted'
@@ -86,6 +87,7 @@ export default function OutputPanel({
             <button
               type="button"
               onClick={handleDownload}
+              aria-label="Download output"
               title="Download Output"
               className="p-1.5 rounded text-xs font-mono text-dim hover:text-bright hover:bg-muted transition-colors flex items-center gap-1"
             >

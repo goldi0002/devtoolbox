@@ -302,6 +302,7 @@ export default function AiTokenCounter() {
                   <button
                     type="button"
                     onClick={() => setInputText('')}
+                    aria-label="Clear input"
                     className="p-1.5 text-muted hover:text-bright rounded bg-surface/40 hover:bg-surface border border-border/60 transition-colors"
                     title="Clear input"
                   >

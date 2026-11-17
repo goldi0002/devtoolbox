@@ -223,6 +223,7 @@ export default function JsonTableView({ data }: JsonTableViewProps) {
                       }}
                       className="p-1 rounded bg-[#2d2d2d] hover:bg-indigo-600 text-[#a0a0a0] hover:text-white transition-colors"
                       title="Inspect record JSON"
+                      aria-label={`Inspect record ${(currentPage - 1) * pageSize + idx + 1}`}
                     >
                       <Eye size={12} />
                     </button>
@@ -250,6 +251,7 @@ export default function JsonTableView({ data }: JsonTableViewProps) {
         <div className="flex items-center gap-1.5">
           <button
             onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            aria-label="Previous page"
             disabled={currentPage <= 1}
             className="p-1 rounded bg-[#2d2d2d] hover:bg-[#383838] disabled:opacity-40 disabled:hover:bg-[#2d2d2d] text-[#cccccc]"
           >
@@ -260,6 +262,7 @@ export default function JsonTableView({ data }: JsonTableViewProps) {
           </span>
           <button
             onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            aria-label="Next page"
             disabled={currentPage >= totalPages}
             className="p-1 rounded bg-[#2d2d2d] hover:bg-[#383838] disabled:opacity-40 disabled:hover:bg-[#2d2d2d] text-[#cccccc]"
           >
@@ -279,6 +282,7 @@ export default function JsonTableView({ data }: JsonTableViewProps) {
               </span>
               <button
                 onClick={() => setInspectRow(null)}
+                aria-label="Close row JSON inspection"
                 className="p-1 text-[#808080] hover:text-white rounded hover:bg-[#383838]"
               >
                 <X size={14} />
