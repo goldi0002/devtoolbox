@@ -883,4 +883,26 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText('Enter some text to see its word and character frequencies.')).toBeVisible();
     await expect(page.getByRole('table')).toHaveCount(0);
   });
+  test('Markdown to HTML escapes raw HTML, toggles styles and document output, and downloads an .html file', async ({ page }) => {
+    await gotoHydrated(page, '/markdown-to-html', page.getByRole('button', { name: 'Load sample', exact: true }));
+    const output = page.locator('pre').filter({ hasText: '<h1>Release notes</h1>' });
+    await expect(output).toContainText('&lt;script&gt;');
+    await expect(output).toContainText('<h2>Changes</h2>');
+
+    await page.getByRole('checkbox', { name: 'Include inline styles', exact: true }).check();
+    await expect(output).toContainText('<table style="border-collapse:collapse;width:100%">');
+
+    await page.getByRole('checkbox', { name: 'Full HTML document', exact: true }).check();
+    await expect(output).toContainText('<!DOCTYPE html>');
+    await expect(output).toContainText('<title>Release notes</title>');
+
+    await page.getByRole('button', { name: 'Clear', exact: true }).click();
+    await expect(page.locator('pre').filter({ hasText: '<h1>Release notes</h1>' })).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Load sample', exact: true }).click();
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByTitle('Download Output').click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/\.html$/);
+  });
 });

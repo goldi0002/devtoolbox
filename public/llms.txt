@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 93 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 94 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -85,6 +85,7 @@
 - [Favicon Generator](https://www.toolbox4devs.com/favicon-generator): Turn one PNG, JPG or SVG into favicon PNGs, a multi-size favicon.ico, HTML link tags and a site.webmanifest. Files never leave your device.
 - [CSS Gradient Generator](https://www.toolbox4devs.com/css-gradient-generator): Build linear, radial and conic CSS gradients with editable color stops, a live preview and a copy-ready background declaration.
 - [Cubic-Bezier Easing Editor](https://www.toolbox4devs.com/cubic-bezier-editor): Shape a CSS cubic-bezier() timing function by dragging its two handles or typing values, preview the motion, and copy the CSS.
+- [Markdown to HTML](https://www.toolbox4devs.com/markdown-to-html): Convert Markdown into clean, copy-ready HTML source, with optional inline styles or a full HTML document. Runs entirely in your browser.
 
 ### Data Tools
 - [Delimited File Data Validator (CSV / TSV / TXT)](https://www.toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.

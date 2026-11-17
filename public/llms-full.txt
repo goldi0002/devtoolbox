@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 93
+Total Tools: 94
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 93 Tools)
+## Tool Registry & Technical Specifications (All 94 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -913,6 +913,16 @@ Total Tools: 93
 - Use Cases: Tuning a hover or modal transition until it feels right.; Adding overshoot or anticipation to a UI animation with an easeOutBack style curve.; Turning a curve from a design tool or a library into a CSS value.; Checking what a pasted cubic-bezier() value looks like before shipping it.
 - Features: Drag either control point, or type x1, y1, x2 and y2 with the keyboard.; x is kept between 0 and 1, as CSS requires; y can go from -2 to 2 for overshoot.; Preset buttons for linear, the CSS keywords and common easings such as easeInOutBack.; Paste a cubic-bezier() value or a transition-timing-function declaration to load it.; Animated preview with a Replay button. It is turned off when reduced motion is on.; Copy the bare cubic-bezier() value or the full transition-timing-function line.
 - Tip: Keep y between 0 and 1 for everyday UI motion. Values below 0 or above 1 make the element overshoot its target, which is a deliberate effect that can look wrong on small, frequent interactions.
+
+### 94. Markdown to HTML
+- URL: https://www.toolbox4devs.com/markdown-to-html
+- Category: Web (web-tools)
+- Complexity: Simple
+- Description: Convert Markdown into clean, copy-ready HTML source, with optional inline styles or a full HTML document. Runs entirely in your browser.
+- Summary: Markdown to HTML converts Markdown text into HTML source you can paste into a page, CMS or email template. It produces plain semantic markup (headings, paragraphs, lists, tables, code blocks) and escapes any raw HTML you type, so the output never contains live scripts from the input. Conversion runs in your browser and nothing is uploaded.
+- Use Cases: Turning README or documentation drafts into HTML for a static page.; Preparing a changelog or newsletter block for a CMS that accepts raw HTML.; Checking how Markdown maps to HTML before publishing.; Getting a self-contained HTML file with a title and charset for quick sharing.
+- Features: Headings, bold, italic, strikethrough, links, images, inline code, blockquotes and horizontal rules.; Fenced code blocks with a language class, and ordered or unordered lists.; Pipe tables with a header row.; Raw HTML in the input is escaped, so it appears as text.; Links and images with javascript:, data: or vbscript: URLs are neutralized.; Optional inline styles on tables, code and quotes, or a full document with doctype, title and charset.
+- Tip: Leave "Include inline styles" off when the HTML will be styled by your own CSS; turn it on for emails or snippets that need borders and spacing without a stylesheet.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
