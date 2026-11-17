@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 84,
+  "totalTools": 86,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2093,6 +2093,64 @@
         "Copy the result or download it as minified.js or minified.css."
       ],
       "tip": "Minify is a size check, not a build step. Keep your source readable and minify only the output you ship, and always run the minified code once before you deploy it."
+    },
+    {
+      "slug": "svg-optimizer",
+      "name": "SVG Optimizer",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/svg-optimizer",
+      "description": "Shrink SVG files by removing comments and metadata, rewriting paths and rounding numbers. Compare the original and optimized previews, then copy or download. Runs in your browser.",
+      "complexity": "simple",
+      "keywords": [
+        "svg optimizer",
+        "svg optimize",
+        "svg minifier",
+        "minify svg",
+        "compress svg",
+        "svg compressor",
+        "reduce svg size",
+        "svgo online",
+        "clean svg"
+      ],
+      "features": [
+        "Shows original and optimized sizes in bytes with the percentage saved.",
+        "Toggles for removing comments, removing metadata, and minifying path data and numbers.",
+        "Precision control for how many decimal places numbers keep.",
+        "Side-by-side preview of both SVGs, rendered as images so scripts inside them never run.",
+        "Copy the output or download it as a .min.svg file."
+      ],
+      "tip": "Start with the defaults, then compare the two previews. If a shape looks slightly off, raise the precision by one or two places; if it still differs, turn off \"Minify paths and numbers\"."
+    },
+    {
+      "slug": "image-to-base64",
+      "name": "Image to Base64 / Data URI",
+      "category": "encode-tools",
+      "url": "https://www.toolbox4devs.com/image-to-base64",
+      "description": "Turn an image or small file into Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI back to a preview and file.",
+      "complexity": "simple",
+      "keywords": [
+        "image to base64",
+        "image base64",
+        "base64 image",
+        "data uri",
+        "data url",
+        "image data uri",
+        "png to base64",
+        "jpg to base64",
+        "base64 image converter",
+        "css background image base64",
+        "html img base64",
+        "decode data uri",
+        "data uri to image"
+      ],
+      "features": [
+        "Accepts images and any other small file; the MIME type comes from the file.",
+        "Outputs raw Base64, a full Data URI, a CSS background-image rule and an HTML img tag, each with a copy button.",
+        "Shows the MIME type, original size and encoded Base64 size.",
+        "Warns when a file is over 256 KB, because Base64 grows the text by about a third.",
+        "Reverse mode previews base64 image Data URIs and downloads the decoded file."
+      ],
+      "tip": "Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI."
     }
   ]
 }
