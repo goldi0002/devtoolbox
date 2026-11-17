@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
 import ErrorBanner from '../../ui/ErrorBanner'
+import FileDropzone from '../../ui/FileDropzone'
 import {
   ICO_FILE_NAME,
   ICO_SIZES,
@@ -94,7 +95,6 @@ function triggerDownload(url: string, fileName: string) {
 }
 
 export default function FaviconGenerator() {
-  const inputId = useId()
   const nameId = useId()
   const baseId = useId()
   const colorId = useId()
@@ -146,16 +146,6 @@ export default function FaviconGenerator() {
     }
   }, [file])
 
-  const uploadFile = (picked: File | undefined) => {
-    if (!picked) return
-    setFileError('')
-    if (picked.size > MAX_BYTES) {
-      setFileError('This file is larger than 5 MB. Choose a smaller image.')
-      return
-    }
-    setFile(picked)
-  }
-
   const linkTags = buildLinkTags(basePath)
   const manifest = buildManifest(siteName, sanitizeHexColor(themeColor))
 
@@ -185,22 +175,18 @@ export default function FaviconGenerator() {
       tag="image"
     >
       <div className="space-y-5">
-        <div>
-          <label htmlFor={inputId} className="block text-xs text-dim font-mono mb-1.5">
-            Source image
-          </label>
-          <input
-            id={inputId}
-            type="file"
-            accept="image/png,image/jpeg,image/svg+xml"
-            onChange={e => {
-              uploadFile(e.target.files?.[0])
-              e.target.value = ''
-            }}
-            className="text-xs font-mono"
-          />
-          <p className="mt-1.5 text-[11px] text-subtle font-mono">PNG, JPEG or SVG up to 5 MB. Your image is never uploaded.</p>
-        </div>
+        <FileDropzone
+          label="Source image"
+          accept="image/png,image/jpeg,image/svg+xml"
+          maxBytes={MAX_BYTES}
+          tooLargeMessage="This file is larger than 5 MB. Choose a smaller image."
+          hint="PNG, JPEG or SVG up to 5 MB."
+          onFiles={files => {
+            setFileError('')
+            setFile(files[0])
+          }}
+          onError={setFileError}
+        />
 
         {fileError && <ErrorBanner message={fileError} />}
         {genError && <ErrorBanner message={genError} />}

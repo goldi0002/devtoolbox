@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import ErrorBanner from '../../ui/ErrorBanner'
+import FileDropzone from '../../ui/FileDropzone'
 import ToggleGroup from '../../ui/ToggleGroup'
 import { extractedFileName, mergedFileName, moveItem, parsePageRanges } from '../../../utils/pdfPages'
 import { extractPages, mergePdfs, readPdfInfo } from '../../../utils/pdfTools'
@@ -46,11 +47,11 @@ async function readEntries(files: File[]): Promise<{ entries: Entry[]; errors: s
 }
 
 export default function PdfMergeSplit() {
-  const inputId = useId()
   const pagesId = useId()
   const [mode, setMode] = useState<Mode>('merge')
   const [entries, setEntries] = useState<Entry[]>([])
   const [errors, setErrors] = useState<string[]>([])
+  const [pickError, setPickError] = useState('')
   const [spec, setSpec] = useState('1')
   const [output, setOutput] = useState<Output | null>(null)
   const [busy, setBusy] = useState(false)
@@ -119,23 +120,19 @@ export default function PdfMergeSplit() {
           <ToggleGroup options={MODES} value={mode} onChange={changeMode} />
         </div>
 
-        <div>
-          <label htmlFor={inputId} className="block text-xs text-dim font-mono mb-1.5">
-            {mode === 'merge' ? 'PDF files' : 'PDF file'}
-          </label>
-          <input
+        <div className="space-y-3">
+          <FileDropzone
             key={mode}
-            id={inputId}
-            type="file"
+            label={mode === 'merge' ? 'PDF files' : 'PDF file'}
             accept="application/pdf,.pdf"
             multiple={mode === 'merge'}
-            onChange={e => {
-              void addFiles(Array.from(e.target.files ?? []))
-              e.target.value = ''
+            onFiles={picked => {
+              setPickError('')
+              void addFiles(picked)
             }}
-            className="text-xs font-mono"
+            onError={setPickError}
           />
-          <p className="mt-1.5 text-[11px] text-subtle font-mono">Processed locally. Your PDFs are never uploaded.</p>
+          {pickError && <ErrorBanner message={pickError} />}
         </div>
 
         {errors.map(message => (

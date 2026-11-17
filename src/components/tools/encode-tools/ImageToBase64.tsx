@@ -1,6 +1,7 @@
 import { useId, useMemo, useRef, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import ErrorBanner from '../../ui/ErrorBanner'
+import FileDropzone from '../../ui/FileDropzone'
 import SectionPanel from '../../ui/SectionPanel'
 import StatCard from '../../ui/StatCard'
 import TextAreaField from '../../ui/TextAreaField'
@@ -59,7 +60,6 @@ export default function ImageToBase64() {
   const [readError, setReadError] = useState('')
   const [reading, setReading] = useState(false)
   const readToken = useRef(0)
-  const inputId = useId()
 
   // Decode mode state
   const [uriInput, setUriInput] = useState('')
@@ -107,27 +107,10 @@ export default function ImageToBase64() {
 
         {mode === 'encode' ? (
           <div className="space-y-5">
-            <div
-              className="space-y-2"
-              onDragOver={e => e.preventDefault()}
-              onDrop={e => {
-                e.preventDefault()
-                readFile(e.dataTransfer.files[0])
-              }}
-            >
-              <label htmlFor={inputId} className="block text-xs text-dim font-mono mb-1.5">
-                File to encode
-              </label>
-              <input
-                id={inputId}
-                type="file"
-                onChange={e => readFile(e.target.files?.[0])}
-                className="text-xs font-mono"
-              />
-              <p className="text-[11px] text-subtle font-mono">
-                Drop a file here or pick one. It is read in your browser and never uploaded.
-              </p>
-            </div>
+            <FileDropzone
+              label="File to encode"
+              onFiles={files => readFile(files[0])}
+            />
 
             {reading && (
               <p role="status" className="text-xs font-mono text-dim">

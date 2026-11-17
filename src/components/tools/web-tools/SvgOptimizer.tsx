@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import CopyButton from '../../CopyButton'
 import ErrorBanner from '../../ui/ErrorBanner'
+import FileDropzone from '../../ui/FileDropzone'
 import StatCard from '../../ui/StatCard'
 import TextAreaField from '../../ui/TextAreaField'
 import {
@@ -56,7 +57,6 @@ function downloadSvg(text: string, fileName: string) {
 
 export default function SvgOptimizer() {
   const precisionId = useId()
-  const fileId = useId()
   const [input, setInput] = useState(SAMPLE)
   const [fileName, setFileName] = useState<string | undefined>(undefined)
   const [options, setOptions] = useState<SvgOptimizeOptions>(DEFAULT_SVG_OPTIONS)
@@ -84,13 +84,8 @@ export default function SvgOptimizer() {
     setOptions(prev => ({ ...prev, [key]: value }))
   }
 
-  const uploadFile = async (file: File | undefined) => {
-    if (!file) return
+  const uploadFile = async (file: File) => {
     setFileError('')
-    if (file.size > 5 * 1024 * 1024) {
-      setFileError('This file is larger than 5 MB. Choose a smaller SVG.')
-      return
-    }
     try {
       setInput(await file.text())
       setFileName(file.name)
@@ -111,21 +106,14 @@ export default function SvgOptimizer() {
       <div className="space-y-5">
         <div className="grid gap-5 lg:grid-cols-2">
           <div className="space-y-3">
-            <div>
-              <label htmlFor={fileId} className="block text-xs text-dim font-mono mb-1.5">
-                Upload an SVG file
-              </label>
-              <input
-                id={fileId}
-                type="file"
-                accept=".svg,image/svg+xml"
-                onChange={e => {
-                  void uploadFile(e.target.files?.[0])
-                  e.target.value = ''
-                }}
-                className="text-xs font-mono"
-              />
-            </div>
+            <FileDropzone
+              label="Upload an SVG file"
+              accept=".svg,image/svg+xml"
+              maxBytes={5 * 1024 * 1024}
+              tooLargeMessage="This file is larger than 5 MB. Choose a smaller SVG."
+              onFiles={files => void uploadFile(files[0])}
+              onError={setFileError}
+            />
             {fileError && <ErrorBanner message={fileError} />}
             <TextAreaField
               label="Original SVG"
