@@ -145,7 +145,7 @@ export default function FileDropzone({
           } ${disabledClass}${className ? ` ${className}` : ''}`}
         >
           {showIcon && <Upload className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />}
-          <span>{selectedName ?? label}</span>
+          <span className="whitespace-nowrap">{selectedName ?? label}</span>
         </div>
         {hintLine}
         {children}

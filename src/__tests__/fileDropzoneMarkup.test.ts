@@ -53,7 +53,7 @@ describe('FileDropzone compact variant', () => {
     expect(zone).toContain('tabindex="0"')
     expect(zone).toContain('px-3 py-2 bg-indigo-600')
     expect(zone).toContain('focus-visible:ring-accent')
-    expect(html).toContain('<span>Upload CSV</span>')
+    expect(html).toContain('<span class="whitespace-nowrap">Upload CSV</span>')
   })
 
   it('hides the icon when showIcon is false and shows the selected file name instead of the label', () => {
@@ -68,8 +68,8 @@ describe('FileDropzone compact variant', () => {
     )
 
     expect(html).not.toContain('<svg')
-    expect(html).toContain('<span>data.csv</span>')
-    expect(html).not.toContain('<span>Browse</span>')
+    expect(html).toContain('<span class="whitespace-nowrap">data.csv</span>')
+    expect(html).not.toContain('<span class="whitespace-nowrap">Browse</span>')
   })
 
   it('puts the disabled state on the zone and removes it from the tab order', () => {
