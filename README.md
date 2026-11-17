@@ -62,9 +62,9 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (85 Tools)
+## 🛠️ Complete Tool Catalog (86 Tools)
 
-### 1. 🗄️ Data & DevOps (19 Tools)
+### 1. 🗄️ Data & DevOps (20 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
 - **CSV / TXT Large File Viewer (`/csv-txt-viewer`)**: Blazing-fast virtualized tabular spreadsheet viewer with search and column sorting.
 - **Pipeline Studio (`/pipeline-studio`)**: Visual multi-step developer flow canvas to chain transformations (e.g. cURL → JSON → Schema).
@@ -77,6 +77,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **JSON to SQL Converter (`/json-to-sql`)**: Generate `CREATE TABLE` DDL and `INSERT INTO` statements from raw JSON objects.
 - **JSON to CSV / CSV to JSON (`/json-to-csv`)**: Two-way structured table and JSON conversion with nested object flattening.
 - **YAML to JSON / JSON to YAML (`/yaml-json-converter`)**: Bi-directional parser with validation and format preservation.
+- **TOML / JSON / YAML Converter (`/toml-json-yaml-converter`)**: Convert between TOML, JSON and YAML in any direction, with line-and-column syntax errors and a download with the right file extension.
 - **SemVer Calculator (`/semver-calculator`)**: Compare semantic versions, test NPM caret/tilde ranges, and bump increments.
 - **Unix Permissions Calculator (`/unix-permissions-calculator`)**: Interactive chmod calculator with octal, symbolic (`rwxr-xr-x`), and CLI flag breakdown.
 - **Number Base Converter (`/base-converter`)**: Simultaneous real-time conversion between Binary, Octal, Decimal, and Hexadecimal.

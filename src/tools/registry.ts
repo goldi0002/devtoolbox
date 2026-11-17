@@ -84,6 +84,7 @@ import { CSV_VALIDATOR_META } from "./meta/csv-validator"
 import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
 import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
 import { ENV_AUDITOR_META } from "./meta/env-auditor"
+import { TOML_JSON_YAML_CONVERTER_META } from "./meta/toml-json-yaml-converter"
 
 export const tools: ToolMeta[] = [
   ENV_AUDITOR_META,
@@ -170,7 +171,8 @@ export const tools: ToolMeta[] = [
   META_TAG_GENERATOR_META,
   CSS_JS_MINIFIER_META,
   SVG_OPTIMIZER_META,
-  IMAGE_TO_BASE64_META
+  IMAGE_TO_BASE64_META,
+  TOML_JSON_YAML_CONVERTER_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
