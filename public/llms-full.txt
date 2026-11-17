@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 88
+Total Tools: 92
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 88 Tools)
+## Tool Registry & Technical Specifications (All 92 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -854,7 +854,47 @@ Total Tools: 88
 - Features: Converts one wall-clock time into any number of zones, with each zone's UTC offset.; Flags times that do not exist (clocks jump forward) or happen twice (clocks fall back).; Marks zones that are currently on daylight saving time.; Searches zones by city or IANA name, such as "kolkata" or "America/Chicago".; Meeting planner grid with shaded working hours, adjustable start and end.; Copy a one-line summary of the conversion.
 - Tip: Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row.
 
-### 88. Cubic-Bezier Easing Editor
+### 88. Favicon Generator
+- URL: https://www.toolbox4devs.com/favicon-generator
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Turn one PNG, JPG or SVG into favicon PNGs, a multi-size favicon.ico, HTML link tags and a site.webmanifest. Files never leave your device.
+- Summary: The Favicon Generator takes one image and produces the icon set a website needs: PNG icons at 16, 32, 48, 180, 192 and 512 pixels, a favicon.ico that holds the 16, 32 and 48 pixel sizes, the HTML link tags and a site.webmanifest file. Resizing happens in your browser with a canvas, so the image is never uploaded.
+- Use Cases: Creating the favicon set for a new website from a logo.; Adding an apple-touch-icon for iOS home screen shortcuts.; Generating the Android icons referenced by a web app manifest.; Getting every icon file and the matching HTML in one ZIP download.
+- Features: Accepts PNG, JPEG and SVG. SVGs are drawn at each size, so they stay sharp.; Previews of every PNG size, with a download for each file.; A favicon.ico with 16, 32 and 48 pixel images stored inside it.; One-click ZIP with all icon files and the manifest.; Copy buttons for the link tags and the manifest, with a base path field for where the files will be hosted.
+- Tip: Start from a square source of at least 512 × 512 pixels. Images that are not square are centred with transparent space around them.
+
+### 89. CSS Gradient Generator
+- URL: https://www.toolbox4devs.com/css-gradient-generator
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Build linear, radial and conic CSS gradients with editable color stops, a live preview and a copy-ready background declaration.
+- Summary: The CSS Gradient Generator builds linear, radial and conic gradients for the CSS background property. Choose a gradient type, adjust the angle or center, and edit the color stops. A live preview shows the result, and the output is a single background declaration you can copy. Everything runs in your browser.
+- Use Cases: Creating a hero banner background that fades from one brand color to another.; Making a radial spotlight behind a heading by moving the center point.; Drawing a conic color wheel for a chart or decorative element.; Checking where each color stop lands before copying the CSS into a stylesheet.
+- Features: Linear, radial (circle or ellipse) and conic gradients.; Angle control for linear and conic gradients, as a number input and a slider.; Center position for radial and conic gradients.; Add, remove and edit color stops, each with a color picker, a hex text field and a percentage position.; Enforces at least two stops and up to eight.; Sorts stops by position in the output, so the order you type them does not matter.; Five presets to start from, and a live preview.; Copy the background declaration with one click.
+- Tip: Place the first stop at 0% and the last at 100% so the gradient fills the whole element. Add a middle stop when you want a color to hold its place partway along the gradient.
+
+### 90. TOML / JSON / YAML Converter
+- URL: https://www.toolbox4devs.com/toml-json-yaml-converter
+- Category: Data (data-tools)
+- Complexity: Moderate
+- Description: Convert between TOML, JSON and YAML in any direction. Parse errors show the line and column, and the result downloads with the right file extension. Runs in your browser.
+- Summary: TOML / JSON / YAML Converter reads a document in one of the three formats and writes it in another. It handles nested tables, arrays of tables, dates and mixed values, and it reports a syntax error with its line and column. TOML cannot hold a null or a top-level array, so those are reported with the key that caused the problem instead of producing a broken file.
+- Use Cases: Reading a Cargo.toml or pyproject.toml as JSON to feed into a script; Turning a Kubernetes or Docker Compose YAML file into TOML for a tool that expects it; Converting a JSON config into TOML for a Rust, Python or Hugo project; Checking that a TOML file parses before committing it
+- Features: Any direction between TOML, JSON and YAML; Syntax errors with line and column numbers; Clear messages for values TOML cannot represent, such as null and top-level arrays; Copy the result or download it as .toml, .json or .yaml; 100% in-browser processing — the TOML parser loads on first use and no document leaves your device
+- Tip: Dates in TOML become ISO 8601 strings in JSON and YAML. Converting back makes them quoted strings, so re-check any date fields after a round trip.
+
+### 91. Box Shadow Generator
+- URL: https://www.toolbox4devs.com/box-shadow-generator
+- Category: Generators (generate-tools)
+- Complexity: Moderate
+- Description: Build CSS box-shadow values with multiple layers, offsets, blur, spread, colour opacity and inset, with a live preview.
+- Summary: Box Shadow Generator builds a CSS box-shadow declaration visually. Stack as many shadow layers as you need, set each layer's x and y offset, blur, spread, colour and opacity, toggle inset, and watch the result on a live preview. The output is plain CSS you can paste into a stylesheet. Everything runs in your browser; nothing is uploaded.
+- Use Cases: Adding a card or modal elevation without guessing values.; Building a layered shadow that looks smooth rather than a single hard edge.; Creating inset shadows for pressed buttons, wells and input fields.; Matching a shadow from a design file by trying values live.
+- Features: Add, remove and reorder shadow layers; the first layer is drawn on top.; Every value has a slider and a number box, and all controls work from the keyboard.; Colour picker plus hex field, with the opacity converted to rgba() in the output.; Inset toggle per layer and four starter presets: Subtle, Elevated, Inset and Layered.; Adjustable preview canvas and box colours, and a one-click copy of the CSS.
+- Tip: Stack two or three layers with a small blur and a larger, fainter blur below it. This reads as a natural shadow; a single large blur tends to look flat.
+
+### 92. Cubic-Bezier Easing Editor
 - URL: https://www.toolbox4devs.com/cubic-bezier-editor
 - Category: Web (web-tools)
 - Complexity: Moderate

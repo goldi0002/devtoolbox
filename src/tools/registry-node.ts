@@ -89,6 +89,10 @@ const toolMeta = [
   { slug: 'svg-optimizer',               category: 'web-tools' },
   { slug: 'image-to-base64',             category: 'encode-tools' },
   { slug: 'time-zone-converter',         category: 'data-tools' },
+  { slug: 'favicon-generator',           category: 'web-tools' },
+  { slug: 'css-gradient-generator',      category: 'web-tools' },
+  { slug: 'toml-json-yaml-converter',    category: 'data-tools' },
+  { slug: 'box-shadow-generator',        category: 'generate-tools' },
   { slug: 'cubic-bezier-editor',         category: 'web-tools' },
 ] as const
 

@@ -40,6 +40,7 @@ import { BASIC_AUTH_HEADER_META } from "./meta/basic-auth-header"
 import { UNIX_PERMISSIONS_CALCULATOR_META } from "./meta/unix-permissions-calculator"
 import { LOCAL_AI_TEXT_ASSISTANT_META } from "./meta/local-ai-text-assistant"
 import { JSON_TO_ZOD_META } from "./meta/json-to-zod"
+import { CSS_GRADIENT_GENERATOR_META } from "./meta/css-gradient-generator"
 import { CRON_PARSER_META } from "./meta/cron-parser"
 import { CURL_CONVERTER_META } from "./meta/curl-converter"
 import { SQL_FORMATTER_META } from "./meta/sql-formatter"
@@ -60,6 +61,7 @@ import { BASE32_META } from "./meta/base32"
 import { MAC_ADDRESS_GENERATOR_META } from "./meta/mac-address-generator"
 import { RSA_KEY_GENERATOR_META } from "./meta/rsa-key-generator"
 import { SVG_PLACEHOLDER_GENERATOR_META } from "./meta/svg-placeholder-generator"
+import { FAVICON_GENERATOR_META } from "./meta/favicon-generator"
 import { URL_PARSER_META } from "./meta/url-parser"
 import { XML_FORMATTER_META } from "./meta/xml-formatter"
 import { WCAG_CONTRAST_CHECKER_META } from "./meta/wcag-contrast-checker"
@@ -87,6 +89,8 @@ import { MARKDOWN_TABLE_TO_JSON_META } from "./meta/markdown-table-to-json"
 import { THREE_JS_PLAYGROUND_META } from "./meta/three-js-playground"
 import { ENV_AUDITOR_META } from "./meta/env-auditor"
 import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
+import { TOML_JSON_YAML_CONVERTER_META } from "./meta/toml-json-yaml-converter"
+import { BOX_SHADOW_GENERATOR_META } from "./meta/box-shadow-generator"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -176,7 +180,11 @@ export const tools: ToolMeta[] = [
   SVG_OPTIMIZER_META,
   IMAGE_TO_BASE64_META,
   TIME_ZONE_CONVERTER_META,
-  CUBIC_BEZIER_EDITOR_META
+  FAVICON_GENERATOR_META,
+  CSS_GRADIENT_GENERATOR_META,
+  TOML_JSON_YAML_CONVERTER_META,
+  BOX_SHADOW_GENERATOR_META,
+  CUBIC_BEZIER_EDITOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
