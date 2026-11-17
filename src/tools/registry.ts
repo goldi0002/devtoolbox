@@ -26,6 +26,7 @@ import { MARKDOWN_PREVIEW_META } from "./meta/markdown-preview"
 import { SHA_256_META } from "./meta/sha-256"
 import { CSV_TXT_VIEWER_META } from "./meta/csv-txt-viewer"
 import { WORD_COUNTER_META } from "./meta/word-counter"
+import { WORD_FREQUENCY_META } from "./meta/word-frequency"
 import { TIMESTAMP_CONVERTER_META } from "./meta/timestamp-converter"
 import { QUERY_STRING_PARSER_META } from "./meta/query-string-parser"
 import { LOREM_IPSUM_GENERATOR_META } from "./meta/lorem-ipsum-generator"
@@ -91,6 +92,7 @@ import { ENV_AUDITOR_META } from "./meta/env-auditor"
 import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
 import { TOML_JSON_YAML_CONVERTER_META } from "./meta/toml-json-yaml-converter"
 import { BOX_SHADOW_GENERATOR_META } from "./meta/box-shadow-generator"
+import { MARKDOWN_TO_HTML_META } from "./meta/markdown-to-html"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -141,6 +143,7 @@ export const tools: ToolMeta[] = [
   MARKDOWN_PREVIEW_META,
   SHA_256_META,
   WORD_COUNTER_META,
+  WORD_FREQUENCY_META,
   TIMESTAMP_CONVERTER_META,
   CRON_PARSER_META,
   QUERY_STRING_PARSER_META,
@@ -185,6 +188,7 @@ export const tools: ToolMeta[] = [
   TOML_JSON_YAML_CONVERTER_META,
   BOX_SHADOW_GENERATOR_META,
   CUBIC_BEZIER_EDITOR_META,
+  MARKDOWN_TO_HTML_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

@@ -4,7 +4,7 @@
   <br />
   <img src="public/images/favicon.svg" alt="ToolBox4Devs Logo" width="80" height="80" />
   <h3>The Premier Fast, Private, 100% Client-Side Developer Utility Suite</h3>
-  <p>92 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
+  <p>94 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
 
   <p>
     <a href="https://www.toolbox4devs.com">
@@ -54,7 +54,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 1. **🔒 100% Client-Side Processing**: Every single transformation, calculation, formatting pass, and cryptographic operation executes exclusively in browser memory. No data is ever transmitted to a backend.
 2. **🛡️ Absolute Privacy Guarantee**: Safe for sensitive tokens, passwords, production database dumps, and private certificates.
-3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 92 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
+3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 94 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
 4. **📴 Offline & Progressive Web App (PWA)**: Includes a full Service Worker cache so you can install and use the entire utility suite while disconnected on planes, trains, or offline field environments.
 5. **🔗 Compressed Stateless Sharing**: Uses `lz-string` URL hash compression (`#data=...`) to generate shareable links containing complete tool states without any server database storage.
 6. **🎨 10 Tailored Developer Themes**: Switch effortlessly between Dark, Nord, Dracula, Monokai, Terminal, Sepia, Rose, Solarized, and custom high-contrast palettes.
@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (92 Tools)
+## 🛠️ Complete Tool Catalog (94 Tools)
 
 ### 1. 🗄️ Data & DevOps (21 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -104,7 +104,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (26 Tools)
+### 4. 🌐 Web & Frontend Utilities (27 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **Cubic-Bezier Easing Editor (`/cubic-bezier-editor`)**: Shape a CSS `cubic-bezier()` timing function by dragging handles or typing values, with presets, paste support, a motion preview and copyable CSS.
@@ -123,6 +123,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **Color Converter (`/color-converter`)**: Convert HEX, RGB, HSL, HSV, CMYK, and CSS Color Module 4 formats.
 - **Keycode & Keyboard Event Inspector (`/keycode-inspector`)**: Real-time event tester for `e.key`, `e.code`, and `which`.
 - **Markdown Live Preview (`/markdown-preview`)**: Split-screen GitHub-flavored Markdown editor and HTML generator.
+- **Markdown to HTML (`/markdown-to-html`)**: Convert Markdown into clean HTML source, with optional inline styles or a full document. Raw HTML and unsafe links are neutralized. Runs in your browser.
 - **Three.js 3D Scene Studio (`/three-js-playground`)**: Write and test Three.js scene code live, with 12+ procedural templates, PBR lighting, camera controls, and WebGL preview.
 - **Image Compressor & Converter (`/image-compressor`)**: Compress and convert images to JPEG, WebP, PNG or AVIF with a quality slider and optional resize, entirely in the browser.
 - **PDF Merge & Split (`/pdf-merge-split`)**: Merge PDFs, or extract and reorder pages from one, entirely in the browser.
@@ -165,11 +166,12 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **Lorem Ipsum Text Generator (`/lorem-ipsum-generator`)**: Generate paragraphs, sentences, and words of mock typesetting copy.
 - **Box Shadow Generator (`/box-shadow-generator`)**: Build layered CSS `box-shadow` values with offsets, blur, spread, rgba colour, and inset, with a live preview and one-click copy.
 
-### 8. 🔍 Analysis & Heuristics (5 Tools)
+### 8. 🔍 Analysis & Heuristics (6 Tools)
 - **Local AI Text Assistant (`/local-ai-text-assistant`)**: 100% in-browser heuristic natural language analyzer (readability, tone, summarization, keywords) without any external API calls.
 - **Password Strength Analyzer (`/password-strength-analyzer`)**: Entropy calculator, brute-force crack time estimates, and dictionary leak warnings.
 - **QR Code Scanner (`/qr-code-scanner`)**: Browser-camera and image-file QR decoder with instant URL detection.
 - **Word & Character Counter (`/word-counter`)**: Character counts, reading time, speaking time, and word frequency histogram.
+- **Word / Character Frequency (`/word-frequency`)**: Sortable word and character frequency tables with totals, percentages, ignore-case and stop-word options, and CSV or plain-text copy.
 - **.env File Auditor & Secret Detector (`/env-auditor`)**: Compare .env and .env.example files, detect missing or duplicate keys, catch leaked secrets, and generate sanitized templates.
 
 ---

@@ -832,6 +832,79 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await gotoHydrated(page, '/pipeline-studio', page.getByRole('button').first());
     await expect(page.getByRole('button', { name: 'Move step 1 up', exact: true })).toBeVisible();
   });
+  test('Word / Character Frequency counts, sorts and filters', async ({ page }) => {
+    const input = page.getByLabel('Text to analyze', { exact: true });
+    await gotoHydrated(page, '/word-frequency', input);
+    await expect(page.locator('h1')).toContainText('Word / Character Frequency');
+
+    // Empty input shows the prompt and no tables.
+    await expect(page.getByText('Enter some text to see its word and character frequencies.')).toBeVisible();
+    await expect(page.getByRole('table')).toHaveCount(0);
+
+    // "The cat and the Cat sat. The dog": 8 words, 32 characters, ignore case on (default).
+    await input.fill('The cat and the Cat sat. The dog');
+    const totals = page.getByTestId('frequency-totals');
+    await expect(totals.getByText('8', { exact: true })).toBeVisible(); // total words
+    await expect(totals.getByText('32', { exact: true })).toBeVisible(); // total characters
+
+    // "the" appears three times (The, the, The) and is the top word.
+    const wordTable = page.getByRole('table', { name: /Word frequency/ });
+    await expect(wordTable.getByRole('row').nth(1)).toContainText('the');
+    await expect(wordTable.getByRole('row').nth(1)).toContainText('3');
+
+    // Ignore stop words: The, and, the, The are removed, leaving cat, Cat, sat, dog (4 words).
+    await page.getByRole('checkbox', { name: 'Ignore stop words', exact: true }).check();
+    await expect(page.getByText('4 stop words left out of the word table.')).toBeVisible();
+    await expect(wordTable.getByRole('row').nth(1)).toContainText('cat');
+    await expect(wordTable.getByRole('row').nth(1)).toContainText('2');
+
+    // Sorting: a column header button sets aria-sort and reverses on the second click.
+    const countHeader = wordTable.getByRole('columnheader', { name: /Count/ });
+    await expect(countHeader).toHaveAttribute('aria-sort', 'descending');
+    await countHeader.getByRole('button').click();
+    await expect(countHeader).toHaveAttribute('aria-sort', 'ascending');
+    await expect(wordTable.getByRole('row').nth(1)).toContainText('dog');
+
+    const wordHeader = wordTable.getByRole('columnheader', { name: /Word/ });
+    await wordHeader.getByRole('button').click();
+    await expect(wordHeader).toHaveAttribute('aria-sort', 'ascending');
+    await expect(wordTable.getByRole('row').nth(1)).toContainText('cat');
+
+    // Character table names the space character.
+    const charTable = page.getByRole('table', { name: /Character frequency/ });
+    await expect(charTable.getByRole('rowheader', { name: 'Space', exact: true })).toBeVisible();
+
+    // Copy buttons are present for both tables; each accessible name starts with its visible label.
+    await expect(page.getByRole('button', { name: /^Copy CSV, / })).toHaveCount(2);
+    await expect(page.getByRole('button', { name: /^Copy text, / })).toHaveCount(2);
+
+    // Empty again: the prompt returns and the tables disappear.
+    await input.fill('');
+    await expect(page.getByText('Enter some text to see its word and character frequencies.')).toBeVisible();
+    await expect(page.getByRole('table')).toHaveCount(0);
+  });
+  test('Markdown to HTML escapes raw HTML, toggles styles and document output, and downloads an .html file', async ({ page }) => {
+    await gotoHydrated(page, '/markdown-to-html', page.getByRole('button', { name: 'Load sample', exact: true }));
+    const output = page.locator('pre').filter({ hasText: '<h1>Release notes</h1>' });
+    await expect(output).toContainText('&lt;script&gt;');
+    await expect(output).toContainText('<h2>Changes</h2>');
+
+    await page.getByRole('checkbox', { name: 'Include inline styles', exact: true }).check();
+    await expect(output).toContainText('<table style="border-collapse:collapse;width:100%">');
+
+    await page.getByRole('checkbox', { name: 'Full HTML document', exact: true }).check();
+    await expect(output).toContainText('<!DOCTYPE html>');
+    await expect(output).toContainText('<title>Release notes</title>');
+
+    await page.getByRole('button', { name: 'Clear', exact: true }).click();
+    await expect(page.locator('pre').filter({ hasText: '<h1>Release notes</h1>' })).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Load sample', exact: true }).click();
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByTitle('Download Output').click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/\.html$/);
+  });
   test('SHA-256 hashes a file dropped on the upload control', async ({ page }) => {
     const zone = page.getByRole('button', { name: '↑ upload file', exact: true });
     await gotoHydrated(page, '/sha256', zone);

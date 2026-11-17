@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 92,
+  "totalTools": 94,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -1251,6 +1251,33 @@
       "tip": "For the most accurate count, remove unnecessary leading/trailing spaces. The top words panel can help spot overused words in your writing."
     },
     {
+      "slug": "word-frequency",
+      "name": "Word / Character Frequency",
+      "category": "analyze-tools",
+      "url": "https://www.toolbox4devs.com/word-frequency",
+      "description": "Count how often each word and character appears in a text, sorted by frequency, with percentages and copyable CSV.",
+      "complexity": "simple",
+      "keywords": [
+        "word frequency",
+        "character frequency",
+        "letter frequency",
+        "word count frequency",
+        "most common words",
+        "text frequency analyzer",
+        "character counter",
+        "keyword density"
+      ],
+      "features": [
+        "Word table sorted by count, with percentages of all counted words.",
+        "Character table that includes spaces, newlines, tabs and punctuation, with names for invisible characters.",
+        "Ignore case and ignore common English stop words options.",
+        "Click any column header to sort; the table is keyboard accessible.",
+        "Show the top 10, 25, 50 or 100 rows, or all of them.",
+        "Totals for words and characters, plus copy as CSV or plain text."
+      ],
+      "tip": "Turn on \"Ignore stop words\" before reading a word table; otherwise \"the\", \"and\" and \"of\" usually come out on top."
+    },
+    {
       "slug": "timestamp-converter",
       "name": "Timestamp Converter",
       "category": "data-tools",
@@ -2317,6 +2344,31 @@
         "Copy the bare cubic-bezier() value or the full transition-timing-function line."
       ],
       "tip": "Keep y between 0 and 1 for everyday UI motion. Values below 0 or above 1 make the element overshoot its target, which is a deliberate effect that can look wrong on small, frequent interactions."
+    },
+    {
+      "slug": "markdown-to-html",
+      "name": "Markdown to HTML",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/markdown-to-html",
+      "description": "Convert Markdown into clean, copy-ready HTML source, with optional inline styles or a full HTML document. Runs entirely in your browser.",
+      "complexity": "simple",
+      "keywords": [
+        "markdown to html",
+        "md to html",
+        "markdown html converter",
+        "convert markdown",
+        "markdown renderer",
+        "html from markdown"
+      ],
+      "features": [
+        "Headings, bold, italic, strikethrough, links, images, inline code, blockquotes and horizontal rules.",
+        "Fenced code blocks with a language class, and ordered or unordered lists.",
+        "Pipe tables with a header row.",
+        "Raw HTML in the input is escaped, so it appears as text.",
+        "Links and images with javascript:, data: or vbscript: URLs are neutralized.",
+        "Optional inline styles on tables, code and quotes, or a full document with doctype, title and charset."
+      ],
+      "tip": "Leave \"Include inline styles\" off when the HTML will be styled by your own CSS; turn it on for emails or snippets that need borders and spacing without a stylesheet."
     }
   ]
 }

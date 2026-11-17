@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 92
+Total Tools: 94
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 92 Tools)
+## Tool Registry & Technical Specifications (All 94 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -478,7 +478,17 @@ Total Tools: 92
 - Features: Counts words, characters, sentences, paragraphs and lines.; Shows top word frequency with a visual bar chart.; Estimates reading time at 200 words per minute.
 - Tip: For the most accurate count, remove unnecessary leading/trailing spaces. The top words panel can help spot overused words in your writing.
 
-### 49. Timestamp Converter
+### 49. Word / Character Frequency
+- URL: https://www.toolbox4devs.com/word-frequency
+- Category: Analyze (analyze-tools)
+- Complexity: Simple
+- Description: Count how often each word and character appears in a text, sorted by frequency, with percentages and copyable CSV.
+- Summary: Word / Character Frequency counts how often each word and each character appears in a block of text. Words are split on letters and numbers in any script, so accented and non-Latin text works. Results appear in two sortable tables with totals and percentages. Everything runs in your browser; nothing is uploaded.
+- Use Cases: Finding the most repeated words in an article or draft.; Checking keyword density before publishing copy.; Spotting stray characters, odd spacing or unexpected symbols in a dataset.; Comparing vocabulary across two versions of a text.
+- Features: Word table sorted by count, with percentages of all counted words.; Character table that includes spaces, newlines, tabs and punctuation, with names for invisible characters.; Ignore case and ignore common English stop words options.; Click any column header to sort; the table is keyboard accessible.; Show the top 10, 25, 50 or 100 rows, or all of them.; Totals for words and characters, plus copy as CSV or plain text.
+- Tip: Turn on "Ignore stop words" before reading a word table; otherwise "the", "and" and "of" usually come out on top.
+
+### 50. Timestamp Converter
 - URL: https://www.toolbox4devs.com/timestamp-converter
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -488,7 +498,7 @@ Total Tools: 92
 - Features: Accepts Unix seconds, Unix milliseconds, ISO strings, and standard date strings; Shows UTC, ISO 8601, local date/time, and raw Unix outputs together; One-click copy for every output format; Runs completely client-side in the browser with no backend calls
 - Tip: Most JWT exp values are Unix seconds, while many JavaScript APIs use milliseconds. This tool shows both so you can spot unit mistakes quickly.
 
-### 50. Cron Expression Parser
+### 51. Cron Expression Parser
 - URL: https://www.toolbox4devs.com/cron-parser
 - Category: Data (data-tools)
 - Description: Parse, explain, and calculate execution times for 5-part cron expressions.
@@ -497,7 +507,7 @@ Total Tools: 92
 - Features: Explains minute, hour, day-of-month, month, and day-of-week fields in plain English.; Calculates the next 5 upcoming scheduled execution timestamps.; Includes quick-select presets for common scheduling patterns.
 - Tip: Click any of the preset buttons above to quickly test standard cron formats.
 
-### 51. Query String Parser
+### 52. Query String Parser
 - URL: https://www.toolbox4devs.com/query-string-parser
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -507,7 +517,7 @@ Total Tools: 92
 - Features: Accepts both full URLs and raw query strings; Decodes percent-encoded parameter names and values; Groups repeated keys into arrays automatically; Shows normalized query output and JSON side by side; Runs fully client-side with no backend calls
 - Tip: If you paste a full URL, only the search portion is parsed. Hash fragments are ignored so you can focus on the query parameters.
 
-### 52. Color Converter
+### 53. Color Converter
 - URL: https://www.toolbox4devs.com/color-converter
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -517,7 +527,7 @@ Total Tools: 92
 - Features: Accepts HEX, RGB, and HSL input formats; Outputs normalized HEX, RGB, and HSL values; Live color preview for quick visual verification; One-click copy for every format; Complementary, analogous and triadic harmony swatches; click one to convert it
 - Tip: HSL is often the easiest format for tweaking hue or lightness during UI exploration, then you can convert back to HEX for production tokens.
 
-### 53. HTTP Status Lookup
+### 54. HTTP Status Lookup
 - URL: https://www.toolbox4devs.com/http-status-lookup
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -527,7 +537,7 @@ Total Tools: 92
 - Features: Fast search by numeric code or keyword; Grouped informational, success, redirect, client, and server errors; Quick answer card for exact code lookups; One-click copy for code and label pairs
 - Tip: If you keep seeing 304 responses in DevTools, that often means browser caching is working exactly as intended rather than your request failing.
 
-### 54. MIME Type Lookup
+### 55. MIME Type Lookup
 - URL: https://www.toolbox4devs.com/mime-type-lookup
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -537,7 +547,7 @@ Total Tools: 92
 - Features: Search by extension, MIME type, or format name; Includes common text, image, font, archive, audio, and application formats; Copy-ready code and content type pairs; Exact match panel for fast lookups during debugging
 - Tip: If a browser downloads a file instead of displaying it, the Content-Type header is one of the first things worth checking.
 
-### 55. User Agent Parser
+### 56. User Agent Parser
 - URL: https://www.toolbox4devs.com/user-agent-parser
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -547,7 +557,7 @@ Total Tools: 92
 - Features: Extracts likely browser, rendering engine, operating system, and device class; Includes desktop and mobile sample strings for quick testing; Keeps parsing entirely client-side in the browser
 - Tip: User-Agent parsing is heuristic by nature, so treat the result as a practical hint rather than a security-grade identifier.
 
-### 56. ASCII Table
+### 57. ASCII Table
 - URL: https://www.toolbox4devs.com/ascii-table
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -557,7 +567,7 @@ Total Tools: 92
 - Features: Shows decimal, hexadecimal, and binary values side by side; Searches by character, label, or encoded value; Highlights control characters and printable characters in one table
 - Tip: Search for “space”, “tab”, or a numeric code like 10 to jump directly to common control characters.
 
-### 57. Hash Comparator
+### 58. Hash Comparator
 - URL: https://www.toolbox4devs.com/hash-comparator
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
@@ -567,7 +577,7 @@ Total Tools: 92
 - Features: Normalizes case and whitespace before comparing values; Shows normalized versions side by side for quick inspection; Works with MD5, SHA-family hashes, and arbitrary digest strings
 - Tip: If your hashes differ only in uppercase vs lowercase hex digits, this tool will still mark them as equal.
 
-### 58. HTTP Header Parser
+### 59. HTTP Header Parser
 - URL: https://www.toolbox4devs.com/http-header-parser
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -577,7 +587,7 @@ Total Tools: 92
 - Features: Recognizes request lines plus name/value header rows; Generates a copyable JSON representation; Runs fully client-side with no network requests
 - Tip: If you paste a full request block, the first non-header line is shown separately as the request line.
 
-### 59. Basic Auth Header
+### 60. Basic Auth Header
 - URL: https://www.toolbox4devs.com/basic-auth-header
 - Category: Authentication (auth-tools)
 - Complexity: Simple
@@ -587,7 +597,7 @@ Total Tools: 92
 - Features: Builds a ready-to-paste Authorization header from credentials; Decodes an existing Basic header into username and password fields; Keeps all encoding and decoding local in the browser
 - Tip: Basic auth is transport-safe only when paired with HTTPS because the credentials are merely encoded, not encrypted.
 
-### 60. Unix Permissions Calculator
+### 61. Unix Permissions Calculator
 - URL: https://www.toolbox4devs.com/unix-permissions-calculator
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -597,7 +607,7 @@ Total Tools: 92
 - Features: Interactive owner, group, and others checkboxes; Live octal and symbolic output; Copy actions for both common permission formats
 - Tip: A common executable file mode is 755, which maps to rwxr-xr-x.
 
-### 61. Local AI Text Assistant
+### 62. Local AI Text Assistant
 - URL: https://www.toolbox4devs.com/local-ai-text-assistant
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
@@ -607,7 +617,7 @@ Total Tools: 92
 - Features: Runs entirely in JavaScript in the browser with no API calls; Generates summary bullets, top keywords, action items, and a sentiment hint; Useful for quick internal notes, drafts, bug reports, and review workflows
 - Tip: This tool is intentionally heuristic, so treat it as a fast local assistant rather than a replacement for a full LLM.
 
-### 62. CSV to Markdown
+### 63. CSV to Markdown
 - URL: https://www.toolbox4devs.com/csv-to-markdown
 - Category: Text (text-tools)
 - Description: Convert CSV or TSV data into a well-formatted Markdown table instantly.
@@ -615,7 +625,7 @@ Total Tools: 92
 - Use Cases: Creating tables for GitHub READMEs; Formatting data for Markdown documentation
 - Features: Support for headers; Handles CSV and TSV formats
 
-### 63. Hex Converter
+### 64. Hex Converter
 - URL: https://www.toolbox4devs.com/hex-converter
 - Category: Encode / Decode (encode-tools)
 - Description: Convert text to hexadecimal and hexadecimal back to text.
@@ -623,7 +633,7 @@ Total Tools: 92
 - Use Cases: Encoding payloads; Decoding hex strings from logs
 - Features: Text to Hex; Hex to Text; Client-side processing
 
-### 64. Base32 Encoder / Decoder
+### 65. Base32 Encoder / Decoder
 - URL: https://www.toolbox4devs.com/base32
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
@@ -633,7 +643,7 @@ Total Tools: 92
 - Features: Encode UTF-8 text to standard RFC 4648 Base32; Decode Base32 back to UTF-8 text; Optional "=" padding when encoding; Decoding accepts lower case, spaces and missing padding; Clear errors for invalid characters, misplaced padding and impossible lengths; Swap the output back into the input to convert the other way
 - Tip: Like Base64, Base32 is an encoding, not encryption. Anyone can decode it.
 
-### 65. MAC Address Generator
+### 66. MAC Address Generator
 - URL: https://www.toolbox4devs.com/mac-address-generator
 - Category: Generators (generate-tools)
 - Description: Generate valid unicast, multicast, locally administered, or vendor-specific MAC addresses in colon, hyphen, or dot formats.
@@ -642,7 +652,7 @@ Total Tools: 92
 - Features: Configurable delimiter styles: standard colon (00:1A:2B), hyphen (00-1A-2B), and Cisco dot (001a.2b3c.4d5e); Custom uppercase or lowercase hexadecimal casing; Bulk generation with one-click copy and list download; 100% in-browser generation with zero network requests
 - Tip: Use Cisco dot notation (xxxx.xxxx.xxxx) when provisioning Cisco IOS and network switch configurations.
 
-### 66. RSA Key Generator
+### 67. RSA Key Generator
 - URL: https://www.toolbox4devs.com/rsa-key-generator
 - Category: Crypto (crypto-tools)
 - Description: Generate RSA public and private key pairs securely in your browser.
@@ -650,7 +660,7 @@ Total Tools: 92
 - Use Cases: Generating keys for SSH; Testing asymmetric encryption algorithms; Creating JWT signing keys
 - Features: Selectable key size (1024, 2048, 4096 bits); Outputs SPKI and PKCS#8 PEM formats; 100% client-side Web Crypto API
 
-### 67. SVG Placeholder
+### 68. SVG Placeholder
 - URL: https://www.toolbox4devs.com/svg-placeholder-generator
 - Category: Generators (generate-tools)
 - Description: Generate fast, customizable SVG placeholder images for your projects.
@@ -658,7 +668,7 @@ Total Tools: 92
 - Use Cases: Mocking up UI layouts; Placeholder avatars and thumbnails
 - Features: Custom width and height; Customizable colors; Live preview; Copyable SVG code
 
-### 68. URL Parser
+### 69. URL Parser
 - URL: https://www.toolbox4devs.com/url-parser
 - Category: Web (web-tools)
 - Description: Parse URLs into their component parts (protocol, host, path, parameters).
@@ -666,7 +676,7 @@ Total Tools: 92
 - Use Cases: Debugging complex URLs; Extracting query parameters; Validating URL structure
 - Features: Extracts protocol, host, port, path; Parses query parameters into a table; Handles complex fragments and origins
 
-### 69. XML Formatter
+### 70. XML Formatter
 - URL: https://www.toolbox4devs.com/xml-formatter
 - Category: Web (web-tools)
 - Description: Format, beautify or minify XML strings natively in your browser.
@@ -674,7 +684,7 @@ Total Tools: 92
 - Use Cases: Formatting API responses; Cleaning up SOAP envelopes; Minifying XML before transmission
 - Features: Adjustable indentation sizes; Minification mode; Syntax error catching
 
-### 70. Line Sorter & Deduplicator
+### 71. Line Sorter & Deduplicator
 - URL: https://www.toolbox4devs.com/line-sorter
 - Category: Text (text-tools)
 - Complexity: Simple
@@ -684,7 +694,7 @@ Total Tools: 92
 - Features: Four sort modes: A→Z, Z→A, by length, and natural numeric ordering.; Optional duplicate removal, whitespace trimming, and empty-line stripping.; Case-insensitive or case-sensitive sorting and deduplication.; Live input/output line counts and removed-line counter.
 - Tip: Use Natural sort when your lines contain numbers (e.g. file1, file2, file10) so they order like a human expects.
 
-### 71. Number to Words Converter
+### 72. Number to Words Converter
 - URL: https://www.toolbox4devs.com/number-to-words
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -694,7 +704,7 @@ Total Tools: 92
 - Features: Handles integers, decimals, and negative numbers.; Supports magnitudes from units up to trillions.; Decimal digits spelled individually (e.g. 1.25 → one point two five).; Live word count and validation feedback.
 - Tip: Decimal portions are spelled digit-by-digit (1.25 → "one point two five"), which is the standard for financial and technical contexts.
 
-### 72. Text Repeater & Multiplier
+### 73. Text Repeater & Multiplier
 - URL: https://www.toolbox4devs.com/text-repeater
 - Category: Text (text-tools)
 - Complexity: Simple
@@ -704,7 +714,7 @@ Total Tools: 92
 - Features: Repeat any text up to 50,000 times instantly; Multiple separator options (newline, space, tab, comma, custom string, or none); Add line numbers or item indexes to repeated segments; One-click clipboard copy and text stats (characters, lines, size in KB/MB); Option to trim trailing whitespace or separators
 - Tip: Toggle the "Prefix / Numbering" option to prefix each repetition, making it easy to create numbered list structures or track iterations.
 
-### 73. AI Token Counter & Visualizer
+### 74. AI Token Counter & Visualizer
 - URL: https://www.toolbox4devs.com/ai-token-counter
 - Category: Generators (generate-tools)
 - Complexity: Moderate
@@ -714,7 +724,7 @@ Total Tools: 92
 - Features: Visual Segment Highlighting using alternating custom pastel backgrounds; Multi-Model support including OpenAI o200k_base, cl100k_base, Gemini, and Llama encoders; Live expense calculations based on current million-token input and output values; Detailed tabular list breaking down each individual subword segment and its exact length; Ready-to-use template prompts covering code reviews, APIs, personas, and few-shot examples
 - Tip: Click on any template button to instantly load test prompts and compare tokenization counts across different encoders!
 
-### 74. JWT Encoder & Token Generator
+### 75. JWT Encoder & Token Generator
 - URL: https://www.toolbox4devs.com/jwt-encoder
 - Category: Authentication (auth-tools)
 - Complexity: Simple
@@ -724,7 +734,7 @@ Total Tools: 92
 - Features: Supports HS256, HS384, and HS512 HMAC signing algorithms; Customizable header and payload JSON fields; Colored token display showing header, payload, and signature parts; Copy-to-clipboard for the complete token or individual parts; Uses Web Crypto API for secure, browser-native cryptographic signing
 - Tip: Pair this with the JWT Decoder tool to create and verify tokens in a full round-trip test without leaving your browser.
 
-### 75. Cron Expression Generator
+### 76. Cron Expression Generator
 - URL: https://www.toolbox4devs.com/cron-generator
 - Category: Data (data-tools)
 - Complexity: Simple
@@ -734,7 +744,7 @@ Total Tools: 92
 - Features: Interactive field-by-field controls for each cron parameter; 14+ quick-select presets for common scheduling patterns; Weekday and weekend shortcuts for day-of-week selection; Custom expression input with automatic description parsing; Colored field breakdown showing each part of the expression
 - Tip: Pair this with the Cron Parser tool to both generate and validate cron expressions in a complete workflow.
 
-### 76. Password Strength Analyzer
+### 77. Password Strength Analyzer
 - URL: https://www.toolbox4devs.com/password-strength-analyzer
 - Category: Analyze (analyze-tools)
 - Complexity: Moderate
@@ -744,7 +754,7 @@ Total Tools: 92
 - Features: Information entropy calculation in bits using character pool analysis; Crack time estimates for online (~100/s), offline (~100K/s), and GPU (~10B/s) attacks; Common password pattern detection (dictionary words, sequences, repetitions); Character set breakdown (lowercase, uppercase, digits, special characters); Visual strength meter with score out of 100; Actionable improvement suggestions based on detected weaknesses; Copyable analysis report for documentation and compliance
 - Tip: A strong password uses 12+ characters with a mix of uppercase, lowercase, numbers, and special characters — and avoids common dictionary words or patterns like "Password1!"
 
-### 77. Faker Data Generator
+### 78. Faker Data Generator
 - URL: https://www.toolbox4devs.com/faker-data-generator
 - Category: Generators (generate-tools)
 - Complexity: Simple
@@ -754,7 +764,7 @@ Total Tools: 92
 - Features: 12 data type categories: names, emails, phones, addresses, companies, dates, IPs, colors, usernames, sentences, UUIDs, or all combined; Three output formats: JSON (nested objects), CSV (ready for spreadsheets), and Lines (one value per line); Generate up to 100 records at once with a single click; Regenerate button for fresh random data on demand; Global data pools with diverse international names and locations; Zero dependencies — uses only browser-native JavaScript; One-click copy and file download for generated data
 - Tip: For the most realistic data, use the "All Fields" mode with JSON output — you get a complete object per record that maps directly to database schemas and API payloads.
 
-### 78. JSON Schema Generator & Validator
+### 79. JSON Schema Generator & Validator
 - URL: https://www.toolbox4devs.com/json-schema-generator
 - Category: JSON (json-tools)
 - Complexity: Moderate
@@ -764,7 +774,7 @@ Total Tools: 92
 - Features: Supports Draft-07, Draft 2020-12, and OpenAPI 3.0 schema formats; Automatic string format detection for date-time, dates, UUIDs, emails, URIs, and IPv4; Customizable required property policies: all properties, top-level only, or all optional; Strict additionalProperties control to enforce closed schemas; Integrated live payload tester with field-by-field error diagnostics; 100% private and runs completely in your local browser memory
 - Tip: Switch to the "Test & Validate Payload" tab to test modified payloads against your generated schema in real time.
 
-### 79. X.509 Certificate Decoder & Inspector
+### 80. X.509 Certificate Decoder & Inspector
 - URL: https://www.toolbox4devs.com/certificate-decoder
 - Category: Crypto (crypto-tools)
 - Complexity: Moderate
@@ -774,7 +784,7 @@ Total Tools: 92
 - Features: Decodes standard PEM format X.509 certificates (SSL/TLS, CSR, and CA); Validity countdown with days remaining and expired/not-yet-valid status flags; Detailed Subject and Issuer Distinguished Name extraction (CN, O, OU, C, ST, L); Subject Alternative Name (SAN) DNS and IP address extraction; Public key type (RSA bit length, ECDSA curves) and signature algorithm identification; Live SHA-256 and SHA-1 cryptographic fingerprint calculation via WebCrypto; 100% private and runs locally — certificates and keys never leave your machine
 - Tip: Paste certificates directly from your server configuration or click "Let's Encrypt TLS Cert" to test instantly.
 
-### 80. JSON Diff
+### 81. JSON Diff
 - URL: https://www.toolbox4devs.com/json-diff
 - Category: JSON (json-tools)
 - Complexity: Simple
@@ -784,7 +794,7 @@ Total Tools: 92
 - Features: Key order and whitespace are ignored; only real value changes count.; Each change is listed with its JSON path, e.g. $.user.tags[1].; Detects type changes, such as a number that became a string.; Optional "Ignore array order" mode for lists where order does not matter.; Copy the change list as plain text.
 - Tip: Turn on "Ignore array order" when comparing lists of IDs or tags; otherwise one item inserted at the start shows every later item as changed.
 
-### 81. Image Compressor & Converter
+### 82. Image Compressor & Converter
 - URL: https://www.toolbox4devs.com/image-compressor
 - Category: Web (web-tools)
 - Complexity: Moderate
@@ -794,7 +804,7 @@ Total Tools: 92
 - Features: Output as JPEG, WebP, PNG or AVIF (AVIF only where your browser can encode it).; Quality slider for the lossy formats, plus optional maximum width and height that keep the aspect ratio.; Several files at once, each with its before and after size and the percentage saved.; Per-file download; everything is processed locally.
 - Tip: WebP at quality 75-85 is usually a good balance for photos. PNG is lossless, so shrink PNG files by lowering the maximum width instead of the quality.
 
-### 82. PDF Merge & Split
+### 83. PDF Merge & Split
 - URL: https://www.toolbox4devs.com/pdf-merge-split
 - Category: Web (web-tools)
 - Complexity: Moderate
@@ -804,7 +814,7 @@ Total Tools: 92
 - Features: Merge two or more PDFs, with up and down buttons to set the order.; Extract pages with a range such as 1-3, 5, 8- (8 to the last page).; Pages come out in the order you type them, and a page can be repeated.; Shows the page count of each file; download the result as a new PDF.
 - Tip: To reverse or reorder pages, type them in the order you want, for example 3, 2, 1 for a three-page file.
 
-### 83. Open Graph & Meta Tag Generator
+### 84. Open Graph & Meta Tag Generator
 - URL: https://www.toolbox4devs.com/meta-tag-generator
 - Category: Web (web-tools)
 - Complexity: Moderate
@@ -814,7 +824,7 @@ Total Tools: 92
 - Features: Outputs <title>, meta description, canonical link, theme-color, Open Graph and Twitter Card tags.; Escapes &, <, >, quotes and apostrophes in every value.; Omits any tag whose field is empty.; Warns when the title or description is outside the recommended length.; Previews for a search result, an X-style card and a LinkedIn/Slack-style card.; Copy the generated tags with one click.
 - Tip: Keep titles under 60 characters and descriptions under 160 so search engines show them in full. Use an absolute https:// URL for the image, since social crawlers cannot resolve relative paths.
 
-### 84. CSS / JS Minifier
+### 85. CSS / JS Minifier
 - URL: https://www.toolbox4devs.com/css-js-minifier
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -824,7 +834,7 @@ Total Tools: 92
 - Features: Switch between JavaScript and CSS with one click.; Shows the original size, the minified size and the percentage saved, in bytes.; JavaScript options: mangle local names and drop console.* calls.; Syntax errors in JavaScript are shown with their line and column.; Copy the result or download it as minified.js or minified.css.
 - Tip: Minify is a size check, not a build step. Keep your source readable and minify only the output you ship, and always run the minified code once before you deploy it.
 
-### 85. SVG Optimizer
+### 86. SVG Optimizer
 - URL: https://www.toolbox4devs.com/svg-optimizer
 - Category: Web (web-tools)
 - Complexity: Simple
@@ -834,7 +844,7 @@ Total Tools: 92
 - Features: Shows original and optimized sizes in bytes with the percentage saved.; Toggles for removing comments, removing metadata, and minifying path data and numbers.; Precision control for how many decimal places numbers keep.; Side-by-side preview of both SVGs, rendered as images so scripts inside them never run.; Copy the output or download it as a .min.svg file.
 - Tip: Start with the defaults, then compare the two previews. If a shape looks slightly off, raise the precision by one or two places; if it still differs, turn off "Minify paths and numbers".
 
-### 86. Image to Base64 / Data URI
+### 87. Image to Base64 / Data URI
 - URL: https://www.toolbox4devs.com/image-to-base64
 - Category: Encode / Decode (encode-tools)
 - Complexity: Simple
@@ -844,7 +854,7 @@ Total Tools: 92
 - Features: Accepts images and any other small file; the MIME type comes from the file.; Outputs raw Base64, a full Data URI, a CSS background-image rule and an HTML img tag, each with a copy button.; Shows the MIME type, original size and encoded Base64 size.; Warns when a file is over 256 KB, because Base64 grows the text by about a third.; Reverse mode previews base64 image Data URIs and downloads the decoded file.
 - Tip: Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI.
 
-### 87. Time Zone Converter & Meeting Planner
+### 88. Time Zone Converter & Meeting Planner
 - URL: https://www.toolbox4devs.com/time-zone-converter
 - Category: Data (data-tools)
 - Complexity: Moderate
@@ -854,7 +864,7 @@ Total Tools: 92
 - Features: Converts one wall-clock time into any number of zones, with each zone's UTC offset.; Flags times that do not exist (clocks jump forward) or happen twice (clocks fall back).; Marks zones that are currently on daylight saving time.; Searches zones by city or IANA name, such as "kolkata" or "America/Chicago".; Meeting planner grid with shaded working hours, adjustable start and end.; Copy a one-line summary of the conversion.
 - Tip: Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row.
 
-### 88. Favicon Generator
+### 89. Favicon Generator
 - URL: https://www.toolbox4devs.com/favicon-generator
 - Category: Web (web-tools)
 - Complexity: Moderate
@@ -864,7 +874,7 @@ Total Tools: 92
 - Features: Accepts PNG, JPEG and SVG. SVGs are drawn at each size, so they stay sharp.; Previews of every PNG size, with a download for each file.; A favicon.ico with 16, 32 and 48 pixel images stored inside it.; One-click ZIP with all icon files and the manifest.; Copy buttons for the link tags and the manifest, with a base path field for where the files will be hosted.
 - Tip: Start from a square source of at least 512 × 512 pixels. Images that are not square are centred with transparent space around them.
 
-### 89. CSS Gradient Generator
+### 90. CSS Gradient Generator
 - URL: https://www.toolbox4devs.com/css-gradient-generator
 - Category: Web (web-tools)
 - Complexity: Moderate
@@ -874,7 +884,7 @@ Total Tools: 92
 - Features: Linear, radial (circle or ellipse) and conic gradients.; Angle control for linear and conic gradients, as a number input and a slider.; Center position for radial and conic gradients.; Add, remove and edit color stops, each with a color picker, a hex text field and a percentage position.; Enforces at least two stops and up to eight.; Sorts stops by position in the output, so the order you type them does not matter.; Five presets to start from, and a live preview.; Copy the background declaration with one click.
 - Tip: Place the first stop at 0% and the last at 100% so the gradient fills the whole element. Add a middle stop when you want a color to hold its place partway along the gradient.
 
-### 90. TOML / JSON / YAML Converter
+### 91. TOML / JSON / YAML Converter
 - URL: https://www.toolbox4devs.com/toml-json-yaml-converter
 - Category: Data (data-tools)
 - Complexity: Moderate
@@ -884,7 +894,7 @@ Total Tools: 92
 - Features: Any direction between TOML, JSON and YAML; Syntax errors with line and column numbers; Clear messages for values TOML cannot represent, such as null and top-level arrays; Copy the result or download it as .toml, .json or .yaml; 100% in-browser processing — the TOML parser loads on first use and no document leaves your device
 - Tip: Dates in TOML become ISO 8601 strings in JSON and YAML. Converting back makes them quoted strings, so re-check any date fields after a round trip.
 
-### 91. Box Shadow Generator
+### 92. Box Shadow Generator
 - URL: https://www.toolbox4devs.com/box-shadow-generator
 - Category: Generators (generate-tools)
 - Complexity: Moderate
@@ -894,7 +904,7 @@ Total Tools: 92
 - Features: Add, remove and reorder shadow layers; the first layer is drawn on top.; Every value has a slider and a number box, and all controls work from the keyboard.; Colour picker plus hex field, with the opacity converted to rgba() in the output.; Inset toggle per layer and four starter presets: Subtle, Elevated, Inset and Layered.; Adjustable preview canvas and box colours, and a one-click copy of the CSS.
 - Tip: Stack two or three layers with a small blur and a larger, fainter blur below it. This reads as a natural shadow; a single large blur tends to look flat.
 
-### 92. Cubic-Bezier Easing Editor
+### 93. Cubic-Bezier Easing Editor
 - URL: https://www.toolbox4devs.com/cubic-bezier-editor
 - Category: Web (web-tools)
 - Complexity: Moderate
@@ -903,6 +913,16 @@ Total Tools: 92
 - Use Cases: Tuning a hover or modal transition until it feels right.; Adding overshoot or anticipation to a UI animation with an easeOutBack style curve.; Turning a curve from a design tool or a library into a CSS value.; Checking what a pasted cubic-bezier() value looks like before shipping it.
 - Features: Drag either control point, or type x1, y1, x2 and y2 with the keyboard.; x is kept between 0 and 1, as CSS requires; y can go from -2 to 2 for overshoot.; Preset buttons for linear, the CSS keywords and common easings such as easeInOutBack.; Paste a cubic-bezier() value or a transition-timing-function declaration to load it.; Animated preview with a Replay button. It is turned off when reduced motion is on.; Copy the bare cubic-bezier() value or the full transition-timing-function line.
 - Tip: Keep y between 0 and 1 for everyday UI motion. Values below 0 or above 1 make the element overshoot its target, which is a deliberate effect that can look wrong on small, frequent interactions.
+
+### 94. Markdown to HTML
+- URL: https://www.toolbox4devs.com/markdown-to-html
+- Category: Web (web-tools)
+- Complexity: Simple
+- Description: Convert Markdown into clean, copy-ready HTML source, with optional inline styles or a full HTML document. Runs entirely in your browser.
+- Summary: Markdown to HTML converts Markdown text into HTML source you can paste into a page, CMS or email template. It produces plain semantic markup (headings, paragraphs, lists, tables, code blocks) and escapes any raw HTML you type, so the output never contains live scripts from the input. Conversion runs in your browser and nothing is uploaded.
+- Use Cases: Turning README or documentation drafts into HTML for a static page.; Preparing a changelog or newsletter block for a CMS that accepts raw HTML.; Checking how Markdown maps to HTML before publishing.; Getting a self-contained HTML file with a title and charset for quick sharing.
+- Features: Headings, bold, italic, strikethrough, links, images, inline code, blockquotes and horizontal rules.; Fenced code blocks with a language class, and ordered or unordered lists.; Pipe tables with a header row.; Raw HTML in the input is escaped, so it appears as text.; Links and images with javascript:, data: or vbscript: URLs are neutralized.; Optional inline styles on tables, code and quotes, or a full document with doctype, title and charset.
+- Tip: Leave "Include inline styles" off when the HTML will be styled by your own CSS; turn it on for emails or snippets that need borders and spacing without a stylesheet.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
