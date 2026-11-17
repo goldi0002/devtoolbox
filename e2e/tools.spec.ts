@@ -505,4 +505,45 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(page.getByText(/^⚠ Data URI: Only base64 Data URIs can be decoded/)).toBeVisible();
     await expect(page.getByTestId('data-uri-preview')).toHaveCount(0);
   });
+
+  test('Favicon Generator builds the icon set from an uploaded image and offers downloads', async ({ page }) => {
+    const picker = page.getByLabel('Source image', { exact: true });
+    await gotoHydrated(page, '/favicon-generator', picker);
+
+    const base64 = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#2563eb';
+      ctx.fillRect(0, 0, 64, 64);
+      return canvas.toDataURL('image/png').split(',')[1];
+    });
+    await picker.setInputFiles({ name: 'logo.png', mimeType: 'image/png', buffer: Buffer.from(base64, 'base64') });
+
+    await expect(page.getByRole('img', { name: 'Preview of apple-touch-icon.png', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByRole('img', { name: 'Preview of favicon-16x16.png', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByTestId('favicon-results').getByRole('listitem')).toHaveCount(7);
+
+    const linkTags = page.getByLabel('HTML link tags', { exact: true });
+    await expect(linkTags).toHaveValue(/<link rel="apple-touch-icon" sizes="180x180" href="\/apple-touch-icon\.png">/);
+    await page.getByLabel('Base path (where the files are hosted)', { exact: true }).fill('/assets/icons');
+    await expect(linkTags).toHaveValue(/href="\/assets\/icons\/favicon\.ico"/);
+
+    await expect(page.getByLabel('Web app manifest', { exact: true })).toHaveValue(/"theme_color": "#ffffff"/);
+    await page.getByLabel('Site name (manifest)', { exact: true }).fill('Demo Site');
+    await expect(page.getByLabel('Web app manifest', { exact: true })).toHaveValue(/"name": "Demo Site"/);
+
+    const [icoDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('link', { name: 'Download favicon.ico', exact: true }).click(),
+    ]);
+    expect(icoDownload.suggestedFilename()).toBe('favicon.ico');
+
+    const [zipDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Download all as ZIP', exact: true }).click(),
+    ]);
+    expect(zipDownload.suggestedFilename()).toBe('favicon-package.zip');
+  });
 });

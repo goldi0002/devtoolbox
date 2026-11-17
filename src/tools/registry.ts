@@ -58,6 +58,7 @@ import { BASE32_META } from "./meta/base32"
 import { MAC_ADDRESS_GENERATOR_META } from "./meta/mac-address-generator"
 import { RSA_KEY_GENERATOR_META } from "./meta/rsa-key-generator"
 import { SVG_PLACEHOLDER_GENERATOR_META } from "./meta/svg-placeholder-generator"
+import { FAVICON_GENERATOR_META } from "./meta/favicon-generator"
 import { URL_PARSER_META } from "./meta/url-parser"
 import { XML_FORMATTER_META } from "./meta/xml-formatter"
 import { WCAG_CONTRAST_CHECKER_META } from "./meta/wcag-contrast-checker"
@@ -170,7 +171,8 @@ export const tools: ToolMeta[] = [
   META_TAG_GENERATOR_META,
   CSS_JS_MINIFIER_META,
   SVG_OPTIMIZER_META,
-  IMAGE_TO_BASE64_META
+  IMAGE_TO_BASE64_META,
+  FAVICON_GENERATOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

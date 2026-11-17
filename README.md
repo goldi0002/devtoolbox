@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (85 Tools)
+## 🛠️ Complete Tool Catalog (86 Tools)
 
 ### 1. 🗄️ Data & DevOps (19 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -102,7 +102,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (22 Tools)
+### 4. 🌐 Web & Frontend Utilities (23 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **CSS Unit & Fluid clamp() Converter (`/css-unit-converter`)**: Compute `rem`, `px`, `em`, Tailwind spacing, and fluid viewport `clamp()` formulas.
@@ -125,6 +125,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **PDF Merge & Split (`/pdf-merge-split`)**: Merge PDFs, or extract and reorder pages from one, entirely in the browser.
 - **Open Graph & Meta Tag Generator (`/meta-tag-generator`)**: Build title, description, Open Graph and Twitter Card tags with escaping, length warnings, and search, X and LinkedIn/Slack previews.
 - **CSS / JS Minifier (`/css-js-minifier`)**: Minify JavaScript (Terser) or CSS (csso) and see the size saved, entirely in the browser.
+- **Favicon Generator (`/favicon-generator`)**: Turn one PNG, JPG or SVG into favicon PNGs, a multi-size `favicon.ico`, HTML link tags and a `site.webmanifest`, with a ZIP download. Runs in your browser.
 
 ### 5. 🔤 Text & String Manipulation (9 Tools)
 - **String Escape & Unescape (`/string-escaper`)**: Escape strings for JSON, JavaScript, SQL, HTML, Python, Shell, and Unicode.

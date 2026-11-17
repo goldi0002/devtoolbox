@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 85,
+  "totalTools": 86,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2124,6 +2124,33 @@
         "Reverse mode previews base64 image Data URIs and downloads the decoded file."
       ],
       "tip": "Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI."
+    },
+    {
+      "slug": "favicon-generator",
+      "name": "Favicon Generator",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/favicon-generator",
+      "description": "Turn one PNG, JPG or SVG into favicon PNGs, a multi-size favicon.ico, HTML link tags and a site.webmanifest. Files never leave your device.",
+      "complexity": "moderate",
+      "keywords": [
+        "favicon generator",
+        "favicon maker",
+        "favicon.ico generator",
+        "apple touch icon generator",
+        "png to ico",
+        "svg to favicon",
+        "site.webmanifest generator",
+        "android chrome icon",
+        "web app icons"
+      ],
+      "features": [
+        "Accepts PNG, JPEG and SVG. SVGs are drawn at each size, so they stay sharp.",
+        "Previews of every PNG size, with a download for each file.",
+        "A favicon.ico with 16, 32 and 48 pixel images stored inside it.",
+        "One-click ZIP with all icon files and the manifest.",
+        "Copy buttons for the link tags and the manifest, with a base path field for where the files will be hosted."
+      ],
+      "tip": "Start from a square source of at least 512 × 512 pixels. Images that are not square are centred with transparent space around them."
     }
   ]
 }
