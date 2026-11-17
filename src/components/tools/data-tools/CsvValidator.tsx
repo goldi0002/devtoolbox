@@ -1079,6 +1079,7 @@ export default function CsvValidator() {
                                 }
                                 className="text-subtle hover:text-indigo-400 p-1 rounded transition-colors"
                                 title="Inspect entire row record"
+                                aria-label="Inspect entire row record"
                               >
                                 <TableIcon size={14} />
                               </button>
@@ -1138,6 +1139,7 @@ export default function CsvValidator() {
               </div>
               <button
                 onClick={() => setSelectedRowDetail(null)}
+                aria-label="Close row details"
                 className="text-subtle hover:text-bright p-1 rounded-lg"
               >
                 ✕
@@ -1210,6 +1212,7 @@ export default function CsvValidator() {
               </div>
               <button
                 onClick={() => setShowJsonSchemaModal(false)}
+                aria-label="Close JSON schema editor"
                 className="text-subtle hover:text-bright p-1 rounded-lg"
               >
                 ✕

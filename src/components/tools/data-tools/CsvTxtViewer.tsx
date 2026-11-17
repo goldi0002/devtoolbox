@@ -1348,6 +1348,7 @@ export default function CsvTxtViewer() {
                 {searchTerm && (
                   <button
                     onClick={() => setSearchTerm('')}
+                    aria-label="Clear search"
                     className="absolute right-2.5 top-1/2 -translate-y-1/2 text-dim hover:text-bright text-xs"
                   >
                     ✕
@@ -1369,6 +1370,7 @@ export default function CsvTxtViewer() {
 
                 <button
                   onClick={() => goToPage(1)}
+                  aria-label="Go to first page"
                   disabled={currentPage === 1 || isLoadingPage}
                   className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   title="First Page"
@@ -1377,6 +1379,7 @@ export default function CsvTxtViewer() {
                 </button>
                 <button
                   onClick={() => goToPage(currentPage - 1)}
+                  aria-label="Go to previous page"
                   disabled={currentPage === 1 || isLoadingPage}
                   className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   title="Previous Page"
@@ -1402,6 +1405,7 @@ export default function CsvTxtViewer() {
 
                 <button
                   onClick={() => goToPage(currentPage + 1)}
+                  aria-label="Go to next page"
                   disabled={currentPage >= totalPages || isLoadingPage}
                   className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   title="Next Page"
@@ -1410,6 +1414,7 @@ export default function CsvTxtViewer() {
                 </button>
                 <button
                   onClick={() => goToPage(totalPages)}
+                  aria-label="Go to last page"
                   disabled={currentPage >= totalPages || isLoadingPage}
                   className="p-1.5 rounded-lg border border-border bg-background text-dim hover:text-bright disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
                   title="Last Page"
