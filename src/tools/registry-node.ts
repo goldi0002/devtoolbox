@@ -81,6 +81,7 @@ const toolMeta = [
   { slug: 'json-schema-generator',       category: 'json-tools' },
   { slug: 'certificate-decoder',         category: 'crypto-tools' },
   { slug: 'json-diff',                   category: 'json-tools' },
+  { slug: 'image-compressor',            category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {

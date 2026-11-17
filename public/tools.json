@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 79,
+  "totalTools": 80,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -1961,6 +1961,32 @@
         "Copy the change list as plain text."
       ],
       "tip": "Turn on \"Ignore array order\" when comparing lists of IDs or tags; otherwise one item inserted at the start shows every later item as changed."
+    },
+    {
+      "slug": "image-compressor",
+      "name": "Image Compressor & Converter",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/image-compressor",
+      "description": "Compress and convert images to JPEG, WebP, PNG or AVIF with a quality slider and optional resize. Files never leave your device.",
+      "complexity": "moderate",
+      "keywords": [
+        "image compressor",
+        "compress image",
+        "png to webp",
+        "jpg to webp",
+        "image converter",
+        "reduce image size",
+        "resize image",
+        "webp converter",
+        "avif converter"
+      ],
+      "features": [
+        "Output as JPEG, WebP, PNG or AVIF (AVIF only where your browser can encode it).",
+        "Quality slider for the lossy formats, plus optional maximum width and height that keep the aspect ratio.",
+        "Several files at once, each with its before and after size and the percentage saved.",
+        "Per-file download; everything is processed locally."
+      ],
+      "tip": "WebP at quality 75-85 is usually a good balance for photos. PNG is lossless, so shrink PNG files by lowering the maximum width instead of the quality."
     }
   ]
 }
