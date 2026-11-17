@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 83
+Total Tools: 84
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 83 Tools)
+## Tool Registry & Technical Specifications (All 84 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -813,6 +813,16 @@ Total Tools: 83
 - Use Cases: Making a small inline script or stylesheet lighter before embedding it.; Checking how much a file would shrink before shipping it.; Removing console calls from a script before a production build.; Finding a syntax error in a snippet by its line and column.
 - Features: Switch between JavaScript and CSS with one click.; Shows the original size, the minified size and the percentage saved, in bytes.; JavaScript options: mangle local names and drop console.* calls.; Syntax errors in JavaScript are shown with their line and column.; Copy the result or download it as minified.js or minified.css.
 - Tip: Minify is a size check, not a build step. Keep your source readable and minify only the output you ship, and always run the minified code once before you deploy it.
+
+### 84. SVG Optimizer
+- URL: https://www.toolbox4devs.com/svg-optimizer
+- Category: Web (web-tools)
+- Complexity: Simple
+- Description: Shrink SVG files by removing comments and metadata, rewriting paths and rounding numbers. Compare the original and optimized previews, then copy or download. Runs in your browser.
+- Summary: SVG Optimizer shrinks an SVG file without changing how it looks. It runs the svgo optimizer in your browser: comments and editor metadata are removed, path data is rewritten in a shorter form, and numbers are rounded to the precision you choose. The original and optimized versions are rendered side by side so you can confirm nothing broke before you copy or download the result.
+- Use Cases: Cutting the weight of icons exported from Figma, Illustrator or Inkscape.; Removing editor metadata and comments before committing SVG assets.; Reducing the size of inline SVG in HTML or JSX.; Checking that an optimized logo still renders the same as the original.
+- Features: Shows original and optimized sizes in bytes with the percentage saved.; Toggles for removing comments, removing metadata, and minifying path data and numbers.; Precision control for how many decimal places numbers keep.; Side-by-side preview of both SVGs, rendered as images so scripts inside them never run.; Copy the output or download it as a .min.svg file.
+- Tip: Start with the defaults, then compare the two previews. If a shape looks slightly off, raise the precision by one or two places; if it still differs, turn off "Minify paths and numbers".
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

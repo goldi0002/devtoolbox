@@ -454,4 +454,29 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(output).not.toContainText('note');
     await expect(page.getByRole('link', { name: 'Download minified.css' })).toHaveAttribute('download', 'minified.css');
   });
+
+  test('SVG Optimizer removes comments, previews both SVGs and downloads the result', async ({ page }) => {
+    const input = page.getByLabel('Original SVG', { exact: true });
+    await gotoHydrated(page, '/svg-optimizer', input);
+
+    await input.fill('<svg xmlns="http://www.w3.org/2000/svg"><!-- secret note --><path d="M1.000000 2.000000L3 4"/></svg>');
+    const output = page.getByTestId('svg-output');
+    await expect(output).toContainText('<path');
+    await expect(output).not.toContainText('secret note');
+
+    await expect(page.getByRole('img', { name: 'Original SVG preview', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByRole('img', { name: 'Optimized SVG preview', exact: true })).toHaveAttribute('src', /^blob:/);
+
+    await page.getByRole('checkbox', { name: 'Remove comments', exact: true }).uncheck();
+    await expect(output).toContainText('secret note');
+
+    await input.fill('<html></html>');
+    await expect(page.getByText(/does not look like an SVG/)).toBeVisible();
+
+    await input.fill('<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0"/></svg>');
+    const downloadButton = page.getByRole('button', { name: 'Download image.min.svg', exact: true });
+    await expect(downloadButton).toBeVisible();
+    const [download] = await Promise.all([page.waitForEvent('download'), downloadButton.click()]);
+    expect(download.suggestedFilename()).toBe('image.min.svg');
+  });
 });

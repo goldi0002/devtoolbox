@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (83 Tools)
+## 🛠️ Complete Tool Catalog (84 Tools)
 
 ### 1. 🗄️ Data & DevOps (19 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -102,11 +102,12 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (20 Tools)
+### 4. 🌐 Web & Frontend Utilities (22 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **CSS Unit & Fluid clamp() Converter (`/css-unit-converter`)**: Compute `rem`, `px`, `em`, Tailwind spacing, and fluid viewport `clamp()` formulas.
 - **SVG to JSX Component (`/svg-to-jsx`)**: Clean SVG code and output optimized React/Next.js SVG components.
+- **SVG Optimizer (`/svg-optimizer`)**: Shrink SVG files by removing comments and metadata, minifying paths, and rounding numbers, with before/after previews. Runs in your browser.
 - **HTML Formatter & Minifier (`/html-formatter`)**: Pretty-print or compress HTML markup with syntax highlighting.
 - **XML Formatter & Minifier (`/xml-formatter`)**: Format complex XML documents with indentation and XML tree validation.
 - **GraphQL Query Formatter (`/graphql-formatter`)**: Format, validate, and minify GraphQL operations.

@@ -4,6 +4,7 @@ import { JSON_DIFF_META } from "./meta/json-diff"
 import { PDF_MERGE_SPLIT_META } from "./meta/pdf-merge-split"
 import { META_TAG_GENERATOR_META } from "./meta/meta-tag-generator"
 import { CSS_JS_MINIFIER_META } from "./meta/css-js-minifier"
+import { SVG_OPTIMIZER_META } from "./meta/svg-optimizer"
 import { IMAGE_COMPRESSOR_META } from "./meta/image-compressor"
 import { JSON_MODEL_META } from "./meta/json-model"
 import { BASE_64_META } from "./meta/base-64"
@@ -166,7 +167,8 @@ export const tools: ToolMeta[] = [
   IMAGE_COMPRESSOR_META,
   PDF_MERGE_SPLIT_META,
   META_TAG_GENERATOR_META,
-  CSS_JS_MINIFIER_META
+  CSS_JS_MINIFIER_META,
+  SVG_OPTIMIZER_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
