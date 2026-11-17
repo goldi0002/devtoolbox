@@ -83,6 +83,7 @@ const toolMeta = [
   { slug: 'json-diff',                   category: 'json-tools' },
   { slug: 'image-compressor',            category: 'web-tools' },
   { slug: 'pdf-merge-split',             category: 'web-tools' },
+  { slug: 'meta-tag-generator',          category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {

@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 81,
+  "totalTools": 82,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2012,6 +2012,33 @@
         "Shows the page count of each file; download the result as a new PDF."
       ],
       "tip": "To reverse or reorder pages, type them in the order you want, for example 3, 2, 1 for a three-page file."
+    },
+    {
+      "slug": "meta-tag-generator",
+      "name": "Open Graph & Meta Tag Generator",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/meta-tag-generator",
+      "description": "Generate title, description, Open Graph and Twitter Card meta tags, with search, X and LinkedIn/Slack previews.",
+      "complexity": "moderate",
+      "keywords": [
+        "meta tag generator",
+        "open graph generator",
+        "og tags",
+        "twitter card generator",
+        "html meta tags",
+        "social preview",
+        "seo meta tags",
+        "og:image"
+      ],
+      "features": [
+        "Outputs <title>, meta description, canonical link, theme-color, Open Graph and Twitter Card tags.",
+        "Escapes &, <, >, quotes and apostrophes in every value.",
+        "Omits any tag whose field is empty.",
+        "Warns when the title or description is outside the recommended length.",
+        "Previews for a search result, an X-style card and a LinkedIn/Slack-style card.",
+        "Copy the generated tags with one click."
+      ],
+      "tip": "Keep titles under 60 characters and descriptions under 160 so search engines show them in full. Use an absolute https:// URL for the image, since social crawlers cannot resolve relative paths."
     }
   ]
 }
