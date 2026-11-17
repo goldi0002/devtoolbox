@@ -50,6 +50,7 @@ const toolMeta = [
   { slug: 'markdown-preview',            category: 'web-tools' },
   { slug: 'sha256',                      category: 'crypto-tools' },
   { slug: 'word-counter',                category: 'analyze-tools' },
+  { slug: 'word-frequency',              category: 'analyze-tools' },
   { slug: 'timestamp-converter',         category: 'data-tools' },
   { slug: 'cron-parser',                 category: 'data-tools' },
   { slug: 'query-string-parser',         category: 'web-tools' },

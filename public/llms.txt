@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 93 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 94 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -119,6 +119,7 @@
 - [DevFlow Pipeline Studio](https://www.toolbox4devs.com/pipeline-studio): Visual developer workflow pipeline to chain, format, decode, filter, and hash payloads in zero-latency browser memory.
 - [QR Code Scanner](https://www.toolbox4devs.com/qr-code-scanner): Scan and decode QR codes from your webcam or by uploading image files (PNG, JPEG, WebP, SVG) completely offline and in-browser.
 - [Word Counter](https://www.toolbox4devs.com/word-counter): Count words, characters, sentences, paragraphs and reading time instantly.
+- [Word / Character Frequency](https://www.toolbox4devs.com/word-frequency): Count how often each word and character appears in a text, sorted by frequency, with percentages and copyable CSV.
 - [Local AI Text Assistant](https://www.toolbox4devs.com/local-ai-text-assistant): Summarize text, surface keywords, detect action items, and estimate sentiment fully in JavaScript with no API.
 - [Password Strength Analyzer](https://www.toolbox4devs.com/password-strength-analyzer): Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.
 

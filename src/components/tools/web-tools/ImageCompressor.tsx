@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from 'react'
 import ToolLayout from '../../ToolLayout'
 import ErrorBanner from '../../ui/ErrorBanner'
+import FileDropzone from '../../ui/FileDropzone'
 import ToggleGroup from '../../ui/ToggleGroup'
 import {
   FORMATS,
@@ -75,11 +76,11 @@ async function compress(
 }
 
 export default function ImageCompressor() {
-  const inputId = useId()
   const qualityId = useId()
   const widthId = useId()
   const heightId = useId()
   const [files, setFiles] = useState<File[]>([])
+  const [pickError, setPickError] = useState('')
   const [format, setFormat] = useState<OutputFormat>('image/webp')
   const [quality, setQuality] = useState(80)
   const [maxWidth, setMaxWidth] = useState(0)
@@ -138,19 +139,18 @@ export default function ImageCompressor() {
       tag="image"
     >
       <div className="space-y-5">
-        <div>
-          <label htmlFor={inputId} className="block text-xs text-dim font-mono mb-1.5">
-            Images
-          </label>
-          <input
-            id={inputId}
-            type="file"
+        <div className="space-y-3">
+          <FileDropzone
+            label="Images"
             accept="image/*"
             multiple
-            onChange={e => setFiles(Array.from(e.target.files ?? []))}
-            className="text-xs font-mono"
+            onFiles={picked => {
+              setPickError('')
+              setFiles(picked)
+            }}
+            onError={setPickError}
           />
-          <p className="mt-1.5 text-[11px] text-subtle font-mono">Processed locally. Your images are never uploaded.</p>
+          {pickError && <ErrorBanner message={pickError} />}
         </div>
 
         <div className="flex flex-wrap gap-2">

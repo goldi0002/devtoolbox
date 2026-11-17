@@ -64,6 +64,7 @@ export default function JsonTreeView({ data, maxInitialDepth = 2 }: JsonTreeView
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
                 className="absolute right-1.5 text-[10px] text-[#808080] hover:text-white px-1"
               >
                 ✕
@@ -192,6 +193,8 @@ function TreeNode({
             toggle()
           }}
           className="p-0.5 text-[#858585] hover:text-white rounded"
+          aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${name}`}
+          aria-expanded={isExpanded}
         >
           {isExpanded ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
         </button>

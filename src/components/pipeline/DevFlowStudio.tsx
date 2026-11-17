@@ -330,6 +330,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                       <button
                         disabled={idx === 0}
                         onClick={() => handleMoveStep(idx, 'up')}
+                        aria-label={`Move step ${idx + 1} up`}
                         className="p-1 rounded text-muted hover:text-bright disabled:opacity-30 disabled:pointer-events-none transition-colors"
                         title="Move step up"
                       >
@@ -340,6 +341,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                       <button
                         disabled={idx === steps.length - 1}
                         onClick={() => handleMoveStep(idx, 'down')}
+                        aria-label={`Move step ${idx + 1} down`}
                         className="p-1 rounded text-muted hover:text-bright disabled:opacity-30 disabled:pointer-events-none transition-colors"
                         title="Move step down"
                       >
@@ -349,6 +351,7 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                       {/* Remove */}
                       <button
                         onClick={() => handleRemoveStep(step.id)}
+                        aria-label={`Remove step ${idx + 1}`}
                         className="p-1 rounded text-muted hover:text-rose-500 transition-colors ml-1"
                         title="Remove step"
                       >
