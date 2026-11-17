@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 87,
+  "totalTools": 88,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2180,6 +2180,35 @@
         "Copy a one-line summary of the conversion."
       ],
       "tip": "Set the source zone to the zone where the meeting is organized, then check the planner for hours that are shaded in every row."
+    },
+    {
+      "slug": "cubic-bezier-editor",
+      "name": "Cubic-Bezier Easing Editor",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/cubic-bezier-editor",
+      "description": "Shape a CSS cubic-bezier() timing function by dragging its two handles or typing values, preview the motion, and copy the CSS.",
+      "complexity": "moderate",
+      "keywords": [
+        "cubic bezier",
+        "cubic-bezier editor",
+        "cubic bezier generator",
+        "easing editor",
+        "easing function generator",
+        "css easing",
+        "css timing function",
+        "transition timing function",
+        "animation easing",
+        "bezier curve css"
+      ],
+      "features": [
+        "Drag either control point, or type x1, y1, x2 and y2 with the keyboard.",
+        "x is kept between 0 and 1, as CSS requires; y can go from -2 to 2 for overshoot.",
+        "Preset buttons for linear, the CSS keywords and common easings such as easeInOutBack.",
+        "Paste a cubic-bezier() value or a transition-timing-function declaration to load it.",
+        "Animated preview with a Replay button. It is turned off when reduced motion is on.",
+        "Copy the bare cubic-bezier() value or the full transition-timing-function line."
+      ],
+      "tip": "Keep y between 0 and 1 for everyday UI motion. Values below 0 or above 1 make the element overshoot its target, which is a deliberate effect that can look wrong on small, frequent interactions."
     }
   ]
 }

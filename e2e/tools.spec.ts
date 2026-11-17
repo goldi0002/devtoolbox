@@ -572,4 +572,66 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await page.getByLabel('Time', { exact: true }).fill('01:30');
     await expect(page.getByText(/happens twice in America\/New_York/)).toBeVisible();
   });
+  test('Cubic-Bezier Easing Editor applies presets, takes keyboard, drag and paste input, and copies CSS', async ({ page }) => {
+    const presets = page.getByRole('group', { name: 'Presets', exact: true });
+    await gotoHydrated(page, '/cubic-bezier-editor', presets.getByRole('button', { name: 'linear', exact: true }));
+
+    await presets.getByRole('button', { name: 'easeInOutBack', exact: true }).click();
+    await expect(page.getByTestId('css-timing')).toHaveText('cubic-bezier(0.68, -0.6, 0.32, 1.6)');
+    await expect(presets.getByRole('button', { name: 'easeInOutBack', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByLabel('y1', { exact: true })).toHaveValue('-0.6');
+
+    // Keyboard: Arrow Up steps x2 by 0.01, x1 is clamped to 1, and y2 is clamped to 2 and shown after blur.
+    const x2 = page.getByLabel('x2', { exact: true });
+    await x2.focus();
+    await x2.press('ArrowUp');
+    await expect(x2).toHaveValue('0.33');
+    await page.getByLabel('x1', { exact: true }).fill('1.5');
+    await expect(page.getByTestId('css-timing')).toHaveText('cubic-bezier(1, -0.6, 0.33, 1.6)');
+    const y2 = page.getByLabel('y2', { exact: true });
+    await y2.fill('5');
+    await y2.press('Tab');
+    await expect(y2).toHaveValue('2');
+    await expect(page.getByTestId('css-timing')).toHaveText('cubic-bezier(1, -0.6, 0.33, 2)');
+
+    // Drag: moving the first handle to the right increases x1.
+    const x1 = page.getByLabel('x1', { exact: true });
+    await x1.fill('0.2');
+    await x1.press('Tab');
+    const handle = page.getByRole('img', { name: /Easing curve/ }).locator('circle').first();
+    await handle.scrollIntoViewIfNeeded();
+    const box = await handle.boundingBox();
+    if (!box) throw new Error('handle has no bounding box');
+    const startX = box.x + box.width / 2;
+    const startY = box.y + box.height / 2;
+    await page.mouse.move(startX, startY);
+    await page.mouse.down();
+    await page.mouse.move(startX + 60, startY, { steps: 8 });
+    await page.mouse.up();
+    await expect
+      .poll(async () => parseFloat(await x1.inputValue()), { timeout: 5000 })
+      .toBeGreaterThan(0.3);
+
+    // Paste: a declaration is parsed; a malformed value shows an error and keeps the last curve.
+    const paste = page.getByLabel('Paste cubic-bezier() or a CSS keyword', { exact: true });
+    await paste.fill('transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);');
+    await expect(page.getByTestId('css-timing')).toHaveText('cubic-bezier(0.4, 0, 0.2, 1)');
+    await expect(presets.getByRole('button', { name: 'ease-out', exact: true })).toHaveAttribute('aria-pressed', 'false');
+    await paste.fill('cubic-bezier(0.1, 0.2, 0.3)');
+    await expect(page.getByText('cubic-bezier() needs exactly four numbers.')).toBeVisible();
+    await expect(page.getByTestId('css-timing')).toHaveText('cubic-bezier(0.4, 0, 0.2, 1)');
+
+    // Copy the declaration, and check the preview replays.
+    await expect(page.getByTestId('css-declaration')).toHaveText('transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);');
+    await expect(page.getByRole('button').filter({ hasText: 'Copy declaration' })).toBeVisible();
+    const replay = page.getByRole('button', { name: 'Replay', exact: true });
+    await expect(replay).toBeEnabled();
+    await replay.click();
+    await expect(page.getByTestId('easing-box')).toBeAttached();
+
+    // Reduced motion: no animation, so Replay is disabled.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(replay).toBeDisabled();
+    await expect(page.getByText('Reduced motion is on, so the box shows only its end position.')).toBeVisible();
+  });
 });
