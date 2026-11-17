@@ -1,8 +1,13 @@
-import { useState, useCallback, useRef, useMemo } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import ClientOnly from './ClientOnly'
+import FileDropzone from './ui/FileDropzone'
+import { checkFiles } from '../utils/fileDropzone'
 import ReactCodeMirror, { EditorView } from '@uiw/react-codemirror'
 import { useEditorLanguage } from '../hooks/useEditorLanguage'
-import { Upload, Copy, Check, Trash2, FileCode, Play } from 'lucide-react'
+import { Copy, Check, Trash2, FileCode, Play } from 'lucide-react'
+
+/** Types offered by the upload button. Dropped files are not filtered, so YAML and other text still work. */
+const UPLOAD_ACCEPT = '.txt,.json,.js,.ts,.html,.css,.xml,.sql,.md,.csv,.svg'
 
 interface CodeInputProps {
   value: string
@@ -45,7 +50,7 @@ export default function CodeInput({
   const [isFocused, setIsFocused] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
   const [copied, setCopied] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [fileError, setFileError] = useState('')
 
   const handleChange = useCallback(
     (val: string) => { if (!disabled) onChange(val) },
@@ -66,30 +71,23 @@ export default function CodeInput({
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+  const readFile = (file: File) => {
     const reader = new FileReader()
     reader.onload = (event) => {
       const content = event.target?.result as string
       if (content !== undefined) onChange(content)
     }
     reader.readAsText(file)
-    e.target.value = ''
   }
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
     setIsDragging(false)
     if (disabled) return
-    const file = e.dataTransfer.files?.[0]
-    if (!file) return
-    const reader = new FileReader()
-    reader.onload = (event) => {
-      const content = event.target?.result as string
-      if (content !== undefined) onChange(content)
-    }
-    reader.readAsText(file)
+    const { accepted } = checkFiles(Array.from(e.dataTransfer.files))
+    if (accepted.length === 0) return
+    setFileError('')
+    readFile(accepted[0])
   }
 
   return (
@@ -101,14 +99,6 @@ export default function CodeInput({
         isDragging ? 'border-indigo-500 ring-2 ring-indigo-500/30' : isFocused ? 'border-indigo-500/60 ring-1 ring-indigo-500/20' : 'border-border'
       }`}
     >
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handleFileUpload}
-        className="hidden"
-        accept=".txt,.json,.js,.ts,.html,.css,.xml,.sql,.md,.csv,.svg"
-      />
-
       {/* ── Header ─────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2.5 bg-[#252526] border-b border-[#3c3c3c]">
         <div className="flex items-center gap-3">
@@ -144,15 +134,17 @@ export default function CodeInput({
 
           {/* Upload File */}
           {!disabled && (
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              title="Upload file"
-              className="flex items-center gap-1 text-xs font-mono text-[#a0a0a0] hover:text-white px-2 py-1 rounded hover:bg-[#2d2d2d] transition-colors"
-            >
-              <Upload size={13} />
-              <span className="hidden sm:inline">Upload</span>
-            </button>
+            <FileDropzone
+              variant="compact"
+              label="Upload file"
+              accept={UPLOAD_ACCEPT}
+              onFiles={files => {
+                setFileError('')
+                readFile(files[0])
+              }}
+              onError={setFileError}
+              className="gap-1 text-xs font-mono text-[#a0a0a0] hover:text-white px-2 py-1 rounded hover:bg-[#2d2d2d] transition-colors"
+            />
           )}
 
           {/* Copy Button */}
@@ -202,6 +194,12 @@ export default function CodeInput({
           )}
         </div>
       </div>
+
+      {fileError && (
+        <p role="alert" className="px-3.5 py-1.5 text-xs font-mono text-red-400 bg-[#252526] border-b border-[#3c3c3c]">
+          {fileError}
+        </p>
+      )}
 
       {/* ── Editor ─────────────────────────────────────────── */}
       <div

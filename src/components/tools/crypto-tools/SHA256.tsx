@@ -2,6 +2,7 @@
 import { useState, useCallback, useRef } from 'react'
 import ToolLayout from '../../ToolLayout'
 import SectionPanel from '../../ui/SectionPanel'
+import FileDropzone from '../../ui/FileDropzone'
 import { bytesToHex } from '../../../utils/encoding'
 import { getErrorMessage } from '../../../utils/errors'
 
@@ -112,14 +113,13 @@ export default function Sha256Hasher() {
                   {input.length} chars · {byteCount} bytes
                 </span>
               )}
-              <label className="text-xs text-subtle hover:text-dim transition-colors font-mono cursor-pointer">
-                ↑ upload file
-                <input
-                  type="file"
-                  className="hidden"
-                  onChange={e => { const file = e.target.files?.[0]; if (file) void handleFile(file) }}
-                />
-              </label>
+              <FileDropzone
+                variant="compact"
+                label="↑ upload file"
+                showIcon={false}
+                onFiles={files => void handleFile(files[0])}
+                className="text-xs text-subtle hover:text-dim transition-colors font-mono"
+              />
               {(input || fileInfo) && (
                 <button
                   onClick={() => { setInput(''); setHash(''); setFileInfo(null); setError('') }}

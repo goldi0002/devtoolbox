@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useRef, useCallback } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import {
-  Upload,
   FileText,
   AlertTriangle,
   CheckCircle2,
@@ -24,6 +23,7 @@ import {
   ListFilter
 } from 'lucide-react'
 import SectionPanel from '../../ui/SectionPanel'
+import FileDropzone from '../../ui/FileDropzone'
 import StatCard from '../../ui/StatCard'
 import {
   ColumnDataType,
@@ -96,7 +96,6 @@ export default function CsvValidator() {
   const [schemaError, setSchemaError] = useState<string | null>(null)
   const [copiedStatus, setCopiedStatus] = useState<string | null>(null)
 
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Parse input on change or load
   const handleParseData = useCallback(
@@ -118,10 +117,7 @@ export default function CsvValidator() {
     [rules]
   )
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
+  const handleFile = (file: File) => {
     setFileName(file.name)
     setFileSize(file.size)
     const reader = new FileReader()
@@ -333,21 +329,13 @@ export default function CsvValidator() {
         <div className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
-              <input
-                ref={fileInputRef}
-                type="file"
+              <FileDropzone
+                variant="compact"
+                label="Upload CSV / TSV / TXT"
                 accept=".csv,.tsv,.txt,.psv,.tab"
-                onChange={handleFileUpload}
-                className="hidden"
-                id="csv-file-upload-input"
+                onFiles={files => handleFile(files[0])}
+                className="gap-2 px-3.5 py-2 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors shadow-xs"
               />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors shadow-xs"
-              >
-                <Upload size={14} />
-                Upload CSV / TSV / TXT
-              </button>
 
               <button
                 onClick={handleLoadSample}

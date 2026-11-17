@@ -905,4 +905,26 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toMatch(/\.html$/);
   });
+  test('SHA-256 hashes a file dropped on the upload control', async ({ page }) => {
+    const zone = page.getByRole('button', { name: '↑ upload file', exact: true });
+    await gotoHydrated(page, '/sha256', zone);
+
+    await zone.evaluate((el) => {
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(new File(['Hi'], 'dropped.txt', { type: 'text/plain' }));
+      for (const type of ['dragenter', 'dragover', 'drop']) {
+        el.dispatchEvent(new DragEvent(type, { bubbles: true, cancelable: true, dataTransfer }));
+      }
+    });
+    await expect(page.getByText('dropped.txt', { exact: true })).toBeVisible();
+
+    const expected = await page.evaluate(async () => {
+      const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('Hi'));
+      return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    });
+    await expect(async () => {
+      const text = (await page.locator('body').innerText()).replace(/\s/g, '');
+      expect(text).toContain(expected);
+    }).toPass();
+  });
 });
