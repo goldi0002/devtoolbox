@@ -94,6 +94,7 @@ const toolMeta = [
   { slug: 'toml-json-yaml-converter',    category: 'data-tools' },
   { slug: 'box-shadow-generator',        category: 'generate-tools' },
   { slug: 'cubic-bezier-editor',         category: 'web-tools' },
+  { slug: 'markdown-to-html',            category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {

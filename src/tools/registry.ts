@@ -91,6 +91,7 @@ import { ENV_AUDITOR_META } from "./meta/env-auditor"
 import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
 import { TOML_JSON_YAML_CONVERTER_META } from "./meta/toml-json-yaml-converter"
 import { BOX_SHADOW_GENERATOR_META } from "./meta/box-shadow-generator"
+import { MARKDOWN_TO_HTML_META } from "./meta/markdown-to-html"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -185,6 +186,7 @@ export const tools: ToolMeta[] = [
   TOML_JSON_YAML_CONVERTER_META,
   BOX_SHADOW_GENERATOR_META,
   CUBIC_BEZIER_EDITOR_META,
+  MARKDOWN_TO_HTML_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {
