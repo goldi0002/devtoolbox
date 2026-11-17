@@ -572,6 +572,115 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await page.getByLabel('Time', { exact: true }).fill('01:30');
     await expect(page.getByText(/happens twice in America\/New_York/)).toBeVisible();
   });
+
+  test('Favicon Generator builds the icon set from an uploaded image and offers downloads', async ({ page }) => {
+    const picker = page.getByLabel('Source image', { exact: true });
+    await gotoHydrated(page, '/favicon-generator', picker);
+
+    const base64 = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#2563eb';
+      ctx.fillRect(0, 0, 64, 64);
+      return canvas.toDataURL('image/png').split(',')[1];
+    });
+    await picker.setInputFiles({ name: 'logo.png', mimeType: 'image/png', buffer: Buffer.from(base64, 'base64') });
+
+    await expect(page.getByRole('img', { name: 'Preview of apple-touch-icon.png', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByRole('img', { name: 'Preview of favicon-16x16.png', exact: true })).toHaveAttribute('src', /^blob:/);
+    await expect(page.getByTestId('favicon-results').getByRole('listitem')).toHaveCount(7);
+
+    const linkTags = page.getByLabel('HTML link tags', { exact: true });
+    await expect(linkTags).toHaveValue(/<link rel="apple-touch-icon" sizes="180x180" href="\/apple-touch-icon\.png">/);
+    await page.getByLabel('Base path (where the files are hosted)', { exact: true }).fill('/assets/icons');
+    await expect(linkTags).toHaveValue(/href="\/assets\/icons\/favicon\.ico"/);
+
+    await expect(page.getByLabel('Web app manifest', { exact: true })).toHaveValue(/"theme_color": "#ffffff"/);
+    await page.getByLabel('Site name (manifest)', { exact: true }).fill('Demo Site');
+    await expect(page.getByLabel('Web app manifest', { exact: true })).toHaveValue(/"name": "Demo Site"/);
+
+    const [icoDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('link', { name: 'Download favicon.ico', exact: true }).click(),
+    ]);
+    expect(icoDownload.suggestedFilename()).toBe('favicon.ico');
+
+    const [zipDownload] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Download all as ZIP', exact: true }).click(),
+    ]);
+    expect(zipDownload.suggestedFilename()).toBe('favicon-package.zip');
+  });
+
+  test('CSS Gradient Generator switches types, edits stops and keeps two valid stops', async ({ page }) => {
+    const typeSelect = page.getByLabel('Gradient type', { exact: true });
+    await gotoHydrated(page, '/css-gradient-generator', typeSelect);
+
+    const output = page.getByTestId('gradient-css-output');
+    await expect(output).toHaveText('background: linear-gradient(90deg, #6366f1 0%, #ec4899 100%);');
+    await expect(page.getByRole('img', { name: 'Gradient preview', exact: true })).toHaveCSS('background-image', /linear-gradient/);
+
+    await page.getByLabel('Angle (degrees)', { exact: true }).fill('400');
+    await expect(output).toContainText('linear-gradient(360deg,');
+    const slider = page.getByLabel('Angle slider', { exact: true });
+    await slider.focus();
+    await page.keyboard.press('ArrowLeft');
+    await expect(output).toContainText('linear-gradient(359deg,');
+
+    await typeSelect.selectOption('radial');
+    await page.getByLabel('Shape', { exact: true }).selectOption('ellipse');
+    await page.getByLabel('Center X (%)', { exact: true }).fill('30');
+    await expect(output).toContainText('radial-gradient(ellipse at 30% 50%,');
+
+    await typeSelect.selectOption('conic');
+    await expect(page.getByLabel('Angle (degrees)', { exact: true })).toBeVisible();
+    await expect(output).toContainText('conic-gradient(from 359deg at 30% 50%,');
+
+    await page.getByRole('button', { name: 'Add color stop', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Remove stop 3', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Remove stop 3', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Remove stop 1', exact: true })).toBeDisabled();
+
+    await page.getByLabel('Stop 1 hex color', { exact: true }).fill('#zz0000');
+    await expect(page.getByLabel('Stop 1 hex color', { exact: true })).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.getByText('Stop 1 is not a valid hex color. Use #rgb or #rrggbb.', { exact: true })).toBeVisible();
+    await expect(output).toHaveText('Add at least two valid color stops to see the CSS.');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true })).toBeDisabled();
+
+    await page.getByLabel('Stop 1 hex color', { exact: true }).fill('#F00');
+    await expect(output).toContainText('conic-gradient(from 359deg at 30% 50%, #ff0000 0%, #ec4899 100%);');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard', exact: true })).toBeEnabled();
+
+    await page.getByRole('button', { name: 'Sunset', exact: true }).click();
+    await expect(output).toHaveText('background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);');
+  });
+
+  test('TOML / JSON / YAML Converter converts between formats, reports error locations and names the download file', async ({ page }) => {
+    const input = page.getByLabel('TOML input', { exact: true });
+    await gotoHydrated(page, '/toml-json-yaml-converter', input);
+
+    await input.fill('[server]\nhost = "localhost"\nport = 8080\n');
+    const output = page.getByTestId('convert-output');
+    await expect(output).toContainText('"port": 8080');
+
+    await page.getByRole('group', { name: 'To', exact: true }).getByRole('button', { name: 'YAML', exact: true }).click();
+    await expect(output).toContainText('port: 8080');
+    await expect(page.getByRole('link', { name: 'Download converted.yaml', exact: true })).toHaveAttribute('download', 'converted.yaml');
+
+    await input.fill('a = 1\nb = "unclosed\n');
+    await expect(page.getByText(/Syntax error at line 2, column \d+:/)).toBeVisible();
+
+    await page.getByRole('group', { name: 'From', exact: true }).getByRole('button', { name: 'JSON', exact: true }).click();
+    await page.getByLabel('JSON input', { exact: true }).fill('{\n  "a": 1,\n}');
+    await expect(page.getByText(/Syntax error at line 3, column 1: Expected double-quoted property name/)).toBeVisible();
+
+    await page.getByLabel('JSON input', { exact: true }).fill('{"db": {"password": null}}');
+    await page.getByRole('group', { name: 'To', exact: true }).getByRole('button', { name: 'TOML', exact: true }).click();
+    await expect(page.getByText(/TOML has no null value at "db\.password"\. Replace it with a value or remove the key\./)).toBeVisible();
+    await expect(page.getByTestId('convert-output')).toHaveCount(0);
+  });
   test('Box Shadow Generator builds layered CSS, applies presets and edits layers from the keyboard', async ({ page }) => {
     const addLayer = page.getByRole('button', { name: 'Add layer', exact: true });
     await gotoHydrated(page, '/box-shadow-generator', addLayer);
