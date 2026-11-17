@@ -329,4 +329,30 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await left.fill('{bad');
     await expect(page.getByText(/^⚠ Original:/)).toBeVisible();
   });
+  test('Image Compressor converts an uploaded image and offers a download', async ({ page }) => {
+    const picker = page.getByLabel('Images', { exact: true });
+    await gotoHydrated(page, '/image-compressor', picker);
+
+    const base64 = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 200;
+      const ctx = canvas.getContext('2d')!;
+      ctx.fillStyle = '#3366cc';
+      ctx.fillRect(0, 0, 400, 200);
+      return canvas.toDataURL('image/png').split(',')[1];
+    });
+    await picker.setInputFiles({ name: 'blue.png', mimeType: 'image/png', buffer: Buffer.from(base64, 'base64') });
+
+    const results = page.getByTestId('image-results');
+    await expect(results).toContainText('blue-compressed.webp');
+    await expect(results).toContainText('400 × 200 px');
+
+    await page.getByLabel(/Max width/).fill('100');
+    await expect(results).toContainText('100 × 50 px');
+
+    await page.getByRole('button', { name: 'PNG', exact: true }).click();
+    await expect(results).toContainText('blue-compressed.png');
+    await expect(page.getByRole('link', { name: 'Download blue-compressed.png' })).toHaveAttribute('download', 'blue-compressed.png');
+  });
 });

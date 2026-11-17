@@ -1,6 +1,7 @@
 import { ToolMeta } from "./tool-meta"
 import { JSON_FORMATTER_META } from "./meta/json-formatter"
 import { JSON_DIFF_META } from "./meta/json-diff"
+import { IMAGE_COMPRESSOR_META } from "./meta/image-compressor"
 import { JSON_MODEL_META } from "./meta/json-model"
 import { BASE_64_META } from "./meta/base-64"
 import { URL_ENCODER_META } from "./meta/url-encoder"
@@ -158,7 +159,8 @@ export const tools: ToolMeta[] = [
   FAKER_DATA_GENERATOR_META,
   JSON_SCHEMA_GENERATOR_META,
   CERTIFICATE_DECODER_META,
-  JSON_DIFF_META
+  JSON_DIFF_META,
+  IMAGE_COMPRESSOR_META
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

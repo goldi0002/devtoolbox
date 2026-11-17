@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 79
+Total Tools: 80
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 79 Tools)
+## Tool Registry & Technical Specifications (All 80 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -773,6 +773,16 @@ Total Tools: 79
 - Use Cases: Spotting what changed between two API responses.; Reviewing edits to a JSON config or package manifest.; Checking a migration or transform kept every field.; Comparing test fixtures against real output.
 - Features: Key order and whitespace are ignored; only real value changes count.; Each change is listed with its JSON path, e.g. $.user.tags[1].; Detects type changes, such as a number that became a string.; Optional "Ignore array order" mode for lists where order does not matter.; Copy the change list as plain text.
 - Tip: Turn on "Ignore array order" when comparing lists of IDs or tags; otherwise one item inserted at the start shows every later item as changed.
+
+### 80. Image Compressor & Converter
+- URL: https://www.toolbox4devs.com/image-compressor
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Compress and convert images to JPEG, WebP, PNG or AVIF with a quality slider and optional resize. Files never leave your device.
+- Summary: The Image Compressor & Converter re-encodes images in your browser to make them smaller. Pick an output format, set the quality, optionally limit the width and height, and download the result. Images are decoded and encoded with the browser's own canvas, so nothing is uploaded to any server.
+- Use Cases: Shrinking photos before attaching them to an email or ticket.; Converting PNG or JPEG images to WebP for faster web pages.; Resizing large screenshots to a maximum width.; Compressing several images in one go without sending them to an online service.
+- Features: Output as JPEG, WebP, PNG or AVIF (AVIF only where your browser can encode it).; Quality slider for the lossy formats, plus optional maximum width and height that keep the aspect ratio.; Several files at once, each with its before and after size and the percentage saved.; Per-file download; everything is processed locally.
+- Tip: WebP at quality 75-85 is usually a good balance for photos. PNG is lossless, so shrink PNG files by lowering the maximum width instead of the quality.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
