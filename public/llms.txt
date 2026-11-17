@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 86 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 90 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -58,6 +58,7 @@
 - [JWT Encoder & Token Generator](https://www.toolbox4devs.com/jwt-encoder): Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
 
 ### Web Tools
+- [robots.txt & sitemap.xml Generator](https://www.toolbox4devs.com/robots-sitemap-generator): Build a robots.txt with user-agent groups, allow and disallow rules, crawl-delay and AI-crawler presets, or a sitemap.xml from a list of URLs.
 - [Three.js 3D Scene Studio & Code Playground](https://www.toolbox4devs.com/three-js-playground): Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.
 - [WCAG 2.1 Color Contrast Checker](https://www.toolbox4devs.com/wcag-contrast-checker): Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
 - [cURL to Code Converter](https://www.toolbox4devs.com/curl-converter): Convert cURL commands into clean JavaScript fetch, Node.js Axios, Python requests, Go, Rust, or PHP code snippets instantly.
@@ -80,6 +81,8 @@
 - [Open Graph & Meta Tag Generator](https://www.toolbox4devs.com/meta-tag-generator): Generate title, description, Open Graph and Twitter Card meta tags, with search, X and LinkedIn/Slack previews.
 - [CSS / JS Minifier](https://www.toolbox4devs.com/css-js-minifier): Minify JavaScript with Terser or CSS with csso, and see the original size, the minified size and the percentage saved. Runs entirely in your browser.
 - [SVG Optimizer](https://www.toolbox4devs.com/svg-optimizer): Shrink SVG files by removing comments and metadata, rewriting paths and rounding numbers. Compare the original and optimized previews, then copy or download. Runs in your browser.
+- [Favicon Generator](https://www.toolbox4devs.com/favicon-generator): Turn one PNG, JPG or SVG into favicon PNGs, a multi-size favicon.ico, HTML link tags and a site.webmanifest. Files never leave your device.
+- [CSS Gradient Generator](https://www.toolbox4devs.com/css-gradient-generator): Build linear, radial and conic CSS gradients with editable color stops, a live preview and a copy-ready background declaration.
 
 ### Data Tools
 - [Delimited File Data Validator (CSV / TSV / TXT)](https://www.toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
@@ -98,6 +101,7 @@
 - [Unix Permissions Calculator](https://www.toolbox4devs.com/unix-permissions-calculator): Convert read, write, and execute bits into chmod octal and symbolic permission strings.
 - [Number to Words Converter](https://www.toolbox4devs.com/number-to-words): Convert numbers into English words — supports decimals, negative values, and magnitudes up to 999 trillion.
 - [Cron Expression Generator](https://www.toolbox4devs.com/cron-generator): Build cron scheduling expressions with interactive controls, presets, and human-readable descriptions.
+- [Time Zone Converter & Meeting Planner](https://www.toolbox4devs.com/time-zone-converter): Pick a date and time in one time zone and see it in other zones, with a 24-hour planner that highlights working hours. Daylight saving aware, all in your browser.
 - [TOML / JSON / YAML Converter](https://www.toolbox4devs.com/toml-json-yaml-converter): Convert between TOML, JSON and YAML in any direction. Parse errors show the line and column, and the result downloads with the right file extension. Runs in your browser.
 
 ### Crypto Tools

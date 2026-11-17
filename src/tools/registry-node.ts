@@ -2,6 +2,7 @@
 // ⚠️ No React imports — safe for vite.config.ts (Node context).
 
 const toolMeta = [
+  { slug: 'robots-sitemap-generator',    category: 'web-tools' },
   { slug: 'env-auditor',                 category: 'analyze-tools' },
   { slug: 'three-js-playground',         category: 'web-tools' },
   { slug: 'pipeline-studio',             category: 'analyze-tools' },
@@ -87,6 +88,9 @@ const toolMeta = [
   { slug: 'css-js-minifier',             category: 'web-tools' },
   { slug: 'svg-optimizer',               category: 'web-tools' },
   { slug: 'image-to-base64',             category: 'encode-tools' },
+  { slug: 'time-zone-converter',         category: 'data-tools' },
+  { slug: 'favicon-generator',           category: 'web-tools' },
+  { slug: 'css-gradient-generator',      category: 'web-tools' },
   { slug: 'toml-json-yaml-converter',    category: 'data-tools' },
 ] as const
 
