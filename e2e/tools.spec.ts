@@ -798,4 +798,23 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(replay).toBeDisabled();
     await expect(page.getByText('Reduced motion is on, so the box shows only its end position.')).toBeVisible();
   });
+
+  test('icon-only buttons on the pages fixed for #72 all have an accessible name', async ({ page }) => {
+    const unnamed = () =>
+      page.evaluate(() =>
+        Array.from(document.querySelectorAll<HTMLButtonElement>('button'))
+          .filter((b) => b.offsetParent !== null)
+          .filter((b) => !(b.getAttribute('aria-label')?.trim() || b.getAttribute('aria-labelledby') || b.textContent?.trim()))
+          .map((b) => b.outerHTML.slice(0, 120))
+      );
+
+    for (const path of ['/json-formatter', '/csv-txt-viewer', '/pipeline-studio']) {
+      await gotoHydrated(page, path, page.getByRole('button').first());
+      expect(await unnamed(), path).toEqual([]);
+    }
+
+    // Pipeline step controls carry their position, so repeated controls are distinguishable.
+    await gotoHydrated(page, '/pipeline-studio', page.getByRole('button').first());
+    await expect(page.getByRole('button', { name: 'Move step 1 up', exact: true })).toBeVisible();
+  });
 });
