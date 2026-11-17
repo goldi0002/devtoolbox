@@ -8,8 +8,16 @@ export interface LineSortOptions {
   caseInsensitive: boolean
 }
 
-function naturalCompare(a: string, b: string): number {
-  return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+/**
+ * Compares two lines so embedded numbers order by value (file2 before file10).
+ * "Case insensitive" still applies here: with it off, case is a tiebreaker
+ * instead of being ignored.
+ */
+function naturalCompare(a: string, b: string, caseInsensitive: boolean): number {
+  return a.localeCompare(b, undefined, {
+    numeric: true,
+    sensitivity: caseInsensitive ? 'base' : 'variant',
+  })
 }
 
 export function sortLines(lines: string[], mode: SortMode, caseInsensitive: boolean): string[] {
@@ -29,7 +37,7 @@ export function sortLines(lines: string[], mode: SortMode, caseInsensitive: bool
       sorted.sort((a, b) => a.length - b.length || collator(a, b))
       break
     case 'natural':
-      sorted.sort(naturalCompare)
+      sorted.sort((a, b) => naturalCompare(a, b, caseInsensitive))
       break
   }
   return sorted

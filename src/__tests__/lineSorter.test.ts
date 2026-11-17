@@ -37,6 +37,27 @@ describe('processLines', () => {
     expect(run('file10\nfile2\nfile1')).toBe('file1\nfile10\nfile2')
   })
 
+  it('uses case as a tiebreaker in Natural mode when case-insensitive is off', () => {
+    const first = sortLines(['a', 'A'], 'natural', false)
+    const reversed = sortLines(['A', 'a'], 'natural', false)
+    expect(first).toHaveLength(2)
+    expect(first).toEqual(reversed)
+  })
+
+  it('still honours case-insensitive Natural ordering', () => {
+    expect(sortLines(['a', 'A'], 'natural', true)).toEqual(['a', 'A'])
+  })
+
+  it('keeps numbers ordering by value with case sensitivity on', () => {
+    expect(sortLines(['file10', 'FILE2', 'file1'], 'natural', false)).toEqual(['file1', 'FILE2', 'file10'])
+  })
+
+  it('documents the Natural mode case behaviour on the tool page', () => {
+    const faqs = LINE_SORTER_META.guide?.faqs ?? []
+    const faq = faqs.find((f) => /natural/i.test(f.question) && /case/i.test(f.question))
+    expect(faq?.answer ?? '').toMatch(/all four modes/i)
+  })
+
   it('sorts Z to A', () => {
     expect(run('a\nc\nb', { mode: 'desc' })).toBe('c\nb\na')
   })
