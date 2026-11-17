@@ -37,5 +37,5 @@ Before opening a PR, run all of the above. They match `.github/workflows/ci.yml`
 - Commit messages use conventional commits: `feat(tools): …`, `fix(a11y): …`, `chore(deps): …`.
 - Keep PRs small and single-purpose. Reference the issue with `Closes #N`.
 - The PR body states what changed and why, the pass result of each command in the table above, and the risk.
-- PRs from the scheduled maintenance task are titled `[daily] …`. Only one may be open at a time; finish or fix an open one before starting new work.
+- PRs from the scheduled maintenance task are titled `[daily] …`. Up to 5 may be open at once (the owner's rule), merged one at a time; finish or fix open ones before starting new work, and keep concurrent PRs from editing the same files.
 - Do not change `vercel.json`, `.github/workflows/`, licensing, analytics or secrets unless the owner asks.
