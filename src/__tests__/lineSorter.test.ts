@@ -37,6 +37,17 @@ describe('processLines', () => {
     expect(run('file10\nfile2\nfile1')).toBe('file1\nfile10\nfile2')
   })
 
+  it('uses case as a tiebreaker in Natural mode when case-insensitive is off', () => {
+    const first = sortLines(['a', 'A'], 'natural', false)
+    const reversed = sortLines(['A', 'a'], 'natural', false)
+    expect(first).toHaveLength(2)
+    expect(first).toEqual(reversed)
+  })
+
+  it('still honours case-insensitive Natural ordering', () => {
+    expect(sortLines(['a', 'A'], 'natural', true)).toEqual(['a', 'A'])
+  })
+
   it('sorts Z to A', () => {
     expect(run('a\nc\nb', { mode: 'desc' })).toBe('c\nb\na')
   })
