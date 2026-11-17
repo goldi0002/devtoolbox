@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 83,
+  "totalTools": 84,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -45,6 +45,33 @@
     }
   ],
   "tools": [
+    {
+      "slug": "robots-sitemap-generator",
+      "name": "robots.txt & sitemap.xml Generator",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/robots-sitemap-generator",
+      "description": "Build a robots.txt with user-agent groups, allow and disallow rules, crawl-delay and AI-crawler presets, or a sitemap.xml from a list of URLs.",
+      "complexity": "moderate",
+      "keywords": [
+        "robots.txt generator",
+        "sitemap.xml generator",
+        "xml sitemap generator",
+        "robots txt builder",
+        "block ai crawlers",
+        "gptbot robots.txt",
+        "sitemap from url list",
+        "crawl-delay"
+      ],
+      "features": [
+        "robots.txt builder with multiple user-agent groups, Allow and Disallow rules, Crawl-delay and Sitemap lines.",
+        "Presets for Allow all, Block all and Block AI crawlers (GPTBot, ClaudeBot, CCBot, Google-Extended and others).",
+        "sitemap.xml builder that accepts a URL per line with optional lastmod, changefreq and priority.",
+        "XML escaping of &, <, >, quotes and apostrophes in every sitemap URL.",
+        "Warnings for relative URLs, duplicates, invalid dates, changefreq and priority values, and sitemaps over 50,000 URLs.",
+        "Copy or download robots.txt and sitemap.xml."
+      ],
+      "tip": "Put robots.txt at the root of the domain, for example https://example.com/robots.txt, since crawlers do not look for it anywhere else. Robots rules control crawling, not indexing, so use a noindex meta tag for pages that must stay out of search results."
+    },
     {
       "slug": "env-auditor",
       "name": ".env File Auditor & Secret Detector",

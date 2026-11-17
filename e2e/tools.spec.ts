@@ -454,4 +454,33 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     await expect(output).not.toContainText('note');
     await expect(page.getByRole('link', { name: 'Download minified.css' })).toHaveAttribute('download', 'minified.css');
   });
+  test('robots.txt & sitemap.xml Generator applies presets, warns on bad URLs and downloads both files', async ({ page }) => {
+    const sitemapTab = page.getByRole('group', { name: 'Generator' }).getByRole('button', { name: 'sitemap.xml', exact: true });
+    await gotoHydrated(page, '/robots-sitemap-generator', page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block AI crawlers', exact: true }));
+
+    await page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block AI crawlers', exact: true }).click();
+    const robotsOutput = page.getByTestId('robots-output');
+    await expect(robotsOutput).toContainText('User-agent: GPTBot');
+    await expect(robotsOutput).toContainText('User-agent: ClaudeBot');
+    await expect(page.getByRole('button', { name: 'Copy to clipboard' }).first()).toBeVisible();
+
+    await page.getByRole('group', { name: 'Robots presets' }).getByRole('button', { name: 'Block all', exact: true }).click();
+    await expect(robotsOutput).toContainText('User-agent: *');
+    await expect(robotsOutput).toContainText('Disallow: /');
+    await expect(robotsOutput).not.toContainText('GPTBot');
+    const robotsDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download robots.txt', exact: true }).click();
+    expect((await robotsDownload).suggestedFilename()).toBe('robots.txt');
+
+    await sitemapTab.click();
+    const sitemapText = page.getByLabel('Page URLs', { exact: true });
+    await sitemapText.fill('https://example.com/a?x=1&y=2\n/relative\nhttps://example.com/a?x=1&y=2');
+    const sitemapOutput = page.getByTestId('sitemap-output');
+    await expect(sitemapOutput).toContainText('<loc>https://example.com/a?x=1&amp;y=2</loc>');
+    await expect(page.getByText(/Line 2: "\/relative" must be an absolute URL/)).toBeVisible();
+    await expect(page.getByText(/Line 3: "https:\/\/example\.com\/a\?x=1&y=2" is a duplicate of line 1/)).toBeVisible();
+    const sitemapDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Download sitemap.xml', exact: true }).click();
+    expect((await sitemapDownload).suggestedFilename()).toBe('sitemap.xml');
+  });
 });

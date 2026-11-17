@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 83 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 84 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -57,6 +57,7 @@
 - [JWT Encoder & Token Generator](https://www.toolbox4devs.com/jwt-encoder): Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
 
 ### Web Tools
+- [robots.txt & sitemap.xml Generator](https://www.toolbox4devs.com/robots-sitemap-generator): Build a robots.txt with user-agent groups, allow and disallow rules, crawl-delay and AI-crawler presets, or a sitemap.xml from a list of URLs.
 - [Three.js 3D Scene Studio & Code Playground](https://www.toolbox4devs.com/three-js-playground): Write and test Three.js 3D scene code in real-time with 12+ pre-installed procedural 3D templates, PBR studio lighting, camera controls, and live WebGL preview.
 - [WCAG 2.1 Color Contrast Checker](https://www.toolbox4devs.com/wcag-contrast-checker): Test foreground and background color combinations against WCAG 2.1 AA and AAA accessibility standards with live preview and color blindness simulation.
 - [cURL to Code Converter](https://www.toolbox4devs.com/curl-converter): Convert cURL commands into clean JavaScript fetch, Node.js Axios, Python requests, Go, Rust, or PHP code snippets instantly.
