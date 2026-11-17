@@ -15,6 +15,20 @@ export interface EscapeOptions {
   escapeUnicode?: boolean
 }
 
+/**
+ * Escapes one UTF-16 code unit as \uXXXX. Callers split strings into code units
+ * (not code points), so characters outside the Basic Multilingual Plane, such as
+ * emoji, become a surrogate pair like \ud83d\ude00, which JSON, JavaScript, Java
+ * and C# all read back as the original character.
+ */
+function toUnicodeEscape(unit: string): string {
+  return `\\u${unit.charCodeAt(0).toString(16).padStart(4, '0')}`
+}
+
+function escapeNonAscii(value: string): string {
+  return value.split('').map(unit => (unit.charCodeAt(0) > 127 ? toUnicodeEscape(unit) : unit)).join('')
+}
+
 export function escapeString(input: string, format: EscapeFormat, options: EscapeOptions = {}): string {
   if (!input) return ''
 
@@ -40,9 +54,7 @@ export function escapeString(input: string, format: EscapeFormat, options: Escap
         res = res.replace(/\r/g, '\\r').replace(/\n/g, '\\n')
       }
       if (options.escapeUnicode) {
-        res = Array.from(res)
-          .map(char => char.charCodeAt(0) > 127 ? `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}` : char)
-          .join('')
+        res = escapeNonAscii(res)
       }
       return res
     }
@@ -69,9 +81,7 @@ export function escapeString(input: string, format: EscapeFormat, options: Escap
         res = res.replace(/\r/g, '\\r').replace(/\n/g, '\\n')
       }
       if (options.escapeUnicode) {
-        res = Array.from(res)
-          .map(char => char.charCodeAt(0) > 127 ? `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}` : char)
-          .join('')
+        res = escapeNonAscii(res)
       }
       return res
     }
@@ -103,9 +113,7 @@ export function escapeString(input: string, format: EscapeFormat, options: Escap
     }
 
     case 'unicode': {
-      return Array.from(input)
-        .map(char => `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`)
-        .join('')
+      return input.split('').map(toUnicodeEscape).join('')
     }
 
     default:

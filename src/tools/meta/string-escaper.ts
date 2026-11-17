@@ -34,5 +34,50 @@ export const STRING_ESCAPER_META: ToolMeta = {
       'Shell mode wraps strings in POSIX-compliant single quotes'
     ],
     tip: 'Toggle between Escape and Unescape mode to instantly clean strings copied from stack traces or log files.'
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Pick escape or unescape",
+        "text": "Choose Escape String to make raw text safe to paste into code, or Unescape String to turn an escaped string back into plain text."
+      },
+      {
+        "name": "Choose the target format",
+        "text": "Select JSON, JavaScript / TS, Python, Java / C#, SQL, HTML Entities, CSV, Shell / Bash or Unicode Escape. Each uses that language's escaping rules."
+      },
+      {
+        "name": "Set the options",
+        "text": "When escaping, Preserve Real Newlines keeps line breaks as real line breaks instead of \\n. For JavaScript and Java / C#, Escape Non-ASCII turns every non-ASCII character into \\uXXXX."
+      },
+      {
+        "name": "Paste and copy",
+        "text": "Type or paste into the input; the result updates as you type and can be copied with one click."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How are emoji written with Escape Non-ASCII?",
+        "answer": "As a UTF-16 surrogate pair, for example 😀 becomes \\ud83d\\ude00. That is the form JSON, JavaScript, Java and C# expect, and unescaping turns it back into the emoji."
+      },
+      {
+        "question": "What does SQL mode do?",
+        "answer": "It doubles single quotes, so O'Brien becomes O''Brien. Use it for string literals; for user input in real queries, prefer parameterized queries."
+      },
+      {
+        "question": "When does CSV mode add quotes?",
+        "answer": "Only when the value contains a comma, a double quote or a line break. It then wraps the value in double quotes and doubles any quotes inside."
+      },
+      {
+        "question": "How does Shell mode quote text?",
+        "answer": "It wraps the text in POSIX single quotes and writes each single quote inside as '\\\\'', so the shell treats the whole value literally."
+      }
+    ],
+    "example": {
+      "title": "Escape text for a JavaScript string with Escape Non-ASCII on.",
+      "input": "Say \"hi\" 😀\nBye",
+      "output": "Say \\\"hi\\\" \\ud83d\\ude00\\nBye",
+      "inputLabel": "Raw input",
+      "outputLabel": "Escaped result (JavaScript)"
+    }
   }
 }
