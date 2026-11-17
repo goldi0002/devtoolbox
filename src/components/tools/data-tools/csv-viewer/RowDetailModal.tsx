@@ -134,6 +134,7 @@ export default function RowDetailModal({
                 disabled={!hasPrevious}
                 className="p-1.5 rounded text-dim hover:text-bright disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 title="Previous Row in Page"
+                aria-label="Previous row in page"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -142,6 +143,7 @@ export default function RowDetailModal({
                 disabled={!hasNext}
                 className="p-1.5 rounded text-dim hover:text-bright disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 title="Next Row in Page"
+                aria-label="Next row in page"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -151,6 +153,7 @@ export default function RowDetailModal({
               onClick={onClose}
               className="p-2 rounded-lg text-dim hover:text-bright hover:bg-background border border-transparent hover:border-border transition-colors"
               title="Close inspector"
+              aria-label="Close inspector"
             >
               <X className="w-5 h-5" />
             </button>
@@ -172,6 +175,7 @@ export default function RowDetailModal({
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
+                aria-label="Clear search"
                 className="absolute right-2.5 top-1/2 -translate-y-1/2 text-dim hover:text-bright"
               >
                 ✕

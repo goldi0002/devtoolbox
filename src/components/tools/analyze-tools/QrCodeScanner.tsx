@@ -948,6 +948,7 @@ export default function QrCodeScanner() {
                       />
                       <button
                         onClick={clearFile}
+                        aria-label="Remove image"
                         className="absolute top-1.5 right-1.5 bg-black/70 hover:bg-red-500 text-white rounded-full p-1 transition-all"
                         title="Remove image"
                       >

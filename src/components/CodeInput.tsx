@@ -178,6 +178,7 @@ export default function CodeInput({
             <button
               type="button"
               onClick={() => onChange('')}
+              aria-label="Clear editor"
               title="Clear editor"
               className="text-[#f43f5e] hover:bg-[#f43f5e]/10 transition-colors text-xs font-mono p-1 rounded"
             >
