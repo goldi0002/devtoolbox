@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 92,
+  "totalTools": 93,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -1249,6 +1249,33 @@
         "Estimates reading time at 200 words per minute."
       ],
       "tip": "For the most accurate count, remove unnecessary leading/trailing spaces. The top words panel can help spot overused words in your writing."
+    },
+    {
+      "slug": "word-frequency",
+      "name": "Word / Character Frequency",
+      "category": "analyze-tools",
+      "url": "https://www.toolbox4devs.com/word-frequency",
+      "description": "Count how often each word and character appears in a text, sorted by frequency, with percentages and copyable CSV.",
+      "complexity": "simple",
+      "keywords": [
+        "word frequency",
+        "character frequency",
+        "letter frequency",
+        "word count frequency",
+        "most common words",
+        "text frequency analyzer",
+        "character counter",
+        "keyword density"
+      ],
+      "features": [
+        "Word table sorted by count, with percentages of all counted words.",
+        "Character table that includes spaces, newlines, tabs and punctuation, with names for invisible characters.",
+        "Ignore case and ignore common English stop words options.",
+        "Click any column header to sort; the table is keyboard accessible.",
+        "Show the top 10, 25, 50 or 100 rows, or all of them.",
+        "Totals for words and characters, plus copy as CSV or plain text."
+      ],
+      "tip": "Turn on \"Ignore stop words\" before reading a word table; otherwise \"the\", \"and\" and \"of\" usually come out on top."
     },
     {
       "slug": "timestamp-converter",
