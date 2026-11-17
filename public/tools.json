@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 78,
+  "totalTools": 79,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -1936,6 +1936,31 @@
         "100% private and runs locally — certificates and keys never leave your machine"
       ],
       "tip": "Paste certificates directly from your server configuration or click \"Let's Encrypt TLS Cert\" to test instantly."
+    },
+    {
+      "slug": "json-diff",
+      "name": "JSON Diff",
+      "category": "json-tools",
+      "url": "https://www.toolbox4devs.com/json-diff",
+      "description": "Compare two JSON documents by structure and list every added, removed and changed value by its JSON path.",
+      "complexity": "simple",
+      "keywords": [
+        "json diff",
+        "json compare",
+        "compare json",
+        "json difference",
+        "json changes",
+        "diff two json",
+        "structural diff"
+      ],
+      "features": [
+        "Key order and whitespace are ignored; only real value changes count.",
+        "Each change is listed with its JSON path, e.g. $.user.tags[1].",
+        "Detects type changes, such as a number that became a string.",
+        "Optional \"Ignore array order\" mode for lists where order does not matter.",
+        "Copy the change list as plain text."
+      ],
+      "tip": "Turn on \"Ignore array order\" when comparing lists of IDs or tags; otherwise one item inserted at the start shows every later item as changed."
     }
   ]
 }
