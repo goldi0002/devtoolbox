@@ -7,6 +7,7 @@ import { CSS_JS_MINIFIER_META } from "./meta/css-js-minifier"
 import { SVG_OPTIMIZER_META } from "./meta/svg-optimizer"
 import { IMAGE_TO_BASE64_META } from "./meta/image-to-base64"
 import { TIME_ZONE_CONVERTER_META } from "./meta/time-zone-converter"
+import { CUBIC_BEZIER_EDITOR_META } from "./meta/cubic-bezier-editor"
 import { IMAGE_COMPRESSOR_META } from "./meta/image-compressor"
 import { JSON_MODEL_META } from "./meta/json-model"
 import { BASE_64_META } from "./meta/base-64"
@@ -183,6 +184,7 @@ export const tools: ToolMeta[] = [
   CSS_GRADIENT_GENERATOR_META,
   TOML_JSON_YAML_CONVERTER_META,
   BOX_SHADOW_GENERATOR_META,
+  CUBIC_BEZIER_EDITOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

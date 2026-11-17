@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 91
+Total Tools: 92
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 91 Tools)
+## Tool Registry & Technical Specifications (All 92 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -893,6 +893,16 @@ Total Tools: 91
 - Use Cases: Adding a card or modal elevation without guessing values.; Building a layered shadow that looks smooth rather than a single hard edge.; Creating inset shadows for pressed buttons, wells and input fields.; Matching a shadow from a design file by trying values live.
 - Features: Add, remove and reorder shadow layers; the first layer is drawn on top.; Every value has a slider and a number box, and all controls work from the keyboard.; Colour picker plus hex field, with the opacity converted to rgba() in the output.; Inset toggle per layer and four starter presets: Subtle, Elevated, Inset and Layered.; Adjustable preview canvas and box colours, and a one-click copy of the CSS.
 - Tip: Stack two or three layers with a small blur and a larger, fainter blur below it. This reads as a natural shadow; a single large blur tends to look flat.
+
+### 92. Cubic-Bezier Easing Editor
+- URL: https://www.toolbox4devs.com/cubic-bezier-editor
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Shape a CSS cubic-bezier() timing function by dragging its two handles or typing values, preview the motion, and copy the CSS.
+- Summary: The Cubic-Bezier Easing Editor builds the cubic-bezier(x1, y1, x2, y2) timing function that CSS transitions and animations use. Drag the two control points on the curve or type their values, then watch a box move along the curve and copy the result. Everything runs in your browser.
+- Use Cases: Tuning a hover or modal transition until it feels right.; Adding overshoot or anticipation to a UI animation with an easeOutBack style curve.; Turning a curve from a design tool or a library into a CSS value.; Checking what a pasted cubic-bezier() value looks like before shipping it.
+- Features: Drag either control point, or type x1, y1, x2 and y2 with the keyboard.; x is kept between 0 and 1, as CSS requires; y can go from -2 to 2 for overshoot.; Preset buttons for linear, the CSS keywords and common easings such as easeInOutBack.; Paste a cubic-bezier() value or a transition-timing-function declaration to load it.; Animated preview with a Replay button. It is turned off when reduced motion is on.; Copy the bare cubic-bezier() value or the full transition-timing-function line.
+- Tip: Keep y between 0 and 1 for everyday UI motion. Values below 0 or above 1 make the element overshoot its target, which is a deliberate effect that can look wrong on small, frequent interactions.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

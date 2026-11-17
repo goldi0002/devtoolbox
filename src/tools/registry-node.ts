@@ -93,6 +93,7 @@ const toolMeta = [
   { slug: 'css-gradient-generator',      category: 'web-tools' },
   { slug: 'toml-json-yaml-converter',    category: 'data-tools' },
   { slug: 'box-shadow-generator',        category: 'generate-tools' },
+  { slug: 'cubic-bezier-editor',         category: 'web-tools' },
 ] as const
 
 export function getAllAvailableTools() {

@@ -61,6 +61,7 @@ import {
   SpellCheck,
   Wrench,
   type LucideIcon,
+  Spline,
 } from 'lucide-react'
 
 // ── Direct Named Icon Registry ──────────────────────────────────────────────
@@ -196,6 +197,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'user-agent-parser': Globe,
   'mime-type-lookup': FileCode,
   'color-converter': Palette,
+  'cubic-bezier-editor': Spline,
   'keycode-inspector': Keyboard,
   'markdown-preview': Eye,
 
