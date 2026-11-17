@@ -61,7 +61,7 @@ export const LINE_SORTER_META: ToolMeta = {
       },
       {
         "name": "Set the clean-up options",
-        "text": "Remove duplicates, Trim whitespace, Remove empty lines and Case-insensitive are on by default; untick any you do not want."
+"text": "Remove duplicates, Trim whitespace, Remove empty lines and Case-insensitive are on by default; untick any you do not want. Case-insensitive applies to every sort mode, including Natural."
       },
       {
         "name": "Copy the result",
@@ -76,6 +76,10 @@ export const LINE_SORTER_META: ToolMeta = {
       {
         "question": "Why does file10 come before file2?",
         "answer": "A → Z compares text character by character, so 1 sorts before 2. Use Natural to order file1, file2, file10 by their numbers."
+      },
+      {
+        "question": "Does Case-insensitive apply to Natural sort too?",
+        "answer": "Yes. Case-insensitive affects all four modes. With it off in Natural, numbers still order by value but lines that differ only by case are ordered by case instead of being treated as equal."
       },
       {
         "question": "Does trimming happen before sorting?",

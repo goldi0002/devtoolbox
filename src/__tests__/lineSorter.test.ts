@@ -48,6 +48,16 @@ describe('processLines', () => {
     expect(sortLines(['a', 'A'], 'natural', true)).toEqual(['a', 'A'])
   })
 
+  it('keeps numbers ordering by value with case sensitivity on', () => {
+    expect(sortLines(['file10', 'FILE2', 'file1'], 'natural', false)).toEqual(['file1', 'FILE2', 'file10'])
+  })
+
+  it('documents the Natural mode case behaviour on the tool page', () => {
+    const faqs = LINE_SORTER_META.guide?.faqs ?? []
+    const faq = faqs.find((f) => /natural/i.test(f.question) && /case/i.test(f.question))
+    expect(faq?.answer ?? '').toMatch(/all four modes/i)
+  })
+
   it('sorts Z to A', () => {
     expect(run('a\nc\nb', { mode: 'desc' })).toBe('c\nb\na')
   })
