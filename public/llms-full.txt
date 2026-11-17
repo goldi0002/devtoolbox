@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 84
+Total Tools: 85
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 84 Tools)
+## Tool Registry & Technical Specifications (All 85 Tools)
 
 ### 1. .env File Auditor & Secret Detector
 - URL: https://www.toolbox4devs.com/env-auditor
@@ -823,6 +823,16 @@ Total Tools: 84
 - Use Cases: Cutting the weight of icons exported from Figma, Illustrator or Inkscape.; Removing editor metadata and comments before committing SVG assets.; Reducing the size of inline SVG in HTML or JSX.; Checking that an optimized logo still renders the same as the original.
 - Features: Shows original and optimized sizes in bytes with the percentage saved.; Toggles for removing comments, removing metadata, and minifying path data and numbers.; Precision control for how many decimal places numbers keep.; Side-by-side preview of both SVGs, rendered as images so scripts inside them never run.; Copy the output or download it as a .min.svg file.
 - Tip: Start with the defaults, then compare the two previews. If a shape looks slightly off, raise the precision by one or two places; if it still differs, turn off "Minify paths and numbers".
+
+### 85. Image to Base64 / Data URI
+- URL: https://www.toolbox4devs.com/image-to-base64
+- Category: Encode / Decode (encode-tools)
+- Complexity: Simple
+- Description: Turn an image or small file into Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI back to a preview and file.
+- Summary: Image to Base64 reads a file in your browser and encodes it as a Base64 string and as a full Data URI. It also writes ready-to-paste CSS background-image and HTML img snippets. Paste a Data URI in reverse mode to preview an image and download the decoded file. Nothing is uploaded.
+- Use Cases: Inlining a small icon or logo into CSS, HTML or an email template.; Building a Data URI for a fixture, mock or test payload.; Checking the MIME type and size a file will have once encoded.; Recovering an image from a Data URI copied out of a page or JSON response.
+- Features: Accepts images and any other small file; the MIME type comes from the file.; Outputs raw Base64, a full Data URI, a CSS background-image rule and an HTML img tag, each with a copy button.; Shows the MIME type, original size and encoded Base64 size.; Warns when a file is over 256 KB, because Base64 grows the text by about a third.; Reverse mode previews base64 image Data URIs and downloads the decoded file.
+- Tip: Inline only small images. For anything over a few kilobytes, a separate file with caching is usually faster for the page than a Data URI.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

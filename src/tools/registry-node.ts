@@ -86,6 +86,7 @@ const toolMeta = [
   { slug: 'meta-tag-generator',          category: 'web-tools' },
   { slug: 'css-js-minifier',             category: 'web-tools' },
   { slug: 'svg-optimizer',               category: 'web-tools' },
+  { slug: 'image-to-base64',             category: 'encode-tools' },
 ] as const
 
 export function getAllAvailableTools() {

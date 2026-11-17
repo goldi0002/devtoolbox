@@ -479,4 +479,30 @@ test.describe('ToolBox4Devs Web Application & Tools E2E Suite', () => {
     const [download] = await Promise.all([page.waitForEvent('download'), downloadButton.click()]);
     expect(download.suggestedFilename()).toBe('image.min.svg');
   });
+  test('Image to Base64 encodes a file and decodes a Data URI back', async ({ page }) => {
+    const picker = page.getByLabel('File to encode', { exact: true });
+    await gotoHydrated(page, '/image-to-base64', picker);
+
+    await picker.setInputFiles({ name: 'hi.txt', mimeType: 'text/plain', buffer: Buffer.from('Hi') });
+    await expect(page.getByLabel('Data URI output', { exact: true })).toHaveValue('data:text/plain;base64,SGk=');
+    await expect(page.getByLabel('Raw Base64 output', { exact: true })).toHaveValue('SGk=');
+    await expect(page.getByLabel('CSS background-image output', { exact: true })).toHaveValue('background-image: url("data:text/plain;base64,SGk=");');
+    await expect(page.getByLabel('HTML img tag output', { exact: true })).toHaveValue('<img src="data:text/plain;base64,SGk=" alt="hi.txt">');
+    await expect(page.getByText('text/plain', { exact: true })).toBeVisible();
+    await expect(page.getByText(/Large file/)).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Decode Data URI', exact: true }).click();
+    const uri = page.getByLabel('Data URI', { exact: true });
+    await uri.fill('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=');
+    await expect(page.getByTestId('data-uri-preview')).toBeVisible();
+    const [download] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Download decoded.png', exact: true }).click(),
+    ]);
+    expect(download.suggestedFilename()).toBe('decoded.png');
+
+    await uri.fill('data:image/svg+xml,%3Csvg%3E%3C%2Fsvg%3E');
+    await expect(page.getByText(/^⚠ Data URI: Only base64 Data URIs can be decoded/)).toBeVisible();
+    await expect(page.getByTestId('data-uri-preview')).toHaveCount(0);
+  });
 });

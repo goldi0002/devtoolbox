@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 84 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 85 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -26,6 +26,7 @@
 - [Hash Comparator](https://www.toolbox4devs.com/hash-comparator): Compare two hashes or checksums after trimming whitespace and normalizing letter case.
 - [Hex Converter](https://www.toolbox4devs.com/hex-converter): Convert text to hexadecimal and hexadecimal back to text.
 - [Base32 Encoder / Decoder](https://www.toolbox4devs.com/base32): Encode text to RFC 4648 Base32 or decode Base32 back to text, with optional padding.
+- [Image to Base64 / Data URI](https://www.toolbox4devs.com/image-to-base64): Turn an image or small file into Base64, a Data URI, a CSS background-image rule or an HTML img tag, and decode a Data URI back to a preview and file.
 
 ### Text Tools
 - [Markdown Table to JSON](https://www.toolbox4devs.com/markdown-table-to-json): Convert GitHub-flavored Markdown tables into JSON objects with typed values.
