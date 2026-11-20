@@ -7,6 +7,33 @@ import './css/index.css'
 import './css/global.css'
 
 const PRELOAD_ERROR_RELOAD_KEY = 'vite-preload-error-reload'
+const DEV_SW_CLEANUP_RELOAD_KEY = 'vite-dev-sw-cleanup-reload'
+
+if (import.meta.env.DEV && typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  const hadController = Boolean(navigator.serviceWorker.controller)
+  Promise.all([
+    navigator.serviceWorker.getRegistrations().then((registrations) =>
+      Promise.all(registrations.map((registration) => registration.unregister()))
+    ),
+    'caches' in window
+      ? caches.keys().then((keys) =>
+          Promise.all(keys.filter((key) => key.startsWith('tb4devs-')).map((key) => caches.delete(key)))
+        )
+      : Promise.resolve(),
+  ])
+    .then(([unregistered]) => {
+      if (
+        hadController &&
+        Array.isArray(unregistered) &&
+        unregistered.some(Boolean) &&
+        readStorage('sessionStorage', DEV_SW_CLEANUP_RELOAD_KEY) !== '1' &&
+        writeStorage('sessionStorage', DEV_SW_CLEANUP_RELOAD_KEY, '1')
+      ) {
+        window.location.reload()
+      }
+    })
+    .catch(() => {})
+}
 
 export const createRoot = ViteReactSSG(
   { routes },

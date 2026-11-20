@@ -74,8 +74,8 @@ export function usePWA() {
     }
     window.addEventListener('appinstalled', handleAppInstalled)
 
-    // 5. Service Worker Registration
-    if ('serviceWorker' in navigator) {
+    // 5. Service Worker Registration (production builds only; dev mode is cleaned up in main.tsx)
+    if (!import.meta.env.DEV && 'serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js', { scope: '/' })
         .then((registration) => {

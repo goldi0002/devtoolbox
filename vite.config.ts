@@ -110,7 +110,7 @@ export default defineConfig(({ mode }) => {
       allowedHosts: true,
     },
     resolve: {
-      dedupe: ['react', 'react-dom', 'react-router-dom'],
+      dedupe: ['react', 'react-dom', 'react-router', 'react-router-dom'],
     },
     optimizeDeps: {
       include: [
@@ -119,6 +119,7 @@ export default defineConfig(({ mode }) => {
         'react-router-dom',
         'react/jsx-runtime',
         'react/jsx-dev-runtime',
+        'vite-react-ssg',
         'lucide-react',
         'papaparse',
         'diff',

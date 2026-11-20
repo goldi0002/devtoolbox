@@ -1,7 +1,7 @@
 // ToolBox4Devs — Service Worker
 // 100% Offline Support & Intelligent Multi-Tier Caching
 
-const CACHE_VERSION = 'v1.0.0'
+const CACHE_VERSION = 'v1.0.1'
 const STATIC_CACHE = `tb4devs-static-${CACHE_VERSION}`
 const RUNTIME_CACHE = `tb4devs-runtime-${CACHE_VERSION}`
 const FONTS_CACHE = `tb4devs-fonts-${CACHE_VERSION}`
@@ -70,6 +70,18 @@ self.addEventListener('fetch', (event) => {
 
   // Skip non-GET requests and non-http(s) protocols
   if (request.method !== 'GET' || !request.url.startsWith('http')) {
+    return
+  }
+
+  // Never cache or intercept Vite dev server modules or pre-bundled dependency chunks
+  if (
+    url.pathname.startsWith('/@') ||
+    url.pathname.startsWith('/src/') ||
+    url.pathname.startsWith('/node_modules/') ||
+    url.searchParams.has('v') ||
+    url.searchParams.has('t') ||
+    url.searchParams.has('import')
+  ) {
     return
   }
 
