@@ -4,6 +4,7 @@ import ToolLayout from '../../ToolLayout'
 import CodeBlock from '../../CodeBlock'
 import ErrorBanner from '../../ui/ErrorBanner'
 import { getErrorMessage } from '../../../utils/errors'
+import { checkXmlWellFormed } from '../../../utils/xmlWellFormed'
 
 const SAMPLE = `<?xml version="1.0" encoding="UTF-8"?><root><item id="1"><name>Apple</name><color>Red</color></item><item id="2"><name>Banana</name><color>Yellow</color></item></root>`
 
@@ -19,6 +20,14 @@ export default function XmlFormatter() {
     setError('')
     const src = input || SAMPLE
     if (!src.trim()) return
+
+    // Report malformed XML instead of letting the formatter repair it silently.
+    const check = checkXmlWellFormed(src)
+    if (!check.ok) {
+      setError(check.message)
+      setOutput('')
+      return
+    }
 
     try {
       if (m === 'format') {
