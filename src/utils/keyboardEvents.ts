@@ -95,10 +95,10 @@ export function generateEventCodeSnippets(info: KeyInfo): {
   const isKey = info.key
   const isCode = info.code
   const modifiers = []
-  if (info.metaKey) modifiers.push('e.metaKey')
-  if (info.ctrlKey) modifiers.push('e.ctrlKey')
-  if (info.altKey) modifiers.push('e.altKey')
-  if (info.shiftKey) modifiers.push('e.shiftKey')
+  if (info.metaKey) modifiers.push('event.metaKey')
+  if (info.ctrlKey) modifiers.push('event.ctrlKey')
+  if (info.altKey) modifiers.push('event.altKey')
+  if (info.shiftKey) modifiers.push('event.shiftKey')
 
   const modCheck = modifiers.length > 0 ? `${modifiers.join(' && ')} && ` : ''
 
@@ -129,9 +129,9 @@ export function useKeyboardShortcut() {
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 
-function onKeyDown(e) {
-  if (${modCheck}e.code === '${isCode}') {
-    e.preventDefault()
+function onKeyDown(event) {
+  if (${modCheck}event.code === '${isCode}') {
+    event.preventDefault()
     // Trigger custom action
   }
 }
