@@ -58,7 +58,7 @@ export const SEMVER_CALCULATOR_META: ToolMeta = {
     "faqs": [
       {
         "question": "Which range syntax is supported?",
-        "answer": "The range tester handles *, caret (^), tilde (~), || for alternatives, and exact versions. Comparison operators such as >= and < are not supported, so those ranges report that the version does not match."
+        "answer": "The range tester handles *, caret (^), tilde (~), || for alternatives, exact versions, and comparison operators (>, >=, <, <=, =). Put several comparators in one range separated by spaces to require all of them, such as >=1.2.0 <2.0.0. Comparators need full MAJOR.MINOR.PATCH versions, so 1.2 is not accepted after an operator. A pre-release version only matches when a comparator names a pre-release on the same major.minor.patch, as npm and Cargo do, so >=2.0.0-alpha matches 2.0.0-rc.1 but >=1.0.0 does not match 2.0.0-rc.1."
       },
       {
         "question": "Does build metadata affect ordering?",
