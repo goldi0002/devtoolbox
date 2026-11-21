@@ -28,6 +28,51 @@ export const HTML_FORMATTER_META: ToolMeta = {
         ],
         tip: 'Prettier also formats embedded CSS inside <style> tags and JavaScript inside <script> tags — so the entire HTML file gets cleaned up in one pass.',
     },
+    guide: {
+      "steps": [
+        {
+          "name": "Paste your HTML",
+          "text": "Paste HTML into the input box. If it is empty, the built-in sample is used."
+        },
+        {
+          "name": "Choose an indent",
+          "text": "Pick 2 or 4 spaces. The indent setting applies to Format only."
+        },
+        {
+          "name": "Format or minify",
+          "text": "Click Format to pretty-print with Prettier, or Minify to remove comments and extra whitespace."
+        },
+        {
+          "name": "Copy the result",
+          "text": "Copy the output from the result panel."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Which formatter does Format use?",
+          "answer": "Prettier's HTML parser. It also formats CSS inside style tags and JavaScript inside script tags."
+        },
+        {
+          "question": "What does Minify remove?",
+          "answer": "HTML comments, whitespace between tags, and runs of whitespace, which become one space. It is a plain text pass, so it also collapses whitespace inside elements such as pre and textarea, where whitespace matters. Use Format for those."
+        },
+        {
+          "question": "Can Format fail?",
+          "answer": "Yes. If Prettier cannot parse the input, an error message is shown. Minify does not parse the HTML, so it does not report errors."
+        },
+        {
+          "question": "Is my HTML uploaded?",
+          "answer": "No. Formatting and minifying happen in your browser."
+        }
+      ],
+      "example": {
+        "title": "Minify a small HTML fragment.",
+        "input": "<div>\n  <p>Hi</p>\n</div>",
+        "output": "<div><p>Hi</p></div>",
+        "inputLabel": "HTML",
+        "outputLabel": "Minified"
+      }
+    },
     addedAt: '2026-03-13',
     complexity: 'moderate',
     featured: false,

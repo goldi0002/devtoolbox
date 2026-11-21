@@ -37,6 +37,51 @@ export const FAKER_DATA_GENERATOR_META: ToolMeta = {
     ],
     tip: 'For the most realistic data, use the "All Fields" mode with JSON output — you get a complete object per record that maps directly to database schemas and API payloads.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Set the record count",
+        "text": "Enter Records (1–100) to choose how many records to generate."
+      },
+      {
+        "name": "Choose a data type",
+        "text": "Pick All Fields for complete records, or a single type such as Names, Emails or UUIDs."
+      },
+      {
+        "name": "Choose an output format",
+        "text": "Pick JSON, CSV or Lines."
+      },
+      {
+        "name": "Copy or regenerate",
+        "text": "Copy the output, or click Regenerate for a fresh set with the same settings."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is the data real?",
+        "answer": "No. Names, addresses, companies and other values are random combinations from built-in lists and do not come from any real database."
+      },
+      {
+        "question": "Will two runs give the same data?",
+        "answer": "No. Each generation is seeded from the current time, so repeated runs produce different records."
+      },
+      {
+        "question": "What does Lines output contain for All Fields?",
+        "answer": "Each record's values joined with \" | \" on one line. A single-type selection gives one value per line."
+      },
+      {
+        "question": "Does CSV include a header row?",
+        "answer": "Yes. The first line lists the field names, and values containing commas, quotes or line breaks are quoted."
+      }
+    ],
+    "example": {
+      "title": "Generate three full names, one per line.",
+      "input": "Records: 3\nData type: Names\nFormat: Lines",
+      "output": "Three lines, each with one random full name in the form First Last.",
+      "inputLabel": "Settings",
+      "outputLabel": "Output"
+    }
+  },
   addedAt: '2026-08-23',
   complexity: 'simple',
   featured: false,

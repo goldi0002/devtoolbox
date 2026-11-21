@@ -23,6 +23,51 @@ export const USER_AGENT_PARSER_META: ToolMeta = {
     ],
     tip: 'User-Agent parsing is heuristic by nature, so treat the result as a practical hint rather than a security-grade identifier.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste a user agent",
+        "text": "Paste a raw User-Agent string into User agent string."
+      },
+      {
+        "name": "Or load a sample",
+        "text": "Use Desktop sample or Mobile sample to see the output for a known string."
+      },
+      {
+        "name": "Read the fields",
+        "text": "Check Browser, Engine, OS, Device, Mobile flag and Raw length."
+      },
+      {
+        "name": "Copy a field",
+        "text": "Each field has a copy control, so you can paste a single value into a ticket or report."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How accurate is the detection?",
+        "answer": "It is pattern matching, so treat the result as a hint. The tool does not verify the string, and browsers or bots can send unusual or spoofed values."
+      },
+      {
+        "question": "Why can an Opera string show as Chrome?",
+        "answer": "Browsers are checked in the order Edge, Chrome, Firefox, Safari, Opera. Opera strings also contain a Chrome token, so the Chrome rule matches first."
+      },
+      {
+        "question": "How is the device type decided?",
+        "answer": "Strings containing bot, crawl, spider or slurp are Bot / crawler. Then tablet or iPad is Tablet, mobile, iPhone or Android is Mobile, and everything else is Desktop."
+      },
+      {
+        "question": "Is the string sent anywhere?",
+        "answer": "No. Parsing runs in your browser."
+      }
+    ],
+    "example": {
+      "title": "Parse a desktop Chrome user agent on macOS.",
+      "input": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+      "output": "Browser: Chrome 136.0.0.0\nEngine: Blink\nOS: macOS 14.5\nDevice: Desktop\nMobile flag: No\nRaw length: 114 chars",
+      "inputLabel": "User agent",
+      "outputLabel": "Parsed fields"
+    }
+  },
   addedAt: '2026-03-20',
   complexity: 'simple',
   featured: false,

@@ -30,6 +30,51 @@ export const MIME_TYPE_LOOKUP_META: ToolMeta = {
     ],
     tip: 'If a browser downloads a file instead of displaying it, the Content-Type header is one of the first things worth checking.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Search",
+        "text": "Type an extension such as .svg, a MIME type such as application/json, or a format name such as font or zip."
+      },
+      {
+        "name": "Use a preset or show all",
+        "text": "Click json, svg, woff2 or application/json, or Show all to clear the search."
+      },
+      {
+        "name": "Read the exact match",
+        "text": "When the query matches an extension or MIME type exactly, the quick answer card shows that pair."
+      },
+      {
+        "name": "Copy a row",
+        "text": "Use the copy control on a row to copy its extension and MIME type."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How many types are included?",
+        "answer": "The list has 26 common extensions across text, script, application, archive, image, font, audio and video formats. It is a fixed list in the tool, not a full IANA registry."
+      },
+      {
+        "question": "Why does .js show text/javascript?",
+        "answer": "The table lists one common MIME type per extension. Servers can send other values for the same format, so check what yours actually returns."
+      },
+      {
+        "question": "Does search match the notes too?",
+        "answer": "Yes. Matching checks the extension, MIME type, category and notes text."
+      },
+      {
+        "question": "Where do I see a file's real Content-Type?",
+        "answer": "Check the Content-Type header your server returns, for example in your browser's developer tools."
+      }
+    ],
+    "example": {
+      "title": "Find the MIME type for JSON files.",
+      "input": "json",
+      "output": ".json → application/json (Application)",
+      "inputLabel": "Search",
+      "outputLabel": "Quick answer"
+    }
+  },
   addedAt: '2026-03-18',
   complexity: 'simple',
   featured: false,

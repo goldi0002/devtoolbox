@@ -34,5 +34,50 @@ export const KEYCODE_INSPECTOR_META: ToolMeta = {
       'event.code represents the physical keyboard key position regardless of system layout'
     ],
     tip: 'Press any key combination (like Ctrl + Enter or Shift + Tab) to generate code snippets with modifier guards.'
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Start listening",
+        "text": "Click the Live Keypress Detector box, then press a key or combination."
+      },
+      {
+        "name": "Read the key details",
+        "text": "Check key, code, which, keyCode and location, plus the modifier indicators Shift, Control (Ctrl), Alt / Option, Meta / Command and Repeat."
+      },
+      {
+        "name": "Copy a snippet",
+        "text": "Switch between the javascript, react and vue tabs and copy the listener you need."
+      },
+      {
+        "name": "Search the reference",
+        "text": "Use Search keys, codes, categories in the Standard Key Codes Reference Table to look up a key."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What is the difference between key and code?",
+        "answer": "key is the character or action the keyboard layout produces, so it changes with the layout. code is the physical key position, so it stays the same across layouts."
+      },
+      {
+        "question": "Why does the tool recommend key and code over keyCode?",
+        "answer": "keyCode is deprecated. Current code should use event.key and event.code."
+      },
+      {
+        "question": "Does typing in the search box get captured?",
+        "answer": "No. Key presses inside text inputs are ignored by the detector."
+      },
+      {
+        "question": "Do key presses leave the page?",
+        "answer": "No. Listening happens in your browser, and key presses are not sent anywhere."
+      }
+    ],
+    "example": {
+      "title": "Generate a JavaScript listener for the Enter key.",
+      "input": "Press Enter",
+      "output": "window.addEventListener('keydown', (event) => {\n  if (event.code === 'Enter') {\n    event.preventDefault();\n    console.log('Enter pressed!');\n  }\n});",
+      "inputLabel": "Key press",
+      "outputLabel": "JavaScript snippet"
+    }
+  },
 }
