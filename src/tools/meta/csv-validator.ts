@@ -23,6 +23,51 @@ export const CSV_VALIDATOR_META: ToolMeta = {
   featured: true,
   isNew: true,
   complexity: 'moderate',
+  guide: {
+    "steps": [
+      {
+        "name": "Load your data",
+        "text": "Upload a CSV, TSV or TXT file, or paste delimited text. Choose the separator with CSV Delimiter if detection is not right."
+      },
+      {
+        "name": "Infer the rules",
+        "text": "Click Auto-Infer Rules to create a starting rule for each column from your data."
+      },
+      {
+        "name": "Adjust the rules",
+        "text": "Set required, unique, data type and regex constraints for each column that matters to your schema."
+      },
+      {
+        "name": "Review the errors",
+        "text": "Check the Total Rows, Valid Rows, Invalid Rows and Total Violations cards, then read the row-level errors. You can export the error report."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does an empty cell always fail?",
+        "answer": "No. An empty cell only fails when its column is marked required, and then it is reported as a required error."
+      },
+      {
+        "question": "How are duplicate values reported?",
+        "answer": "Each repeated value in a unique column is reported, for example Duplicate value \"1\" found in unique column 'id'."
+      },
+      {
+        "question": "Which data types can a column use?",
+        "answer": "Columns can be typed as any, string, number, integer, boolean, date, email, uuid, url, ipv4, ipv6, phone, alphanumeric, alphabetical, json, hex color, semver, credit card, MAC address, base64 or slug."
+      },
+      {
+        "question": "Is my file uploaded?",
+        "answer": "No. Files are read and validated in your browser."
+      }
+    ],
+    "example": {
+      "title": "Catch a repeated ID in a unique column.",
+      "input": "id,name\n1,Ada\n1,Lin",
+      "output": "Duplicate value \"1\" found in unique column 'id'.\nDuplicate value \"1\" found in unique column 'id'.",
+      "inputLabel": "CSV data",
+      "outputLabel": "Validation errors"
+    }
+  },
   addedAt: '2026-10-25',
   toolComponent: lazy(() => import('../../components/tools/data-tools/CsvValidator')),
   seo: {

@@ -33,6 +33,51 @@ export const QUERY_STRING_PARSER_META: ToolMeta = {
     ],
     tip: 'If you paste a full URL, only the search portion is parsed. Hash fragments are ignored so you can focus on the query parameters.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste a URL or query",
+        "text": "Paste a full URL, or only the part after ?, into URL or query string."
+      },
+      {
+        "name": "Read the parameters",
+        "text": "The Parameters list shows each key and value in order, including repeated keys."
+      },
+      {
+        "name": "Check the grouped JSON",
+        "text": "Grouped JSON combines repeated keys into an array."
+      },
+      {
+        "name": "Copy the result",
+        "text": "Copy the Normalized query or the Grouped JSON."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How are repeated keys shown?",
+        "answer": "In Grouped JSON, a repeated key becomes an array of its values. The Parameters list shows every pair separately."
+      },
+      {
+        "question": "Are hash fragments parsed?",
+        "answer": "No. When you paste a full URL, only the query part is read, and the hash fragment after # is ignored."
+      },
+      {
+        "question": "Are values decoded?",
+        "answer": "Yes. Percent-encoded values are decoded, and a plus sign is read as a space, as URLSearchParams does."
+      },
+      {
+        "question": "Is my URL sent anywhere?",
+        "answer": "No. Parsing runs in your browser."
+      }
+    ],
+    "example": {
+      "title": "Parse a URL with a repeated tag parameter.",
+      "input": "https://toolbox4devs.com/tools?tab=web&tag=query&tag=url&new=true",
+      "output": "{\n  \"tab\": \"web\",\n  \"tag\": [\n    \"query\",\n    \"url\"\n  ],\n  \"new\": \"true\"\n}",
+      "inputLabel": "URL",
+      "outputLabel": "Grouped JSON"
+    }
+  },
   addedAt: '2026-03-18',
   complexity: 'simple',
   featured: false,

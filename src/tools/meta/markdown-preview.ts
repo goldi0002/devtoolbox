@@ -26,6 +26,51 @@ export const MARKDOWN_PREVIEW_META: ToolMeta = {
         ],
         tip: 'Use the preview to check how your Markdown will render on platforms like GitHub — especially for complex elements like tables or nested lists.',
     },
+    guide: {
+      "steps": [
+        {
+          "name": "Write Markdown",
+          "text": "Type Markdown in the Markdown input box."
+        },
+        {
+          "name": "Check the preview",
+          "text": "The preview updates as you type, so you can see headings, lists, links and tables."
+        },
+        {
+          "name": "Test tables and links",
+          "text": "Check that tables and links render the way you expect before you publish."
+        },
+        {
+          "name": "Compare with your platform",
+          "text": "Preview the same Markdown where it will be shown, because some platforms differ slightly."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Is raw HTML rendered?",
+          "answer": "No. HTML typed into the input is escaped, so it appears as text rather than as markup."
+        },
+        {
+          "question": "Are unsafe links blocked?",
+          "answer": "Yes. Links and images with unsafe addresses are not turned into live links or images."
+        },
+        {
+          "question": "Does it support GitHub Flavored Markdown?",
+          "answer": "It renders GFM tables, as well as the standard Markdown syntax."
+        },
+        {
+          "question": "Is my Markdown sent anywhere?",
+          "answer": "No. The rendering runs in your browser."
+        }
+      ],
+      "example": {
+        "title": "Render a heading that contains bold text.",
+        "input": "# Hello **world**",
+        "output": "<h1>Hello <strong>world</strong></h1>",
+        "inputLabel": "Markdown",
+        "outputLabel": "Rendered HTML"
+      }
+    },
     addedAt: '2026-03-17',
     complexity: 'simple',
     featured: false,

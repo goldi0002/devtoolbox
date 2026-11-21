@@ -10,6 +10,51 @@ export const BCRYPT_GENERATOR_META: ToolMeta = {
   keywords: ['bcrypt generator', 'bcrypt hash online', 'verify bcrypt password', 'bcrypt salt rounds', 'blowfish cipher', 'password hash generator'],
   status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/BcryptGenerator')),
+  guide: {
+    "steps": [
+      {
+        "name": "Set the cost factor",
+        "text": "Choose Cost Factor (Rounds) between 4 and 14 before generating a hash. Higher values take longer to compute."
+      },
+      {
+        "name": "Generate a hash",
+        "text": "Enter a password and select Generate Bcrypt Hash. The hash is computed in your browser."
+      },
+      {
+        "name": "Verify a password",
+        "text": "Paste an existing hash into the verifier, type the plaintext and select Verify Match."
+      },
+      {
+        "name": "Inspect the hash",
+        "text": "The validator shows the prefix or version, the cost factor and the extracted salt of the hash you pasted."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Why does the same password give a different hash each time?",
+        "answer": "bcrypt adds a new random salt to every hash, so two hashes of one password differ. Both still verify against that password."
+      },
+      {
+        "question": "Which hash prefixes can the verifier read?",
+        "answer": "The verifier accepts hashes that start with $2a$, $2b$ or $2y$, as the field label says."
+      },
+      {
+        "question": "What does a higher cost factor change?",
+        "answer": "Each extra round doubles the work needed to compute a hash. That slows down guessing, and it also slows your own hashing."
+      },
+      {
+        "question": "Is my password sent to a server?",
+        "answer": "No. Hashing and verification run in your browser."
+      }
+    ],
+    "example": {
+      "title": "Read the details of an existing bcrypt hash.",
+      "input": "$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy",
+      "output": "Prefix / Version: $2a$ · Cost Factor (Rounds): 10 · Extracted Salt (22 chars): N9qo8uLOickgx2ZMRZoMye",
+      "inputLabel": "Bcrypt hash",
+      "outputLabel": "Validator details"
+    }
+  },
   seo: {
     title: 'Bcrypt Hash Generator & Verifier — Password Hashing Tool',
     description: 'Generate bcrypt password hashes, verify candidate strings, and inspect bcrypt format parameters (cost, salt, checksum) client-side in browser.',

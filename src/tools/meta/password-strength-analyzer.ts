@@ -37,6 +37,51 @@ export const PASSWORD_STRENGTH_ANALYZER_META: ToolMeta = {
     ],
     tip: 'A strong password uses 12+ characters with a mix of uppercase, lowercase, numbers, and special characters — and avoids common dictionary words or patterns like "Password1!"',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Enter a password",
+        "text": "Type a password under Enter Password. Use Show password to check what you typed."
+      },
+      {
+        "name": "Read the strength",
+        "text": "The strength label and score out of 100 update as you type."
+      },
+      {
+        "name": "Compare the crack times",
+        "text": "Compare the Online Attack (~100/s), Offline Attack (~100K/s) and GPU Attack (~10B/s) estimates."
+      },
+      {
+        "name": "Copy the report",
+        "text": "Copy the Password Analysis Report to keep a record of the result."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is my password sent anywhere?",
+        "answer": "No. The analysis runs in your browser and nothing is uploaded."
+      },
+      {
+        "question": "What is entropy?",
+        "answer": "Entropy is a measure, in bits, of how many possibilities an attacker would have to try. Higher entropy means more guesses are needed."
+      },
+      {
+        "question": "Does it detect common patterns?",
+        "answer": "Yes. Common words and sequences such as abc or 123 are flagged in the Improvement Suggestions."
+      },
+      {
+        "question": "Are the crack times guarantees?",
+        "answer": "No. They are estimates based on the attack speeds in each label."
+      }
+    ],
+    "example": {
+      "title": "Analyze a short, common password.",
+      "input": "password123",
+      "output": "Fair · 44/100 · Entropy 56.9 bits · Offline Attack (~100K/s) 21K years",
+      "inputLabel": "Password",
+      "outputLabel": "Analysis summary"
+    }
+  },
   addedAt: '2026-08-23',
   complexity: 'moderate',
   featured: false,

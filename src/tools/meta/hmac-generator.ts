@@ -36,6 +36,51 @@ export const HMAC_GENERATOR_META: ToolMeta = {
     ],
     tip: 'For GitHub webhooks, choose HMAC-SHA256 with Hex (lowercase) output format to match the X-Hub-Signature-256 header!',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste the payload",
+        "text": "Enter the raw message under Raw Payload / Message exactly as your provider sent it."
+      },
+      {
+        "name": "Enter the secret",
+        "text": "Type the Secret Key and choose its Key Encoding: UTF-8 / Plain Text, Hex String or Base64 Encoded."
+      },
+      {
+        "name": "Pick the algorithm and format",
+        "text": "Select a Hash Algorithm (SHA-256, SHA-512, SHA-1 or SHA-384) and an Output Format."
+      },
+      {
+        "name": "Compare the signature",
+        "text": "Compare the Computed HMAC Signature with the signature header your provider sent."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which output formats are available?",
+        "answer": "Hex (lowercase), Hex (UPPERCASE), Base64 and Base64URL (safe for URIs)."
+      },
+      {
+        "question": "Why does my signature not match the provider's?",
+        "answer": "Check that the payload is identical byte for byte, including whitespace and line endings, and that the key encoding matches the one the provider uses."
+      },
+      {
+        "question": "Which key encodings can I use?",
+        "answer": "UTF-8 / Plain Text, Hex String and Base64 Encoded. Pick the one that matches how your secret is stored."
+      },
+      {
+        "question": "Is my secret sent to a server?",
+        "answer": "No. The signature is computed in your browser."
+      }
+    ],
+    "example": {
+      "title": "Compute an HMAC-SHA256 webhook signature in lowercase hex.",
+      "input": "Payload: {\"event\":\"payment_intent.succeeded\",\"amount\":4900,\"currency\":\"usd\"}\nSecret: whsec_3F28A1C9E48201B79D",
+      "output": "7941d12eaaf821d9f62bc1db3dad598ec7494d4352229df5aa1c3beb77751241",
+      "inputLabel": "Payload and secret",
+      "outputLabel": "Computed HMAC Signature"
+    }
+  },
   addedAt: '2026-07-26',
   complexity: 'simple',
   featured: true,

@@ -36,6 +36,51 @@ export const THREE_JS_PLAYGROUND_META: ToolMeta = {
     ],
     tip: "Use the template selector to quickly load different styles of 3D scenes and customize their parameters in the code editor."
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Pick a template",
+        "text": "Use the template selector to load one of the 12 built-in scenes, such as Torus Knot Galaxy."
+      },
+      {
+        "name": "Edit the code",
+        "text": "Change the scene code in the editor to adjust its objects, materials and lighting."
+      },
+      {
+        "name": "Explore the preview",
+        "text": "Use the camera controls in the live WebGL preview to see the scene from different angles."
+      },
+      {
+        "name": "Reset when needed",
+        "text": "Select Reset to template default to restore the original code of the template."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which templates are included?",
+        "answer": "Twelve templates in categories such as Procedural & Geometry, Materials & Lighting, Animation & FX and Product & Showcases."
+      },
+      {
+        "question": "What browser support does the preview need?",
+        "answer": "The preview uses WebGL, so it needs a browser with WebGL support."
+      },
+      {
+        "question": "Is my code sent anywhere?",
+        "answer": "No. The code runs in your browser."
+      },
+      {
+        "question": "Can I go back to a template after editing?",
+        "answer": "Yes. Reset to template default restores the template's original code."
+      }
+    ],
+    "example": {
+      "title": "Load the Torus Knot Galaxy template.",
+      "input": "Template: Torus Knot Galaxy",
+      "output": "The Torus Knot Galaxy scene renders in the live WebGL preview, with camera controls to view it from different angles.",
+      "inputLabel": "Template",
+      "outputLabel": "Preview"
+    }
+  },
   addedAt: "2026-10-26",
   complexity: "advanced",
   featured: true,
