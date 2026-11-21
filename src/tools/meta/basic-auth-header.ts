@@ -23,6 +23,51 @@ export const BASIC_AUTH_HEADER_META: ToolMeta = {
     ],
     tip: 'Basic auth is transport-safe only when paired with HTTPS because the credentials are merely encoded, not encrypted.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Enter credentials",
+        "text": "Type a Username and Password. The Authorization header updates as you type."
+      },
+      {
+        "name": "Copy the header",
+        "text": "Copy the Authorization header value, which starts with Basic followed by Base64 text."
+      },
+      {
+        "name": "Decode an existing header",
+        "text": "Paste a Basic header into Decode existing header. The leading Basic word is optional."
+      },
+      {
+        "name": "Check the decoded values",
+        "text": "Read Decoded username and Decoded password. If the input cannot be decoded, both show a dash."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is Basic auth encrypted?",
+        "answer": "No. Base64 only encodes the credentials so they fit in a header, and anyone who sees the header can decode them. Always send Basic auth over HTTPS."
+      },
+      {
+        "question": "What if the password contains a colon?",
+        "answer": "Only the first colon separates the username from the password, so everything after it is kept as the password."
+      },
+      {
+        "question": "Is the Basic prefix required when decoding?",
+        "answer": "No. A leading Basic word is removed before decoding, and it is matched regardless of letter case."
+      },
+      {
+        "question": "Are my credentials sent to a server?",
+        "answer": "No. Encoding and decoding run in your browser using the built-in btoa and atob functions."
+      }
+    ],
+    "example": {
+      "title": "Build a Basic header from a username and password.",
+      "input": "Username: service-account\nPassword: s3cret-token",
+      "output": "Basic c2VydmljZS1hY2NvdW50OnMzY3JldC10b2tlbg==",
+      "inputLabel": "Credentials",
+      "outputLabel": "Authorization header"
+    }
+  },
   addedAt: '2026-03-20',
   complexity: 'simple',
   featured: false,

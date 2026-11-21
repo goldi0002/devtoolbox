@@ -47,5 +47,50 @@ export const QR_CODE_SCANNER_META: ToolMeta = {
       'Images processed for scanning are rendered onto a temporary hidden canvas in memory and are discarded immediately after decoding'
     ],
     tip: 'Ensure proper lighting and keep the QR code centered and flat for the fastest webcam decoding response.'
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Choose an input",
+        "text": "Drop a QR code image into the QR code image area, or switch to Live Camera Scan and allow camera access."
+      },
+      {
+        "name": "Wait for a decode",
+        "text": "The Detected Format badge shows the type of content, such as url, wifi, contact, email, phone, sms, geo or text."
+      },
+      {
+        "name": "Inspect the raw text",
+        "text": "Read Raw Decoded Text before you act on it."
+      },
+      {
+        "name": "Act on the result",
+        "text": "Use the action buttons. For a URL, Navigate to Link opens it after a safety reminder."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is the image uploaded?",
+        "answer": "No. The image is drawn onto a canvas in your browser and decoded with the jsQR library. Nothing is sent to a server."
+      },
+      {
+        "question": "Why are URLs without https accepted?",
+        "answer": "Text that starts with www. or looks like a domain gets https:// added before it is classified as a URL."
+      },
+      {
+        "question": "Why does live scanning stop after a hit?",
+        "answer": "After a successful read the camera stops scanning so you can inspect the result. Use Scan Again or Resume Scanning to continue."
+      },
+      {
+        "question": "Which image files can I use?",
+        "answer": "The file picker accepts any image type (image/*) that the browser can decode. A clear, flat image gives the best result."
+      }
+    ],
+    "example": {
+      "title": "Decode a QR code that holds a web address.",
+      "input": "A QR code image that encodes https://example.com/docs",
+      "output": "Detected Format: url\nRaw Decoded Text: https://example.com/docs",
+      "inputLabel": "QR code image",
+      "outputLabel": "Result"
+    }
+  },
 }

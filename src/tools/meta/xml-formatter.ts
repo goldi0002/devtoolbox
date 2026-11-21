@@ -20,6 +20,51 @@ export const XML_FORMATTER_META: ToolMeta = {
         useCases: ['Formatting API responses', 'Cleaning up SOAP envelopes', 'Minifying XML before transmission'],
         features: ['Adjustable indentation sizes', 'Minification mode', 'Syntax error catching']
     },
+    guide: {
+      "steps": [
+        {
+          "name": "Paste XML",
+          "text": "Paste XML into XML Input. If the box is empty, the built-in sample is used."
+        },
+        {
+          "name": "Choose an indent",
+          "text": "Pick 2 or 4 spaces for the indent."
+        },
+        {
+          "name": "Format or minify",
+          "text": "Click Format to indent the XML, or Minify to put it on one line."
+        },
+        {
+          "name": "Copy the output",
+          "text": "Copy the result from the formatted.xml or minified.xml panel."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Does it check that the XML is valid?",
+          "answer": "Not fully. Some malformed markup is silently repaired, for example a mismatched closing tag, so compare the output with your source before using it."
+        },
+        {
+          "question": "Does minify keep the text?",
+          "answer": "Yes. Text and attribute values are kept, and the whitespace between elements is removed."
+        },
+        {
+          "question": "Does it validate against a schema?",
+          "answer": "No. The tool does not check the XML against a schema or DTD."
+        },
+        {
+          "question": "Is my XML sent to a server?",
+          "answer": "No. Formatting runs in your browser."
+        }
+      ],
+      "example": {
+        "title": "Indent a small XML document with two spaces.",
+        "input": "<root><item id=\"1\"><name>Apple</name></item></root>",
+        "output": "<root>\n  <item id=\"1\">\n    <name>Apple</name>\n  </item>\n</root>",
+        "inputLabel": "XML Input",
+        "outputLabel": "formatted.xml"
+      }
+    },
     isNew: true,
     status: 'stable',
     seo: {

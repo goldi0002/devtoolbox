@@ -28,6 +28,51 @@ export const JSON_MODEL_META: ToolMeta = {
         ],
         tip: 'Paste a real API response rather than a hand-crafted example — the generator picks up optional fields and mixed types more accurately from real data.',
     },
+    guide: {
+      "steps": [
+        {
+          "name": "Name the model",
+          "text": "Enter a Model / Struct Name. It is used as the root type name in every language."
+        },
+        {
+          "name": "Paste JSON",
+          "text": "Paste a JSON object into the input. If it is empty, the built-in sample is used."
+        },
+        {
+          "name": "Generate",
+          "text": "Click Generate All Models to build all five outputs."
+        },
+        {
+          "name": "Copy a language",
+          "text": "Copy the TypeScript interface, C# class, Python (Pydantic) model, Go struct or Rust (serde) struct you need."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Which languages are generated?",
+          "answer": "TypeScript interfaces, C# classes, Python Pydantic models, Go structs and Rust serde structs."
+        },
+        {
+          "question": "How are nested objects named?",
+          "answer": "Each nested object becomes its own type, named after its key with the first letter capitalized. So a profile key becomes a Profile type."
+        },
+        {
+          "question": "How are array types chosen?",
+          "answer": "The element type comes from the first item in the array. An empty array gets a generic type, such as unknown[] in TypeScript or List<object> in C#."
+        },
+        {
+          "question": "Why do I get an error?",
+          "answer": "The root value must be a JSON object. Arrays and plain values are rejected, and invalid JSON shows the parser's message."
+        }
+      ],
+      "example": {
+        "title": "Turn a small JSON object into a TypeScript interface.",
+        "input": "{ \"id\": 1, \"name\": \"Ada\" }",
+        "output": "interface User {\n  id: number;\n  name: string;\n}",
+        "inputLabel": "JSON (Model / Struct Name: User)",
+        "outputLabel": "TypeScript interface"
+      }
+    },
     addedAt: '2026-03-11',
     complexity: 'moderate',
     featured: true,

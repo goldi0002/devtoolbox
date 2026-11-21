@@ -37,5 +37,50 @@ export const CSV_TXT_VIEWER_META: ToolMeta = {
       'Renders pages in customizable row chunks (25–500 rows) for smooth 60fps scrolling and fast interaction.'
     ],
     tip: 'If your file uses pipes or unusual delimiters, select the delimiter from the dropdown before or after loading.'
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Load a file",
+        "text": "Drop a CSV or TXT file onto the file area, or choose one. The file is read and parsed in your browser."
+      },
+      {
+        "name": "Choose the delimiter",
+        "text": "Pick Auto-Detect Delimiter, Comma, Tab, Pipe or Semicolon. The delimiter in use is shown with the table."
+      },
+      {
+        "name": "Set the header row",
+        "text": "Turn on First row contains column headers if the first line holds column names."
+      },
+      {
+        "name": "Page and export",
+        "text": "Change the rows per page and move between pages. Export the current page as CSV or JSON, or copy or download it as a Markdown or HTML table with the visible columns and the rows after filtering and sorting."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which delimiters are supported?",
+        "answer": "Auto-detect, comma, tab, pipe and semicolon. Pick a delimiter yourself when auto-detection picks the wrong one."
+      },
+      {
+        "question": "Does it upload my file?",
+        "answer": "No. The file is parsed in your browser and nothing is sent to a server."
+      },
+      {
+        "question": "What does the export include?",
+        "answer": "The CSV and JSON exports cover the current page only. The Markdown and HTML tables use the visible columns and the rows after filtering and sorting."
+      },
+      {
+        "question": "Can I try it without a file?",
+        "answer": "Yes. The built-in samples generate example data, such as a 500-row e-commerce CSV and a 600-row pipe-delimited database dump."
+      }
+    ],
+    "example": {
+      "title": "Read a pipe-delimited file with the Pipe (|) delimiter and export it as a Markdown table.",
+      "input": "id|name\n1|Ada\n2|Lin",
+      "output": "| id | name |\n| --- | --- |\n| 1 | Ada |\n| 2 | Lin |",
+      "inputLabel": "Pipe-delimited file",
+      "outputLabel": "Markdown table"
+    }
+  },
 }

@@ -35,5 +35,50 @@ export const SEMVER_CALCULATOR_META: ToolMeta = {
       'A normal version always has greater precedence than a pre-release version with the same major, minor, and patch'
     ],
     tip: 'Click any sample preset to test caret (^), tilde (~), or pre-release version ranges instantly.'
-  }
+  },
+  guide: {
+    "steps": [
+      {
+        "name": "Enter a version",
+        "text": "Type a version such as 1.4.2 or 2.0.0-rc.1. A leading v is accepted."
+      },
+      {
+        "name": "Test a range",
+        "text": "Enter a range such as ^1.2.0 or ~2.0.0, then read the SATISFIES or DOES NOT satisfy verdict and its explanation."
+      },
+      {
+        "name": "Bump the version",
+        "text": "Click Bump Major, Minor or Patch, or a pre-release bump, to fill the version field with the next value."
+      },
+      {
+        "name": "Sort a list",
+        "text": "Paste one version per line into the batch sorter to see them ordered by SemVer precedence."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which range syntax is supported?",
+        "answer": "The range tester handles *, caret (^), tilde (~), || for alternatives, and exact versions. Comparison operators such as >= and < are not supported, so those ranges report that the version does not match."
+      },
+      {
+        "question": "Does build metadata affect ordering?",
+        "answer": "No. Build metadata after + is ignored when comparing versions, as SemVer 2.0.0 specifies."
+      },
+      {
+        "question": "How do pre-releases sort?",
+        "answer": "A normal version is greater than a pre-release with the same major, minor and patch. Pre-release parts are compared one by one, and numeric parts are compared as numbers."
+      },
+      {
+        "question": "Do the bump buttons keep pre-release tags?",
+        "answer": "No. They work from the major, minor and patch numbers and drop any pre-release or build suffix."
+      }
+    ],
+    "example": {
+      "title": "Check a version against a caret range.",
+      "input": "Version: 1.4.2\nRange: ^1.2.0",
+      "output": "Version 1.4.2 SATISFIES range ^1.2.0\nAllows changes that do not modify the left-most non-zero digit (>=1.2.0 <2.0.0)",
+      "inputLabel": "Version and range",
+      "outputLabel": "Result"
+    }
+  },
 }
