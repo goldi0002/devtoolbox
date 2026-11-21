@@ -34,6 +34,51 @@ export const NUMBER_TO_WORDS_META: ToolMeta = {
     ],
     tip: 'Decimal portions are spelled digit-by-digit (1.25 → "one point two five"), which is the standard for financial and technical contexts.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Enter a number",
+        "text": "Type digits with an optional minus sign and decimal point, for example 1234.56."
+      },
+      {
+        "name": "Read the words",
+        "text": "The English wording appears below as you type."
+      },
+      {
+        "name": "Check the stats",
+        "text": "Word count and whether the input has a decimal are shown next to the output."
+      },
+      {
+        "name": "Copy the result",
+        "text": "Copy the spelled-out text for your cheque, invoice or script."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How are decimals spelled?",
+        "answer": "Each digit after the point is spoken on its own, so 0.5 is 'zero point five' and 1.25 is 'one point two five'."
+      },
+      {
+        "question": "How large a number can I convert?",
+        "answer": "Up to 999,999,999,999,999 (999 trillion). Larger values show a range error."
+      },
+      {
+        "question": "Are negative numbers supported?",
+        "answer": "Yes. A leading minus sign adds the word 'negative' at the start."
+      },
+      {
+        "question": "Why is my input rejected?",
+        "answer": "Only digits, one optional leading minus and one decimal point are accepted. Commas, spaces, currency symbols and exponent notation are not."
+      }
+    ],
+    "example": {
+      "title": "Spell out a decimal number.",
+      "input": "1234.56",
+      "output": "one thousand two hundred thirty-four point five six",
+      "inputLabel": "Number",
+      "outputLabel": "English words"
+    }
+  },
   addedAt: '2026-08-21',
   complexity: 'simple',
   isNew: true,
