@@ -23,6 +23,51 @@ export const HTTP_HEADER_PARSER_META: ToolMeta = {
     ],
     tip: 'If you paste a full request block, the first non-header line is shown separately as the request line.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste the header block",
+        "text": "Paste raw request or response headers under Raw headers. Load sample fills in an example request."
+      },
+      {
+        "name": "Check the request line",
+        "text": "A first line without a colon, such as GET /path HTTP/1.1, is shown separately as the Request line."
+      },
+      {
+        "name": "Review the table",
+        "text": "Each header appears as a row with its name and value."
+      },
+      {
+        "name": "Copy the JSON",
+        "text": "Use the copy button in the JSON view to copy all headers as one JSON object."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What happens to a repeated header name?",
+        "answer": "The JSON view keeps the last value for that name, because each name becomes one key. The table still lists every row."
+      },
+      {
+        "question": "Are header names case-sensitive in the JSON?",
+        "answer": "Yes. Names are used exactly as written, so Content-Type and content-type become separate keys."
+      },
+      {
+        "question": "Why are some lines not listed as headers?",
+        "answer": "Only lines with a colon are listed as headers. The first line without a colon is shown as the request line, and blank lines are skipped."
+      },
+      {
+        "question": "Is anything sent to a server?",
+        "answer": "No. Parsing happens in your browser."
+      }
+    ],
+    "example": {
+      "title": "Parse a request line and two headers.",
+      "input": "GET /api/users?page=2 HTTP/1.1\nContent-Type: application/json\nX-Request-Id: req_42",
+      "output": "{\n  \"Content-Type\": \"application/json\",\n  \"X-Request-Id\": \"req_42\"\n}",
+      "inputLabel": "Raw headers",
+      "outputLabel": "JSON view"
+    }
+  },
   addedAt: '2026-03-20',
   complexity: 'simple',
   featured: false,

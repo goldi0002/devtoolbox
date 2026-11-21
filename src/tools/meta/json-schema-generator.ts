@@ -21,6 +21,51 @@ export const JSON_SCHEMA_GENERATOR_META: ToolMeta = {
   featured: true,
   isNew: true,
   complexity: 'moderate',
+  guide: {
+    "steps": [
+      {
+        "name": "Paste sample JSON",
+        "text": "Enter a representative JSON payload under Sample JSON Data."
+      },
+      {
+        "name": "Choose a draft",
+        "text": "Select the Schema Draft: Draft-07, Draft 2020-12 or OpenAPI 3.0."
+      },
+      {
+        "name": "Set required and strict options",
+        "text": "Choose a Required Fields option, and turn Format Detection or Disallow additionalProperties on or off."
+      },
+      {
+        "name": "Validate payloads",
+        "text": "Open Test & Validate Payload to check changed payloads against the Generated Schema, then use Download to save the schema."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How do the required-field options work?",
+        "answer": "Require All Properties, Require Top-Level Only and Optional (None Required) control which properties are listed in the schema's required list."
+      },
+      {
+        "question": "What does Format Detection add?",
+        "answer": "When it is on, recognized string values such as emails or UUIDs get a format keyword in the schema."
+      },
+      {
+        "question": "What does Disallow additionalProperties do?",
+        "answer": "It sets additionalProperties to false, so payloads with extra fields fail validation."
+      },
+      {
+        "question": "Is my JSON uploaded?",
+        "answer": "No. Schema generation and validation run in your browser."
+      }
+    ],
+    "example": {
+      "title": "Generate a Draft 2020-12 schema that disallows extra properties.",
+      "input": "{\"name\":\"Ada\",\"age\":36}",
+      "output": "{\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\"\n    },\n    \"age\": {\n      \"type\": \"integer\"\n    }\n  },\n  \"required\": [\n    \"name\",\n    \"age\"\n  ],\n  \"additionalProperties\": false\n}",
+      "inputLabel": "Sample JSON Data",
+      "outputLabel": "Generated Schema"
+    }
+  },
   addedAt: '2026-10-24',
   toolComponent: lazy(() => import('../../components/tools/json-tools/JsonSchemaGenerator')),
   about: {
