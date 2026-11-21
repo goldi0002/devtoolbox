@@ -41,8 +41,8 @@ export const XML_FORMATTER_META: ToolMeta = {
       ],
       "faqs": [
         {
-          "question": "Does it check that the XML is valid?",
-          "answer": "Not fully. Some malformed markup is silently repaired, for example a mismatched closing tag, so compare the output with your source before using it."
+          "question": "What happens with malformed XML?",
+          "answer": "It is reported, not repaired. A mismatched, unclosed or stray closing tag, an unquoted attribute or a duplicate attribute shows an error with its line and column, and no formatted output is produced. Fix that spot and click Format again."
         },
         {
           "question": "Does minify keep the text?",
