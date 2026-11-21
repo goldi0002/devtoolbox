@@ -12,6 +12,55 @@ export const JWT_ENCODER_META: ToolMeta = {
   featured: false,
   isNew: true,
   complexity: 'simple',
+  guide: {
+    "steps": [
+      {
+        "name": "Choose an algorithm",
+        "text": "Pick HS256, HS384 or HS512."
+      },
+      {
+        "name": "Edit the header and payload",
+        "text": "Change Header (JSON) and Payload (JSON Claims). The chosen algorithm overrides the alg field in the header."
+      },
+      {
+        "name": "Enter a signing secret",
+        "text": "Type the key into Signing Secret Key. It is used only for HMAC signing."
+      },
+      {
+        "name": "Generate the token",
+        "text": "Click Generate JWT Token. The header, payload and signature are shown in colour, and you can copy the whole token."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does it verify tokens?",
+        "answer": "No. This tool only creates and signs tokens. Use the JWT decoder to inspect one."
+      },
+      {
+        "question": "Are RS256 or ES256 supported?",
+        "answer": "No. Only the HMAC algorithms HS256, HS384 and HS512 are available."
+      },
+      {
+        "question": "Are iat or exp added for me?",
+        "answer": "No. The token contains exactly the header and payload JSON you enter."
+      },
+      {
+        "question": "Why do I see an error?",
+        "answer": "The header and payload must be valid JSON, and the signing secret cannot be empty."
+      },
+      {
+        "question": "Is my secret sent anywhere?",
+        "answer": "No. Signing uses the Web Crypto API in your browser."
+      }
+    ],
+    "example": {
+      "title": "Sign a payload with HS256 using the sample secret your-256-bit-secret.",
+      "input": "{\"sub\":\"user_123\",\"iat\":1700000000}",
+      "output": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyXzEyMyIsImlhdCI6MTcwMDAwMDAwMH0.qJyQX_EgwL52J9JhduhYJEL9lZwGyYdPol_CDSXhpEY",
+      "inputLabel": "Payload (JSON Claims)",
+      "outputLabel": "Generated JWT Token"
+    }
+  },
   addedAt: '2026-08-23',
   toolComponent: lazy(() => import('../../components/tools/auth-tools/JwtEncoder')),
   about: {

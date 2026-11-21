@@ -30,6 +30,47 @@ export const LOREM_IPSUM_GENERATOR_META: ToolMeta = {
     ],
     tip: 'Use shorter sentence lengths when testing cards and dense dashboards, and longer paragraphs when reviewing article layouts.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Set the paragraphs",
+        "text": "Drag Paragraphs to choose 1 to 10 paragraphs."
+      },
+      {
+        "name": "Set the sentences",
+        "text": "Sentences per paragraph ranges from 2 to 8."
+      },
+      {
+        "name": "Set the words",
+        "text": "Words per sentence ranges from 4 to 20."
+      },
+      {
+        "name": "Copy the text",
+        "text": "Copy the Generated copy text and check the Words and Chars counts."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Is the text random?",
+        "answer": "No. The text cycles through a fixed list of Lorem Ipsum words, so the same settings always give the same output."
+      },
+      {
+        "question": "How are sentences capitalised?",
+        "answer": "The first letter of each sentence is capitalised, and the first sentence starts with 'Lorem'."
+      },
+      {
+        "question": "Is anything sent to a server?",
+        "answer": "No. The text is generated in your browser."
+      }
+    ],
+    "example": {
+      "title": "Generate one short paragraph.",
+      "input": "1 paragraph · 2 sentences per paragraph · 4 words per sentence",
+      "output": "Lorem ipsum dolor sit. Sit amet consectetur adipiscing.",
+      "inputLabel": "Settings",
+      "outputLabel": "Generated copy"
+    }
+  },
   addedAt: '2026-03-18',
   complexity: 'simple',
   featured: false,

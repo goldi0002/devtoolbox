@@ -30,6 +30,51 @@ export const HTML_ENTITY_META: ToolMeta = {
     ],
     tip: 'Named entities like &amp; are easier to read, while numeric entities can help when you need exact code points.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Choose a mode",
+        "text": "Pick Encode or Decode."
+      },
+      {
+        "name": "Paste the text",
+        "text": "Enter plain text or markup in Input."
+      },
+      {
+        "name": "Read the output",
+        "text": "Output updates as you type, and Mode, Chars and Entities show the counts."
+      },
+      {
+        "name": "Optional: keep spaces",
+        "text": "In Encode mode, the Keep spaces plain button switches spaces to &nbsp;. Click it again to turn that off."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which characters are always encoded?",
+        "answer": "The ampersand, less-than and greater-than signs, the double quote and the single quote. Any character above ASCII 126 is written as a numeric reference such as &#233;."
+      },
+      {
+        "question": "Does decoding handle named and numeric entities?",
+        "answer": "Yes. Decoding uses the browser HTML parser, so entities it knows, such as &amp;, &eacute; and &#233;, are converted."
+      },
+      {
+        "question": "Is the markup rendered?",
+        "answer": "No. Decoding goes through a textarea, so tags in the input are shown as text and not rendered."
+      },
+      {
+        "question": "Is my text sent anywhere?",
+        "answer": "No. Encoding and decoding run in your browser."
+      }
+    ],
+    "example": {
+      "title": "Encode ampersands, quotes, tags and accented letters.",
+      "input": "Tom & Jerry's <b>Café</b>",
+      "output": "Tom &amp; Jerry&#39;s &lt;b&gt;Caf&#233;&lt;/b&gt;",
+      "inputLabel": "Input (Encode)",
+      "outputLabel": "Output"
+    }
+  },
   addedAt: '2026-03-18',
   complexity: 'simple',
   featured: false,

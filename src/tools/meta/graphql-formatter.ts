@@ -34,6 +34,47 @@ export const GRAPHQL_FORMATTER_META: ToolMeta = {
     ],
     tip: 'Copy minified queries directly into cURL or Postman POST request bodies under the "query" string field!',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste a query",
+        "text": "Paste a query, mutation or schema into Raw GraphQL Query Input, or pick a Sample Queries preset."
+      },
+      {
+        "name": "Choose indentation",
+        "text": "Select 2 Spaces or 4 Spaces in the Indent menu."
+      },
+      {
+        "name": "Read the prettified query",
+        "text": "Prettified GraphQL Query updates as you type."
+      },
+      {
+        "name": "Copy the minified query",
+        "text": "Use the Minified Query (For HTTP Requests) line as the query value in a JSON request body."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "What does the formatter check?",
+        "answer": "Only that braces { } and parentheses ( ) are balanced. It does not check the query against a schema or validate field names."
+      },
+      {
+        "question": "What happens to comments?",
+        "answer": "Text from # to the end of a line is removed from the formatted and minified output."
+      },
+      {
+        "question": "Is the query sent to a server?",
+        "answer": "No. Formatting and minifying happen in your browser."
+      }
+    ],
+    "example": {
+      "title": "Minify a query for an HTTP request.",
+      "input": "query { user { id name } }",
+      "output": "query{user{id name}}",
+      "inputLabel": "GraphQL query",
+      "outputLabel": "Minified query"
+    }
+  },
   addedAt: '2026-07-26',
   complexity: 'simple',
   featured: true,

@@ -46,6 +46,51 @@ export const WORD_COUNTER_META: ToolMeta = {
     complexity: 'simple',
     featured: true,
     isNew: true,
+    guide: {
+      "steps": [
+        {
+          "name": "Enter text",
+          "text": "Paste or type text into Text Input."
+        },
+        {
+          "name": "Read the stat cards",
+          "text": "Words, Characters (with a no-spaces count), Sentences, Paragraphs, Lines and Read time update as you type."
+        },
+        {
+          "name": "Review the secondary stats",
+          "text": "Check Avg word length and the Top words list, which shows the most frequent words with their counts and percentages."
+        },
+        {
+          "name": "Load or clear",
+          "text": "Use ← example to load sample text, or Clear to empty the box."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "How is reading time estimated?",
+          "answer": "The word count is divided by 200 words per minute, and the result is shown in seconds or in minutes and seconds."
+        },
+        {
+          "question": "What counts as a word?",
+          "answer": "Any run of non-whitespace characters, so a hyphenated term or a number with a full stop counts as one word."
+        },
+        {
+          "question": "Which words appear in Top words?",
+          "answer": "Words are lowercased and punctuation is removed (apostrophes are kept). Single-character words are ignored, and only the eight most frequent words are shown."
+        },
+        {
+          "question": "How are sentences counted?",
+          "answer": "Sentences end at a full stop, exclamation mark or question mark."
+        }
+      ],
+      "example": {
+        "title": "Count a one-sentence line.",
+        "input": "The quick brown fox jumps over the lazy dog.",
+        "output": "9 words · 44 characters (36 without spaces) · 1 sentence · 3s read time",
+        "inputLabel": "Text Input",
+        "outputLabel": "Stats"
+      }
+    },
     addedAt: '2026-03-12',
 
     // ── Component ─────────────────────────────────────────────────────────

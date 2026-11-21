@@ -42,6 +42,51 @@ export const CURL_CONVERTER_META: ToolMeta = {
     ],
     tip: 'In Chrome or Edge Network tab, right-click any request and select "Copy as cURL", then paste it here to get instant code!',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Paste a cURL command",
+        "text": "Paste the command into cURL Command Input, or use Load sample cURL to try a preset."
+      },
+      {
+        "name": "Pick a target language",
+        "text": "Select JavaScript (Fetch), Node.js (Axios), Python (Requests), Go (net/http), Rust (reqwest) or PHP (cURL)."
+      },
+      {
+        "name": "Review the generated code",
+        "text": "Generated Code Output updates as you type and includes the method, URL, headers, body and Basic Auth."
+      },
+      {
+        "name": "Copy the snippet",
+        "text": "Use the copy button above Generated Code Output."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which curl options are read?",
+        "answer": "The method (-X or --request), headers (-H or --header), User-Agent (-A or --user-agent), Basic Auth (-u or --user) and the body (-d, --data, --data-raw or --data-binary). The URL is taken from the http or https argument. Other options are ignored."
+      },
+      {
+        "question": "Does adding a body change the method?",
+        "answer": "Yes. If there is a body and no explicit method, the method becomes POST."
+      },
+      {
+        "question": "Can I paste a multi-line command?",
+        "answer": "Yes. Backslash line continuations are joined before the command is parsed."
+      },
+      {
+        "question": "Is my token sent anywhere?",
+        "answer": "No. The conversion runs in your browser and nothing is sent to a server."
+      }
+    ],
+    "example": {
+      "title": "Convert a GET request with a header to Python (Requests).",
+      "input": "curl https://api.example.com/users -H \"Accept: application/json\"",
+      "output": "import requests\n\nurl = \"https://api.example.com/users\"\nheaders = {\n    \"Accept\": \"application/json\",\n}\n\nresponse = requests.get(url, headers=headers)\nprint(response.status_code)\nprint(response.text)",
+      "inputLabel": "cURL Command Input",
+      "outputLabel": "Python (Requests)"
+    }
+  },
   addedAt: '2026-07-26',
   complexity: 'moderate',
   featured: true,
