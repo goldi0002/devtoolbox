@@ -21,6 +21,51 @@ export const CERTIFICATE_DECODER_META: ToolMeta = {
   featured: true,
   isNew: true,
   complexity: 'moderate',
+  guide: {
+    "steps": [
+      {
+        "name": "Paste a PEM certificate",
+        "text": "Paste the -----BEGIN CERTIFICATE----- block into Paste PEM Certificate (X.509 / SSL / TLS), or click a Load Sample button."
+      },
+      {
+        "name": "Review the subject and issuer",
+        "text": "Common Name (CN), Organization (O) and the other name fields are listed for the subject and the issuer."
+      },
+      {
+        "name": "Check names and the key",
+        "text": "Subject Alternative Names (SANs), the public key algorithm, the key size or curve and the signature algorithm are shown."
+      },
+      {
+        "name": "Read the validity and fingerprints",
+        "text": "The status strip shows whether the certificate is valid, expired or not yet valid, and the SHA-256 and SHA-1 fingerprints are listed."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Does it verify the certificate chain?",
+        "answer": "No. The decoder reads the certificate contents and dates. It does not verify the signature, the chain of trust, or whether a host presents this certificate."
+      },
+      {
+        "question": "How is the validity status worked out?",
+        "answer": "It compares the certificate's dates with today's date and reports valid, expired or not yet valid, with the days remaining."
+      },
+      {
+        "question": "Can it decode a private key?",
+        "answer": "No. The tool is for X.509 certificate PEM blocks and does not decode private keys."
+      },
+      {
+        "question": "Is the certificate uploaded?",
+        "answer": "No. Parsing and the fingerprints are computed in your browser with WebCrypto, with no network calls."
+      }
+    ],
+    "example": {
+      "title": "Decode a self-signed ECDSA certificate.",
+      "input": "-----BEGIN CERTIFICATE-----\nMIIB2TCCAYCgAwIBAgIUEJJOFlrMytgBPL2LwNGKQ2PBQpswCgYIKoZIzj0EAwIw\nLTEVMBMGA1UEAwwMZXhhbXBsZS50ZXN0MRQwEgYDVQQKDAtFeGFtcGxlIEluYzAe\nFw0yNjExMjExMTU5MDRaFw0yNzExMjExMTU5MDRaMC0xFTATBgNVBAMMDGV4YW1w\nbGUudGVzdDEUMBIGA1UECgwLRXhhbXBsZSBJbmMwWTATBgcqhkjOPQIBBggqhkjO\nPQMBBwNCAARotq0R+G84RSiqbW4Lsj9FgSwi1+Kj5kmV5m+dpdP2wnIt8UPLaQkR\n17Bx/kKgIP489rIfnbC8laTpUZ/vIQc2o34wfDAdBgNVHQ4EFgQUhkELRvbPGr+C\nBUyvLxzizsFPbJowHwYDVR0jBBgwFoAUhkELRvbPGr+CBUyvLxzizsFPbJowDwYD\nVR0TAQH/BAUwAwEB/zApBgNVHREEIjAgggxleGFtcGxlLnRlc3SCEHd3dy5leGFt\ncGxlLnRlc3QwCgYIKoZIzj0EAwIDRwAwRAIgYO0zOkMYRTo/5drAvCPOfYPRe+lv\nMhzGwla8/uDtOsACIBBCQjU/oCRmU4BvPe91ISEEfIed+XWWX9DDwJDAZBtb\n-----END CERTIFICATE-----",
+      "output": "Subject CN: example.test, O: Example Inc; SANs: DNS:example.test, DNS:www.example.test; Key: EC P-256 (prime256v1); Signature: ECDSA with SHA-256",
+      "inputLabel": "PEM certificate",
+      "outputLabel": "Decoded fields"
+    }
+  },
   addedAt: '2026-10-24',
   toolComponent: lazy(() => import('../../components/tools/crypto-tools/CertificateDecoder')),
   about: {

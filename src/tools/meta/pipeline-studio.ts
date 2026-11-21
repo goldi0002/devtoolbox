@@ -41,6 +41,47 @@ export const PIPELINE_STUDIO_META: ToolMeta = {
         ],
         tip: 'Need to share a complex transformation chain with a teammate? Click "Share Recipe" to generate a self-contained compressed URL that restores your exact input and steps.'
     },
+    guide: {
+      "steps": [
+        {
+          "name": "Enter the source payload",
+          "text": "Paste raw JSON, a Base64 string, a JWT token or log lines into Source Input Payload."
+        },
+        {
+          "name": "Append steps",
+          "text": "Use Append Step to add operations such as Base64 Decode or JSON Prettify / Format."
+        },
+        {
+          "name": "Configure and order the steps",
+          "text": "Set each step’s options, move steps up or down, turn a step off, or remove it."
+        },
+        {
+          "name": "Read the final output",
+          "text": "Final Pipeline Output shows the result. Toggle intermediate step output shows what each step produced."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Does the pipeline run on a server?",
+          "answer": "No. Each operation runs in your browser, and the studio makes no server requests."
+        },
+        {
+          "question": "How do I share a pipeline?",
+          "answer": "Click Share Recipe to copy a link. The input and steps are compressed into the URL hash."
+        },
+        {
+          "question": "Are there ready-made recipes?",
+          "answer": "Yes. Load Pre-built Recipe... offers curated recipes for webhooks, auth tokens, logs and naming."
+        }
+      ],
+      "example": {
+        "title": "Decode Base64 and prettify the JSON.",
+        "input": "eyJuYW1lIjoiQWxpY2UiLCJyb2xlIjoiYWRtaW4ifQ==",
+        "output": "{\n  \"name\": \"Alice\",\n  \"role\": \"admin\"\n}",
+        "inputLabel": "Source Input Payload",
+        "outputLabel": "Final Pipeline Output"
+      }
+    },
     addedAt: '2026-10-25',
     complexity: 'advanced',
     featured: true,

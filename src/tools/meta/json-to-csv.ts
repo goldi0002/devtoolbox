@@ -10,6 +10,51 @@ export const JSON_TO_CSV_META: ToolMeta = {
   keywords: ['json to csv', 'csv to json', 'json spreadsheet converter', 'flatten json to csv', 'csv parser online', 'json table export'],
   status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/JsonCsvConverter')),
+  guide: {
+    "steps": [
+      {
+        "name": "Choose a direction",
+        "text": "Select JSON to CSV or CSV to JSON."
+      },
+      {
+        "name": "Paste your data",
+        "text": "Paste a JSON array or CSV text into the input box."
+      },
+      {
+        "name": "Set the delimiter and options",
+        "text": "Pick Comma (,), Semicolon (;), Tab (\\t) or Pipe (|). In CSV to JSON mode, Auto-Detect can pick the delimiter. Tick Include Header Row, Quote All Fields, Auto-Parse Numbers or Auto-Parse Booleans as needed."
+      },
+      {
+        "name": "Check the preview and export",
+        "text": "Use Table Preview to inspect the rows, then download the converted output."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "How are nested objects handled?",
+        "answer": "With flattening on, nested keys are joined with dots, so address.city becomes a column. In CSV to JSON mode, dotted headers are rebuilt into nested objects."
+      },
+      {
+        "question": "How are quotes escaped?",
+        "answer": "Fields that contain the delimiter, a double quote or a line break are wrapped in double quotes, and any double quote inside is doubled."
+      },
+      {
+        "question": "Are numbers and booleans kept?",
+        "answer": "With Auto-Parse Numbers and Auto-Parse Booleans on, CSV values such as 34 or true become a number or boolean in the JSON."
+      },
+      {
+        "question": "Is my data uploaded?",
+        "answer": "No. The conversion runs in your browser."
+      }
+    ],
+    "example": {
+      "title": "Flatten a nested JSON object to CSV.",
+      "input": "[{\"name\":\"Alice\",\"age\":34,\"address\":{\"city\":\"Paris\"}}]",
+      "output": "name,age,address.city\nAlice,34,Paris",
+      "inputLabel": "JSON array",
+      "outputLabel": "CSV"
+    }
+  },
   seo: {
     title: 'JSON to CSV & CSV to JSON Converter — Table & Spreadsheet Tool',
     description: 'Convert JSON objects and arrays into CSV or transform CSV spreadsheets into clean JSON with delimiter selection and dot-notation flattening in your browser.',

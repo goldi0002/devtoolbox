@@ -32,6 +32,47 @@ export const HTTP_STATUS_LOOKUP_META: ToolMeta = {
     ],
     tip: 'If you keep seeing 304 responses in DevTools, that often means browser caching is working exactly as intended rather than your request failing.',
   },
+  guide: {
+    "steps": [
+      {
+        "name": "Search or pick a code",
+        "text": "Type a code or words into Search by code or status text, or use the 200, 404, 429 or 500 buttons."
+      },
+      {
+        "name": "Read the answer card",
+        "text": "An exact code shows a headline such as 404 · Not Found with its category."
+      },
+      {
+        "name": "Browse the table",
+        "text": "The table lists the code, category and meaning. Use Show all to clear the search."
+      },
+      {
+        "name": "Copy a code",
+        "text": "Use the copy action on a row to copy the code and label, such as 404 Not Found."
+      }
+    ],
+    "faqs": [
+      {
+        "question": "Which status codes are included?",
+        "answer": "A selection of common codes from 1xx to 5xx, such as 301, 401, 404, 429, 500 and 503. Rarer codes are not listed."
+      },
+      {
+        "question": "What does the search match?",
+        "answer": "It matches the code, label, category or meaning text, ignoring case."
+      },
+      {
+        "question": "Is anything sent to a server?",
+        "answer": "No. The list is built into the page and searched in your browser."
+      }
+    ],
+    "example": {
+      "title": "Look up a 404 response.",
+      "input": "404",
+      "output": "404 · Not Found\nClient Error",
+      "inputLabel": "Search",
+      "outputLabel": "Answer card"
+    }
+  },
   addedAt: '2026-03-18',
   complexity: 'simple',
   featured: false,
