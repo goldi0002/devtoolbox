@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ToolCard from '../components/ToolCard'
 import ToolIcon from '../components/ui/ToolIcon'
@@ -6,6 +6,7 @@ import ErrorBoundary from '../components/ErrorBoundary'
 import { tools, categoryLabels } from '../tools/registry'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { SEO } from '../hooks/useSEO'
+import { useToolPreferences } from '../hooks/useToolPreferences'
 import { Search, ShieldCheck, Zap, Lock, Sparkles, ArrowRight, Clock, LayoutGrid, Workflow, Copy, Check, Hash, Terminal, Cpu } from 'lucide-react'
 
 // Category counts for the stats strip
@@ -28,22 +29,11 @@ export default function Home() {
   usePageTitle('Home')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
-  const [recentSlugs, setRecentSlugs] = useState<string[]>([])
+  const { recentTools } = useToolPreferences()
 
   const [copiedUuid, setCopiedUuid] = useState(false)
   const [copiedHash, setCopiedHash] = useState(false)
   const [copiedBase64, setCopiedBase64] = useState(false)
-
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('devutils_recent_tools')
-      if (stored) {
-        setRecentSlugs(JSON.parse(stored))
-      }
-    } catch {
-      // ignore
-    }
-  }, [])
 
   const filteredTools = tools.filter(t => {
     const matchesCategory = selectedCategory === 'all' || t.category === selectedCategory
@@ -54,7 +44,7 @@ export default function Home() {
     return matchesCategory && matchesSearch
   })
 
-  const recentToolsList = recentSlugs
+  const recentToolsList = recentTools
     .map(slug => tools.find(t => t.slug === slug))
     .filter((t): t is typeof tools[0] => Boolean(t))
     .slice(0, 4)

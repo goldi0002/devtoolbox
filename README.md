@@ -4,7 +4,7 @@
   <br />
   <img src="public/images/favicon.svg" alt="ToolBox4Devs Logo" width="80" height="80" />
   <h3>The Premier Fast, Private, 100% Client-Side Developer Utility Suite</h3>
-  <p>97 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
+  <p>100 essential developer utilities running entirely in your browser memory. Zero ads, zero tracking, zero server latency.</p>
 
   <p>
     <a href="https://www.toolbox4devs.com">
@@ -54,7 +54,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 1. **🔒 100% Client-Side Processing**: Every single transformation, calculation, formatting pass, and cryptographic operation executes exclusively in browser memory. No data is ever transmitted to a backend.
 2. **🛡️ Absolute Privacy Guarantee**: Safe for sensitive tokens, passwords, production database dumps, and private certificates.
-3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 97 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
+3. **⚡ Static Site Generation (SSG)**: Built with `vite-react-ssg`, pre-rendering all 100 tool pages into static HTML for instant first-contentful paint and top-tier SEO rankings.
 4. **📴 Offline & Progressive Web App (PWA)**: Includes a full Service Worker cache so you can install and use the entire utility suite while disconnected on planes, trains, or offline field environments.
 5. **🔗 Compressed Stateless Sharing**: Uses `lz-string` URL hash compression (`#data=...`) to generate shareable links containing complete tool states without any server database storage.
 6. **🎨 10 Tailored Developer Themes**: Switch effortlessly between Dark, Nord, Dracula, Monokai, Terminal, Sepia, Rose, Solarized, and custom high-contrast palettes.
@@ -62,7 +62,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 
 ---
 
-## 🛠️ Complete Tool Catalog (97 Tools)
+## 🛠️ Complete Tool Catalog (100 Tools)
 
 ### 1. 🗄️ Data & DevOps (21 Tools)
 - **Delimited File Data Validator (`/csv-validator`)**: Validate CSV, TSV, and delimited TXT files with an interactive visual rule builder, regex constraints, type checks, and row-level error auditing.
@@ -94,10 +94,11 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **JSON Diff (`/json-diff`)**: Compare two JSON documents by structure and list every added, removed and changed value by JSON path, ignoring key order.
 - **JSON Model Generator (`/json-model`)**: Generate TypeScript interfaces, Python Dataclasses, Go Structs, and C# classes.
 
-### 3. 🔐 Security, Auth & Cryptography (9 Tools)
+### 3. 🔐 Security, Auth & Cryptography (10 Tools)
 - **JWT Decoder & Inspector (`/jwt`)**: Decode JWT headers, payload claims, expiration status, and time-to-live warnings.
 - **JWT Encoder & Signer (`/jwt-encoder`)**: Generate and sign tokens using HMAC-SHA256 client-side.
 - **Basic Auth Header Generator (`/basic-auth-header`)**: Create `Authorization: Basic <base64>` tokens from username/password pairs.
+- **TOTP / 2FA Authenticator & URI Builder (`/totp-authenticator`)**: Generate RFC 6238 TOTP & RFC 4226 HOTP 2FA codes, test Base32 secrets, and build or parse scannable `otpauth://` QR URIs.
 - **SHA-256 Hash Generator (`/sha256`)**: Hash text or files with SHA-256 using native Web Crypto, and verify against a known checksum.
 - **HMAC Generator (`/hmac-generator`)**: Compute keyed hash message authentication codes with custom secrets.
 - **Webhook Signature Verifier (`/webhook-signature-verifier`)**: Verify or generate Stripe, GitHub, Slack, Shopify, and Standard Webhooks signatures with timestamp replay checks.
@@ -105,7 +106,7 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **X.509 Certificate Decoder (`/certificate-decoder`)**: Inspect PEM/CRT certificates, validity dates, SANs, and issuer chains.
 - **Bcrypt Generator & Verifier (`/bcrypt-generator`)**: Compute and verify bcrypt salted hashes client-side.
 
-### 4. 🌐 Web & Frontend Utilities (28 Tools)
+### 4. 🌐 Web & Frontend Utilities (29 Tools)
 - **cURL Converter (`/curl-converter`)**: Transform cURL commands into JavaScript `fetch`, `axios`, Python `requests`, and Go code.
 - **WCAG 2.1 Contrast Checker (`/wcag-contrast-checker`)**: Check AA/AAA compliance with live preview and color blindness simulations.
 - **Cubic-Bezier Easing Editor (`/cubic-bezier-editor`)**: Shape a CSS `cubic-bezier()` timing function by dragging handles or typing values, with presets, paste support, a motion preview and copyable CSS.
@@ -134,11 +135,13 @@ ToolBox4Devs was built to solve the frustration of using ad-ridden, slow, and pr
 - **robots.txt & sitemap.xml Generator (`/robots-sitemap-generator`)**: Build robots.txt rules with allow, disallow, crawl-delay and AI-crawler presets, or sitemap.xml from a URL list with escaping and validation warnings.
 - **CSS Gradient Generator (`/css-gradient-generator`)**: Build linear, radial and conic gradients with editable color stops, a live preview and a copy-ready `background` declaration.
 - **CSP Header Builder & Analyzer (`/csp-builder`)**: Build Content-Security-Policy headers visually, audit existing policies for XSS risks, and export HTTP, Nginx, Apache, Express, or `<meta>` configs.
+- **OpenAPI / Swagger 3.0 Explorer (`/openapi-explorer`)**: Parse OpenAPI 3.x and Swagger 2.0 YAML/JSON specs, resolve `$ref` schemas, and generate cURL and `fetch()` snippets locally.
 
-### 5. 🔤 Text & String Manipulation (9 Tools)
+### 5. 🔤 Text & String Manipulation (10 Tools)
 - **String Escape & Unescape (`/string-escaper`)**: Escape strings for JSON, JavaScript, SQL, HTML, Python, Shell, and Unicode.
 - **Case Converter (`/case-converter`)**: Transform text into camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE, and more.
 - **Regex Tester & Debugger (`/regex`)**: Live JavaScript regex engine with group captures, match positions, and flag toggles.
+- **Regex Railroad Visualizer (`/regex-railroad-visualizer`)**: Visualize JavaScript regular expressions as interactive SVG railroad state diagrams with token-by-token plain-English explanations.
 - **Text Diff Viewer (`/text-diff`)**: Side-by-side and unified visual line/word difference comparison.
 - **Slug Generator (`/slug-generator`)**: URL-friendly kebab slugification with diacritic removal and custom delimiters.
 - **Markdown Table to JSON (`/markdown-table-to-json`)**: Convert GitHub-flavored Markdown tables from READMEs, docs, or LLM output into typed JSON objects.

@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 97
+Total Tools: 100
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 97 Tools)
+## Tool Registry & Technical Specifications (All 100 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -954,6 +954,36 @@ Total Tools: 97
 - Features: Generates ULIDs (26-char Crockford Base32) and RFC 9562 UUID v7s in batches of up to 100; Monotonic mode increments the random component within the same millisecond to guarantee strict sort order; Optional custom Unix millisecond timestamp pinning for deterministic test data; Export generated batches as plain lines, a JSON array, or SQL VALUES tuples; Built-in ULID & UUID Inspector supporting timestamp decoding and ULID <-> UUID 128-bit conversion; 100% browser-side crypto.getRandomValues() execution
 - Tip: Prefer UUID v7 when your database already has a native 128-bit uuid column type (such as PostgreSQL); prefer ULID when you want shorter, URL-friendly 26-character strings without hyphens.
 
+### 98. OpenAPI / Swagger 3.0 Explorer
+- URL: https://www.toolbox4devs.com/openapi-explorer
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Parse OpenAPI 3.x and Swagger 2.0 YAML/JSON specs, resolve $ref schemas, and generate cURL and fetch() snippets locally.
+- Summary: OpenAPI / Swagger 3.0 Explorer lets you inspect OpenAPI 3.0, 3.1, and Swagger 2.0 specifications written in YAML or JSON entirely inside your browser. It automatically resolves local $ref schema pointers, generates realistic sample JSON request and response bodies, and produces ready-to-run cURL and JavaScript fetch() snippets for any endpoint without uploading private API contracts to a third-party server.
+- Use Cases: Reviewing internal microservice OpenAPI YAML/JSON contracts offline without sending specs to cloud viewers; Generating sample JSON request payloads from nested $ref component schemas; Quickly building parameterized cURL or fetch() requests from an API endpoint definition; Auditing path, query, and header parameters as well as response status schemas
+- Features: Parses both YAML and JSON OpenAPI 3.0 / 3.1 and Swagger 2.0 specifications; Local $ref pointer resolution with circular-reference protection and allOf/oneOf merging; Interactive endpoint catalog with HTTP method filters and search by path, tag, or operationId; Live parameter inputs that populate path variables, query strings, and headers in generated snippets; One-click copy for generated cURL commands and JavaScript fetch() calls
+- Tip: Switch the Target Server Base URL to http://localhost:3000 (or your staging gateway) to copy cURL commands pointed straight at your local dev server.
+
+### 99. Regex Railroad Visualizer
+- URL: https://www.toolbox4devs.com/regex-railroad-visualizer
+- Category: Text (text-tools)
+- Complexity: Moderate
+- Description: Visualize JavaScript regular expressions as interactive SVG railroad state diagrams with token-by-token plain-English explanations.
+- Summary: Regex Railroad Visualizer parses JavaScript regular expressions into an abstract syntax tree and renders them as clear, left-to-right SVG railroad diagrams. Optional paths appear as dashed bypass rails, quantifiers render amber repetition loops, alternations split into parallel branches, and capturing or lookaround groups are framed with labels—paired with a plain-English token breakdown and live test matcher.
+- Use Cases: Understanding complex legacy regular expressions during code reviews or incident debugging; Exporting crisp SVG railroad diagrams to embed in engineering docs, PRs, or READMEs; Teaching and verifying quantifier greediness, lookaheads, lookbehinds, and alternation precedence; Checking live matches alongside the visual execution path
+- Features: Pure TypeScript RegExp parser supporting groups, named groups, lookarounds, character classes, escapes, and lazy quantifiers; Zoomable SVG Railroad Diagram with bypass tracks, repetition loops, and parallel alternation branches; One-click SVG markup copy and .svg file download; Token-by-token plain-English breakdown table; Live test string matcher with flag toggles (g, i, m, s, u)
+- Tip: Use the SVG download button to drop visual diagrams of validation rules directly into architecture RFCs or API documentation.
+
+### 100. TOTP / 2FA Authenticator & URI Builder
+- URL: https://www.toolbox4devs.com/totp-authenticator
+- Category: Authentication (auth-tools)
+- Complexity: Simple
+- Description: Generate RFC 6238 TOTP & RFC 4226 HOTP 2FA codes, test Base32 secrets, and build or parse scannable otpauth:// QR URIs.
+- Summary: TOTP / 2FA Authenticator & URI Builder computes RFC 6238 time-based (TOTP) and RFC 4226 counter-based (HOTP) one-time passcodes entirely in your browser using the native Web Crypto HMAC API. Developers implementing multi-factor authentication can test Base32 secrets, preview next-window codes, parse existing otpauth:// links, and render scannable provisioning QR codes without ever sending shared secrets over the network.
+- Use Cases: Testing 2FA / MFA login flows during local development without reaching for a phone; Verifying that backend TOTP libraries match RFC 6238 across SHA-1, SHA-256, and SHA-512; Building and previewing scannable otpauth:// QR codes for authenticator apps; Inspecting and validating existing otpauth://totp/ or otpauth://hotp/ provisioning URIs
+- Features: Real-time RFC 6238 TOTP generator with live countdown ring and next-window code preview; RFC 4226 HOTP counter-based mode with step increment control; Supports HMAC-SHA1, HMAC-SHA256, and HMAC-SHA512 with 6, 7, or 8 digit output; Cryptographically random 160-bit Base32 secret generator via crypto.getRandomValues(); Bidirectional otpauth:// URI parser/builder with instant SVG QR code preview
+- Tip: Keep a dedicated test Base32 secret in your local .env.test and paste it here whenever you need valid 6-digit codes in integration tests.
+
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes
 - Description: Pre-assembled sequential multi-tool pipelines executing client-side with zero latency.
@@ -963,3 +993,4 @@ Total Tools: 97
   3. Base64 JSON Unpacker (https://www.toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 and url-safe base64 strings directly into clean, syntax-highlighted, formatted JSON in a single step.
   4. Log Cleaner & Deduplicator (https://www.toolbox4devs.com/recipes/server-log-cleaner): Extract error lines, deduplicate stack trace signatures, and clean messy server log files in browser memory.
   5. SQL Identifier Sanitizer (https://www.toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch transform frontend camelCase models and JSON keys into Postgres and MySQL compliant snake_case identifiers.
+  6. YAML Config Flattener (https://www.toolbox4devs.com/recipes/yaml-config-extractor): Parse nested Kubernetes, GitHub Actions, or Docker YAML configurations into flattened dot-notation JSON keys entirely in browser memory.

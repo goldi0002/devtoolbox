@@ -524,7 +524,35 @@ export default function DevFlowStudio({ initialRecipe, initialInput }: DevFlowSt
                         </div>
                       )}
 
-                      {!['json-prettify', 'extract-json-key', 'jwt-decode', 'regex-replace', 'regex-extract', 'case-transform', 'string-clean'].includes(step.operationId) && (
+                      {/* YAML to JSON Options */}
+                      {step.operationId === 'yaml-to-json' && (
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-muted">Indent:</span>
+                          <select
+                            value={Number(step.options.indent) || 2}
+                            onChange={(e) => handleUpdateOption(step.id, 'indent', Number(e.target.value))}
+                            className="text-xs px-2 py-1 rounded border border-border bg-bg text-bright"
+                          >
+                            <option value={2}>2 Spaces</option>
+                            <option value={4}>4 Spaces</option>
+                          </select>
+                        </div>
+                      )}
+
+                      {/* Hex Encode Options */}
+                      {step.operationId === 'hex-encode' && (
+                        <label className="flex items-center gap-1.5 cursor-pointer text-muted hover:text-bright">
+                          <input
+                            type="checkbox"
+                            checked={step.options.spaced !== false}
+                            onChange={(e) => handleUpdateOption(step.id, 'spaced', e.target.checked)}
+                            className="rounded border-border text-accent focus:ring-accent"
+                          />
+                          <span>Space-separate bytes</span>
+                        </label>
+                      )}
+
+                      {!['json-prettify', 'extract-json-key', 'jwt-decode', 'regex-replace', 'regex-extract', 'case-transform', 'string-clean', 'yaml-to-json', 'hex-encode'].includes(step.operationId) && (
                         <span className="text-muted text-[11px]">{op?.description}</span>
                       )}
                     </div>

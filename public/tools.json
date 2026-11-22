@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 97,
+  "totalTools": 100,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2450,6 +2450,80 @@
         "100% browser-side crypto.getRandomValues() execution"
       ],
       "tip": "Prefer UUID v7 when your database already has a native 128-bit uuid column type (such as PostgreSQL); prefer ULID when you want shorter, URL-friendly 26-character strings without hyphens."
+    },
+    {
+      "slug": "openapi-explorer",
+      "name": "OpenAPI / Swagger 3.0 Explorer",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/openapi-explorer",
+      "description": "Parse OpenAPI 3.x and Swagger 2.0 YAML/JSON specs, resolve $ref schemas, and generate cURL and fetch() snippets locally.",
+      "complexity": "moderate",
+      "keywords": [
+        "openapi explorer",
+        "swagger 3.0 viewer",
+        "openapi yaml viewer",
+        "swagger json parser",
+        "openapi curl generator",
+        "rest api schema inspector",
+        "openapi ref resolver"
+      ],
+      "features": [
+        "Parses both YAML and JSON OpenAPI 3.0 / 3.1 and Swagger 2.0 specifications",
+        "Local $ref pointer resolution with circular-reference protection and allOf/oneOf merging",
+        "Interactive endpoint catalog with HTTP method filters and search by path, tag, or operationId",
+        "Live parameter inputs that populate path variables, query strings, and headers in generated snippets",
+        "One-click copy for generated cURL commands and JavaScript fetch() calls"
+      ],
+      "tip": "Switch the Target Server Base URL to http://localhost:3000 (or your staging gateway) to copy cURL commands pointed straight at your local dev server."
+    },
+    {
+      "slug": "regex-railroad-visualizer",
+      "name": "Regex Railroad Visualizer",
+      "category": "text-tools",
+      "url": "https://www.toolbox4devs.com/regex-railroad-visualizer",
+      "description": "Visualize JavaScript regular expressions as interactive SVG railroad state diagrams with token-by-token plain-English explanations.",
+      "complexity": "moderate",
+      "keywords": [
+        "regex railroad diagram",
+        "regex visualizer",
+        "regular expression diagram svg",
+        "regex explainer",
+        "regex ast visualizer",
+        "regex state machine diagram"
+      ],
+      "features": [
+        "Pure TypeScript RegExp parser supporting groups, named groups, lookarounds, character classes, escapes, and lazy quantifiers",
+        "Zoomable SVG Railroad Diagram with bypass tracks, repetition loops, and parallel alternation branches",
+        "One-click SVG markup copy and .svg file download",
+        "Token-by-token plain-English breakdown table",
+        "Live test string matcher with flag toggles (g, i, m, s, u)"
+      ],
+      "tip": "Use the SVG download button to drop visual diagrams of validation rules directly into architecture RFCs or API documentation."
+    },
+    {
+      "slug": "totp-authenticator",
+      "name": "TOTP / 2FA Authenticator & URI Builder",
+      "category": "auth-tools",
+      "url": "https://www.toolbox4devs.com/totp-authenticator",
+      "description": "Generate RFC 6238 TOTP & RFC 4226 HOTP 2FA codes, test Base32 secrets, and build or parse scannable otpauth:// QR URIs.",
+      "complexity": "simple",
+      "keywords": [
+        "totp generator",
+        "2fa authenticator online",
+        "otpauth uri builder",
+        "rfc 6238 totp",
+        "hotp generator",
+        "totp qr code generator",
+        "mfa testing tool"
+      ],
+      "features": [
+        "Real-time RFC 6238 TOTP generator with live countdown ring and next-window code preview",
+        "RFC 4226 HOTP counter-based mode with step increment control",
+        "Supports HMAC-SHA1, HMAC-SHA256, and HMAC-SHA512 with 6, 7, or 8 digit output",
+        "Cryptographically random 160-bit Base32 secret generator via crypto.getRandomValues()",
+        "Bidirectional otpauth:// URI parser/builder with instant SVG QR code preview"
+      ],
+      "tip": "Keep a dedicated test Base32 secret in your local .env.test and paste it here whenever you need valid 6-digit codes in integration tests."
     }
   ]
 }

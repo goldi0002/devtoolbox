@@ -148,6 +148,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'text-diff': FileText,
   'case-converter': CaseUpper,
   'regex': Regex,
+  'regex-railroad-visualizer': Regex,
   'slug-generator': Link2,
   'csv-to-markdown': Table,
   'line-sorter': ArrowDownAZ,
@@ -173,6 +174,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'jwt-decoder': KeyRound,
   'jwt-encoder': KeyRound,
   'basic-auth-header': ShieldCheck,
+  'totp-authenticator': ShieldCheck,
   'password-strength-analyzer': ShieldAlert,
 
   // Cryptography
@@ -202,6 +204,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'cubic-bezier-editor': Spline,
   'keycode-inspector': Keyboard,
   'markdown-preview': Eye,
+  'openapi-explorer': Globe,
   'csp-builder': ShieldAlert,
 
   // Data & DevOps

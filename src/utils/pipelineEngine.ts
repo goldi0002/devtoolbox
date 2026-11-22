@@ -1,3 +1,4 @@
+import { parse as parseYaml, stringify as stringifyYaml } from 'yaml'
 import { encodeBase64, decodeBase64, encodeUrl, decodeUrl } from './encoding'
 import { compress, decompress } from '../lib/share'
 
@@ -266,6 +267,116 @@ export const PIPELINE_OPERATIONS: PipelineOperation[] = [
       // Synchronous sha256 approximation for browser execution pipeline
       // We use Web Crypto via synchronous fallback or sha256 implementation
       return calculateSha256Sync(input)
+    },
+  },
+  {
+    id: 'yaml-to-json',
+    name: 'YAML to JSON',
+    category: 'formatting',
+    description: 'Parses YAML documents into formatted JSON.',
+    defaultOptions: { indent: 2 },
+    execute: (input, opts) => {
+      if (!input.trim()) return ''
+      const parsed = parseYaml(input)
+      return JSON.stringify(parsed, null, Number(opts.indent) || 2)
+    },
+  },
+  {
+    id: 'json-to-yaml',
+    name: 'JSON to YAML',
+    category: 'formatting',
+    description: 'Converts JSON payloads into clean YAML.',
+    defaultOptions: {},
+    execute: (input) => {
+      if (!input.trim()) return ''
+      const parsed = JSON.parse(input)
+      return stringifyYaml(parsed).trimEnd()
+    },
+  },
+  {
+    id: 'json-flatten',
+    name: 'Flatten JSON Keys',
+    category: 'formatting',
+    description: 'Flattens nested JSON objects into dot-notation key/value pairs.',
+    defaultOptions: {},
+    execute: (input) => {
+      if (!input.trim()) return ''
+      const parsed = JSON.parse(input)
+      const out: Record<string, unknown> = {}
+      const walk = (node: unknown, prefix: string) => {
+        if (Array.isArray(node)) {
+          if (node.length === 0) {
+            out[prefix] = []
+          } else {
+            node.forEach((item, idx) => walk(item, prefix ? `${prefix}.${idx}` : String(idx)))
+          }
+        } else if (node !== null && typeof node === 'object') {
+          const entries = Object.entries(node as Record<string, unknown>)
+          if (entries.length === 0) {
+            out[prefix] = {}
+          } else {
+            for (const [k, v] of entries) {
+              walk(v, prefix ? `${prefix}.${k}` : k)
+            }
+          }
+        } else {
+          out[prefix] = node
+        }
+      }
+      walk(parsed, '')
+      return JSON.stringify(out, null, 2)
+    },
+  },
+  {
+    id: 'hex-encode',
+    name: 'Hex Encode (UTF-8)',
+    category: 'encoding',
+    description: 'Encodes UTF-8 text into hexadecimal byte pairs.',
+    defaultOptions: { spaced: true },
+    execute: (input, opts) => {
+      if (!input) return ''
+      const bytes = new TextEncoder().encode(input)
+      const hexBytes = Array.from(bytes, b => b.toString(16).padStart(2, '0'))
+      return opts.spaced ? hexBytes.join(' ') : hexBytes.join('')
+    },
+  },
+  {
+    id: 'hex-decode',
+    name: 'Hex Decode (UTF-8)',
+    category: 'encoding',
+    description: 'Decodes hexadecimal bytes back into UTF-8 text.',
+    defaultOptions: {},
+    execute: (input) => {
+      const clean = input.replace(/[\s:,-]+/g, '')
+      if (!clean) return ''
+      if (clean.length % 2 !== 0 || !/^[0-9a-fA-F]+$/.test(clean)) {
+        throw new Error('Invalid hexadecimal string (must contain even number of 0-9, a-f chars)')
+      }
+      const bytes = new Uint8Array(clean.length / 2)
+      for (let i = 0; i < clean.length; i += 2) {
+        bytes[i / 2] = parseInt(clean.slice(i, i + 2), 16)
+      }
+      return new TextDecoder('utf-8', { fatal: true }).decode(bytes)
+    },
+  },
+  {
+    id: 'url-slugify',
+    name: 'URL Slugify',
+    category: 'text',
+    description: 'Normalizes text lines into URL-safe lowercase hyphenated slugs.',
+    defaultOptions: {},
+    execute: (input) => {
+      return input
+        .split('\n')
+        .map(line =>
+          line
+            .normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+        )
+        .join('\n')
     },
   },
 ]

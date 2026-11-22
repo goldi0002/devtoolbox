@@ -240,6 +240,50 @@ stripeSubscriptionId`,
       }
     ],
     relatedToolSlugs: ['case-converter', 'json-to-sql', 'sql-formatter']
+  },
+  {
+    slug: 'yaml-config-extractor',
+    title: 'Convert YAML Config to Flattened JSON Keys',
+    shortTitle: 'YAML Config Flattener',
+    metaTitle: 'YAML Config Flattener — Convert Nested YAML to Dot-Notation JSON',
+    metaDescription: 'Parse nested Kubernetes, GitHub Actions, or Docker YAML configurations into flattened dot-notation JSON keys entirely in browser memory.',
+    category: 'data',
+    targetKeywords: [
+      'yaml to flattened json',
+      'flatten yaml config keys',
+      'yaml dot notation converter',
+      'client side yaml parser'
+    ],
+    sampleInput: `service:
+  name: billing-api
+  replicas: 3
+database:
+  host: postgres.internal
+  port: 5432
+  ssl: true`,
+    steps: [
+      {
+        id: 'step-yaml-1',
+        operationId: 'yaml-to-json',
+        enabled: true,
+        options: { indent: 2 },
+      },
+      {
+        id: 'step-yaml-2',
+        operationId: 'json-flatten',
+        enabled: true,
+        options: {},
+      },
+    ],
+    problemSummary: 'Deeply nested YAML deployment manifests and Helm values files are hard to diff or map directly to environment variables and feature flags.',
+    solutionSummary: 'DevFlow converts YAML to JSON and flattens nested keys into dot-notation pairs in one step with zero external servers.',
+    faqs: [
+      {
+        question: 'Can I reverse or inspect the intermediate JSON?',
+        answer: 'Yes. Toggle the eye icon on step 1 in Pipeline Studio to inspect the formatted JSON before flattening.'
+      }
+    ],
+    relatedToolSlugs: ['yaml-json-converter', 'toml-json-yaml-converter', 'env-auditor']
   }
 ]
 

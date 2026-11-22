@@ -99,6 +99,9 @@ const toolMeta = [
   { slug: 'webhook-signature-verifier',  category: 'crypto-tools' },
   { slug: 'csp-builder',                 category: 'web-tools' },
   { slug: 'ulid-uuidv7-generator',       category: 'generate-tools' },
+  { slug: 'openapi-explorer',            category: 'web-tools' },
+  { slug: 'regex-railroad-visualizer',   category: 'text-tools' },
+  { slug: 'totp-authenticator',          category: 'auth-tools' },
 ] as const
 
 export function getAllAvailableTools() {

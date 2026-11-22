@@ -96,6 +96,9 @@ import { MARKDOWN_TO_HTML_META } from "./meta/markdown-to-html"
 import { WEBHOOK_SIGNATURE_VERIFIER_META } from "./meta/webhook-signature-verifier"
 import { CSP_BUILDER_META } from "./meta/csp-builder"
 import { ULID_UUIDV7_GENERATOR_META } from "./meta/ulid-uuidv7-generator"
+import { OPENAPI_EXPLORER_META } from "./meta/openapi-explorer"
+import { REGEX_RAILROAD_VISUALIZER_META } from "./meta/regex-railroad-visualizer"
+import { TOTP_AUTHENTICATOR_META } from "./meta/totp-authenticator"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -195,6 +198,9 @@ export const tools: ToolMeta[] = [
   WEBHOOK_SIGNATURE_VERIFIER_META,
   CSP_BUILDER_META,
   ULID_UUIDV7_GENERATOR_META,
+  OPENAPI_EXPLORER_META,
+  REGEX_RAILROAD_VISUALIZER_META,
+  TOTP_AUTHENTICATOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 97 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 100 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -37,6 +37,7 @@
 - [CSV to Markdown](https://www.toolbox4devs.com/csv-to-markdown): Convert CSV or TSV data into a well-formatted Markdown table instantly.
 - [Line Sorter & Deduplicator](https://www.toolbox4devs.com/line-sorter): Sort lines alphabetically, by length, or naturally — remove duplicates, trim whitespace, and drop empty lines.
 - [Text Repeater & Multiplier](https://www.toolbox4devs.com/text-repeater): Replicate and repeat text, characters, or strings up to thousands of times with custom separators and formatting options.
+- [Regex Railroad Visualizer](https://www.toolbox4devs.com/regex-railroad-visualizer): Visualize JavaScript regular expressions as interactive SVG railroad state diagrams with token-by-token plain-English explanations.
 
 ### Generators
 - [Dockerfile & Container Generator](https://www.toolbox4devs.com/dockerfile-generator): Generate production-ready, secure, multi-stage Dockerfiles, .dockerignore, and docker-compose files with built-in security auditing.
@@ -58,6 +59,7 @@
 - [JWT Decoder](https://www.toolbox4devs.com/jwt): Decode and inspect JSON Web Tokens — header, payload, expiry and more.
 - [Basic Auth Header](https://www.toolbox4devs.com/basic-auth-header): Generate and decode HTTP Basic Authorization headers using username and password pairs.
 - [JWT Encoder & Token Generator](https://www.toolbox4devs.com/jwt-encoder): Create and sign JSON Web Tokens (JWT) with HMAC algorithms (HS256/HS384/HS512) entirely in your browser.
+- [TOTP / 2FA Authenticator & URI Builder](https://www.toolbox4devs.com/totp-authenticator): Generate RFC 6238 TOTP & RFC 4226 HOTP 2FA codes, test Base32 secrets, and build or parse scannable otpauth:// QR URIs.
 
 ### Web Tools
 - [robots.txt & sitemap.xml Generator](https://www.toolbox4devs.com/robots-sitemap-generator): Build a robots.txt with user-agent groups, allow and disallow rules, crawl-delay and AI-crawler presets, or a sitemap.xml from a list of URLs.
@@ -88,6 +90,7 @@
 - [Cubic-Bezier Easing Editor](https://www.toolbox4devs.com/cubic-bezier-editor): Shape a CSS cubic-bezier() timing function by dragging its two handles or typing values, preview the motion, and copy the CSS.
 - [Markdown to HTML](https://www.toolbox4devs.com/markdown-to-html): Convert Markdown into clean, copy-ready HTML source, with optional inline styles or a full HTML document. Runs entirely in your browser.
 - [CSP Header Builder & Analyzer](https://www.toolbox4devs.com/csp-builder): Build Content-Security-Policy headers visually, audit existing policies for XSS risks, and export HTTP, Nginx, Apache, Express, or meta tag configs.
+- [OpenAPI / Swagger 3.0 Explorer](https://www.toolbox4devs.com/openapi-explorer): Parse OpenAPI 3.x and Swagger 2.0 YAML/JSON specs, resolve $ref schemas, and generate cURL and fetch() snippets locally.
 
 ### Data Tools
 - [Delimited File Data Validator (CSV / TSV / TXT)](https://www.toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
@@ -133,6 +136,7 @@
 - [Base64 JSON Unpacker](https://www.toolbox4devs.com/recipes/base64-json-unpacker): Decode base64 and url-safe base64 strings directly into clean, syntax-highlighted, formatted JSON in a single step.
 - [Log Cleaner & Deduplicator](https://www.toolbox4devs.com/recipes/server-log-cleaner): Extract error lines, deduplicate stack trace signatures, and clean messy server log files in browser memory.
 - [SQL Identifier Sanitizer](https://www.toolbox4devs.com/recipes/sql-identifier-sanitizer): Batch transform frontend camelCase models and JSON keys into Postgres and MySQL compliant snake_case identifiers.
+- [YAML Config Flattener](https://www.toolbox4devs.com/recipes/yaml-config-extractor): Parse nested Kubernetes, GitHub Actions, or Docker YAML configurations into flattened dot-notation JSON keys entirely in browser memory.
 
 ## Programmatic API / Agent Catalog
 AI agents can consume the structured machine-readable catalog at:
