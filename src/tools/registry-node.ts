@@ -96,6 +96,9 @@ const toolMeta = [
   { slug: 'box-shadow-generator',        category: 'generate-tools' },
   { slug: 'cubic-bezier-editor',         category: 'web-tools' },
   { slug: 'markdown-to-html',            category: 'web-tools' },
+  { slug: 'webhook-signature-verifier',  category: 'crypto-tools' },
+  { slug: 'csp-builder',                 category: 'web-tools' },
+  { slug: 'ulid-uuidv7-generator',       category: 'generate-tools' },
 ] as const
 
 export function getAllAvailableTools() {

@@ -93,6 +93,9 @@ import { ROBOTS_SITEMAP_GENERATOR_META } from "./meta/robots-sitemap-generator"
 import { TOML_JSON_YAML_CONVERTER_META } from "./meta/toml-json-yaml-converter"
 import { BOX_SHADOW_GENERATOR_META } from "./meta/box-shadow-generator"
 import { MARKDOWN_TO_HTML_META } from "./meta/markdown-to-html"
+import { WEBHOOK_SIGNATURE_VERIFIER_META } from "./meta/webhook-signature-verifier"
+import { CSP_BUILDER_META } from "./meta/csp-builder"
+import { ULID_UUIDV7_GENERATOR_META } from "./meta/ulid-uuidv7-generator"
 
 export const tools: ToolMeta[] = [
   ROBOTS_SITEMAP_GENERATOR_META,
@@ -189,6 +192,9 @@ export const tools: ToolMeta[] = [
   BOX_SHADOW_GENERATOR_META,
   CUBIC_BEZIER_EDITOR_META,
   MARKDOWN_TO_HTML_META,
+  WEBHOOK_SIGNATURE_VERIFIER_META,
+  CSP_BUILDER_META,
+  ULID_UUIDV7_GENERATOR_META,
 ]
 
 export const categoryLabels: Record<ToolMeta['category'], string> = {

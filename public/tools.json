@@ -4,7 +4,7 @@
   "name": "ToolBox4Devs Catalog",
   "url": "https://www.toolbox4devs.com",
   "description": "Fast, private, 100% client-side developer utilities running directly in browser memory.",
-  "totalTools": 94,
+  "totalTools": 97,
   "privacyPolicy": "Zero outbound network requests during tool execution. 100% in-browser processing.",
   "categories": [
     {
@@ -2369,6 +2369,87 @@
         "Optional inline styles on tables, code and quotes, or a full document with doctype, title and charset."
       ],
       "tip": "Leave \"Include inline styles\" off when the HTML will be styled by your own CSS; turn it on for emails or snippets that need borders and spacing without a stylesheet."
+    },
+    {
+      "slug": "webhook-signature-verifier",
+      "name": "Webhook Signature Verifier",
+      "category": "crypto-tools",
+      "url": "https://www.toolbox4devs.com/webhook-signature-verifier",
+      "description": "Verify or generate Stripe, GitHub, Slack, Shopify, and Standard Webhooks HMAC signatures with timestamp replay checks in your browser.",
+      "complexity": "moderate",
+      "keywords": [
+        "webhook signature verifier",
+        "stripe webhook signature",
+        "github webhook sha256",
+        "slack signature verifier",
+        "standard webhooks svix",
+        "shopify hmac verifier",
+        "verify webhook hmac",
+        "webhook debugger"
+      ],
+      "features": [
+        "Provider-specific verification for Stripe, GitHub, Slack, Shopify, and Standard Webhooks / Svix",
+        "Automatic handling of whsec_ Base64 keys and multi-signature rotation headers",
+        "Configurable replay timestamp tolerance window (default 300 seconds) with an ignore-age toggle for debugging old captures",
+        "Constant-time signature comparison and exact signed payload preview",
+        "Sign Test Request mode that outputs ready-to-paste headers and a copyable cURL command",
+        "100% browser-side Web Crypto execution — secrets and payloads never leave your device"
+      ],
+      "tip": "Always verify webhook signatures against the exact raw request body bytes before JSON.parse() runs. Re-stringifying parsed JSON often changes key order or whitespace and breaks the HMAC."
+    },
+    {
+      "slug": "csp-builder",
+      "name": "CSP Header Builder & Analyzer",
+      "category": "web-tools",
+      "url": "https://www.toolbox4devs.com/csp-builder",
+      "description": "Build Content-Security-Policy headers visually, audit existing policies for XSS risks, and export HTTP, Nginx, Apache, Express, or meta tag configs.",
+      "complexity": "moderate",
+      "keywords": [
+        "csp builder",
+        "content security policy generator",
+        "csp analyzer",
+        "csp header parser",
+        "content security policy checker",
+        "csp nginx config",
+        "csp strict-dynamic",
+        "xss header generator"
+      ],
+      "features": [
+        "Visual directive editor with one-click source tokens ('self', 'none', 'strict-dynamic', https:, data:, blob:)",
+        "Parse & Audit mode that accepts raw Content-Security-Policy or Report-Only headers and loads them into the builder",
+        "Deterministic security audit flagging high-risk XSS vectors, duplicate directives, and missing clickjacking protections",
+        "Starter presets for Strict SPA, Modern Web + CDN, Nonce + Strict Dynamic, and Static Site",
+        "Multi-format export for HTTP Header, Nginx, Apache, Express, and HTML <meta> (with frame-ancestors/report-uri caveats)",
+        "100% client-side — your internal domains and policy drafts stay in your browser"
+      ],
+      "tip": "When adopting CSP on an existing site, toggle Report-Only mode first so browsers log violations without blocking scripts while you tighten each directive."
+    },
+    {
+      "slug": "ulid-uuidv7-generator",
+      "name": "ULID & UUID v7 Generator",
+      "category": "generate-tools",
+      "url": "https://www.toolbox4devs.com/ulid-uuidv7-generator",
+      "description": "Generate time-sortable ULID and RFC 9562 UUID v7 identifiers with monotonic ordering, and decode timestamps from any ULID or UUID.",
+      "complexity": "simple",
+      "keywords": [
+        "ulid generator",
+        "uuid v7 generator",
+        "uuidv7 online",
+        "ulid decoder",
+        "uuid v7 timestamp decoder",
+        "time sortable id",
+        "rfc 9562 uuid",
+        "monotonic ulid"
+      ],
+      "features": [
+        "Generates ULIDs (26-char Crockford Base32) and RFC 9562 UUID v7s in batches of up to 100",
+        "Monotonic mode increments the random component within the same millisecond to guarantee strict sort order",
+        "Optional custom Unix millisecond timestamp pinning for deterministic test data",
+        "Export generated batches as plain lines, a JSON array, or SQL VALUES tuples",
+        "Built-in ULID & UUID Inspector supporting timestamp decoding and ULID <-> UUID 128-bit conversion",
+        "100% browser-side crypto.getRandomValues() execution"
+      ],
+      "tip": "Prefer UUID v7 when your database already has a native 128-bit uuid column type (such as PostgreSQL); prefer ULID when you want shorter, URL-friendly 26-character strings without hyphens."
     }
   ]
 }

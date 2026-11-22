@@ -1,6 +1,6 @@
 # ToolBox4Devs (toolbox4devs.com)
 
-> ToolBox4Devs is a suite of 94 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
+> ToolBox4Devs is a suite of 97 fast, private, 100% browser-based developer utilities. Every tool runs client-side in the browser's JavaScript runtime with zero backend roundtrips, zero cookies, zero analytics trackers, and zero telemetry.
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
@@ -52,6 +52,7 @@
 - [AI Token Counter & Visualizer](https://www.toolbox4devs.com/ai-token-counter): Estimate token sizes, inspect character segments, and calculate pricing across GPT-4o, Claude, Gemini, and Llama encoders.
 - [Faker Data Generator](https://www.toolbox4devs.com/faker-data-generator): Generate realistic fake names, emails, phones, addresses, IPs, UUIDs, and sentences for testing — entirely in your browser.
 - [Box Shadow Generator](https://www.toolbox4devs.com/box-shadow-generator): Build CSS box-shadow values with multiple layers, offsets, blur, spread, colour opacity and inset, with a live preview.
+- [ULID & UUID v7 Generator](https://www.toolbox4devs.com/ulid-uuidv7-generator): Generate time-sortable ULID and RFC 9562 UUID v7 identifiers with monotonic ordering, and decode timestamps from any ULID or UUID.
 
 ### Authentication Tools
 - [JWT Decoder](https://www.toolbox4devs.com/jwt): Decode and inspect JSON Web Tokens — header, payload, expiry and more.
@@ -86,6 +87,7 @@
 - [CSS Gradient Generator](https://www.toolbox4devs.com/css-gradient-generator): Build linear, radial and conic CSS gradients with editable color stops, a live preview and a copy-ready background declaration.
 - [Cubic-Bezier Easing Editor](https://www.toolbox4devs.com/cubic-bezier-editor): Shape a CSS cubic-bezier() timing function by dragging its two handles or typing values, preview the motion, and copy the CSS.
 - [Markdown to HTML](https://www.toolbox4devs.com/markdown-to-html): Convert Markdown into clean, copy-ready HTML source, with optional inline styles or a full HTML document. Runs entirely in your browser.
+- [CSP Header Builder & Analyzer](https://www.toolbox4devs.com/csp-builder): Build Content-Security-Policy headers visually, audit existing policies for XSS risks, and export HTTP, Nginx, Apache, Express, or meta tag configs.
 
 ### Data Tools
 - [Delimited File Data Validator (CSV / TSV / TXT)](https://www.toolbox4devs.com/csv-validator): Validate CSV, TSV, and delimited TXT files against custom column schema rules, required fields, data types, regex, and unique checks with row-level error reporting.
@@ -113,6 +115,7 @@
 - [SHA-256 Hash Generator](https://www.toolbox4devs.com/sha256): Generate a SHA-256 hash from any input string instantly in your browser.
 - [RSA Key Generator](https://www.toolbox4devs.com/rsa-key-generator): Generate RSA public and private key pairs securely in your browser.
 - [X.509 Certificate Decoder & Inspector](https://www.toolbox4devs.com/certificate-decoder): Decode and inspect PEM SSL/TLS X.509 certificates, SANs, validity dates, and fingerprints privately.
+- [Webhook Signature Verifier](https://www.toolbox4devs.com/webhook-signature-verifier): Verify or generate Stripe, GitHub, Slack, Shopify, and Standard Webhooks HMAC signatures with timestamp replay checks in your browser.
 
 ### Analyze Tools
 - [.env File Auditor & Secret Detector](https://www.toolbox4devs.com/env-auditor): Compare .env and .env.example files, detect missing or duplicate keys, catch leaked API secrets, and generate sanitized templates.

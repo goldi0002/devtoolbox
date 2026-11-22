@@ -4,13 +4,13 @@ Website: https://www.toolbox4devs.com
 Architecture: 100% Client-Side React SPA / Static SSG
 Data Transmission: 0 bytes outbound (all operations run in browser memory)
 Pricing: 100% Free Open Source & Ad-Free
-Total Tools: 94
+Total Tools: 97
 
 <!-- Generated from src/tools/registry.ts by `npm run catalog`. Do not edit by hand. -->
 
 ---
 
-## Tool Registry & Technical Specifications (All 94 Tools)
+## Tool Registry & Technical Specifications (All 97 Tools)
 
 ### 1. robots.txt & sitemap.xml Generator
 - URL: https://www.toolbox4devs.com/robots-sitemap-generator
@@ -923,6 +923,36 @@ Total Tools: 94
 - Use Cases: Turning README or documentation drafts into HTML for a static page.; Preparing a changelog or newsletter block for a CMS that accepts raw HTML.; Checking how Markdown maps to HTML before publishing.; Getting a self-contained HTML file with a title and charset for quick sharing.
 - Features: Headings, bold, italic, strikethrough, links, images, inline code, blockquotes and horizontal rules.; Fenced code blocks with a language class, and ordered or unordered lists.; Pipe tables with a header row.; Raw HTML in the input is escaped, so it appears as text.; Links and images with javascript:, data: or vbscript: URLs are neutralized.; Optional inline styles on tables, code and quotes, or a full document with doctype, title and charset.
 - Tip: Leave "Include inline styles" off when the HTML will be styled by your own CSS; turn it on for emails or snippets that need borders and spacing without a stylesheet.
+
+### 95. Webhook Signature Verifier
+- URL: https://www.toolbox4devs.com/webhook-signature-verifier
+- Category: Crypto (crypto-tools)
+- Complexity: Moderate
+- Description: Verify or generate Stripe, GitHub, Slack, Shopify, and Standard Webhooks HMAC signatures with timestamp replay checks in your browser.
+- Summary: Webhook Signature Verifier checks incoming webhook headers against raw request bodies using each provider's exact signing format and constant-time comparison. It supports Stripe (Stripe-Signature t=...,v1=...), GitHub (X-Hub-Signature-256 and legacy X-Hub-Signature), Slack (X-Slack-Signature v0=...), Shopify (X-Shopify-Hmac-Sha256), and Standard Webhooks / Svix (webhook-id, webhook-timestamp, webhook-signature with whsec_ Base64 secrets). You can also switch to Sign mode to generate valid test headers and a local cURL command.
+- Use Cases: Debugging why a Stripe, GitHub, Slack, or Standard Webhooks signature fails in local development; Inspecting the exact signed string (such as timestamp + dot + raw body) to catch whitespace or JSON re-serialization bugs; Testing replay-protection tolerance windows against captured webhook timestamps; Generating signed webhook headers and cURL requests to hit localhost webhook handlers
+- Features: Provider-specific verification for Stripe, GitHub, Slack, Shopify, and Standard Webhooks / Svix; Automatic handling of whsec_ Base64 keys and multi-signature rotation headers; Configurable replay timestamp tolerance window (default 300 seconds) with an ignore-age toggle for debugging old captures; Constant-time signature comparison and exact signed payload preview; Sign Test Request mode that outputs ready-to-paste headers and a copyable cURL command; 100% browser-side Web Crypto execution — secrets and payloads never leave your device
+- Tip: Always verify webhook signatures against the exact raw request body bytes before JSON.parse() runs. Re-stringifying parsed JSON often changes key order or whitespace and breaks the HMAC.
+
+### 96. CSP Header Builder & Analyzer
+- URL: https://www.toolbox4devs.com/csp-builder
+- Category: Web (web-tools)
+- Complexity: Moderate
+- Description: Build Content-Security-Policy headers visually, audit existing policies for XSS risks, and export HTTP, Nginx, Apache, Express, or meta tag configs.
+- Summary: CSP Header Builder & Analyzer helps you craft, parse, and audit Content-Security-Policy (CSP) headers without memorizing directive quirks. Start from hardened presets or paste an existing policy header to check for XSS risks like unguarded unsafe-inline, wildcards, plaintext http: origins, or missing object-src and frame-ancestors directives. Export the final policy as a raw HTTP header, Nginx add_header, Apache Header set, Express res.setHeader, or an HTML meta tag with spec warnings.
+- Use Cases: Authoring a strict Content-Security-Policy for a new SPA or API-backed web application; Auditing a legacy CSP header pasted from browser DevTools to spot unsafe-inline, wildcards, or duplicate directives; Generating copy-ready Nginx, Apache, or Express server header configurations; Rolling out a new policy safely using Content-Security-Policy-Report-Only mode
+- Features: Visual directive editor with one-click source tokens ('self', 'none', 'strict-dynamic', https:, data:, blob:); Parse & Audit mode that accepts raw Content-Security-Policy or Report-Only headers and loads them into the builder; Deterministic security audit flagging high-risk XSS vectors, duplicate directives, and missing clickjacking protections; Starter presets for Strict SPA, Modern Web + CDN, Nonce + Strict Dynamic, and Static Site; Multi-format export for HTTP Header, Nginx, Apache, Express, and HTML <meta> (with frame-ancestors/report-uri caveats); 100% client-side — your internal domains and policy drafts stay in your browser
+- Tip: When adopting CSP on an existing site, toggle Report-Only mode first so browsers log violations without blocking scripts while you tighten each directive.
+
+### 97. ULID & UUID v7 Generator
+- URL: https://www.toolbox4devs.com/ulid-uuidv7-generator
+- Category: Generators (generate-tools)
+- Complexity: Simple
+- Description: Generate time-sortable ULID and RFC 9562 UUID v7 identifiers with monotonic ordering, and decode timestamps from any ULID or UUID.
+- Summary: ULID & UUID v7 Generator creates lexicographically time-sortable 128-bit identifiers using your browser's cryptographic random generator. Both ULID (26-character Crockford Base32) and UUID v7 (RFC 9562) embed a 48-bit Unix millisecond timestamp in their most significant bits, keeping B-tree database indexes sequential while staying globally unique. An integrated inspector decodes embedded timestamps and converts seamlessly between 128-bit ULID, UUID, and hex representations.
+- Use Cases: Generating sequential database primary keys (PostgreSQL, SQLite, DynamoDB) without B-tree page splits; Creating monotonic batch fixtures where IDs generated in the same millisecond still sort in creation order; Decoding the exact UTC creation timestamp embedded inside a production ULID or UUID v7; Converting a 128-bit ULID to its equivalent hyphenated UUID representation or raw hex
+- Features: Generates ULIDs (26-char Crockford Base32) and RFC 9562 UUID v7s in batches of up to 100; Monotonic mode increments the random component within the same millisecond to guarantee strict sort order; Optional custom Unix millisecond timestamp pinning for deterministic test data; Export generated batches as plain lines, a JSON array, or SQL VALUES tuples; Built-in ULID & UUID Inspector supporting timestamp decoding and ULID <-> UUID 128-bit conversion; 100% browser-side crypto.getRandomValues() execution
+- Tip: Prefer UUID v7 when your database already has a native 128-bit uuid column type (such as PostgreSQL); prefer ULID when you want shorter, URL-friendly 26-character strings without hyphens.
 
 ## Developer Workflow Recipes
 - Hub URL: https://www.toolbox4devs.com/recipes

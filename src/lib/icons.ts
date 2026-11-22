@@ -166,6 +166,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'mac-address-generator': Cpu,
   'svg-placeholder-generator': Image,
   'lorem-ipsum-generator': Pilcrow,
+  'ulid-uuidv7-generator': Hash,
 
   // Authentication & Security
   'jwt': KeyRound,
@@ -181,6 +182,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'rsa-key-generator': Key,
   'certificate-decoder': FileCheck2,
   'bcrypt-generator': Lock,
+  'webhook-signature-verifier': ShieldCheck,
 
   // Web Tools
   'curl-converter': Globe,
@@ -200,6 +202,7 @@ export const SLUG_ICON_MAP: Record<string, LucideIcon> = {
   'cubic-bezier-editor': Spline,
   'keycode-inspector': Keyboard,
   'markdown-preview': Eye,
+  'csp-builder': ShieldAlert,
 
   // Data & DevOps
   'csv-validator': FileCheck2,
