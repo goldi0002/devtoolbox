@@ -7,7 +7,7 @@ export const UNIX_PERMISSIONS_CALCULATOR_META: ToolMeta = {
   description: 'Convert read, write, and execute bits into chmod octal and symbolic permission strings.',
   category: 'data-tools',
   tag: 'data',
-  keywords: ['chmod calculator', 'unix permissions', 'linux permissions', 'rwx calculator', 'octal permissions'],
+  keywords: ['chmod calculator', 'chmod generator', 'unix permissions', 'linux permissions', 'rwx calculator', 'octal permissions'],
   toolComponent: lazy(() => import('../../components/tools/data-tools/UnixPermissionsCalculator')),
   about: {
     summary: 'Unix Permissions Calculator makes it easy to convert rwx permission bits into the chmod values you use on Linux and macOS systems. It is handy when configuring deployments, Docker images, scripts, SSH keys, and file permissions from memory.',
@@ -58,6 +58,10 @@ export const UNIX_PERMISSIONS_CALCULATOR_META: ToolMeta = {
       {
         "question": "Does it change any files?",
         "answer": "No. It only calculates values. Run chmod yourself on your system."
+      },
+      {
+        "question": "What do chmod 755 and 644 mean?",
+        "answer": "755 (rwxr-xr-x) lets the owner read, write, and execute while group and others can read and execute — standard for directories and scripts. 644 (rw-r--r--) lets the owner read and write while everyone else can only read — standard for regular files."
       }
     ],
     "example": {
@@ -74,7 +78,16 @@ export const UNIX_PERMISSIONS_CALCULATOR_META: ToolMeta = {
   isNew: true,
   status: 'stable',
   seo: {
-    title: 'Chmod Calculator — Unix File Permissions in Octal & Symbolic',
-    description: 'Tick read, write and execute boxes to get chmod octal (755) and symbolic (rwxr-xr-x) permissions, or convert between them. Runs in your browser.',
+    title: 'Chmod Calculator — Unix File Permissions & Generator',
+    description: 'Calculate Linux and Unix chmod octal (755, 644) and symbolic (rwxr-xr-x) permissions interactively. Free chmod generator running in your browser.',
+    extraKeywords: [
+      'chmod calculator',
+      'chmod generator',
+      'unix permissions calculator',
+      'linux file permissions calculator',
+      'chmod 755',
+      'chmod 644',
+      'octal to symbolic permissions',
+    ],
   },
 }

@@ -93,7 +93,7 @@ export const CURL_CONVERTER_META: ToolMeta = {
   isNew: true,
   status: 'stable',
   seo: {
-    description: 'Convert cURL commands to JavaScript Fetch, Python Requests, Node.js Axios, Go, Rust, and PHP instantly. Free, 100% browser-based cURL convert tool.',
+    description: 'Convert cURL commands to JavaScript Fetch, Axios, Python Requests, Go, Rust, or PHP in browser memory. Free cURL converter — tokens stay private.',
     extraKeywords: [
       'curl convert',
       'convert curl online',
@@ -103,6 +103,6 @@ export const CURL_CONVERTER_META: ToolMeta = {
       'curl to axios online',
       'curl parser free',
     ],
-    title: 'cURL to Code Converter — Convert cURL to Python, JS Fetch & Axios — ToolBox4Devs',
+    title: 'cURL Converter: Python, JS Fetch & Axios — ToolBox4Devs',
   }
 }

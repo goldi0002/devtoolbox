@@ -214,21 +214,46 @@ export default function PasswordStrengthAnalyzer() {
           {/* Left Panel: Input + Analysis */}
           <div className="space-y-4">
             {/* Password Input */}
-            <div className="relative">
-              <TextInputField
-                label="Enter Password"
-                value={password}
-                onChange={setPassword}
-                placeholder="Type a password to analyze..."
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(v => !v)}
-                className="absolute right-3 top-[34px] text-dim hover:text-bright transition-colors"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-              </button>
+            <div className="space-y-2">
+              <div className="relative">
+                <TextInputField
+                  label="Enter Password"
+                  value={password}
+                  onChange={setPassword}
+                  placeholder="Type a password to analyze..."
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="off"
+                  className="input-base w-full pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(v => !v)}
+                  className="absolute right-3 top-[34px] text-dim hover:text-bright transition-colors"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] font-mono text-subtle uppercase tracking-wider mr-1">
+                  Try sample:
+                </span>
+                {[
+                  { label: 'Weak', value: 'password123' },
+                  { label: 'Medium', value: 'Winter2026!' },
+                  { label: 'Strong', value: 'Correct-Horse-Battery-42!' },
+                ].map(sample => (
+                  <button
+                    key={sample.label}
+                    type="button"
+                    onClick={() => setPassword(sample.value)}
+                    className="chip py-0.5 px-2.5 text-[11px]"
+                  >
+                    {sample.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Strength Meter */}

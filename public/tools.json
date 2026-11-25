@@ -974,6 +974,9 @@
       "complexity": "simple",
       "keywords": [
         "uuid",
+        "uuid4",
+        "uuid v4",
+        "generate uuid4",
         "guid",
         "unique",
         "id",
@@ -1530,6 +1533,7 @@
       "complexity": "simple",
       "keywords": [
         "chmod calculator",
+        "chmod generator",
         "unix permissions",
         "linux permissions",
         "rwx calculator",
@@ -1889,26 +1893,29 @@
       "name": "Password Strength Analyzer",
       "category": "analyze-tools",
       "url": "https://www.toolbox4devs.com/password-strength-analyzer",
-      "description": "Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.",
+      "description": "Test password strength, calculate entropy bits, estimate brute-force crack times, and check complexity — 100% private in your browser.",
       "complexity": "moderate",
       "keywords": [
         "password strength analyzer",
+        "password strength tester",
+        "password crack calculator",
+        "password cracking time calculator",
+        "password brute force calculator",
+        "password complexity checker",
         "password entropy calculator",
-        "crack time estimator",
-        "password checker",
-        "password security",
-        "password audit"
+        "how long to crack password",
+        "password security audit"
       ],
       "features": [
-        "Information entropy calculation in bits using character pool analysis",
-        "Crack time estimates for online (~100/s), offline (~100K/s), and GPU (~10B/s) attacks",
-        "Common password pattern detection (dictionary words, sequences, repetitions)",
-        "Character set breakdown (lowercase, uppercase, digits, special characters)",
-        "Visual strength meter with score out of 100",
+        "Brute-force cracking time calculator for online (~100/s), offline (~100K/s), and GPU (~10B/s) attacks",
+        "Password entropy calculator in bits using active character pool size",
+        "Complexity checker for lowercase, uppercase, digits, spaces, and special characters",
+        "Common password pattern detection (dictionary words, sequences, repeated characters)",
+        "Visual strength meter with Very Weak to Very Strong rating and score out of 100",
         "Actionable improvement suggestions based on detected weaknesses",
-        "Copyable analysis report for documentation and compliance"
+        "Copyable password analysis report for documentation and compliance"
       ],
-      "tip": "A strong password uses 12+ characters with a mix of uppercase, lowercase, numbers, and special characters — and avoids common dictionary words or patterns like \"Password1!\""
+      "tip": "Length beats clever substitutions: a 16+ character passphrase with mixed character types reaches 80+ bits of entropy and takes centuries for even fast GPU brute-force attacks."
     },
     {
       "slug": "faker-data-generator",

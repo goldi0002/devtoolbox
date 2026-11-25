@@ -38,8 +38,8 @@ export const QR_CODE_GENERATOR_META: ToolMeta = {
   status: 'stable',
   toolComponent: lazy(() => import('../../components/tools/generate-tools/QrCodeGenerator')),
   seo: {
-    title: 'Safe QR Code Generator — Free Vector (SVG, EPS) & Transparent PNG Maker',
-    description: 'Safe & private QR code generator. Export infinite vector SVG & EPS for Adobe Illustrator / print, transparent PNGs, and custom shapes. 100% static, never expires, zero tracking.',
+    title: 'Vector QR Code Generator — Free SVG, EPS & Transparent PNG',
+    description: 'Create safe, static vector QR codes (SVG, EPS) and transparent PNGs up to 4096px. Zero tracking, never expires, 100% private in your browser.',
     extraKeywords: [
       'safe qr code generator',
       'secure qr code generator',

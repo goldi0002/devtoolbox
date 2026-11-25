@@ -34,8 +34,8 @@ export const PASSWORD_GENERATOR_META: ToolMeta = {
     isNew: true,
     status: 'stable',
     seo: {
-        title: 'Password Generator — Create strong, random passwords with customizable options',
-        description: 'Generate strong, random passwords with customizable length and character sets. Free, runs entirely in your browser.',
+        title: 'Password Generator — Free Strong Random Password Maker',
+        description: 'Generate strong, random passwords with custom length, symbols, and strength rating using Web Crypto. Free, 100% private in your browser.',
         extraKeywords: [
             'password generator',
             'random password generator',

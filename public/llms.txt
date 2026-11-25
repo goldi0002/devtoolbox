@@ -127,7 +127,7 @@
 - [Word Counter](https://www.toolbox4devs.com/word-counter): Count words, characters, sentences, paragraphs and reading time instantly.
 - [Word / Character Frequency](https://www.toolbox4devs.com/word-frequency): Count how often each word and character appears in a text, sorted by frequency, with percentages and copyable CSV.
 - [Local AI Text Assistant](https://www.toolbox4devs.com/local-ai-text-assistant): Summarize text, surface keywords, detect action items, and estimate sentiment fully in JavaScript with no API.
-- [Password Strength Analyzer](https://www.toolbox4devs.com/password-strength-analyzer): Analyze password entropy, estimate crack times, detect common patterns, and get actionable improvement tips — all in your browser.
+- [Password Strength Analyzer](https://www.toolbox4devs.com/password-strength-analyzer): Test password strength, calculate entropy bits, estimate brute-force crack times, and check complexity — 100% private in your browser.
 
 ### Developer Workflow Recipes
 - [Developer Workflow Recipes Hub](https://www.toolbox4devs.com/recipes): Multi-step preconfigured pipelines chaining formatters, encoders, token decoders, and filters client-side.

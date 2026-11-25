@@ -165,7 +165,7 @@ You do not have to take our word for it. You can verify that your data never lea
 1. Open your browser's **Developer Tools** (\`F12\` or \`Cmd + Option + I\`).
 2. Navigate to the **Network** tab.
 3. Select **Fetch/XHR** filter.
-4. Paste any sensitive payload into ToolBox4Devs (such as formatting a large JSON or decoding a JWT).
+4. Paste any sensitive payload into ToolBox4Devs (such as formatting a large JSON, decoding a JWT, or testing a password in the [password strength checker and crack time calculator](/password-strength-analyzer)).
 5. Notice that **zero network requests** are dispatched.
 
 \`\`\`typescript

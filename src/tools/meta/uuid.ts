@@ -6,7 +6,7 @@ export const UUID_META: ToolMeta = {
     description: 'Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100.',
     category: 'generate-tools',
     tag: 'generate',
-    keywords: ['uuid', 'guid', 'unique', 'id', 'generate'],
+    keywords: ['uuid', 'uuid4', 'uuid v4', 'generate uuid4', 'guid', 'unique', 'id', 'generate'],
     toolComponent: lazy(() => import('../../components/tools/generate-tools/UuidGenerator')),
     about: {
         summary:
@@ -33,9 +33,11 @@ export const UUID_META: ToolMeta = {
     isNew: true,
     status: 'stable',
     seo: {
-        title: 'UUID Generator — Create RFC 4122 v4 UUIDs instantly',
-        description: 'Generate RFC 4122 v4 UUIDs one at a time or in bulk up to 100. Free, runs entirely in your browser.',
+        title: 'UUID4 Generator — Generate RFC 4122 UUID v4 Online',
+        description: 'Generate cryptographically random UUID v4 (UUID4) IDs one at a time or in bulk up to 100. Free, RFC 4122 compliant, 100% in your browser.',
         extraKeywords: [
+            'generate uuid4',
+            'uuid4 generator',
             'uuid generator',
             'guid generator',
             'unique id generator',

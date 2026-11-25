@@ -55,7 +55,7 @@ const BulkQrGenerator = lazy(() => import('./BulkQrGenerator'))
 export default function QrCodeGenerator() {
   const [mode, setMode] = useState<'single' | 'bulk'>('single')
   const [inputType, setInputType] = useState<InputType>('url')
-  const [textValue, setTextValue] = useState('https://toolbox4devs.com')
+  const [textValue, setTextValue] = useState('https://www.toolbox4devs.com')
 
   // Wi-Fi states
   const [wifiSsid, setWifiSsid] = useState('Office_Guest_WiFi')
